@@ -1,0 +1,27 @@
+{
+  "name": "eyes.cypress",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "test:mocha": "mocha --no-timeouts 'test/**/*.test.js'",
+    "eslint": "eslint '**/*.js'",
+    "test": "npm run test:mocha",
+    "build": ""
+  },
+  "files": [
+    "lib"
+  ],
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.1.2",
+    "eslint": "^4.19.1",
+    "eslint-plugin-mocha-no-only": "^0.0.6",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-prettier": "^2.6.0",
+    "mocha": "^5.0.5",
+    "prettier": "^1.11.1"
+  }
+}
