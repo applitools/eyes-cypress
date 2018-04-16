@@ -30,4 +30,6 @@ describe('extractResources', () => {
     </body>`,
     ['http://link/to/css'],
   );
+
+  test('works for font');
 });
