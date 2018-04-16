@@ -1,5 +1,10 @@
 const EyesCypress = require('../src/EyesCypress');
-const {expect} = require('chai');
+const chai = require('chai');
+const spies = require('chai-spies');
+const EyesCypressImpl = require('../src/EyesCypressImpl');
+const {expect} = chai;
+
+chai.use(spies);
 
 describe('EyesCypress', () => {
   const cy = {
@@ -9,8 +14,10 @@ describe('EyesCypress', () => {
     },
   };
 
-  it('returns a valid API', () => {
-    const eyes = EyesCypress(cy);
+  xit('returns a valid API', async () => {
+    const eyes = await EyesCypress(cy);
+    const spy = chai.spy(EyesCypressImpl.prototype.open);
+      // expect(spy).to.have.been.called();
     expect(eyes.checkWindow).to.be.a('function');
     expect(eyes.close).to.be.a('function');
   });

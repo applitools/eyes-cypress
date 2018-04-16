@@ -1,27 +1,42 @@
 const extractDom = require('./extractDom');
-const domToCdt = require('./domToCdt');
-const renderDom = require('./renderDom');
+const domNodesToCdt = require('./domNodesToCdt');
 const finalizeResults = require('./finalizeResults');
+const createRGridDom = require('./createRGridDom');
 
-function EyesCypress(cy) {
+// NOTE: EyesCypressImpl is a class that extends EyesBase. I started with a function style, but if this looks weird then
+// EyesCypressImpl will become EyesCypress and we'll incorporate the functionality below into the class
+const EyesCypressImpl = require('./EyesCypressImpl');
+
+async function EyesCypress(appName, testName, cy, config) {
   let counter = 0;
   let renderIds = [];
   let results = [];
+  const eyesImpl = new EyesCypressImpl(config);
+  await eyesImpl.open(appName, testName, config.viewportSize);
 
-  const checkWindow = async () => {
+  const checkWindow = async (url, windowWidth) => {
     counter++;
     const doc = await cy.document();
-    const dom = extractDom(doc);
-    const cdt = domToCdt(dom);
+    const domNodes = extractDom(doc);
+    const cdt = domNodesToCdt(domNodes);
 
-    renderDom(dom, renderIds).then(renderId => {
-      renderIds.push(renderId);
-    });
+    const rGridDom = await createRGridDom(domNodes, cdt);
+    const renderId = await eyesImpl.renderWindow(
+      url,
+      rGridDom,
+      windowWidth,
+      eyesImpl.getRenderInfo(),
+    );
+    renderIds.push(renderId);
+
+    if (renderIds.length === 1) {
+      // TODO trigger matchWindow loop
+    }
   };
 
   const close = async () => {
     if (results.length === counter) {
-      finalizeResults(results);
+      await finalizeResults(results);
     } else {
       setTimeout(close, 300);
     }
