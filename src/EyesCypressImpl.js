@@ -20,11 +20,12 @@ class EyesCypressImpl extends EyesBase {
   constructor(config = {}) {
     super();
     this.setApiKey(config.apiKey);
+    this.setLogHandler(new ConsoleLogHandler(true));
   }
 
   async open(appName, testName, viewportSize) {
     await super.openBase(appName, testName);
-    // this._viewportSizeHandler.set(new RectangleSize(viewportSize));
+    this._viewportSizeHandler.set(new RectangleSize(viewportSize));
   }
 
   /** @override */
@@ -63,6 +64,29 @@ class EyesCypressImpl extends EyesBase {
       rGridDom,
       renderWidth,
     );
+  }
+
+  async checkWindow(imgUrl) {
+    const regionProvider = new NullRegionProvider(this.getPromiseFactory());
+    const checkSettings = new CheckSettings(0);
+    this.screenshotUrl = imgUrl;
+    return await this.checkWindowBase(regionProvider, '', false, checkSettings);
+  }
+
+  async getScreenshot() {
+    return await undefined; // TODO verify promise?
+  }
+
+  async getScreenshotUrl() {
+    return await this.screenshotUrl; // TODO verify promise?
+  }
+
+  async getInferredEnvironment() {
+    return await '';
+  }
+
+  async getTitle() {
+    return await 'some title';
   }
 }
 

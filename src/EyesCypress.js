@@ -8,13 +8,7 @@ const createRGridDom = require('./createRGridDom');
 const EyesCypressImpl = require('./EyesCypressImpl');
 
 async function EyesCypress(appName, testName, cy, config) {
-  let counter = 0;
-  let renderIds = [];
-  let results = [];
-  const eyesImpl = new EyesCypressImpl(config);
-  await eyesImpl.open(appName, testName, config.viewportSize);
-
-  const checkWindow = async (url, windowWidth) => {
+  async function checkWindow(url, windowWidth) {
     counter++;
     const doc = await cy.document();
     const domNodes = extractDom(doc);
@@ -29,18 +23,47 @@ async function EyesCypress(appName, testName, cy, config) {
     );
     renderIds.push(renderId);
 
-    if (renderIds.length === 1) {
-      // TODO trigger matchWindow loop
+    if (renderIds.length === 1 && !isCheckWindowScheduled) {
+      // TODO trigger matchWindow loop (if not already scheduled?)
+      checkWindowLoop();
     }
-  };
+  }
 
-  const close = async () => {
+  async function close() {
     if (results.length === counter) {
       await finalizeResults(results);
     } else {
+      console.log(
+        'not all results are in yet (rendering is still in progress). waiting a bit before trying again..',
+      );
       setTimeout(close, 300);
     }
-  };
+  }
+
+  async function checkWindowLoop() {
+    // TODO update results array on promise resolves
+
+    isCheckWindowScheduled = true;
+    for (const renderId of renderIds) {
+      const result = eyesImpl.checkWindow(renderId);
+      results.push(result);
+    }
+  }
+
+  function finalizeResults() {
+    // TODO Promise.all on results, then close session
+    // TODO print something and fail on errors
+    return Promise.all(results).then(() => {
+      eyesImpl.close();
+    });
+  }
+
+  let counter = 0;
+  let renderIds = [];
+  let results = [];
+  let isCheckWindowScheduled = false;
+  const eyesImpl = new EyesCypressImpl(config);
+  await eyesImpl.open(appName, testName, config.viewportSize);
 
   return {
     close,

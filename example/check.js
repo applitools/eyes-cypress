@@ -25,12 +25,15 @@ async function createDom() {
 }
 
 async function run() {
-  await eyes.open('some test', 'some app');
+  await eyes.open('some test', 'some app', {width: 1024, height: 768});
   const renderInfo = await eyes.getRenderInfo();
   const url = 'http://some/url';
   const rGridDom = await createDom();
   const imgLocation = await eyes.renderWindow(url, rGridDom, 1024, renderInfo);
-  console.log('img location', imgLocation);
+  eyes._logger.verbose(`img location ${imgLocation}`);
+  const result = await eyes.checkWindow(imgLocation);
+  eyes._logger.verbose(`result ${result}`);
+  eyes.close();
 }
 
 run();
