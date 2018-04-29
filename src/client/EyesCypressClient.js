@@ -15,8 +15,8 @@ function send(command, data) {
 }
 
 const EyesServer = {
-  open(baseUrl, appName, testName, viewportSize) {
-    return send('open', {baseUrl, appName, testName, viewportSize});
+  open(url, appName, testName, viewportSize) {
+    return send('open', {url, appName, testName, viewportSize});
   },
 
   checkWindow(resourceUrls, cdt) {

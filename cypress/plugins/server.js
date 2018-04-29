@@ -21,7 +21,7 @@ app.use('/example', express.static('/Users/amit/clients/applitools/eyes.cypress/
 app.post('/eyes/:command', express.json(), async (req, res) => {
   log(`eyes api: ${req.params.command}, ${Object.keys(req.body)}`);
   try {
-    await eyesCommands[req.params.command](req.body);
+    await eyesCommands[req.params.command](req.body); // TODO not every command needs to be awaited (defaultCommandTimeout)
     res.sendStatus(200);
   } catch (ex) {
     console.error(ex);
