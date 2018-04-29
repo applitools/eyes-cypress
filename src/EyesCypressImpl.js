@@ -1,17 +1,9 @@
 const {
   EyesBase,
   RectangleSize,
-  EyesSimpleScreenshot,
   NullRegionProvider,
   CheckSettings,
-} = require('@applitools/eyes.sdk.core');
-
-const {
-  BatchInfo,
-  RGridResource,
-  RGridDom,
   ConsoleLogHandler,
-  GeneralUtils,
 } = require('@applitools/eyes.sdk.core');
 
 const VERSION = require('../package.json').version;
@@ -20,18 +12,17 @@ class EyesCypressImpl extends EyesBase {
   constructor(config = {}) {
     super();
     this.setApiKey(config.apiKey);
-    this.setLogHandler(new ConsoleLogHandler(true));
+    this.setLogHandler(new ConsoleLogHandler(true)); // TODO open to configuration / based on env
   }
 
-  async open(baseUrl, appName, testName, viewportSize) {
-    this.baseUrl = baseUrl;
+  async open(appName, testName, viewportSize) {
     await super.openBase(appName, testName);
-    this._viewportSizeHandler.set(new RectangleSize(viewportSize));
+    this._viewportSizeHandler.set(new RectangleSize(viewportSize)); // Not doing this causes an exception at a later
   }
 
   /** @override */
   getBaseAgentId() {
-    return `eyes.cypress/${VERSION}`;
+    return `eyes.cypress/${VERSION}`; // TODO is this good?
   }
 
   /**
@@ -40,14 +31,16 @@ class EyesCypressImpl extends EyesBase {
    * @return {Promise<?String>}
    */
   getAUTSessionId() {
-    return this.getPromiseFactory().resolve(undefined);
+    return this.getPromiseFactory().resolve(undefined); // TODO is this good?
   }
 
+  /**
+   * Get a RenderingInfo from eyes server
+   *
+   * @return {Promise.<RenderingInfo>}
+   */
   async getRenderInfo() {
-    const renderInfo = await this._serverConnector.renderInfo();
-    this._serverConnector.setRenderingAuthToken(renderInfo.getAccessToken());
-    this._serverConnector.setRenderingServerUrl(renderInfo.getServiceUrl());
-    this._resultsUrl = renderInfo.getResultsUrl();
+    return await this._serverConnector.renderInfo();
   }
 
   /**
@@ -59,31 +52,38 @@ class EyesCypressImpl extends EyesBase {
    * @param {RenderingInfo} [renderingInfo]
    * @return {Promise.<String>} The results of the render
    */
-  async renderWindow(url, rGridDom, renderWidth) {
-    return await this._renderWindowTask.renderWindow(this._resultsUrl, url, rGridDom, renderWidth);
+  async renderWindow(url, rGridDom, renderWidth, renderInfo) {
+    this._serverConnector.setRenderingAuthToken(renderInfo.getAccessToken());
+    this._serverConnector.setRenderingServerUrl(renderInfo.getServiceUrl());
+    return await this._renderWindowTask.renderWindow(
+      renderInfo.getResultsUrl(),
+      url,
+      rGridDom,
+      renderWidth,
+    );
   }
 
-  async checkWindow(imgUrl) {
-    const regionProvider = new NullRegionProvider(this.getPromiseFactory());
-    const checkSettings = new CheckSettings(0);
-    this.screenshotUrl = imgUrl;
-    return await this.checkWindowBase(regionProvider, '', false, checkSettings);
+  async checkWindow(screenshotUrl, tag) {
+    const regionProvider = new NullRegionProvider(this.getPromiseFactory()); // TODO receive from outside?
+    const checkSettings = new CheckSettings(0); // TODO receieve from outside?
+    this.screenshotUrl = screenshotUrl;
+    return await this.checkWindowBase(regionProvider, tag, false, checkSettings);
   }
 
   async getScreenshot() {
-    return await undefined; // TODO verify promise?
+    return await undefined; // TODO will I ever need this?
   }
 
   async getScreenshotUrl() {
-    return await this.screenshotUrl; // TODO verify promise?
+    return await this.screenshotUrl;
   }
 
   async getInferredEnvironment() {
-    return await '';
+    return await ''; // TODO what does this mean? should there be something meaningful here?
   }
 
   async getTitle() {
-    return await 'some title';
+    return await 'some title'; // TODO what should this be? is it connected with the tag in `checkWindow` somehow?
   }
 }
 
