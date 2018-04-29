@@ -1,9 +1,7 @@
-const extractResources = require('./extractResources');
 const fetchResources = require('./fetchResources');
 const {RGridDom, RGridResource} = require('@applitools/eyes.sdk.core');
 
-async function createRGridDom(domNodes, cdt) {
-  const resourceUrls = extractResources(domNodes);
+async function createRGridDom(resourceUrls, cdt) {
   const resourceContents = await fetchResources(resourceUrls);
 
   const resources = resourceUrls.map((resourceUrl, index) => {

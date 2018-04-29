@@ -23,7 +23,8 @@ class EyesCypressImpl extends EyesBase {
     this.setLogHandler(new ConsoleLogHandler(true));
   }
 
-  async open(appName, testName, viewportSize) {
+  async open(baseUrl, appName, testName, viewportSize) {
+    this.baseUrl = baseUrl;
     await super.openBase(appName, testName);
     this._viewportSizeHandler.set(new RectangleSize(viewportSize));
   }
@@ -43,7 +44,10 @@ class EyesCypressImpl extends EyesBase {
   }
 
   async getRenderInfo() {
-    return await this._serverConnector.renderInfo();
+    const renderInfo = await this._serverConnector.renderInfo();
+    this._serverConnector.setRenderingAuthToken(renderInfo.getAccessToken());
+    this._serverConnector.setRenderingServerUrl(renderInfo.getServiceUrl());
+    this._resultsUrl = renderInfo.getResultsUrl();
   }
 
   /**
@@ -55,15 +59,8 @@ class EyesCypressImpl extends EyesBase {
    * @param {RenderingInfo} [renderingInfo]
    * @return {Promise.<String>} The results of the render
    */
-  async renderWindow(url, rGridDom, renderWidth, renderingInfo) {
-    this._serverConnector.setRenderingAuthToken(renderingInfo.getAccessToken());
-    this._serverConnector.setRenderingServerUrl(renderingInfo.getServiceUrl());
-    return await this._renderWindowTask.renderWindow(
-      renderingInfo.getResultsUrl(),
-      url,
-      rGridDom,
-      renderWidth,
-    );
+  async renderWindow(url, rGridDom, renderWidth) {
+    return await this._renderWindowTask.renderWindow(this._resultsUrl, url, rGridDom, renderWidth);
   }
 
   async checkWindow(imgUrl) {

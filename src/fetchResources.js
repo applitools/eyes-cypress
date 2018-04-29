@@ -6,7 +6,7 @@ module.exports = urls => {
   const promises = urls.map(url =>
     fetch(url).then(resp =>
       resp.buffer().then(buff => ({
-        type: resp.headers.get('content-type'),
+        type: resp.headers.get('Content-Type'),
         value: buff,
       })),
     ),
