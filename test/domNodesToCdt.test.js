@@ -1,6 +1,6 @@
 const {expect} = require('chai');
 const {JSDOM} = require('jsdom');
-const domNodesToCdt = require('../src/domNodesToCdt');
+const domNodesToCdt = require('../src/client/domNodesToCdt');
 const {NODE_TYPES} = domNodesToCdt;
 
 function getElementNodes(htmlStr) {

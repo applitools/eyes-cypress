@@ -4,11 +4,13 @@ const {
   NullRegionProvider,
   CheckSettings,
   ConsoleLogHandler,
+  RGridDom,
+  RGridResource,
 } = require('@applitools/eyes.sdk.core');
 
-const VERSION = require('../package.json').version;
+const VERSION = require('../../package.json').version;
 
-class EyesCypressImpl extends EyesBase {
+class EyesWrapper extends EyesBase {
   constructor(config = {}) {
     super();
     this.setApiKey(config.apiKey);
@@ -22,7 +24,7 @@ class EyesCypressImpl extends EyesBase {
 
   /** @override */
   getBaseAgentId() {
-    return `eyes.cypress/${VERSION}`; // TODO is this good?
+    return `eyes.cypress/${VERSION}`; // TODO is this good? this class isn't called EyesCypressImpl anymore
   }
 
   /**
@@ -85,6 +87,22 @@ class EyesCypressImpl extends EyesBase {
   async getTitle() {
     return await 'some title'; // TODO what should this be? is it connected with the tag in `checkWindow` somehow?
   }
+
+  createRGridDom({cdt, resources}) {
+    const resourceArr = Object.keys(resources).map(resourceUrl => {
+      const resourceContent = resources[resourceUrl];
+      const resource = new RGridResource();
+      resource.setUrl(resourceUrl);
+      resource.setContentType(resourceContent.type);
+      resource.setContent(resourceContent.value);
+      return resource;
+    });
+    const rGridDom = new RGridDom();
+    rGridDom.setDomNodes(cdt);
+    rGridDom.setResources(resourceArr);
+
+    return rGridDom;
+  }
 }
 
-module.exports = EyesCypressImpl;
+module.exports = EyesWrapper;

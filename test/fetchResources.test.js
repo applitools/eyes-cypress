@@ -1,25 +1,29 @@
-const fetchResources = require('../src/fetchResources');
+const fetchResources = require('../src/server/fetchResources');
 const {expect} = require('chai');
 const nock = require('nock');
+const {mapValues} = require('lodash');
 
 describe('fetchResources', () => {
   it('works', async () => {
-    const expected = [
-      {type: 'image/png', value: 'some image'},
-      {type: 'text/css', value: 'some css'},
-      {type: 'application/json', value: 'some json'},
-      {type: 'application/javascript', value: 'some javascript'},
-    ];
+    const expected = mapValues(
+      {
+        'http://some/url.png': {type: 'image/png', value: 'some image'},
+        'http://some/url.css': {type: 'text/css', value: 'some css'},
+        'http://some/url.json': {type: 'application/json', value: 'some json'},
+        'http://some/url.js': {type: 'application/javascript', value: 'some javascript'},
+      },
+      (o, url) => ({type: o.type, value: Buffer.from(o.value, 'utf-8'), url}),
+    );
 
     nock('http://some')
       .get('/url.png')
-      .reply(200, expected[0].value, {'Content-Type': expected[0].type})
+      .reply(200, 'some image', {'Content-Type': 'image/png'})
       .get('/url.css')
-      .reply(200, expected[1].value, {'Content-Type': expected[1].type})
+      .reply(200, 'some css', {'Content-Type': 'text/css'})
       .get('/url.json')
-      .reply(200, expected[2].value, {'Content-Type': expected[2].type})
+      .reply(200, 'some json', {'Content-Type': 'application/json'})
       .get('/url.js')
-      .reply(200, expected[3].value, {'Content-Type': expected[3].type});
+      .reply(200, 'some javascript', {'Content-Type': 'application/javascript'});
 
     const resources = await fetchResources([
       'http://some/url.png',
@@ -28,8 +32,6 @@ describe('fetchResources', () => {
       'http://some/url.js',
     ]);
 
-    expect(resources).to.deep.equal(
-      expected.map(x => ({...x, value: Buffer.from(x.value, 'utf-8')})),
-    );
+    expect(resources).to.deep.equal(expected);
   });
 });
