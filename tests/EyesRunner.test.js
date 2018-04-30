@@ -1,3 +1,5 @@
+'use strict';
+const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const EyesRunner = require('../src/server/EyesRunner');
 const FakeEyesWrapper = require('./FakeEyesWrapper');
@@ -20,7 +22,7 @@ describe('EyesRunner', () => {
       url: 'http://some/url/test.html', // TODO test different forms of url? or leave that to unit tests?
     });
     const resourceUrls = ['some_image.png', 'some_stylesheet.css'];
-    checkWindow(resourceUrls);
+    checkWindow({resourceUrls});
     close();
   });
 });

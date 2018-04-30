@@ -31,7 +31,7 @@ describe('domNodesToCdt', () => {
         nodeType: NODE_TYPES.ELEMENT,
         nodeName: 'DIV',
         childNodeIndexes: [2],
-        attributes: [{ name: 'style', value: 'color:red;'}],
+        attributes: [{name: 'style', value: 'color:red;'}],
       },
       {
         nodeType: NODE_TYPES.ELEMENT,

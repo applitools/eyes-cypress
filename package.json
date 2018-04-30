@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test:mocha": "mocha --no-timeouts 'test/**/*.test.js'",
+    "test:mocha": "mocha --no-timeouts 'tests/**/*.test.js'",
     "eslint": "eslint '**/*.js'",
     "test": "npm run test:mocha",
     "build": ""

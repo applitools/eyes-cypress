@@ -54,9 +54,10 @@ class EyesWrapper extends EyesBase {
    * @param {RenderingInfo} [renderingInfo]
    * @return {Promise.<String>} The results of the render
    */
-  async renderWindow(url, rGridDom, renderWidth, renderInfo) {
+  async renderWindow({url, resources, cdt, renderWidth, renderInfo}) {
     this._serverConnector.setRenderingAuthToken(renderInfo.getAccessToken());
     this._serverConnector.setRenderingServerUrl(renderInfo.getServiceUrl());
+    const rGridDom = this.createRGridDom({resources, cdt});
     return await this._renderWindowTask.renderWindow(
       renderInfo.getResultsUrl(),
       url,
@@ -65,7 +66,7 @@ class EyesWrapper extends EyesBase {
     );
   }
 
-  async checkWindow(screenshotUrl, tag) {
+  async checkWindow({screenshotUrl, tag}) {
     const regionProvider = new NullRegionProvider(this.getPromiseFactory()); // TODO receive from outside?
     const checkSettings = new CheckSettings(0); // TODO receieve from outside?
     this.screenshotUrl = screenshotUrl;
