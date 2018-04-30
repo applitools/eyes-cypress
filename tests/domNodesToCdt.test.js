@@ -1,4 +1,8 @@
+'use strict';
+const {describe, it} = require('mocha');
 const {expect} = require('chai');
+const fs = require('fs');
+const path = require('path');
 const {JSDOM} = require('jsdom');
 const domNodesToCdt = require('../src/client/domNodesToCdt');
 const {NODE_TYPES} = domNodesToCdt;
@@ -47,5 +51,14 @@ describe('domNodesToCdt', () => {
       },
     ];
     expect(cdt).to.deep.equal(expected);
+  });
+
+  it('works for test.html', () => {
+    const elementNodes = getElementNodes(
+      fs.readFileSync(path.resolve(__dirname, 'fixtures/test.html')).toString(),
+    );
+    const cdt = domNodesToCdt(elementNodes);
+    const expectedCdt = require('./fixtures/test.cdt.json');
+    expect(cdt).to.deep.equal(expectedCdt);
   });
 });

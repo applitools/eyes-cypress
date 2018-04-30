@@ -2,7 +2,7 @@ const {URL} = require('url');
 const EyesWrapper = require('./EyesWrapper');
 const fetchResources = require('./fetchResources');
 
-function EyesRunner({
+function openEyes({
   appName,
   testName,
   viewportSize,
@@ -41,4 +41,4 @@ function EyesRunner({
   };
 }
 
-module.exports = EyesRunner;
+module.exports = openEyes;

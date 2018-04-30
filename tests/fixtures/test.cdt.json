@@ -1,0 +1,135 @@
+[
+	{
+		"nodeType": 9,
+		"childNodeIndexes": [
+			16
+		]
+	},
+	{
+		"nodeType": 3,
+		"nodeValue": "\n  "
+	},
+	{
+		"nodeType": 1,
+		"nodeName": "LINK",
+		"attributes": [
+			{
+				"name": "href",
+				"value": "surge/test.css"
+			},
+			{
+				"name": "rel",
+				"value": "stylesheet"
+			}
+		],
+		"childNodeIndexes": []
+	},
+	{
+		"nodeType": 3,
+		"nodeValue": "\n"
+	},
+	{
+		"nodeType": 1,
+		"nodeName": "HEAD",
+		"attributes": [],
+		"childNodeIndexes": [
+			1,
+			2,
+			3
+		]
+	},
+	{
+		"nodeType": 3,
+		"nodeValue": "\n"
+	},
+	{
+		"nodeType": 3,
+		"nodeValue": "\n  "
+	},
+	{
+		"nodeType": 3,
+		"nodeValue": "hi, I'm red"
+	},
+	{
+		"nodeType": 1,
+		"nodeName": "DIV",
+		"attributes": [
+			{
+				"name": "style",
+				"value": "color:red;"
+			}
+		],
+		"childNodeIndexes": [
+			7
+		]
+	},
+	{
+		"nodeType": 3,
+		"nodeValue": "\n  "
+	},
+	{
+		"nodeType": 3,
+		"nodeValue": "We've met already, I'm blue"
+	},
+	{
+		"nodeType": 1,
+		"nodeName": "DIV",
+		"attributes": [
+			{
+				"name": "class",
+				"value": "blue"
+			}
+		],
+		"childNodeIndexes": [
+			10
+		]
+	},
+	{
+		"nodeType": 3,
+		"nodeValue": "\n  "
+	},
+	{
+		"nodeType": 1,
+		"nodeName": "IMG",
+		"attributes": [
+			{
+				"name": "src",
+				"value": "smurfs.jpg"
+			}
+		],
+		"childNodeIndexes": []
+	},
+	{
+		"nodeType": 3,
+		"nodeValue": "\n\n"
+	},
+	{
+		"nodeType": 1,
+		"nodeName": "BODY",
+		"attributes": [],
+		"childNodeIndexes": [
+			6,
+			8,
+			9,
+			11,
+			12,
+			13,
+			14
+		]
+	},
+	{
+		"nodeType": 1,
+		"nodeName": "HTML",
+		"attributes": [
+			{
+				"name": "lang",
+				"value": "en"
+			}
+		],
+		"childNodeIndexes": [
+			4,
+			5,
+			15
+		]
+	}
+]
