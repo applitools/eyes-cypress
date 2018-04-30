@@ -25,4 +25,7 @@ module.exports = {
   },
   createRGridDom({cdt, resources}) {},
   async close() {},
+  _logger: {
+    verbose: console.log,
+  },
 };

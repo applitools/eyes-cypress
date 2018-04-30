@@ -17,7 +17,7 @@ describe('openEyes', () => {
   let baseUrl, closeServer;
 
   before(async () => {
-    const server = await testServer();
+    const server = await testServer({port: 3456}); // TODO fixed port avoids 'need-more-resources' for dom. Is this desired? should both paths be tested?
     baseUrl = `http://localhost:${server.port}`;
     closeServer = server.close;
   });
