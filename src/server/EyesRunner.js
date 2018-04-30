@@ -17,11 +17,12 @@ function EyesRunner({
 
     const absoluteUrls = resourceUrls.map(resourceUrl => new URL(resourceUrl, url).href);
     const resources = await fetchResources(absoluteUrls);
+    const renderWidth = viewportSize ? viewportSize.width : 1024; // TODO is viewportSize the right thing to use here? what if not defined?
     const screenshotUrl = await wrapper.renderWindow({
       url,
       resources,
       cdt,
-      viewportSize ? viewportSize.width : 1024, // TODO is viewportSize the right thing to use here? what if not defined?
+      renderWidth,
       renderInfo,
     });
     return await wrapper.checkWindow({screenshotUrl, tag});
