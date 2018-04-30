@@ -6,6 +6,7 @@ const {
   ConsoleLogHandler,
   RGridDom,
   RGridResource,
+  RenderRequest,
 } = require('@applitools/eyes.sdk.core');
 
 const VERSION = require('../../package.json').version;
@@ -54,16 +55,22 @@ class EyesWrapper extends EyesBase {
    * @param {RenderingInfo} [renderingInfo]
    * @return {Promise.<String>} The results of the render
    */
-  async renderWindow({url, resources, cdt, renderWidth, renderInfo}) {
+  async postRender({url, resources, cdt, renderWidth, renderInfo}) {
     this._serverConnector.setRenderingAuthToken(renderInfo.getAccessToken());
     this._serverConnector.setRenderingServerUrl(renderInfo.getServiceUrl());
     const rGridDom = this.createRGridDom({resources, cdt});
-    return await this._renderWindowTask.renderWindow(
-      renderInfo.getResultsUrl(),
-      url,
-      rGridDom,
-      renderWidth,
-    );
+
+    const renderRequest = new RenderRequest(renderInfo.getResultsUrl(), url, rGridDom, renderWidth);
+    const runningRender = await this._renderWindowTask.postRender(rGridDom, renderRequest);
+    return runningRender.getRenderId();
+  }
+
+  async getRenderStatus(renderId) {
+    return await this._serverConnector.renderStatusById(renderId);
+  }
+
+  async getRenderStatusByIds(renderIds) {
+    return await this._serverConnector.getRenderStatusByIds(renderIds);
   }
 
   async checkWindow({screenshotUrl, tag}) {
