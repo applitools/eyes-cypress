@@ -1,3 +1,5 @@
+/* global describe, it, cy, Cypress */
+
 describe('check', () => {
   it('checks something', () => {
     const url = `http://localhost:${Cypress.config('eyesPort')}/example/test.html`;

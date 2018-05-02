@@ -1,13 +1,7 @@
+const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const {JSDOM} = require('jsdom');
 const extractResources = require('../src/client/extractResources');
-
-const test = (name, htmlStr, expected) =>
-  it(name, () => {
-    const jsdom = new JSDOM(htmlStr);
-    const resourceUrls = extractResources([jsdom.window.document.documentElement]);
-    expect(resourceUrls).to.deep.equal(expected);
-  });
 
 describe('extractResources', () => {
   it('works for img', () => {

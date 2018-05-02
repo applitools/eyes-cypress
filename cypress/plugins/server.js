@@ -42,7 +42,7 @@ const apiKey = process.env.APPLITOOLS_API_KEY;
 let checkWindow, close;
 
 module.exports = () => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve, _reject) => {
     const server = app.listen(0, () => {
       const port = server.address().port;
       log(`server running at port: ${port}`);

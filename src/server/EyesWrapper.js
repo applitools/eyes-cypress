@@ -5,7 +5,6 @@ const {
   CheckSettings,
   ConsoleLogHandler,
   RGridDom,
-  RGridResource,
   RenderRequest,
 } = require('@applitools/eyes.sdk.core');
 

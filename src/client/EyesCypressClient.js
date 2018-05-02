@@ -1,3 +1,5 @@
+/* global fetch, Cypress, cy */
+
 const extractResources = require('./extractResources');
 const domNodesToCdt = require('./domNodesToCdt');
 const port = Cypress.config('eyesPort');

@@ -1,5 +1,3 @@
-const fs = require('fs');
-const path = require('path');
 const {MatchResult, RenderStatusResults, RenderStatus} = require('@applitools/eyes.sdk.core');
 
 const expectedCdt = JSON.parse(JSON.stringify(require('./fixtures/test.cdt.json')));
@@ -13,8 +11,14 @@ function compare(o1, o2) {
 }
 
 module.exports = {
-  async open(appName, testName, viewportSize) {},
-  async postRender({url, resources, cdt, renderWidth, renderInfo}) {
+  async open(_appName, _testName, _viewportSize) {},
+  async postRender({
+    url: _url,
+    resources: _resources,
+    cdt,
+    renderWidth: _renderWidth,
+    renderInfo: _renderInfo,
+  }) {
     const isGood = !cdt || compare(cdt, expectedCdt);
     return isGood ? GOOD_RENDER_ID : BAD_RENDER_ID;
   },
@@ -25,13 +29,13 @@ module.exports = {
     return result;
   },
   async getRenderInfo() {},
-  async checkWindow({screenshotUrl, tag}) {
+  async checkWindow({screenshotUrl, tag: _tag}) {
     const result = new MatchResult();
     const asExpected = screenshotUrl === GOOD_SCREENSHOT_URL;
     result.setAsExpected(asExpected);
     return result;
   },
-  createRGridDom({cdt, resources}) {},
+  createRGridDom({cdt: _cdt, resources: _resources}) {},
   async close() {},
   _logger: {
     verbose: console.log,

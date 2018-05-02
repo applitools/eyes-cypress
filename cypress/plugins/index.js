@@ -13,7 +13,7 @@
 
 const startServer = require('./server');
 
-module.exports = async (on, config) => {
+module.exports = async (_on, _config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
   const {port} = await startServer();
