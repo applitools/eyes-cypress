@@ -68,7 +68,7 @@ describe('getAllResources', () => {
     closeServer();
   });
 
-  it.only('fetches with cache', async () => {
+  it('fetches with cache', async () => {
     const server = await testServer();
     baseUrl = `http://localhost:${server.port}`;
     closeServer = server.close;
