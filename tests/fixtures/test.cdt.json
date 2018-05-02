@@ -56,7 +56,7 @@
 		"attributes": [
 			{
 				"name": "style",
-				"value": "color:cyan;"
+				"value": "color:red;"
 			}
 		],
 		"childNodeIndexes": [
@@ -69,7 +69,7 @@
 	},
 	{
 		"nodeType": 3,
-		"nodeValue": "We've met already, I'm yellow"
+		"nodeValue": "We've met already, I'm blue"
 	},
 	{
 		"nodeType": 1,
@@ -77,7 +77,7 @@
 		"attributes": [
 			{
 				"name": "class",
-				"value": "yellow"
+				"value": "blue"
 			}
 		],
 		"childNodeIndexes": [
