@@ -68,7 +68,7 @@ describe('getAllResources', () => {
     closeServer();
   });
 
-  it('fetches with cache', async () => {
+  it.only('fetches with cache', async () => {
     const server = await testServer();
     baseUrl = `http://localhost:${server.port}`;
     closeServer = server.close;
@@ -91,7 +91,13 @@ describe('getAllResources', () => {
       closeServer();
     }
 
+    const expectedFromCache = {
+      [url]: {
+        url,
+        type: 'image/jpeg',
+      },
+    };
     const resourcesFromCache = await getAllResources([url]);
-    expect(resourcesFromCache).to.deep.equal(expected);
+    expect(resourcesFromCache).to.deep.equal(expectedFromCache);
   });
 });
