@@ -5,7 +5,6 @@ const {expect} = require('chai');
 const openEyes = require('../src/server/openEyes');
 const FakeEyesWrapper = require('./FakeEyesWrapper');
 const testServer = require('./testServer');
-const domNodesToCdt = require('../src/client/domNodesToCdt');
 const {DiffsFoundError} = require('@applitools/eyes.sdk.core');
 
 function loadJson(filepath) {
@@ -90,12 +89,6 @@ describe('openEyes', () => {
     const cdt = loadJson('./fixtures/test.cdt.json');
     cdt.find(node => node.nodeValue === "hi, I'm red").nodeValue = "hi, I'm green";
     await checkWindow({resourceUrls, cdt});
-    try {
-      await close();
-    } catch (ex) {
-      if (!(ex instanceof DiffsFoundError)) {
-        throw ex;
-      }
-    }
+    expect(await close().then(() => 'ok', err => err)).to.be.instanceOf(DiffsFoundError);
   });
 });

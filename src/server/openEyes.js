@@ -1,6 +1,5 @@
-const {URL} = require('url');
 const EyesWrapper = require('./EyesWrapper');
-const fetchResources = require('./fetchResources');
+const getAllResources = require('./getAllResources');
 const {RenderStatus, GeneralUtils} = require('@applitools/eyes.sdk.core');
 
 const GET_STATUS_INTERVAL = 500; // TODO take from SDK?
@@ -19,7 +18,7 @@ function openEyes({
       renderInfo = await wrapper.getRenderInfo();
     }
 
-    const resources = await organizeResources(allResources, resourceUrls);
+    const resources = await getAllResources(resourceUrls, url);
 
     const renderWidth = viewportSize ? viewportSize.width : 1024; // TODO is viewportSize the right thing to use here? what if not defined?
     const renderId = await wrapper.postRender({
@@ -35,26 +34,6 @@ function openEyes({
 
   async function close() {
     return await wrapper.close();
-  }
-
-  function log(msg) {
-    wrapper._logger.verbose(msg);
-  }
-
-  // TODO move to other file
-  async function organizeResources(allResources, resourceUrls) {
-    const absoluteUrls = resourceUrls.map(resourceUrl => new URL(resourceUrl, url).href);
-    const missingResourceUrls = absoluteUrls.filter(resourceUrl => !allResources[resourceUrl]);
-    log(`fetching missing resources: ${missingResourceUrls}`);
-    const fetchedResources = await fetchResources(missingResourceUrls);
-    Object.assign(allResources, fetchedResources); // add to cache
-
-    const resources = {};
-    for (url of absoluteUrls) {
-      resources[url] = allResources[url];
-    }
-
-    return resources;
   }
 
   // TODO move to other file
@@ -78,8 +57,7 @@ function openEyes({
 
   wrapper.open(appName, testName, viewportSize);
 
-  let renderInfo,
-    allResources = {};
+  let renderInfo;
   return {
     checkWindow,
     close,

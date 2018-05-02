@@ -4,15 +4,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const openEyes = require('../../src/server/openEyes');
 const path = require('path');
-
-const log = (function() {
-  const {Logger, ConsoleLogHandler} = require('@applitools/eyes.sdk.core');
-  const logger = new Logger();
-  logger.setLogHandler(new ConsoleLogHandler(true));
-  return msg => {
-    logger.verbose(msg);
-  };
-})();
+const log = require('../../src/server/log');
 
 const app = express();
 app.use(cors());
