@@ -15,7 +15,7 @@
 		"attributes": [
 			{
 				"name": "href",
-				"value": "surge/test.css"
+				"value": "test.css"
 			},
 			{
 				"name": "rel",
@@ -56,7 +56,7 @@
 		"attributes": [
 			{
 				"name": "style",
-				"value": "color:red;"
+				"value": "color:cyan;"
 			}
 		],
 		"childNodeIndexes": [
@@ -69,7 +69,7 @@
 	},
 	{
 		"nodeType": 3,
-		"nodeValue": "We've met already, I'm blue"
+		"nodeValue": "We've met already, I'm yellow"
 	},
 	{
 		"nodeType": 1,
@@ -77,7 +77,7 @@
 		"attributes": [
 			{
 				"name": "class",
-				"value": "blue"
+				"value": "yellow"
 			}
 		],
 		"childNodeIndexes": [
