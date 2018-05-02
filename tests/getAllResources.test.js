@@ -2,10 +2,20 @@ const {describe, it, afterEach} = require('mocha');
 const {expect} = require('chai');
 const fs = require('fs');
 const path = require('path');
-const {mapValues} = require('lodash');
+const {mapValues, omit} = require('lodash');
 const getAllResources = require('../src/server/getAllResources');
 const clearCache = getAllResources.clearCache;
+const {RGridResource} = require('@applitools/eyes.sdk.core');
 const testServer = require('./testServer');
+
+function toRGridResource({url, type, value}) {
+  const resource = new RGridResource();
+  resource.setUrl(url);
+  resource.setContentType(type);
+  resource.setContent(value);
+  resource.getSha256Hash();
+  return resource;
+}
 
 describe('getAllResources', () => {
   let baseUrl, closeServer;
@@ -34,18 +44,22 @@ describe('getAllResources', () => {
 
     const expected = mapValues(
       {
-        [jpgUrl]: {type: 'image/jpeg', value: jpgContent},
-        [cssUrl]: {type: 'text/css; charset=UTF-8', value: cssContent},
-        [jsonUrl]: {type: 'application/json; charset=UTF-8', value: jsonContent},
-        [jsUrl]: {type: 'application/javascript; charset=UTF-8', value: jsContent},
+        [jpgUrl]: {type: 'image/jpeg', value: jpgContent, url: jpgUrl},
+        [cssUrl]: {type: 'text/css; charset=UTF-8', value: cssContent, url: cssUrl},
+        [jsonUrl]: {type: 'application/json; charset=UTF-8', value: jsonContent, url: jsonUrl},
+        [jsUrl]: {type: 'application/javascript; charset=UTF-8', value: jsContent, url: jsUrl},
       },
-      (o, url) => ({type: o.type, value: o.value, url}),
+      toRGridResource,
     );
 
-    const resources = await getAllResources([jpgUrl, cssUrl, jsonUrl, jsUrl]);
-
-    expect(resources).to.deep.equal(expected);
-    closeServer();
+    try {
+      const resources = await getAllResources([jpgUrl, cssUrl, jsonUrl, jsUrl]);
+      expect(resources).to.deep.equal(expected);
+    } catch (ex) {
+      throw ex;
+    } finally {
+      closeServer();
+    }
   });
 
   it('works for relative urls', async () => {
@@ -56,16 +70,21 @@ describe('getAllResources', () => {
     const url = 'smurfs.jpg';
     const absoluteUrl = `${baseUrl}/${url}`;
     const expected = {
-      [absoluteUrl]: {
+      [absoluteUrl]: toRGridResource({
         url: absoluteUrl,
         type: 'image/jpeg',
         value: fs.readFileSync(path.resolve(__dirname, 'fixtures/smurfs.jpg')),
-      },
+      }),
     };
 
-    const resources = await getAllResources([url], baseUrl);
-    expect(resources).to.deep.equal(expected);
-    closeServer();
+    try {
+      const resources = await getAllResources([url], baseUrl);
+      expect(resources).to.deep.equal(expected);
+    } catch (ex) {
+      throw ex;
+    } finally {
+      closeServer();
+    }
   });
 
   it('fetches with cache', async () => {
@@ -73,13 +92,13 @@ describe('getAllResources', () => {
     baseUrl = `http://localhost:${server.port}`;
     closeServer = server.close;
 
-    const url = `${baseUrl}/smurfs.jpg`;
+    const url = `${baseUrl}/test.js`;
     const expected = {
-      [url]: {
+      [url]: toRGridResource({
         url,
-        type: 'image/jpeg',
-        value: fs.readFileSync(path.resolve(__dirname, 'fixtures/smurfs.jpg')),
-      },
+        type: 'application/javascript; charset=UTF-8',
+        value: fs.readFileSync(path.resolve(__dirname, 'fixtures/test.js')),
+      }),
     };
 
     try {
@@ -91,12 +110,11 @@ describe('getAllResources', () => {
       closeServer();
     }
 
-    const expectedFromCache = {
-      [url]: {
-        url,
-        type: 'image/jpeg',
-      },
-    };
+    const expectedFromCache = mapValues(expected, rGridResource => {
+      rGridResource._content = null; // yuck! but this is the symmetrical yuck of getAllResources::fromCacheToRGridResource since we save resource in cache without content, but with SHA256
+      return rGridResource;
+    });
+
     const resourcesFromCache = await getAllResources([url]);
     expect(resourcesFromCache).to.deep.equal(expectedFromCache);
   });

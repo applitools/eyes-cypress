@@ -97,14 +97,7 @@ class EyesWrapper extends EyesBase {
   }
 
   createRGridDom({cdt, resources}) {
-    const resourceArr = Object.keys(resources).map(resourceUrl => {
-      const resourceContent = resources[resourceUrl];
-      const resource = new RGridResource();
-      resource.setUrl(resourceUrl);
-      resource.setContentType(resourceContent.type);
-      resource.setContent(resourceContent.value);
-      return resource;
-    });
+    const resourceArr = Object.values(resources);
     const rGridDom = new RGridDom();
     rGridDom.setDomNodes(cdt);
     rGridDom.setResources(resourceArr);
