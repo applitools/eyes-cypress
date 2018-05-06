@@ -1,0 +1,10 @@
+[ ] reorder folders
+[ ] write more tests for (rg-client, rg-server)
+[ ] code review
+[ ] cypress plugin (inc. tests)
+[ ] cypress commands (inc. tests?)
+[ ] e2e tests
+[ ] npm publish and let's talk productization
+[ ] readme
+[ ] extract resources from html (scripts, videos, iframes, etc.)
+[ ] look inside css/svg/? (imports, fonts, bg images)
