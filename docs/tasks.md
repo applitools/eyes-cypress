@@ -1,5 +1,5 @@
-- [ ] reorder folders
-- [ ] write more tests for (rg-client, rg-server)
+- [x] reorder folders
+- [x] write more tests for (rg-client, rg-server)
 - [ ] code review
 - [ ] cypress plugin (inc. tests)
 - [ ] cypress commands (inc. tests?)
