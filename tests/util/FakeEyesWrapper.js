@@ -1,6 +1,6 @@
 const {MatchResult, RenderStatusResults, RenderStatus} = require('@applitools/eyes.sdk.core');
 
-const expectedCdt = JSON.parse(JSON.stringify(require('./fixtures/test.cdt.json')));
+const expectedCdt = JSON.parse(JSON.stringify(require('../fixtures/test.cdt.json')));
 const BAD_SCREENSHOT_URL = 'BAD_SCREENSHOT_URL';
 const GOOD_SCREENSHOT_URL = 'GOOD_SCREENSHOT_URL';
 const BAD_RENDER_ID = 'BAD_RENDER_ID';

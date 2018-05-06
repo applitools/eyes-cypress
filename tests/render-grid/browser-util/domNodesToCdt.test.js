@@ -1,11 +1,10 @@
 'use strict';
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
-const fs = require('fs');
-const path = require('path');
 const {JSDOM} = require('jsdom');
-const domNodesToCdt = require('../src/render-grid/browser-util/domNodesToCdt');
+const domNodesToCdt = require('../../../src/render-grid/browser-util/domNodesToCdt');
 const {NODE_TYPES} = domNodesToCdt;
+const {loadFixture, loadJsonFixture} = require('../../util/loadFixture');
 
 function getElementNodes(htmlStr) {
   const dom = new JSDOM(htmlStr);
@@ -54,11 +53,9 @@ describe('domNodesToCdt', () => {
   });
 
   it('works for test.html', () => {
-    const elementNodes = getElementNodes(
-      fs.readFileSync(path.resolve(__dirname, 'fixtures/test.html')).toString(),
-    );
+    const elementNodes = getElementNodes(loadFixture('test.html'));
     const cdt = domNodesToCdt(elementNodes);
-    const expectedCdt = require('./fixtures/test.cdt.json');
+    const expectedCdt = loadJsonFixture('test.cdt.json');
     expect(cdt).to.deep.equal(expectedCdt);
   });
 });

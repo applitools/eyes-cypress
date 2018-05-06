@@ -1,12 +1,11 @@
 const {describe, it, afterEach} = require('mocha');
 const {expect} = require('chai');
-const fs = require('fs');
-const path = require('path');
 const {mapValues} = require('lodash');
-const getAllResources = require('../src/render-grid/sdk/getAllResources');
+const getAllResources = require('../../../src/render-grid/sdk/getAllResources');
 const clearCache = getAllResources.clearCache;
 const {RGridResource} = require('@applitools/eyes.sdk.core');
-const testServer = require('./testServer');
+const testServer = require('../../util/testServer');
+const {loadFixtureBuffer} = require('../../util/loadFixture');
 
 function toRGridResource({url, type, value}) {
   const resource = new RGridResource();
@@ -37,10 +36,10 @@ describe('getAllResources', () => {
     const cssUrl = `${baseUrl}/${cssName}`;
     const jsonUrl = `${baseUrl}/${jsonName}`;
     const jsUrl = `${baseUrl}/${jsName}`;
-    const jpgContent = fs.readFileSync(path.resolve(__dirname, 'fixtures', jpgName));
-    const cssContent = fs.readFileSync(path.resolve(__dirname, 'fixtures', cssName));
-    const jsonContent = fs.readFileSync(path.resolve(__dirname, 'fixtures', jsonName));
-    const jsContent = fs.readFileSync(path.resolve(__dirname, 'fixtures', jsName));
+    const jpgContent = loadFixtureBuffer(jpgName);
+    const cssContent = loadFixtureBuffer(cssName);
+    const jsonContent = loadFixtureBuffer(jsonName);
+    const jsContent = loadFixtureBuffer(jsName);
 
     const expected = mapValues(
       {
@@ -73,7 +72,7 @@ describe('getAllResources', () => {
       [absoluteUrl]: toRGridResource({
         url: absoluteUrl,
         type: 'image/jpeg',
-        value: fs.readFileSync(path.resolve(__dirname, 'fixtures/smurfs.jpg')),
+        value: loadFixtureBuffer('smurfs.jpg'),
       }),
     };
 
@@ -97,7 +96,7 @@ describe('getAllResources', () => {
       [url]: toRGridResource({
         url,
         type: 'application/javascript; charset=UTF-8',
-        value: fs.readFileSync(path.resolve(__dirname, 'fixtures/test.js')),
+        value: loadFixtureBuffer('test.js'),
       }),
     };
 

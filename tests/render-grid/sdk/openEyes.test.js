@@ -2,15 +2,11 @@
 require('dotenv').config();
 const {describe, it, before, after} = require('mocha');
 const {expect} = require('chai');
-const openEyes = require('../src/render-grid/sdk/openEyes');
-const FakeEyesWrapper = require('./FakeEyesWrapper');
-const testServer = require('./testServer');
+const openEyes = require('../../../src/render-grid/sdk/openEyes');
+const FakeEyesWrapper = require('../../util/FakeEyesWrapper');
+const testServer = require('../../util/testServer');
 const {DiffsFoundError} = require('@applitools/eyes.sdk.core');
-
-function loadJson(filepath) {
-  const json = require(filepath);
-  return JSON.parse(JSON.stringify(json));
-}
+const {loadJsonFixture} = require('../../util/loadFixture');
 
 describe('openEyes', () => {
   let baseUrl, closeServer;
@@ -42,7 +38,7 @@ describe('openEyes', () => {
       url: `${baseUrl}/test.html`,
     });
     const resourceUrls = ['smurfs.jpg', 'test.css'];
-    const cdt = loadJson('./fixtures/test.cdt.json');
+    const cdt = loadJsonFixture('test.cdt.json');
     const result = await checkWindow({resourceUrls, cdt});
     expect(result.getAsExpected()).to.equal(true);
     await close();
@@ -54,7 +50,7 @@ describe('openEyes', () => {
       url: `${baseUrl}/test.html`,
     });
     const resourceUrls = ['smurfs.jpg', 'test.css'];
-    const cdt = loadJson('./fixtures/test.cdt.json');
+    const cdt = loadJsonFixture('test.cdt.json');
     cdt.find(node => node.nodeValue === "hi, I'm red").nodeValue = "hi, I'm green";
     const result = await checkWindow({resourceUrls, cdt});
     expect(result.getAsExpected()).to.equal(false);
@@ -71,7 +67,7 @@ describe('openEyes', () => {
     });
 
     const resourceUrls = ['smurfs.jpg', 'test.css'];
-    const cdt = loadJson('./fixtures/test.cdt.json');
+    const cdt = loadJsonFixture('test.cdt.json');
     await checkWindow({resourceUrls, cdt});
     await close();
   });
@@ -86,7 +82,7 @@ describe('openEyes', () => {
     });
 
     const resourceUrls = ['smurfs.jpg', 'test.css'];
-    const cdt = loadJson('./fixtures/test.cdt.json');
+    const cdt = loadJsonFixture('test.cdt.json');
     cdt.find(node => node.nodeValue === "hi, I'm red").nodeValue = "hi, I'm green";
     await checkWindow({resourceUrls, cdt});
     expect(await close().then(() => 'ok', err => err)).to.be.instanceOf(DiffsFoundError);
