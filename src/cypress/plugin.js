@@ -15,14 +15,14 @@ app.post('/eyes/:command', express.json(), async (req, res) => {
     await eyesCommands[req.params.command](req.body); // TODO not every command needs to be awaited (defaultCommandTimeout)
     res.sendStatus(200);
   } catch (ex) {
-    console.error(ex.message);
+    console.error('error in eyes api:', ex.message);
     res.sendStatus(500);
   }
 });
 
 const eyesCommands = {
-  open: ({url, appName, testName, viewportSize}) => {
-    const eyes = openEyes({apiKey, url, appName, testName, viewportSize});
+  open: async ({url, appName, testName, viewportSize}) => {
+    const eyes = await openEyes({apiKey, url, appName, testName, viewportSize});
     checkWindow = eyes.checkWindow;
     close = eyes.close;
   },

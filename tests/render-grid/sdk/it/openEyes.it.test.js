@@ -24,7 +24,7 @@ describe('openEyes', () => {
   });
 
   it("doesn't throw exception", async () => {
-    const {checkWindow, close} = openEyes({
+    const {checkWindow, close} = await openEyes({
       wrapper,
       url: `${baseUrl}/test.html`,
     });
@@ -34,7 +34,7 @@ describe('openEyes', () => {
   });
 
   it('passes with correct dom', async () => {
-    const {checkWindow, close} = openEyes({
+    const {checkWindow, close} = await openEyes({
       wrapper,
       url: `${baseUrl}/test.html`,
     });
@@ -55,7 +55,7 @@ describe('openEyes', () => {
   });
 
   it('fails with incorrect dom', async () => {
-    const {checkWindow, close} = openEyes({
+    const {checkWindow, close} = await openEyes({
       wrapper,
       url: `${baseUrl}/test.html`,
     });

@@ -12,10 +12,12 @@
 // the project's config changing)
 
 const startServer = require('../../src/cypress/plugin');
+const startTestServer = require('../../tests/util/testServer');
 
 module.exports = async (_on, _config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
   const {port} = await startServer();
-  return {eyesPort: port};
+  const testServer = await startTestServer();
+  return {eyesPort: port, testPort: testServer.port};
 };

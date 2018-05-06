@@ -3,21 +3,26 @@
 const extractResources = require('../render-grid/browser-util/extractResources');
 const domNodesToCdt = require('../render-grid/browser-util/domNodesToCdt');
 const makeSend = require('./makeSend');
-const send = makeSend(Cypress.config('eyesPort'), fetch)
-  .then(resp => resp.text())
-  .then(text => console.log('server answered', text));
+const send = makeSend(Cypress.config('eyesPort'), fetch);
 
 const EyesServer = {
   open(url, appName, testName, viewportSize) {
-    return send('open', {url, appName, testName, viewportSize});
+    return this._send('open', {url, appName, testName, viewportSize});
   },
 
   checkWindow(resourceUrls, cdt) {
-    return send('checkWindow', {resourceUrls, cdt});
+    return this._send('checkWindow', {resourceUrls, cdt});
   },
 
   close() {
-    return send('close');
+    return this._send('close');
+  },
+
+  _send: function() {
+    return send
+      .apply(this, arguments)
+      .then(resp => resp.text())
+      .then(text => console.log('server answered', text));
   },
 };
 

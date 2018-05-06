@@ -21,7 +21,7 @@ describe('openEyes', () => {
   });
 
   it('passes with correct screenshot', async () => {
-    const {checkWindow, close} = openEyes({
+    const {checkWindow, close} = await openEyes({
       appName: 'some app',
       testName: 'some test',
       apiKey: process.env.APPLITOOLS_API_KEY, // TODO bad for tests. what to do
@@ -36,7 +36,7 @@ describe('openEyes', () => {
   });
 
   it('fails with incorrect screenshot', async () => {
-    const {checkWindow, close} = openEyes({
+    const {checkWindow, close} = await openEyes({
       appName: 'some app',
       testName: 'some test',
       apiKey: process.env.APPLITOOLS_API_KEY, // TODO bad for tests. what to do

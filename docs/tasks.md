@@ -1,8 +1,9 @@
 - [x] reorder folders
 - [x] write more tests for (rg-client, rg-server)
-- [ ] code review
+- [x] code review
 - [x] cypress plugin (inc. tests)
-- [ ] cypress commands (inc. tests?)
+- [x] cypress commands (inc. tests?)
+- [ ] move cypress to tests folder (change something in cypress.json)
 - [ ] e2e tests
 - [ ] npm publish and let's talk productization
 - [ ] readme
@@ -12,4 +13,4 @@
 - [ ] support renderInfo instead of renderWidth (with sizeMode)
 - [ ] getRenderStatus - pass wrapper and timeout of 2 minutes
 - [ ] optimize: background renders, matchWindow loop, queues
-- [ ] move cypress to tests folder (change something in cypress.json)
+- [ ] add 'use strict'
