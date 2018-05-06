@@ -1,10 +1,15 @@
 - [x] reorder folders
 - [x] write more tests for (rg-client, rg-server)
 - [ ] code review
-- [ ] cypress plugin (inc. tests)
+- [x] cypress plugin (inc. tests)
 - [ ] cypress commands (inc. tests?)
 - [ ] e2e tests
 - [ ] npm publish and let's talk productization
 - [ ] readme
 - [ ] extract resources from html (scripts, videos, iframes, etc.)
 - [ ] look inside css/svg/? (imports, fonts, bg images)
+- [ ] support multiple viewport sizes in one render
+- [ ] support renderInfo instead of renderWidth (with sizeMode)
+- [ ] getRenderStatus - pass wrapper and timeout of 2 minutes
+- [ ] optimize: background renders, matchWindow loop, queues
+- [ ] move cypress to tests folder (change something in cypress.json)

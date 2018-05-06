@@ -2,7 +2,7 @@ const EyesWrapper = require('./EyesWrapper');
 const getAllResources = require('./getAllResources');
 const getRenderStatus = require('./getRenderStatus');
 
-function openEyes({
+async function openEyes({
   appName,
   testName,
   viewportSize,
@@ -33,9 +33,10 @@ function openEyes({
     return await wrapper.close();
   }
 
-  wrapper.open(appName, testName, viewportSize);
-
   let renderInfo;
+
+  await wrapper.open(appName, testName, viewportSize);
+
   return {
     checkWindow,
     close,

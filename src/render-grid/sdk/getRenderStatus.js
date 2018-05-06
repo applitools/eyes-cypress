@@ -1,14 +1,14 @@
 const {RenderStatus} = require('@applitools/eyes.sdk.core');
+const {promisify: p} = require('util');
 
 const GET_STATUS_INTERVAL = 500; // TODO take from SDK?
-const sleep = time => new Promise(resolve => setTimeout(resolve, time));
 
 async function getRenderStatus(renderId, doGetRenderStatus) {
   try {
     const renderStatus = await doGetRenderStatus(renderId);
     const status = renderStatus.getStatus();
     if (status === RenderStatus.RENDERING) {
-      await sleep(GET_STATUS_INTERVAL);
+      await p(setTimeout)(GET_STATUS_INTERVAL);
       return await getRenderStatus(renderId, doGetRenderStatus);
     } else if (status === RenderStatus.ERROR) {
       throw renderStatus.getError();
@@ -16,7 +16,7 @@ async function getRenderStatus(renderId, doGetRenderStatus) {
     return renderStatus.getImageLocation();
   } catch (ex) {
     // TODO number of retries?
-    await sleep(GET_STATUS_INTERVAL); // TODO use GeneralUtils from SDK?
+    await p(setTimeout)(GET_STATUS_INTERVAL); // TODO use GeneralUtils from SDK?
     return await getRenderStatus(renderId, doGetRenderStatus);
   }
 }
