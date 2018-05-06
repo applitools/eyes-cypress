@@ -1,20 +1,11 @@
 /* global fetch, Cypress, cy */
 
-const extractResources = require('../../render-grid/browser-util/extractResources');
-const domNodesToCdt = require('../../render-grid/browser-util/domNodesToCdt');
-const port = Cypress.config('eyesPort');
-function send(command, data) {
-  return fetch(`http://localhost:${port}/eyes/${command}`, {
-    method: 'POST',
-    body: data ? JSON.stringify(data) : undefined,
-    headers: {
-      'Content-Type': 'application/json',
-    },
-    mode: 'cors',
-  })
-    .then(resp => resp.text())
-    .then(text => console.log('server answered', text));
-}
+const extractResources = require('../render-grid/browser-util/extractResources');
+const domNodesToCdt = require('../render-grid/browser-util/domNodesToCdt');
+const makeSend = require('./makeSend');
+const send = makeSend(Cypress.config('eyesPort'), fetch)
+  .then(resp => resp.text())
+  .then(text => console.log('server answered', text));
 
 const EyesServer = {
   open(url, appName, testName, viewportSize) {

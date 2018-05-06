@@ -2,14 +2,12 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const path = require('path');
-const openEyes = require('../../render-grid/sdk/openEyes');
-const log = require('../../render-grid/sdk/log');
+const openEyes = require('../render-grid/sdk/openEyes');
+const log = require('../render-grid/sdk/log');
 
 const app = express();
 app.use(cors());
 app.use(morgan('combined'));
-app.use('/example', express.static(path.resolve(__dirname, '../../../tests/fixtures')));
 
 app.post('/eyes/:command', express.json(), async (req, res) => {
   log(`eyes api: ${req.params.command}, ${Object.keys(req.body)}`);
@@ -17,7 +15,7 @@ app.post('/eyes/:command', express.json(), async (req, res) => {
     await eyesCommands[req.params.command](req.body); // TODO not every command needs to be awaited (defaultCommandTimeout)
     res.sendStatus(200);
   } catch (ex) {
-    console.error(ex);
+    console.error(ex.message);
     res.sendStatus(500);
   }
 });
@@ -45,8 +43,9 @@ module.exports = () => {
   return new Promise((resolve, _reject) => {
     const server = app.listen(0, () => {
       const port = server.address().port;
+      const close = server.close.bind(server);
       log(`server running at port: ${port}`);
-      resolve({port});
+      resolve({port, close});
     });
   });
 };
