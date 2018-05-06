@@ -1,11 +1,11 @@
 const {describe, it, afterEach} = require('mocha');
 const {expect} = require('chai');
 const {mapValues} = require('lodash');
-const getAllResources = require('../../../src/render-grid/sdk/getAllResources');
+const getAllResources = require('../../../../src/render-grid/sdk/getAllResources');
 const clearCache = getAllResources.clearCache;
 const {RGridResource} = require('@applitools/eyes.sdk.core');
-const testServer = require('../../util/testServer');
-const {loadFixtureBuffer} = require('../../util/loadFixture');
+const testServer = require('../../../util/testServer');
+const {loadFixtureBuffer} = require('../../../util/loadFixture');
 
 function toRGridResource({url, type, value}) {
   const resource = new RGridResource();

@@ -1,12 +1,10 @@
 'use strict';
-require('dotenv').config();
 const {describe, it, before, after} = require('mocha');
 const {expect} = require('chai');
-const openEyes = require('../../../src/render-grid/sdk/openEyes');
-const FakeEyesWrapper = require('../../util/FakeEyesWrapper');
-const testServer = require('../../util/testServer');
-const {DiffsFoundError} = require('@applitools/eyes.sdk.core');
-const {loadJsonFixture} = require('../../util/loadFixture');
+const openEyes = require('../../../../src/render-grid/sdk/openEyes');
+const FakeEyesWrapper = require('../../../util/FakeEyesWrapper');
+const testServer = require('../../../util/testServer');
+const {loadJsonFixture} = require('../../../util/loadFixture');
 
 describe('openEyes', () => {
   let baseUrl, closeServer;
@@ -55,36 +53,5 @@ describe('openEyes', () => {
     const result = await checkWindow({resourceUrls, cdt});
     expect(result.getAsExpected()).to.equal(false);
     await close();
-  });
-
-  it('really works', async () => {
-    const {checkWindow, close} = openEyes({
-      appName: 'some app',
-      testName: 'some test',
-      apiKey: process.env.APPLITOOLS_API_KEY, // TODO bad for tests. what to do
-      url: `${baseUrl}/test.html`,
-      viewportSize: {width: 800, height: 600},
-    });
-
-    const resourceUrls = ['smurfs.jpg', 'test.css'];
-    const cdt = loadJsonFixture('test.cdt.json');
-    await checkWindow({resourceUrls, cdt});
-    await close();
-  });
-
-  it('really works and fails', async () => {
-    const {checkWindow, close} = openEyes({
-      appName: 'some app',
-      testName: 'some test',
-      apiKey: process.env.APPLITOOLS_API_KEY, // TODO bad for tests. what to do
-      url: `${baseUrl}/test.html`,
-      viewportSize: {width: 800, height: 600},
-    });
-
-    const resourceUrls = ['smurfs.jpg', 'test.css'];
-    const cdt = loadJsonFixture('test.cdt.json');
-    cdt.find(node => node.nodeValue === "hi, I'm red").nodeValue = "hi, I'm green";
-    await checkWindow({resourceUrls, cdt});
-    expect(await close().then(() => 'ok', err => err)).to.be.instanceOf(DiffsFoundError);
   });
 });

@@ -1,9 +1,9 @@
 const {describe, it, before, after} = require('mocha');
-const fetchResources = require('../../../src/render-grid/sdk/fetchResources');
+const fetchResources = require('../../../../src/render-grid/sdk/fetchResources');
 const {expect} = require('chai');
 const {mapValues} = require('lodash');
-const testServer = require('../../util/testServer');
-const {loadFixtureBuffer} = require('../../util/loadFixture');
+const testServer = require('../../../util/testServer');
+const {loadFixtureBuffer} = require('../../../util/loadFixture');
 
 describe('fetchResources', () => {
   let baseUrl, closeServer;

@@ -32,7 +32,7 @@ describe('extractResources', () => {
   });
 
   // TODO
-  it('works for font', () => {
+  it.skip('works for font', () => {
     const htmlStr = `<body/>`;
     const expected = [];
 
