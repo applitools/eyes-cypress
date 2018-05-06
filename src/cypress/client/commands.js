@@ -1,7 +1,7 @@
 /* global fetch, Cypress, cy */
 
-const extractResources = require('./extractResources');
-const domNodesToCdt = require('./domNodesToCdt');
+const extractResources = require('../../render-grid/browser-util/extractResources');
+const domNodesToCdt = require('../../render-grid/browser-util/domNodesToCdt');
 const port = Cypress.config('eyesPort');
 function send(command, data) {
   return fetch(`http://localhost:${port}/eyes/${command}`, {

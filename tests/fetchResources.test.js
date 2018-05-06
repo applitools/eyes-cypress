@@ -1,7 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const {describe, it, before, after} = require('mocha');
-const fetchResources = require('../src/server/fetchResources');
+const fetchResources = require('../src/render-grid/sdk/fetchResources');
 const {expect} = require('chai');
 const {mapValues} = require('lodash');
 const testServer = require('./testServer');

@@ -8,7 +8,7 @@ const {
   RenderRequest,
 } = require('@applitools/eyes.sdk.core');
 
-const VERSION = require('../../package.json').version;
+const VERSION = require('../../../package.json').version;
 
 class EyesWrapper extends EyesBase {
   constructor(config = {}) {

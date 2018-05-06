@@ -2,14 +2,14 @@ require('dotenv').config();
 const express = require('express');
 const morgan = require('morgan');
 const cors = require('cors');
-const openEyes = require('../../src/server/openEyes');
 const path = require('path');
-const log = require('../../src/server/log');
+const openEyes = require('../../render-grid/sdk/openEyes');
+const log = require('../../render-grid/sdk/log');
 
 const app = express();
 app.use(cors());
 app.use(morgan('combined'));
-app.use('/example', express.static(path.resolve(__dirname, '../../tests/fixtures')));
+app.use('/example', express.static(path.resolve(__dirname, '../../../tests/fixtures')));
 
 app.post('/eyes/:command', express.json(), async (req, res) => {
   log(`eyes api: ${req.params.command}, ${Object.keys(req.body)}`);
@@ -30,7 +30,7 @@ const eyesCommands = {
   },
 
   checkWindow: async ({resourceUrls, cdt, tag}) => {
-    await checkWindow(resourceUrls, cdt, tag);
+    await checkWindow({resourceUrls, cdt, tag});
   },
 
   close: async () => {

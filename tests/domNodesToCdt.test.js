@@ -4,7 +4,7 @@ const {expect} = require('chai');
 const fs = require('fs');
 const path = require('path');
 const {JSDOM} = require('jsdom');
-const domNodesToCdt = require('../src/client/domNodesToCdt');
+const domNodesToCdt = require('../src/render-grid/browser-util/domNodesToCdt');
 const {NODE_TYPES} = domNodesToCdt;
 
 function getElementNodes(htmlStr) {

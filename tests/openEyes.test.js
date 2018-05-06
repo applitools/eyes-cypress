@@ -2,7 +2,7 @@
 require('dotenv').config();
 const {describe, it, before, after} = require('mocha');
 const {expect} = require('chai');
-const openEyes = require('../src/server/openEyes');
+const openEyes = require('../src/render-grid/sdk/openEyes');
 const FakeEyesWrapper = require('./FakeEyesWrapper');
 const testServer = require('./testServer');
 const {DiffsFoundError} = require('@applitools/eyes.sdk.core');

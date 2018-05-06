@@ -11,7 +11,7 @@
 // This function is called when a project is opened or re-opened (e.g. due to
 // the project's config changing)
 
-const startServer = require('./server');
+const startServer = require('../../src/cypress/plugin/server');
 
 module.exports = async (_on, _config) => {
   // `on` is used to hook into various events Cypress emits

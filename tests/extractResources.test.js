@@ -1,7 +1,7 @@
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const {JSDOM} = require('jsdom');
-const extractResources = require('../src/client/extractResources');
+const extractResources = require('../src/render-grid/browser-util/extractResources');
 
 describe('extractResources', () => {
   it('works for img', () => {
