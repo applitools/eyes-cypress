@@ -31,7 +31,7 @@ function toCacheEntry(rGridResource) {
   };
 }
 
-async function getAllResources(resourceUrls, baseUrl) {
+async function getAllResources(resourceUrls = [], baseUrl) {
   const absoluteUrls = resourceUrls.map(resourceUrl => new URL(resourceUrl, baseUrl).href);
   const resources = {};
   for (const url of absoluteUrls) {

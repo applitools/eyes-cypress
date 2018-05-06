@@ -72,7 +72,7 @@ describe('getAllResources', () => {
       [absoluteUrl]: toRGridResource({
         url: absoluteUrl,
         type: 'image/jpeg',
-        value: loadFixtureBuffer('smurfs.jpg'),
+        value: loadFixtureBuffer(url),
       }),
     };
 
@@ -116,5 +116,30 @@ describe('getAllResources', () => {
 
     const resourcesFromCache = await getAllResources([url]);
     expect(resourcesFromCache).to.deep.equal(expectedFromCache);
+  });
+
+  it('works for urls with long paths', async () => {
+    const server = await testServer();
+    baseUrl = `http://localhost:${server.port}`;
+    closeServer = server.close;
+
+    const url = `long/path/to/something.js`;
+    const absoluteUrl = `${baseUrl}/${url}`;
+    const expected = {
+      [absoluteUrl]: toRGridResource({
+        url: absoluteUrl,
+        type: 'application/javascript; charset=UTF-8',
+        value: loadFixtureBuffer(url),
+      }),
+    };
+
+    try {
+      const resources = await getAllResources([url], baseUrl);
+      expect(resources).to.deep.equal(expected);
+    } catch (ex) {
+      throw ex;
+    } finally {
+      closeServer();
+    }
   });
 });
