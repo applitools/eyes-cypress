@@ -25,7 +25,7 @@ async function openEyes({
       renderWidth,
       renderInfo,
     });
-    const screenshotUrl = await getRenderStatus(renderId, wrapper.getRenderStatus.bind(wrapper));
+    const screenshotUrl = await getRenderStatus(renderId, wrapper);
     return await wrapper.checkWindow({screenshotUrl, tag});
   }
 
