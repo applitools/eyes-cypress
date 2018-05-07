@@ -19,6 +19,7 @@
 - [ ] await cypress commands correctly and remove "defaultCommandTimeout"
 - [x] getAllResources should receive absolute urls
 - [ ] getAllResources should not keep global cache
+- [ ] error handling: close/checkWindow without open
 
 ## publish tasks
 - [ ] change `src` to `lib` ?
@@ -33,7 +34,7 @@
 - [ ] add `return {eyesPort}`
 ### support file
 - [ ] add `import '@applitools/eyes.cypress/commands` to support file
-### cypress.json file
+### cypress.json file (need to remove this)
 - [ ] add `"defaultCommandTimeout": 60000` to config file
 ### other
 - [ ] add `APPLITOOLS_API_KEY` to env vars
