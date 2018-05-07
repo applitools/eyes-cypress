@@ -3,15 +3,18 @@
 - [x] code review
 - [x] cypress plugin (inc. tests)
 - [x] cypress commands (inc. tests?)
-- [ ] move cypress to tests folder (change something in cypress.json)
-- [ ] e2e tests
+- [x] move cypress to tests folder (change something in cypress.json)
+- [x] e2e tests
 - [ ] npm publish and let's talk productization
+- [ ] handle logging
 - [ ] readme
 - [ ] extract resources from html (scripts, videos, iframes, etc.)
 - [ ] look inside css/svg/? (imports, fonts, bg images)
 - [ ] support multiple viewport sizes in one render
 - [ ] support renderInfo instead of renderWidth (with sizeMode)
-- [ ] getRenderStatus - pass wrapper and timeout of 2 minutes
+- [x] getRenderStatus - pass wrapper and timeout of 2 minutes
 - [ ] optimize: background renders, matchWindow loop, queues
 - [ ] add 'use strict'
 - [ ] await cypress commands correctly and remove "defaultCommandTimeout"
+- [x] getAllResources should receive absolute urls
+- [ ] getAllResources should not keep global cache

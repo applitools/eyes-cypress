@@ -1,4 +1,3 @@
-const {URL} = require('url');
 const fetchResources = require('./fetchResources');
 const log = require('./log');
 const {mapValues} = require('lodash');
@@ -31,8 +30,7 @@ function toCacheEntry(rGridResource) {
   };
 }
 
-async function getAllResources(resourceUrls = [], baseUrl) {
-  const absoluteUrls = resourceUrls.map(resourceUrl => new URL(resourceUrl, baseUrl).href);
+async function getAllResources(absoluteUrls = []) {
   const resources = {};
   for (const url of absoluteUrls) {
     const cacheEntry = allResources[url];

@@ -2,7 +2,7 @@ const {describe, it, afterEach} = require('mocha');
 const {expect} = require('chai');
 const {mapValues} = require('lodash');
 const getAllResources = require('../../../../src/render-grid/sdk/getAllResources');
-const clearCache = getAllResources.clearCache;
+const {clearCache} = getAllResources;
 const {RGridResource} = require('@applitools/eyes.sdk.core');
 const testServer = require('../../../util/testServer');
 const {loadFixtureBuffer} = require('../../../util/loadFixture');
@@ -17,7 +17,7 @@ function toRGridResource({url, type, value}) {
 }
 
 describe('getAllResources', () => {
-  let baseUrl, closeServer;
+  let closeServer;
 
   afterEach(() => {
     clearCache();
@@ -25,7 +25,7 @@ describe('getAllResources', () => {
 
   it('works for absolute urls', async () => {
     const server = await testServer();
-    baseUrl = `http://localhost:${server.port}`;
+    const baseUrl = `http://localhost:${server.port}`;
     closeServer = server.close;
 
     const jpgName = 'smurfs.jpg';
@@ -61,37 +61,11 @@ describe('getAllResources', () => {
     }
   });
 
-  it('works for relative urls', async () => {
-    const server = await testServer();
-    baseUrl = `http://localhost:${server.port}`;
-    closeServer = server.close;
-
-    const url = 'smurfs.jpg';
-    const absoluteUrl = `${baseUrl}/${url}`;
-    const expected = {
-      [absoluteUrl]: toRGridResource({
-        url: absoluteUrl,
-        type: 'image/jpeg',
-        value: loadFixtureBuffer(url),
-      }),
-    };
-
-    try {
-      const resources = await getAllResources([url], baseUrl);
-      expect(resources).to.deep.equal(expected);
-    } catch (ex) {
-      throw ex;
-    } finally {
-      closeServer();
-    }
-  });
-
   it('fetches with cache', async () => {
     const server = await testServer();
-    baseUrl = `http://localhost:${server.port}`;
     closeServer = server.close;
 
-    const url = `${baseUrl}/test.js`;
+    const url = `http://localhost:${server.port}/test.js`;
     const expected = {
       [url]: toRGridResource({
         url,
@@ -120,11 +94,10 @@ describe('getAllResources', () => {
 
   it('works for urls with long paths', async () => {
     const server = await testServer();
-    baseUrl = `http://localhost:${server.port}`;
     closeServer = server.close;
 
     const url = `long/path/to/something.js`;
-    const absoluteUrl = `${baseUrl}/${url}`;
+    const absoluteUrl = `http://localhost:${server.port}/${url}`;
     const expected = {
       [absoluteUrl]: toRGridResource({
         url: absoluteUrl,
@@ -134,7 +107,7 @@ describe('getAllResources', () => {
     };
 
     try {
-      const resources = await getAllResources([url], baseUrl);
+      const resources = await getAllResources([absoluteUrl]);
       expect(resources).to.deep.equal(expected);
     } catch (ex) {
       throw ex;

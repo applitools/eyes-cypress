@@ -1,23 +1,13 @@
-const {uniq, flatten} = require('lodash');
+const {uniq} = require('lodash');
 
-module.exports = domNodes => {
-  const imgUrls = uniq(
-    flatten(
-      domNodes.map(el =>
-        Array.from(el.querySelectorAll('img')).map(img => img.getAttribute('src')),
-      ),
-    ),
+module.exports = el => {
+  const srcUrls = [...el.querySelectorAll('img[src],script[src]')].map(srcEl =>
+    srcEl.getAttribute('src'),
   );
 
-  const cssUrls = uniq(
-    flatten(
-      domNodes.map(el =>
-        Array.from(el.querySelectorAll('link[rel="stylesheet"]')).map(link =>
-          link.getAttribute('href'),
-        ),
-      ),
-    ),
+  const cssUrls = [...el.querySelectorAll('link[rel="stylesheet"]')].map(link =>
+    link.getAttribute('href'),
   );
 
-  return [...imgUrls, ...cssUrls];
+  return uniq([...srcUrls, ...cssUrls]);
 };

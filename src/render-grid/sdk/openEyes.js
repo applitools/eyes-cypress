@@ -1,6 +1,7 @@
 const EyesWrapper = require('./EyesWrapper');
 const getAllResources = require('./getAllResources');
 const getRenderStatus = require('./getRenderStatus');
+const {URL} = require('url');
 
 async function openEyes({
   appName,
@@ -15,7 +16,9 @@ async function openEyes({
       renderInfo = await wrapper.getRenderInfo();
     }
 
-    const resources = await getAllResources(resourceUrls, url);
+    const absoluteUrls =
+      resourceUrls && resourceUrls.map(resourceUrl => new URL(resourceUrl, url).href);
+    const resources = await getAllResources(absoluteUrls);
 
     const renderWidth = viewportSize ? viewportSize.width : 1024; // TODO is viewportSize the right thing to use here? what if not defined?
     const renderId = await wrapper.postRender({

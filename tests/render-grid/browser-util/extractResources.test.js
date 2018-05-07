@@ -13,7 +13,7 @@ describe('extractResources', () => {
     ];
 
     const jsdom = new JSDOM(htmlStr);
-    const resourceUrls = extractResources([jsdom.window.document.documentElement]);
+    const resourceUrls = extractResources(jsdom.window.document.documentElement);
     expect(resourceUrls).to.deep.equal(expected);
   });
 
@@ -27,7 +27,22 @@ describe('extractResources', () => {
     const expected = ['http://link/to/css'];
 
     const jsdom = new JSDOM(htmlStr);
-    const resourceUrls = extractResources([jsdom.window.document.documentElement]);
+    const resourceUrls = extractResources(jsdom.window.document.documentElement);
+    expect(resourceUrls).to.deep.equal(expected);
+  });
+
+  it('works for scripts', () => {
+    const htmlStr = `<head>
+      <script>console.log('something that should not be included')</script>
+      <script src="relative/path/to.js"/>
+    </head>
+    <body>
+      <div class='red'>hello</div>
+    </body>`;
+    const expected = ['relative/path/to.js'];
+
+    const jsdom = new JSDOM(htmlStr);
+    const resourceUrls = extractResources(jsdom.window.document.documentElement);
     expect(resourceUrls).to.deep.equal(expected);
   });
 
@@ -37,7 +52,7 @@ describe('extractResources', () => {
     const expected = [];
 
     const jsdom = new JSDOM(htmlStr);
-    const resourceUrls = extractResources([jsdom.window.document.documentElement]);
+    const resourceUrls = extractResources(jsdom.window.document.documentElement);
     expect(resourceUrls).to.deep.equal(expected);
   });
 });
