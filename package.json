@@ -1,5 +1,5 @@
 {
-  "name": "eyes.cypress",
+  "name": "@applitools/eyes.cypress",
   "version": "1.0.0",
   "main": "index.js",
   "license": "MIT",
@@ -11,7 +11,9 @@
     "build": ""
   },
   "files": [
-    "lib"
+    "src",
+    "index.js",
+    "commands.js"
   ],
   "engines": {
     "node": ">=8.0.0"

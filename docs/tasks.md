@@ -1,3 +1,4 @@
+## tasks
 - [x] reorder folders
 - [x] write more tests for (rg-client, rg-server)
 - [x] code review
@@ -18,3 +19,21 @@
 - [ ] await cypress commands correctly and remove "defaultCommandTimeout"
 - [x] getAllResources should receive absolute urls
 - [ ] getAllResources should not keep global cache
+
+## publish tasks
+- [ ] change `src` to `lib` ?
+- [x] expose `@applitools/eyes.cypress/commands`
+- [ ] merge PR with `renderStatusById` in eyes.sdk.core
+
+## user actions on install
+### plugins file
+- [ ] add `const {startServer} = require '@applitools/eyes.cypress'` to pluginsFile
+- [ ] add `async` to module.exports in plugins file
+- [ ] add `const {eyesPort} = await startServer()`
+- [ ] add `return {eyesPort}`
+### support file
+- [ ] add `import '@applitools/eyes.cypress/commands` to support file
+### cypress.json file
+- [ ] add `"defaultCommandTimeout": 60000` to config file
+### other
+- [ ] add `APPLITOOLS_API_KEY` to env vars

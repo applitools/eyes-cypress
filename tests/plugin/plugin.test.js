@@ -16,7 +16,7 @@ describe('cypress plugin', () => {
     closeTestServer = testServer.close;
 
     const pluginServer = await startServer();
-    send = makeSend(pluginServer.port, fetch);
+    send = makeSend(pluginServer.eyesPort, fetch);
     closePluginServer = pluginServer.close;
   });
 

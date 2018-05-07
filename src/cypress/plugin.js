@@ -42,10 +42,10 @@ let checkWindow, close;
 module.exports = () => {
   return new Promise((resolve, _reject) => {
     const server = app.listen(0, () => {
-      const port = server.address().port;
+      const eyesPort = server.address().port;
       const close = server.close.bind(server);
-      log(`server running at port: ${port}`);
-      resolve({port, close});
+      log(`server running at port: ${eyesPort}`);
+      resolve({eyesPort, close});
     });
   });
 };
