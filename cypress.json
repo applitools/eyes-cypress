@@ -1,3 +1,4 @@
 {
-  "defaultCommandTimeout": 60000
+  "defaultCommandTimeout": 60000,
+  "fixturesFolder": false
 }

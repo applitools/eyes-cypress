@@ -14,3 +14,4 @@
 - [ ] getRenderStatus - pass wrapper and timeout of 2 minutes
 - [ ] optimize: background renders, matchWindow loop, queues
 - [ ] add 'use strict'
+- [ ] await cypress commands correctly and remove "defaultCommandTimeout"
