@@ -37,9 +37,9 @@ Cypress.Commands.add('eyesOpen', (appName, testName, viewportSize) => {
 Cypress.Commands.add('eyesCheckWindow', () => {
   cy.log('Eyes: checkWindow'); // TODO so why doesn't this throw an error?
   return cy.document().then(doc => {
-    const domNodes = [doc.documentElement];
-    const cdt = domNodesToCdt(domNodes);
-    const resourceUrls = extractResources(domNodes);
+    const {documentElement} = doc;
+    const cdt = domNodesToCdt([documentElement]);
+    const resourceUrls = extractResources(documentElement);
     return EyesServer.checkWindow(resourceUrls, cdt);
   });
 });
