@@ -1,1 +1,1 @@
-import './src/cypress/commands';
+require('./src/cypress/commands');
