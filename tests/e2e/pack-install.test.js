@@ -26,12 +26,12 @@ describe('package and install', () => {
       .join('-');
     packageFilePath = resolve(rootPath, `${packageName}-${version}.tgz`);
     let buff = await pexec(`npm pack ${rootPath}`);
-    console.log('buff', buff.stdout);
+    console.log(buff.stdout);
     process.chdir(testAppPath);
     buff = await pexec(`npm install ${resolve(rootPath, 'node_modules/cypress')}`);
-    console.log('buff', buff.stdout);
+    console.log(buff.stdout);
     buff = await pexec(`npm install ${packageFilePath}`);
-    console.log('buff', buff.stdout);
+    console.log(buff.stdout);
 
     // TODO remove this when PR is merged
     buff = await pexec(
@@ -45,6 +45,6 @@ describe('package and install', () => {
     );
 
     buff = await pexec('./node_modules/.bin/cypress run');
-    console.log('buff', buff.stdout);
+    console.log(buff.stdout);
   });
 });
