@@ -3,7 +3,7 @@
 const extractResources = require('../render-grid/browser-util/extractResources');
 const domNodesToCdt = require('../render-grid/browser-util/domNodesToCdt');
 const makeSend = require('./makeSend');
-const send = makeSend(Cypress.config('eyesPort'), fetch);
+const send = makeSend(Cypress.config('eyesPort') || require('./defaultPort'), fetch);
 
 const EyesServer = {
   open(url, appName, testName, viewportSize) {

@@ -44,7 +44,12 @@ describe('package and install', () => {
       )}`,
     );
 
-    buff = await pexec('./node_modules/.bin/cypress run');
-    console.log(buff.stdout);
+    try {
+      buff = await pexec('./node_modules/.bin/cypress run');
+      console.log(buff.stdout);
+    } catch (ex) {
+      console.error('bla bla', ex.stdout);
+      throw ex;
+    }
   });
 });

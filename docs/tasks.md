@@ -6,7 +6,9 @@
 - [x] cypress commands (inc. tests?)
 - [x] move cypress to tests folder (change something in cypress.json)
 - [x] e2e tests
-- [ ] npm publish and let's talk productization
+- [x] npm publish and let's talk productization
+- [x] startServer with fixed port (next tick trick)
+- [ ] avoid global command timeout in cypress.json
 - [ ] handle logging
 - [ ] readme
 - [ ] extract resources from html (scripts, videos, iframes, etc.)
@@ -16,7 +18,6 @@
 - [x] getRenderStatus - pass wrapper and timeout of 2 minutes
 - [ ] optimize: background renders, matchWindow loop, queues
 - [ ] add 'use strict'
-- [ ] await cypress commands correctly and remove "defaultCommandTimeout"
 - [x] getAllResources should receive absolute urls
 - [ ] getAllResources should not keep global cache
 - [ ] error handling: close/checkWindow without open

@@ -1,4 +1,4 @@
-const fetch = require('node-fetch'); // TODO if window/global.fetch
+const fetch = require('node-fetch');
 const {keyBy} = require('lodash');
 
 // TODO test with fetch mock? nock?

@@ -5,9 +5,8 @@
   "license": "MIT",
   "scripts": {
     "test:mocha": "mocha --no-timeouts 'tests/**/*.test.js'",
-    "test:cypress": "cypress run",
     "eslint": "eslint '**/*.js'",
-    "test": "npm run test:mocha && npm run test:cypress && npm run eslint",
+    "test": "npm run test:mocha && npm run eslint",
     "build": ""
   },
   "files": [
@@ -24,7 +23,8 @@
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "lodash": "^4.17.5",
-    "morgan": "^1.9.0"
+    "morgan": "^1.9.0",
+    "node-fetch": "^2.1.2"
   },
   "devDependencies": {
     "chai": "^4.1.2",
@@ -37,7 +37,6 @@
     "jsdom": "^11.7.0",
     "mocha": "^5.0.5",
     "nock": "^9.2.5",
-    "node-fetch": "^2.1.2",
     "prettier": "^1.11.1"
   }
 }

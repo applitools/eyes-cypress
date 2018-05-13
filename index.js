@@ -1,2 +1,1 @@
-const startServer = require('./src/cypress/plugin');
-module.exports = {startServer};
+module.exports = require('./src/cypress/plugin');

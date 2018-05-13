@@ -4,21 +4,13 @@ const morgan = require('morgan');
 const cors = require('cors');
 const openEyes = require('../render-grid/sdk/openEyes');
 const log = require('../render-grid/sdk/log');
+const {promisify: p} = require('util');
 
-const app = express();
-app.use(cors());
-app.use(morgan('combined'));
-
-app.post('/eyes/:command', express.json(), async (req, res) => {
-  log(`eyes api: ${req.params.command}, ${Object.keys(req.body)}`);
-  try {
-    await eyesCommands[req.params.command](req.body); // TODO not every command needs to be awaited (defaultCommandTimeout)
-    res.sendStatus(200);
-  } catch (ex) {
-    console.error('error in eyes api:', ex.message);
-    res.sendStatus(500);
-  }
-});
+/*****************************/
+/******* Eyes Commands *******/
+/*****************************/
+const apiKey = process.env.APPLITOOLS_API_KEY;
+let checkWindow, close;
 
 const eyesCommands = {
   open: async ({url, appName, testName, viewportSize}) => {
@@ -36,16 +28,62 @@ const eyesCommands = {
   },
 };
 
-const apiKey = process.env.APPLITOOLS_API_KEY;
-let checkWindow, close;
+/***************************/
+/******* Eyes Server *******/
+/***************************/
+let eyesPort = require('./defaultPort'),
+  server;
 
-module.exports = () => {
-  return new Promise((resolve, _reject) => {
-    const server = app.listen(0, () => {
-      const eyesPort = server.address().port;
-      const close = server.close.bind(server);
-      log(`server running at port: ${eyesPort}`);
-      resolve({eyesPort, close});
-    });
+async function getEyesPort() {
+  let port;
+
+  // TODO can server.address() be undefined or null?
+  while (!server || !server.address() || !(port = server.address().port)) {
+    await p(setTimeout)(10);
+  }
+
+  log(`getEyesPort port=${port}`);
+  return port;
+}
+
+function closeEyes() {
+  if (server) server.close();
+  server = null;
+}
+
+const app = express();
+app.use(cors());
+app.use(morgan('combined'));
+app.get('/hb', (_req, res) => res.sendStatus(200));
+
+app.post('/eyes/:command', express.json(), async (req, res) => {
+  log(`eyes api: ${req.params.command}, ${Object.keys(req.body)}`);
+  try {
+    await eyesCommands[req.params.command](req.body);
+    res.sendStatus(200);
+  } catch (ex) {
+    console.error('error in eyes api:', ex.message);
+    res.sendStatus(500);
+  }
+});
+
+// start server after process tick (or as microtask) to allow user to set custom port
+Promise.resolve().then(() => {
+  log(`starting plugin at port ${eyesPort}`);
+  server = app.listen(eyesPort, () => {
+    log(`server running at port: ${server.address().port}`);
   });
-};
+});
+
+function moduleExports({port = eyesPort}) {
+  eyesPort = port;
+  return {
+    getEyesPort,
+    closeEyes,
+  };
+}
+
+moduleExports.getEyesPort = getEyesPort;
+moduleExports.closeEyes = closeEyes;
+
+module.exports = moduleExports;
