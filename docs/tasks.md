@@ -10,7 +10,7 @@
 - [x] startServer with fixed port (next tick trick)
 - [ ] avoid global command timeout in cypress.json
 - [ ] handle logging
-- [ ] readme
+- [x] readme
 - [ ] extract resources from html (scripts, videos, iframes, etc.)
 - [ ] look inside css/svg/? (imports, fonts, bg images)
 - [ ] support multiple viewport sizes in one render

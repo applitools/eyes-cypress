@@ -23,6 +23,9 @@ Add this to your `supportFile` (normally, this is `cypress/support/index.js`):
 import '@applitools/eyes.cypress/commands
 ```
 
+### API key
+Run your cypress tests with the environment variable `APPLITOOLS_API_KEY` set to the API key you have from Applitools Eyes.
+
 ## Usage
 After completing all of the above, you will be able to use the following commands to take screenshots during tests and use Applitools Eyes to manage them:
 
