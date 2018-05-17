@@ -6,7 +6,7 @@ Applitoos Eyes SDK for [Cypress](https://www.cypress.io/).
 Add your Applitools API key to your environment variables as `APPLITOOLS_API_KEY`.
 
 ### Install npm package
-Install eyes.cypress as a local dev dependency in your tested project:
+Install `eyes.cypress` as a local dev dependency in your tested project:
 ```
 npm install --save-dev @applitools/eyes.cypress
 ```
@@ -14,7 +14,7 @@ npm install --save-dev @applitools/eyes.cypress
 ### Install eyes.cypress plugin
 Add this to your `pluginsFile` (normally, this is `cypress/plugins/index.js`):
 ```
-require '@applitools/eyes.cypress'
+require('@applitools/eyes.cypress')
 ```
 
 ### Install custom commands
@@ -71,7 +71,7 @@ module.exports = () => {
 ```
 
 ##### Available port
-If you want to be absolutely sure that `eyes` will use an available port, it's also possible to pass `0` as the port:
+If you want to be absolutely sure that `eyes.cypress` will use an available port, it's also possible to pass `0` as the port:
 ```
 const { getEyesPort } = require('@applitools/eyes.cypress')({ port: 0 });
 const eyesPort = await getEyesPort();
