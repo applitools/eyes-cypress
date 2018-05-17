@@ -22,7 +22,9 @@ const childrenFactory = (domNodes, elementNodes) => {
   const childIndexes = [];
   elementNodes.forEach(elementNode => {
     const index = elementNodeFactory(domNodes, elementNode);
-    childIndexes.push(index);
+    if (index !== null) {
+      childIndexes.push(index);
+    }
   });
 
   return childIndexes;
@@ -30,7 +32,8 @@ const childrenFactory = (domNodes, elementNodes) => {
 
 const elementNodeFactory = (domNodes, elementNode) => {
   let node;
-  if (elementNode.nodeType === NODE_TYPES.ELEMENT) {
+  const {nodeType} = elementNode;
+  if (nodeType === NODE_TYPES.ELEMENT) {
     node = {
       nodeType: NODE_TYPES.ELEMENT,
       nodeName: elementNode.nodeName,
@@ -42,22 +45,25 @@ const elementNodeFactory = (domNodes, elementNode) => {
         ? childrenFactory(domNodes, elementNode.childNodes)
         : [],
     };
-  } else if (elementNode.nodeType === NODE_TYPES.TEXT) {
+  } else if (nodeType === NODE_TYPES.TEXT) {
     node = {
       nodeType: NODE_TYPES.TEXT,
       nodeValue: elementNode.nodeValue,
     };
-  } else if (elementNode.nodeType === NODE_TYPES.DOCUMENT) {
+  } else if (nodeType === NODE_TYPES.DOCUMENT) {
     node = {
       nodeType: NODE_TYPES.DOCUMENT_TYPE,
       nodeName: 'HTML',
     };
-  } else {
-    throw new Error(`Unknown nodeType: ${elementNode.nodeType}`);
   }
 
-  domNodes.push(node);
-  return domNodes.length - 1;
+  if (node) {
+    domNodes.push(node);
+    return domNodes.length - 1;
+  } else {
+    console.log(`Unknown nodeType: ${nodeType}`);
+    return null;
+  }
 };
 
 module.exports = domNodesToCdt;
