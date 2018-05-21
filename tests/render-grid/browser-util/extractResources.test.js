@@ -31,7 +31,7 @@ describe('extractResources', () => {
     expect(resourceUrls).to.deep.equal(expected);
   });
 
-  it('works for scripts', () => {
+  it("doesn't send scripts", () => {
     const htmlStr = `<head>
       <script>console.log('something that should not be included')</script>
       <script src="relative/path/to.js"/>
@@ -39,7 +39,7 @@ describe('extractResources', () => {
     <body>
       <div class='red'>hello</div>
     </body>`;
-    const expected = ['relative/path/to.js'];
+    const expected = [];
 
     const jsdom = new JSDOM(htmlStr);
     const resourceUrls = extractResources(jsdom.window.document.documentElement);

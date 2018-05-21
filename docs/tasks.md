@@ -8,7 +8,7 @@
 - [x] e2e tests
 - [x] npm publish and let's talk productization
 - [x] startServer with fixed port (next tick trick)
-- [ ] avoid global command timeout in cypress.json
+- [x] avoid global command timeout in cypress.json
 - [ ] handle logging
 - [x] readme
 - [ ] extract resources from html (scripts, videos, iframes, etc.)
@@ -21,21 +21,12 @@
 - [x] getAllResources should receive absolute urls
 - [ ] getAllResources should not keep global cache
 - [ ] error handling: close/checkWindow without open
+- [x] proper command logging
+- [ ] docs: troubleshooting section
+- [ ] stop sending scripts
+
 
 ## publish tasks
 - [ ] change `src` to `lib` ?
 - [x] expose `@applitools/eyes.cypress/commands`
-- [ ] merge PR with `renderStatusById` in eyes.sdk.core
-
-## user actions on install
-### plugins file
-- [ ] add `const {startServer} = require '@applitools/eyes.cypress'` to pluginsFile
-- [ ] add `async` to module.exports in plugins file
-- [ ] add `const {eyesPort} = await startServer()`
-- [ ] add `return {eyesPort}`
-### support file
-- [ ] add `import '@applitools/eyes.cypress/commands` to support file
-### cypress.json file (need to remove this)
-- [ ] add `"defaultCommandTimeout": 60000` to config file
-### other
-- [ ] add `APPLITOOLS_API_KEY` to env vars
+- [x] merge PR with `renderStatusById` in eyes.sdk.core

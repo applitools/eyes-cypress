@@ -25,6 +25,7 @@ describe('cypress run', () => {
     await pexec(
       `rm -rf node_modules cypress/videos cypress/screenshots cypress/fixtures package-lock.json`,
     );
+    process.chdir(rootPath);
   });
 
   it('works', async () => {
