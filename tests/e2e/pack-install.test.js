@@ -3,7 +3,7 @@ const {exec} = require('child_process');
 const {resolve} = require('path');
 const {promisify: p} = require('util');
 
-require('dotenv').config();
+require('dotenv').config(); // TODO can this be removed because the plugin already does this?
 const rootPath = resolve(__dirname, '../..');
 const rootPackageJson = require(resolve(rootPath, 'package.json'));
 const testAppPath = resolve(__dirname, '../fixtures/testApp');
@@ -45,7 +45,9 @@ describe('package and install', () => {
     );
 
     try {
-      buff = await pexec('./node_modules/.bin/cypress run');
+      buff = await pexec(
+        './node_modules/.bin/cypress run --config integrationFolder=cypress/integration-pack,pluginsFile=cypress/plugins/index-pack.js,supportFile=cypress/support/index-pack.js',
+      );
       console.log(buff.stdout);
     } catch (ex) {
       console.error('bla bla', ex.stdout);
