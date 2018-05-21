@@ -23,8 +23,9 @@
 - [ ] error handling: close/checkWindow without open
 - [x] proper command logging
 - [ ] docs: troubleshooting section
-- [ ] stop sending scripts
-
+- [x] stop sending scripts
+- [ ] extract doctype into cdt
+- [ ] troubleshoot flag + readme + production path
 
 ## publish tasks
 - [ ] change `src` to `lib` ?

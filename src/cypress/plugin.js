@@ -56,13 +56,13 @@ app.use(cors());
 app.use(morgan('combined'));
 app.get('/hb', (_req, res) => res.sendStatus(200));
 
-app.post('/eyes/:command', express.json(), async (req, res) => {
+app.post('/eyes/:command', express.json({limit: '100mb'}), async (req, res) => {
   log(`eyes api: ${req.params.command}, ${Object.keys(req.body)}`);
   try {
     await eyesCommands[req.params.command](req.body);
     res.sendStatus(200);
   } catch (ex) {
-    console.error('error in eyes api:', ex.message);
+    console.error('error in eyes api:', ex);
     res.sendStatus(500);
   }
 });

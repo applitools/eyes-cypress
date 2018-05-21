@@ -3,3 +3,4 @@ node_modules
 /cypress
 tests/cypress/screenshots
 tests/cypress/videos
+.applitools

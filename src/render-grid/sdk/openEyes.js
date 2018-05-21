@@ -2,6 +2,7 @@ const EyesWrapper = require('./EyesWrapper');
 const getAllResources = require('./getAllResources');
 const getRenderStatus = require('./getRenderStatus');
 const {URL} = require('url');
+const saveData = require('../troubleshoot/saveData');
 
 async function openEyes({
   appName,
@@ -28,6 +29,10 @@ async function openEyes({
       renderWidth,
       renderInfo,
     });
+
+    // TODO troubleshoot flag
+    await saveData({renderId, cdt, resources, url});
+
     const screenshotUrl = await getRenderStatus(renderId, wrapper);
     return await wrapper.checkWindow({screenshotUrl, tag});
   }

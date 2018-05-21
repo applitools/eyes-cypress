@@ -7,7 +7,8 @@
     "test:mocha": "mocha --no-timeouts 'tests/**/*.test.js'",
     "eslint": "eslint '**/*.js'",
     "test": "npm run test:mocha && npm run eslint",
-    "build": ""
+    "build": "",
+    "cypress": "cd tests/fixtures/testApp && cypress open --config integrationFolder=cypress/integration-timeout,pluginsFile=cypress/plugins/index-run.js,supportFile=cypress/support/index-run.js"
   },
   "files": [
     "src",
@@ -22,7 +23,9 @@
     "cors": "^2.8.4",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
+    "he": "^1.1.1",
     "lodash": "^4.17.5",
+    "mime-types": "^2.1.18",
     "morgan": "^1.9.0",
     "node-fetch": "^2.1.2"
   },
