@@ -27,16 +27,15 @@ const EyesServer = {
 };
 
 Cypress.Commands.add('eyesOpen', (appName, testName, viewportSize) => {
-  // TODO: this causes cypress to throw an error that I don't understand: cy.log('Eyes: open');
-  return cy.window().then(win => {
+  Cypress.log({name: 'Eyes: open'});
+  return cy.window({log: false}).then(win => {
     return EyesServer.open(win.location.href, appName, testName, viewportSize);
   });
 });
 
-// TODO get url from test somehow
 Cypress.Commands.add('eyesCheckWindow', () => {
-  cy.log('Eyes: checkWindow'); // TODO so why doesn't this throw an error?
-  return cy.document().then(doc => {
+  Cypress.log({name: 'Eyes: check window'});
+  return cy.document({log: false}).then(doc => {
     const {documentElement} = doc;
     const cdt = domNodesToCdt([documentElement]);
     const resourceUrls = extractResources(documentElement);
@@ -45,6 +44,6 @@ Cypress.Commands.add('eyesCheckWindow', () => {
 });
 
 Cypress.Commands.add('eyesClose', () => {
-  // TODO: this causes cypress to throw an error that I don't understand: cy.log('Eyes: close');
+  Cypress.log({name: 'Eyes: close'});
   return EyesServer.close();
 });
