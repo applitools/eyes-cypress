@@ -2,10 +2,20 @@
 <html lang="en">
 <head>
   <link href="test.css" rel="stylesheet" />
+  <style>
+    @import 'imported2.css';
+  </style>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Zilla+Slab" />
 </head>
 <body>
   <!-- oh so many colors --><div style="color:red;">hi, I'm red</div>
   <div class="blue">We've met already, I'm blue</div>
+  <div class="font-zilla" style="font-size:36px">This is Zilla Slab font</div>
+  <div class="font-shadows" style="font-size:36px">This is Shadows Into Light font</div>
   <img src="smurfs.jpg">
+  <div class="bg-smurfs1" style="margin-bottom:10px;"></div>
+  <div class="bg-smurfs2"></div>
+  <div class="imported2">The background on this should be <a href="https://meyerweb.com/eric/thoughts/2014/06/19/rebeccapurple/">rebeccapurple</a></div>
+  <div class="imported-nested">The background on this should be darkcyan</div>
 </body>
 </html>

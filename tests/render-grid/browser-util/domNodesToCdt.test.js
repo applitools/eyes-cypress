@@ -5,6 +5,8 @@ const {JSDOM} = require('jsdom');
 const domNodesToCdt = require('../../../src/render-grid/browser-util/domNodesToCdt');
 const {NODE_TYPES} = domNodesToCdt;
 const {loadFixture, loadJsonFixture} = require('../../util/loadFixture');
+const _fs = require('fs');
+const {resolve: _r} = require('path');
 
 function getElementNodes(htmlStr) {
   const dom = new JSDOM(htmlStr);
@@ -55,6 +57,7 @@ describe('domNodesToCdt', () => {
   it('works for test.html', () => {
     const elementNodes = getElementNodes(loadFixture('test.html'));
     const cdt = domNodesToCdt(elementNodes);
+    // _fs.writeFileSync(_r(__dirname, '../../fixtures/test.cdt.json'), JSON.stringify(cdt));
     const expectedCdt = loadJsonFixture('test.cdt.json');
     expect(cdt).to.deep.equal(expectedCdt);
   });
