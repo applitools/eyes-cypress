@@ -14,8 +14,11 @@ describe('openEyes', () => {
     baseUrl = `http://localhost:${server.port}`;
     closeServer = server.close;
     wrapper = new FakeEyesWrapper({
-      goodFilename: 'test.cdt.json',
-      goodResourceUrls: [`${baseUrl}/smurfs.jpg`, `${baseUrl}/test.css`],
+      goodFilenames: {good1: 'test.cdt.json', good2: 'test.cdt.1.json'},
+      goodResourceUrls: {
+        good1: [`${baseUrl}/smurfs.jpg`, `${baseUrl}/test.css`],
+        good2: [`${baseUrl}/smurfs.jpg`, `${baseUrl}/test.1.css`],
+      },
       goodTags: ['good1', 'good2'],
     });
   });
@@ -29,9 +32,8 @@ describe('openEyes', () => {
       wrapper,
       url: `${baseUrl}/test.html`,
     });
-    const result = await checkWindow({tag: 'good1'});
-    expect(result.getAsExpected()).to.equal(true);
-    await close();
+    await checkWindow({tag: 'good1'});
+    expect((await close()).map(r => r.getAsExpected())).to.eql([false]);
   });
 
   it('throws with bad tag', async () => {
@@ -39,8 +41,8 @@ describe('openEyes', () => {
       wrapper,
       url: `${baseUrl}/test.html`,
     });
-    expect(await checkWindow({tag: 'bad!'}).then(() => 'ok', () => 'not ok')).to.equal('not ok');
-    await close();
+    await checkWindow({tag: 'bad!'});
+    expect(await close().then(() => 'ok', () => 'not ok')).to.equal('not ok');
   });
 
   it('passes with correct dom', async () => {
@@ -49,19 +51,15 @@ describe('openEyes', () => {
       url: `${baseUrl}/test.html`,
     });
 
-    const resourceUrls = wrapper.goodResourceUrls;
+    const resourceUrls = wrapper.goodResourceUrls.good1;
     const cdt = loadJsonFixture('test.cdt.json');
-    const result = await checkWindow({resourceUrls, cdt, tag: 'good1'});
-    expect(result.getAsExpected()).to.equal(true);
+    await checkWindow({resourceUrls, cdt, tag: 'good1'});
 
-    wrapper.goodFilename = 'test.cdt.1.json';
-    wrapper.goodResourceUrls = [`${baseUrl}/smurfs.jpg`, `${baseUrl}/test.1.css`];
+    const resourceUrls1 = wrapper.goodResourceUrls.good2;
     const cdt1 = loadJsonFixture('test.cdt.1.json');
-    const resourceUrls1 = wrapper.goodResourceUrls;
-    const result1 = await checkWindow({resourceUrls: resourceUrls1, cdt: cdt1, tag: 'good1'});
-    expect(result1.getAsExpected()).to.equal(true);
+    await checkWindow({resourceUrls: resourceUrls1, cdt: cdt1, tag: 'good2'});
 
-    await close();
+    expect((await close()).map(r => r.getAsExpected())).to.eql([true, true]);
   });
 
   it('fails with incorrect dom', async () => {
@@ -72,8 +70,9 @@ describe('openEyes', () => {
     const resourceUrls = ['smurfs.jpg', 'test.css'];
     const cdt = loadJsonFixture('test.cdt.json');
     cdt.find(node => node.nodeValue === "hi, I'm red").nodeValue = "hi, I'm green";
-    const result = await checkWindow({resourceUrls, cdt, tag: 'good1'});
-    expect(result.getAsExpected()).to.equal(false);
-    await close();
+
+    await checkWindow({resourceUrls, cdt, tag: 'good1'});
+
+    expect((await close()).map(r => r.getAsExpected())).to.eql([false]);
   });
 });

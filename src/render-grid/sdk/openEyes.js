@@ -13,32 +13,44 @@ async function openEyes({
   isVerbose = false,
   wrapper = new EyesWrapper({apiKey, isVerbose}),
 }) {
+  const checkWindowPromises = [];
+
   async function checkWindow({resourceUrls, cdt, tag}) {
-    if (!renderInfo) {
-      renderInfo = await wrapper.getRenderInfo();
+    async function checkWindowDo() {
+      if (!renderInfo) {
+        renderInfo = await wrapper.getRenderInfo();
+      }
+
+      const absoluteUrls =
+        resourceUrls && resourceUrls.map(resourceUrl => new URL(resourceUrl, url).href);
+      const resources = await getAllResources(absoluteUrls);
+
+      const renderId = await wrapper.postRender({
+        url,
+        resources,
+        tag,
+        cdt,
+        viewportSize,
+        renderInfo,
+      });
+
+      // TODO troubleshoot flag
+      // await saveData({renderId, cdt, resources, url});
+
+      const screenshotUrl = await getRenderStatus(renderId, wrapper);
+      return await wrapper.checkWindow({screenshotUrl, tag});
     }
+    const checkWindowPromise = checkWindowDo();
 
-    const absoluteUrls =
-      resourceUrls && resourceUrls.map(resourceUrl => new URL(resourceUrl, url).href);
-    const resources = await getAllResources(absoluteUrls);
-
-    const renderId = await wrapper.postRender({
-      url,
-      resources,
-      cdt,
-      viewportSize,
-      renderInfo,
-    });
-
-    // TODO troubleshoot flag
-    // await saveData({renderId, cdt, resources, url});
-
-    const screenshotUrl = await getRenderStatus(renderId, wrapper);
-    return await wrapper.checkWindow({screenshotUrl, tag});
+    checkWindowPromises.push(checkWindowPromise);
   }
 
   async function close() {
-    return await wrapper.close();
+    const results = await Promise.all(checkWindowPromises);
+
+    await wrapper.close();
+
+    return results;
   }
 
   let renderInfo;

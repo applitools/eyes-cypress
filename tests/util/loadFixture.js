@@ -4,6 +4,7 @@ const path = require('path');
 function loadJsonFixture(filename) {
   const json = require(`../fixtures/${filename}`);
 
+  // must be a copy of the json fixture
   return JSON.parse(JSON.stringify(json));
 }
 

@@ -19,11 +19,11 @@ function getSha256Hash(content) {
 }
 
 class FakeEyesWrapper {
-  constructor({goodFilename, goodResourceUrls, goodTags}) {
+  constructor({goodFilenames, goodResourceUrls, goodTags}) {
     this._logger = {
       verbose: console.log,
     };
-    this.goodFilename = goodFilename;
+    this.goodFilenames = goodFilenames;
     this.goodResourceUrls = goodResourceUrls;
     this.goodTags = goodTags;
   }
@@ -33,6 +33,7 @@ class FakeEyesWrapper {
   async postRender({
     url: _url,
     resources,
+    tag,
     cdt,
     renderWidth: _renderWidth,
     renderInfo: _renderInfo,
@@ -41,10 +42,11 @@ class FakeEyesWrapper {
       url: resourceUrl,
       hash: resources[resourceUrl].getSha256Hash(),
     }));
-    const isGoodCdt = !cdt || compare(cdt, this.expectedCdt);
-    const isGoodResources =
-      !actualResources.length || compare(actualResources, this.expectedResources);
-    const isGood = isGoodCdt || isGoodResources;
+    const isGoodCdt = !cdt || compare(cdt, this.expectedCdt(tag));
+    const isGoodResources = this.expectedResources(tag).every(
+      er => !!actualResources.find(ar => compare(er, ar)),
+    );
+    const isGood = isGoodCdt && isGoodResources;
     return isGood ? GOOD_RENDER_ID : BAD_RENDER_ID;
   }
 
@@ -71,12 +73,12 @@ class FakeEyesWrapper {
 
   async close() {}
 
-  get expectedCdt() {
-    return loadJsonFixture(this.goodFilename);
+  expectedCdt(tag) {
+    return loadJsonFixture(this.goodFilenames[tag]);
   }
 
-  get expectedResources() {
-    return this.goodResourceUrls.map(resourceUrl => ({
+  expectedResources(tag) {
+    return this.goodResourceUrls[tag].map(resourceUrl => ({
       url: resourceUrl,
       hash: getSha256Hash(loadFixtureBuffer(new URL(resourceUrl).pathname.slice(1))),
     }));
