@@ -13,7 +13,7 @@ async function openEyes({
   isVerbose = false,
   wrapper = new EyesWrapper({apiKey, isVerbose}),
 }) {
-  const checkWindowPromises = [];
+  const renderPromises = [];
 
   async function checkWindow({resourceUrls, cdt, tag}) {
     async function checkWindowDo() {
@@ -38,15 +38,21 @@ async function openEyes({
       // await saveData({renderId, cdt, resources, url});
 
       const screenshotUrl = await getRenderStatus(renderId, wrapper);
-      return await wrapper.checkWindow({screenshotUrl, tag});
-    }
-    const checkWindowPromise = checkWindowDo();
 
-    checkWindowPromises.push(checkWindowPromise);
+      return {screenshotUrl, tag};
+    }
+    const renderPromise = checkWindowDo();
+
+    renderPromises.push(renderPromise);
   }
 
   async function close() {
-    const results = await Promise.all(checkWindowPromises);
+    const renderResults = await Promise.all(renderPromises);
+
+    const results = [];
+    for (const renderResult of renderResults) {
+      results.push(await wrapper.checkWindow(renderResult));
+    }
 
     await wrapper.close();
 
