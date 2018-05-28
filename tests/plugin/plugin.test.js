@@ -16,8 +16,8 @@ describe('cypress plugin', () => {
     closeTestServer = testServer.close;
   });
 
-  after(() => {
-    closeTestServer();
+  after(async () => {
+    await closeTestServer();
   });
 
   afterEach(() => {
@@ -73,6 +73,7 @@ describe('cypress plugin', () => {
       });
 
       const resp = await send('close');
+
       expect(resp.status).to.equal(200);
     });
 

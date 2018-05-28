@@ -7,10 +7,11 @@ const {URL} = require('url');
 async function openEyes({
   appName,
   testName,
-  viewportSize,
+  viewportSize = {width: 1024, height: 768},
   url,
   apiKey,
-  wrapper = new EyesWrapper({apiKey}),
+  isVerbose = false,
+  wrapper = new EyesWrapper({apiKey, isVerbose}),
 }) {
   async function checkWindow({resourceUrls, cdt, tag}) {
     if (!renderInfo) {
@@ -21,12 +22,11 @@ async function openEyes({
       resourceUrls && resourceUrls.map(resourceUrl => new URL(resourceUrl, url).href);
     const resources = await getAllResources(absoluteUrls);
 
-    const renderWidth = viewportSize ? viewportSize.width : 1024; // TODO is viewportSize the right thing to use here? what if not defined?
     const renderId = await wrapper.postRender({
       url,
       resources,
       cdt,
-      renderWidth,
+      viewportSize,
       renderInfo,
     });
 

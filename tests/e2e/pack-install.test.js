@@ -25,16 +25,13 @@ describe('package and install', () => {
       .map(x => x.replace('@', ''))
       .join('-');
     packageFilePath = resolve(rootPath, `${packageName}-${version}.tgz`);
-    let buff = await pexec(`npm pack ${rootPath}`);
-    console.log(buff.stdout);
+    await pexec(`npm pack ${rootPath}`);
     process.chdir(testAppPath);
-    buff = await pexec(`npm install ${resolve(rootPath, 'node_modules/cypress')}`);
-    console.log(buff.stdout);
-    buff = await pexec(`npm install ${packageFilePath}`);
-    console.log(buff.stdout);
+    await pexec(`npm install ${resolve(rootPath, 'node_modules/cypress')}`);
+    await pexec(`npm install ${packageFilePath}`);
 
     // TODO remove this when PR is merged
-    buff = await pexec(
+    await pexec(
       `cp ${resolve(
         rootPath,
         'node_modules/@applitools/eyes.sdk.core/lib/server/ServerConnector.js',
@@ -45,12 +42,12 @@ describe('package and install', () => {
     );
 
     try {
-      buff = await pexec(
+      await pexec(
         './node_modules/.bin/cypress run --config integrationFolder=cypress/integration-pack,pluginsFile=cypress/plugins/index-pack.js,supportFile=cypress/support/index-pack.js',
+        {maxBuffer: 10000000},
       );
-      console.log(buff.stdout);
     } catch (ex) {
-      console.error('bla bla', ex.stdout);
+      console.error('Error!', ex.stdout);
       throw ex;
     }
   });

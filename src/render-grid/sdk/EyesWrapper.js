@@ -6,19 +6,21 @@ const {
   ConsoleLogHandler,
   RGridDom,
   RenderRequest,
+  RenderInfo,
 } = require('@applitools/eyes.sdk.core');
 
 const VERSION = require('../../../package.json').version;
 
 class EyesWrapper extends EyesBase {
-  constructor(config = {}) {
+  constructor({apiKey, isVerbose = false} = {}) {
     super();
-    this.setApiKey(config.apiKey);
-    this.setLogHandler(new ConsoleLogHandler(true)); // TODO open to configuration / based on env
+    this.setApiKey(apiKey);
+    this.setLogHandler(new ConsoleLogHandler(isVerbose)); // TODO open to configuration / based on env
   }
 
   async open(appName, testName, viewportSize) {
     await super.openBase(appName, testName);
+
     this._viewportSizeHandler.set(new RectangleSize(viewportSize)); // Not doing this causes an exception at a later
   }
 
@@ -50,17 +52,23 @@ class EyesWrapper extends EyesBase {
    *
    * @param {String} url The url of the page to be rendered
    * @param {RGridDom} rGridDom The DOM of a page with resources
-   * @param {number} [renderWidth]
    * @param {RenderingInfo} [renderingInfo]
    * @return {Promise.<String>} The results of the render
    */
-  async postRender({url, resources, cdt, renderWidth, renderInfo}) {
+  async postRender({url, resources, cdt, viewportSize, renderInfo}) {
     this._serverConnector.setRenderingAuthToken(renderInfo.getAccessToken());
     this._serverConnector.setRenderingServerUrl(renderInfo.getServiceUrl());
     const rGridDom = this.createRGridDom({resources, cdt});
 
-    const renderRequest = new RenderRequest(renderInfo.getResultsUrl(), url, rGridDom, renderWidth);
-    const runningRender = await this._renderWindowTask.postRender(rGridDom, renderRequest);
+    const renderRequest = new RenderRequest(
+      renderInfo.getResultsUrl(),
+      url,
+      rGridDom,
+      RenderInfo.fromRectangleSize(new RectangleSize(viewportSize)),
+      'Linux',
+      'chrome',
+    );
+    const runningRender = await this._renderWindowTask.postRender(renderRequest);
     return runningRender.getRenderId();
   }
 

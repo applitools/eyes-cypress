@@ -15,9 +15,10 @@
         "--timeout",
         "999999",
         "--colors",
-        "${workspaceFolder}/tests/**/*.js"
+        "${workspaceFolder}/tests/**/*.test.js"
       ],
-      "internalConsoleOptions": "openOnSessionStart"
+      "internalConsoleOptions": "openOnSessionStart",
+      "cwd": "${workspaceFolder}"
     },
     {
       "type": "node",

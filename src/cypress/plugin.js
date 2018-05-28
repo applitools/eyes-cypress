@@ -13,10 +13,10 @@ const apiKey = process.env.APPLITOOLS_API_KEY;
 let checkWindow, close;
 
 const eyesCommands = {
-  open: async ({url, appName, testName, viewportSize}) => {
-    const eyes = await openEyes({apiKey, url, appName, testName, viewportSize});
-    checkWindow = eyes.checkWindow;
-    close = eyes.close;
+  open: async ({url, appName, testName, viewportSize, isVerbose}) => {
+    const eyes = await openEyes({apiKey, url, appName, testName, viewportSize, isVerbose});
+    checkWindow = eyes.checkWindow.bind(eyes);
+    close = eyes.close.bind(eyes);
   },
 
   checkWindow: async ({resourceUrls, cdt, tag}) => {
@@ -46,8 +46,10 @@ async function getEyesPort() {
   return port;
 }
 
-function closeEyes() {
-  if (server) server.close();
+async function closeEyes() {
+  if (server) {
+    await new Promise((resolve, reject) => server.close(err => (err ? reject(err) : resolve())));
+  }
   server = null;
 }
 
@@ -75,7 +77,7 @@ Promise.resolve().then(() => {
   });
 });
 
-function moduleExports({port = eyesPort}) {
+function moduleExports({port = eyesPort} = {}) {
   eyesPort = port;
   return {
     getEyesPort,

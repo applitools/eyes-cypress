@@ -3,6 +3,7 @@ const path = require('path');
 
 function loadJsonFixture(filename) {
   const json = require(`../fixtures/${filename}`);
+
   return JSON.parse(JSON.stringify(json));
 }
 
