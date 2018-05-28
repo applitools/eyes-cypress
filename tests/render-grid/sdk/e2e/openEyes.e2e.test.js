@@ -31,7 +31,7 @@ describe('openEyes', () => {
 
     const resourceUrls = ['smurfs.jpg', 'test.css'];
     const cdt = loadJsonFixture('test.cdt.json');
-    await checkWindow({resourceUrls, cdt});
+    await checkWindow({resourceUrls, cdt, tag: 'first'});
     await close();
   });
 
@@ -47,7 +47,7 @@ describe('openEyes', () => {
     const resourceUrls = ['smurfs.jpg', 'test.css'];
     const cdt = loadJsonFixture('test.cdt.json');
     cdt.find(node => node.nodeValue === "hi, I'm red").nodeValue = "hi, I'm green";
-    await checkWindow({resourceUrls, cdt});
+    await checkWindow({resourceUrls, cdt, tag: 'first'});
     expect(await close().then(() => 'ok', err => err)).to.be.instanceOf(DiffsFoundError);
   });
 });

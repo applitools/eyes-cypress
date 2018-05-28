@@ -53,6 +53,7 @@ describe('cypress plugin', () => {
         url: `${baseUrl}/test.html`,
         appName: 'plugin e2e test',
         testName: 'handle checkWindow',
+        tag: 'good1',
         viewportSize: {width: 800, height: 600},
       });
 

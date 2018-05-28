@@ -10,8 +10,8 @@ const EyesServer = {
     return this._send('open', {url, appName, testName, viewportSize});
   },
 
-  checkWindow(resourceUrls, cdt) {
-    return this._send('checkWindow', {resourceUrls, cdt});
+  checkWindow(resourceUrls, cdt, tag) {
+    return this._send('checkWindow', {resourceUrls, cdt, tag});
   },
 
   close() {
@@ -33,13 +33,13 @@ Cypress.Commands.add('eyesOpen', (appName, testName, viewportSize) => {
   });
 });
 
-Cypress.Commands.add('eyesCheckWindow', ({timeout} = {}) => {
+Cypress.Commands.add('eyesCheckWindow', (tag, {timeout} = {}) => {
   Cypress.log({name: 'Eyes: check window'});
   return cy.document({log: false}).then({timeout: timeout || 60000}, doc => {
     const {documentElement} = doc;
     const cdt = domNodesToCdt([documentElement]);
     const resourceUrls = extractResources(documentElement);
-    return EyesServer.checkWindow(resourceUrls, cdt);
+    return EyesServer.checkWindow(resourceUrls, cdt, tag);
   });
 });
 

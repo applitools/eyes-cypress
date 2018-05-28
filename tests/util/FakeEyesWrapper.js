@@ -19,12 +19,13 @@ function getSha256Hash(content) {
 }
 
 class FakeEyesWrapper {
-  constructor({goodFilename, goodResourceUrls}) {
+  constructor({goodFilename, goodResourceUrls, goodTags}) {
     this._logger = {
       verbose: console.log,
     };
     this.goodFilename = goodFilename;
     this.goodResourceUrls = goodResourceUrls;
+    this.goodTags = goodTags;
   }
 
   async open(_appName, _testName, _viewportSize) {}
@@ -56,7 +57,10 @@ class FakeEyesWrapper {
 
   async getRenderInfo() {}
 
-  async checkWindow({screenshotUrl, tag: _tag}) {
+  async checkWindow({screenshotUrl, tag}) {
+    if (this.goodTags && !this.goodTags.includes(tag))
+      throw new Error(`Tag ${tag} should be one of the good tags ${this.goodTags}`);
+
     const result = new MatchResult();
     const asExpected = screenshotUrl === GOOD_SCREENSHOT_URL;
     result.setAsExpected(asExpected);

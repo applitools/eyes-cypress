@@ -30,17 +30,6 @@ describe('package and install', () => {
     await pexec(`npm install ${resolve(rootPath, 'node_modules/cypress')}`);
     await pexec(`npm install ${packageFilePath}`);
 
-    // TODO remove this when PR is merged
-    await pexec(
-      `cp ${resolve(
-        rootPath,
-        'node_modules/@applitools/eyes.sdk.core/lib/server/ServerConnector.js',
-      )} ${resolve(
-        testAppPath,
-        'node_modules/@applitools/eyes.sdk.core/lib/server/ServerConnector.js',
-      )}`,
-    );
-
     try {
       await pexec(
         './node_modules/.bin/cypress run --config integrationFolder=cypress/integration-pack,pluginsFile=cypress/plugins/index-pack.js,supportFile=cypress/support/index-pack.js',
