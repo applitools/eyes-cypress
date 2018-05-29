@@ -47,10 +47,11 @@ async function openEyes({
   }
 
   async function close() {
-    const renderResults = await Promise.all(renderPromises);
-
     const results = [];
-    for (const renderResult of renderResults) {
+
+    for (const renderPromise of renderPromises) {
+      const renderResult = await renderPromise;
+
       results.push(await wrapper.checkWindow(renderResult));
     }
 
