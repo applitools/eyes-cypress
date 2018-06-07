@@ -2,38 +2,16 @@ const fetch = require('node-fetch');
 const {keyBy} = require('lodash');
 const {parse, CSSImportRule, CSSStyleRule, CSSFontFaceRule} = require('cssom');
 const {URL} = require('url');
-
-function getUrlFromCssText(cssText) {
-  const match = cssText.match(/url\((?!['"]?(?:data|http):)['"]?([^'"\)]*)['"]?\)/);
-  return match ? match[1] : match;
-}
-
-function absolutizeUrl(url, absoluteUrl) {
-  return new URL(url, absoluteUrl).href;
-}
-
-function extractResourcesFromStyleSheet(styleSheet, absoluteUrl) {
-  const resourceUrls = [...styleSheet.cssRules].reduce((acc, rule) => {
-    if (rule instanceof CSSImportRule) {
-      return acc.concat(absolutizeUrl(rule.href, absoluteUrl));
-    } else if (rule instanceof CSSFontFaceRule) {
-      return acc.concat(
-        absolutizeUrl(getUrlFromCssText(rule.style.getPropertyValue('src')), absoluteUrl),
-      );
-    } else if (rule instanceof CSSStyleRule) {
-      for (let i = 0, ii = rule.style.length; i < ii; i++) {
-        const url = getUrlFromCssText(rule.style.getPropertyValue(rule.style[i]));
-        url && acc.push(absolutizeUrl(url, absoluteUrl));
-      }
-    }
-    return acc;
-  }, []);
-  return [...new Set(resourceUrls)];
-}
+const extractResourcesFromStyleSheet = require('../shared/extractResourcesFromStyleSheet');
 
 function extractCssResources(cssText, absoluteUrl) {
   const styleSheet = parse(cssText);
-  return extractResourcesFromStyleSheet(styleSheet, absoluteUrl);
+  return extractResourcesFromStyleSheet(styleSheet, absoluteUrl, {
+    isCSSImportRule: rule => rule instanceof CSSImportRule,
+    isCSSFontFaceRule: rule => rule instanceof CSSFontFaceRule,
+    isCSSStyleRule: rule => rule instanceof CSSStyleRule,
+    URL,
+  });
 }
 
 function fetchResources(urls) {

@@ -7,7 +7,7 @@ const testServer = require('../../../util/testServer');
 const {DiffsFoundError} = require('@applitools/eyes.sdk.core');
 const {loadJsonFixture} = require('../../../util/loadFixture');
 
-describe('openEyes', () => {
+describe.only('openEyes', () => {
   let baseUrl, closeServer;
 
   before(async () => {
@@ -23,7 +23,7 @@ describe('openEyes', () => {
   it('passes with correct screenshot', async () => {
     const {checkWindow, close} = await openEyes({
       appName: 'some app',
-      testName: 'some test',
+      testName: 'passes with correct screenshot',
       apiKey: process.env.APPLITOOLS_API_KEY, // TODO bad for tests. what to do
       url: `${baseUrl}/test.html`,
       viewportSize: {width: 800, height: 600},
@@ -38,7 +38,7 @@ describe('openEyes', () => {
   it('fails with incorrect screenshot', async () => {
     const {checkWindow, close} = await openEyes({
       appName: 'some app',
-      testName: 'some test',
+      testName: 'fails with incorrect screenshot',
       apiKey: process.env.APPLITOOLS_API_KEY, // TODO bad for tests. what to do
       url: `${baseUrl}/test.html`,
       viewportSize: {width: 800, height: 600},

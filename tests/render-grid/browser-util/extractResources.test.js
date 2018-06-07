@@ -46,6 +46,17 @@ describe('extractResources', () => {
     expect(resourceUrls).to.deep.equal(expected);
   });
 
+  it.skip('works for resources inside style tag', () => {
+    const htmlStr = `<style>@import 'imported2.css'</style>`;
+    const expected = [];
+    const jsdom = new JSDOM(htmlStr);
+    const resourceUrls = extractResources(
+      jsdom.window.document.documentElement,
+      jsdom.window.location.href,
+    );
+    expect(resourceUrls).to.deep.equal(expected);
+  });
+
   // TODO
   it.skip('works for font', () => {
     const htmlStr = `<body/>`;

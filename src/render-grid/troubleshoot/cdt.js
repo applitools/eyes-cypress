@@ -73,6 +73,7 @@ function renderDomNodesToHtml(domNodes) {
     }
   }
 
+  if (!domNodes) return '';
   return renderCdtDomNode(domNodes, 0);
 }
 
@@ -112,6 +113,8 @@ function createAbsolutizedDomNodes(domNodes, resources, baseUrl) {
       absolutizeChildren(domNodes, node, {baseUrl});
     }
   }
+
+  if (!domNodes || !domNodes.length) return domNodes;
 
   const newDomNodes = [...domNodes];
 
