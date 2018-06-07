@@ -15,7 +15,7 @@
 - [ ] look inside css/svg/? (imports, fonts, bg images)
 - [ ] support multiple viewport sizes in one render
 - [ ] support renderInfo instead of renderWidth (with sizeMode)
-- [x] getRenderStatus - pass wrapper and timeout of 2 minutes
+- [x] waitForRenderedStatus - pass wrapper and timeout of 2 minutes
 - [ ] optimize: background renders, matchWindow loop, queues
 - [ ] add 'use strict'
 - [x] getAllResources should receive absolute urls

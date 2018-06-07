@@ -22,6 +22,7 @@ class FakeEyesWrapper {
   constructor({goodFilenames, goodResourceUrls, goodTags}) {
     this._logger = {
       verbose: console.log,
+      log: console.log,
     };
     this.goodFilenames = goodFilenames;
     this.goodResourceUrls = goodResourceUrls;
