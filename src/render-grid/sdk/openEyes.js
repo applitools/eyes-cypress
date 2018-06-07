@@ -1,6 +1,6 @@
 const EyesWrapper = require('./EyesWrapper');
 const getAllResources = require('./getAllResources');
-const getRenderStatus = require('./getRenderStatus');
+const waitForRenderedStatus = require('./waitForRenderedStatus');
 const {URL} = require('url');
 // const saveData = require('../troubleshoot/saveData');
 
@@ -37,7 +37,7 @@ async function openEyes({
       // TODO troubleshoot flag
       // await saveData({renderId, cdt, resources, url});
 
-      const screenshotUrl = await getRenderStatus(renderId, wrapper);
+      const screenshotUrl = await waitForRenderedStatus(renderId, wrapper);
 
       return {screenshotUrl, tag};
     }

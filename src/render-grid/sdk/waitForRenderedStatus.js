@@ -5,10 +5,10 @@ const GET_STATUS_INTERVAL = 500; // TODO take from SDK?
 const TIMEOUT = 120000; // 2 minutes of timeout
 const psetTimeout = p(setTimeout);
 
-async function getRenderStatus(renderId, wrapper) {
+async function waitForRenderedStatus(renderId, wrapper) {
   async function getStatus() {
     if (timeoutReached) {
-      wrapper._logger.verbose('getRenderStatus: timeout reached');
+      wrapper._logger.verbose('waitForRenderedStatus: timeout reached');
       return;
     }
 
@@ -35,7 +35,7 @@ async function getRenderStatus(renderId, wrapper) {
   return await getStatus();
 }
 
-module.exports = getRenderStatus;
+module.exports = waitForRenderedStatus;
 
 /*****
  * TODO: when this is rewritten to be optimized, it should query status for multiple renderIds
