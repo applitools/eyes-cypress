@@ -1,3 +1,4 @@
+'use strict';
 const {keyBy} = require('lodash');
 const fetchResource = require('./fetchResource');
 

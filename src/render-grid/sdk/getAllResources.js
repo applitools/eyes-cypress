@@ -6,8 +6,8 @@ const {RGridResource} = require('@applitools/eyes.sdk.core');
 
 // NOTE: `let` and not `const` because of tests
 let allResources = {_cache: {}};
-allResources.add = (entry, dependentEntries) => {
-  allResources._cache[entry.url] = {...entry, dependencies: dependentEntries};
+allResources.add = (entry, dependencies) => {
+  allResources._cache[entry.url] = Object.assign({dependencies}, entry);
 };
 
 allResources.getWithDependencies = key => {
