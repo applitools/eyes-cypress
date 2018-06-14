@@ -43,6 +43,7 @@ async function getAllResources(absoluteUrls = []) {
   if (missingResourceUrls.length) {
     log(`fetching missing resources: ${missingResourceUrls}`);
     const fetchedResources = await fetchResources(missingResourceUrls);
+    log(`fetched missing resources: ${Object.keys(fetchedResources)}`); // inner css resources might lead to more `fetchedResources` than `missingResourceUrls`
     const fetchedResourcesToReturn = mapValues(fetchedResources, fromFetchedToRGridResource);
     const fetchedResourcesForCache = mapValues(fetchedResourcesToReturn, toCacheEntry);
     Object.assign(allResources, fetchedResourcesForCache); // add to cache without the buffer

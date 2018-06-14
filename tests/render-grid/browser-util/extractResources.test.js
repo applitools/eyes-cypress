@@ -1,23 +1,37 @@
-const {describe, it} = require('mocha');
+const {describe, it, before, after} = require('mocha');
 const {expect} = require('chai');
-const {JSDOM} = require('jsdom');
-const extractResources = require('../../../src/render-grid/browser-util/extractResources');
+const puppeteer = require('puppeteer');
+const _extractResources = require('../../../src/render-grid/browser-util/extractResources');
+
+const extractResources = new Function(`return (${_extractResources})(document.documentElement)`);
 
 describe('extractResources', () => {
-  it('works for img', () => {
+  let browser, page;
+  before(async () => {
+    browser = await puppeteer.launch();
+    page = await browser.newPage();
+  });
+
+  after(async () => {
+    await browser.close();
+  });
+
+  it('works for img', async () => {
     const htmlStr = `<body>
         <div style="color:red;">hello</div><img src="https://is2-ssl.mzstatic.com/image/thumb/Video117/v4/15/c8/06/15c8063f-c4c7-c6dd-d531-5b2814ddc634/source/227x227bb.jpg">
     </body>`;
+
+    await page.goto(`data:text/html,${htmlStr}`);
+
     const expected = [
       'https://is2-ssl.mzstatic.com/image/thumb/Video117/v4/15/c8/06/15c8063f-c4c7-c6dd-d531-5b2814ddc634/source/227x227bb.jpg',
     ];
 
-    const jsdom = new JSDOM(htmlStr);
-    const resourceUrls = extractResources(jsdom.window.document.documentElement);
+    const resourceUrls = await page.evaluate(extractResources);
     expect(resourceUrls).to.deep.equal(expected);
   });
 
-  it('works for css', () => {
+  it('works for css', async () => {
     const htmlStr = `<head>
       <link href="http://link/to/css" rel="stylesheet" />
     </head>
@@ -26,12 +40,12 @@ describe('extractResources', () => {
     </body>`;
     const expected = ['http://link/to/css'];
 
-    const jsdom = new JSDOM(htmlStr);
-    const resourceUrls = extractResources(jsdom.window.document.documentElement);
+    await page.goto(`data:text/html,${htmlStr}`);
+    const resourceUrls = await page.evaluate(extractResources);
     expect(resourceUrls).to.deep.equal(expected);
   });
 
-  it("doesn't send scripts", () => {
+  it("doesn't send scripts", async () => {
     const htmlStr = `<head>
       <script>console.log('something that should not be included')</script>
       <script src="relative/path/to.js"/>
@@ -41,19 +55,16 @@ describe('extractResources', () => {
     </body>`;
     const expected = [];
 
-    const jsdom = new JSDOM(htmlStr);
-    const resourceUrls = extractResources(jsdom.window.document.documentElement);
+    await page.goto(`data:text/html,${htmlStr}`);
+    const resourceUrls = await page.evaluate(extractResources);
     expect(resourceUrls).to.deep.equal(expected);
   });
 
-  it.skip('works for resources inside style tag', () => {
+  it('works for resources inside style tag', async () => {
     const htmlStr = `<style>@import 'imported2.css'</style>`;
-    const expected = [];
-    const jsdom = new JSDOM(htmlStr);
-    const resourceUrls = extractResources(
-      jsdom.window.document.documentElement,
-      jsdom.window.location.href,
-    );
+    const expected = ['imported2.css'];
+    await page.goto(`data:text/html,${htmlStr}`);
+    const resourceUrls = await page.evaluate(extractResources);
     expect(resourceUrls).to.deep.equal(expected);
   });
 

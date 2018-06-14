@@ -7,9 +7,16 @@ const log = require('../render-grid/sdk/log');
 const {promisify: p} = require('util');
 
 /*****************************/
-/******* Eyes Commands *******/
+/******* Eyes API key *******/
 /*****************************/
 const apiKey = process.env.APPLITOOLS_API_KEY;
+if (!apiKey) {
+  throw new Error('APPLITOOLS_API_KEY env variable is not defined');
+}
+
+/*****************************/
+/******* Eyes Commands *******/
+/*****************************/
 let checkWindow, close;
 
 const eyesCommands = {
