@@ -15,7 +15,7 @@ async function waitForRenderedStatus(renderId, wrapper) {
     try {
       const renderStatus = await wrapper.getRenderStatus(renderId);
       const status = renderStatus.getStatus();
-      if (status === RenderStatus.RENDERING) {
+      if (!status || status === RenderStatus.RENDERING) {
         await psetTimeout(GET_STATUS_INTERVAL);
         return await getStatus();
       } else if (status === RenderStatus.ERROR) {

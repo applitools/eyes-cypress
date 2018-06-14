@@ -6,8 +6,8 @@ const makeSend = require('./makeSend');
 const send = makeSend(Cypress.config('eyesPort') || require('./defaultPort'), fetch);
 
 const EyesServer = {
-  open(url, appName, testName, viewportSize) {
-    return this._send('open', {url, appName, testName, viewportSize});
+  open(url, appName, testName, viewportSize, isVerbose) {
+    return this._send('open', {url, appName, testName, viewportSize, isVerbose});
   },
 
   checkWindow(resourceUrls, cdt, tag) {
@@ -26,10 +26,10 @@ const EyesServer = {
   },
 };
 
-Cypress.Commands.add('eyesOpen', (appName, testName, viewportSize) => {
+Cypress.Commands.add('eyesOpen', (appName, testName, viewportSize, isVerbose) => {
   Cypress.log({name: 'Eyes: open'});
   return cy.window({log: false}).then(win => {
-    return EyesServer.open(win.location.href, appName, testName, viewportSize);
+    return EyesServer.open(win.location.href, appName, testName, viewportSize, isVerbose);
   });
 });
 

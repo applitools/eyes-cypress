@@ -3,8 +3,8 @@
 
 
 "@applitools/eyes.sdk.core@^1.6.0":
-  version "1.6.1"
-  resolved "https://registry.yarnpkg.com/@applitools/eyes.sdk.core/-/eyes.sdk.core-1.6.1.tgz#6c92fb00ec1f075878f0009fe30a77b89dae2506"
+  version "1.6.2"
+  resolved "https://registry.yarnpkg.com/@applitools/eyes.sdk.core/-/eyes.sdk.core-1.6.2.tgz#134ecb8b4cf8ea30573e2cd1f5793de249c0a1fb"
   dependencies:
     axios "^0.18.0"
     dateformat "^3.0.3"
@@ -1015,8 +1015,8 @@ flat-cache@^1.2.1:
     write "^0.2.1"
 
 follow-redirects@^1.3.0:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.4.1.tgz#d8120f4518190f55aac65bb6fc7b85fcd666d6aa"
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/follow-redirects/-/follow-redirects-1.5.0.tgz#234f49cf770b7f35b40e790f636ceba0c3a0ab77"
   dependencies:
     debug "^3.1.0"
 
