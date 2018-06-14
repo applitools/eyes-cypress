@@ -147,13 +147,12 @@ describe('getAllResources', () => {
     }
   });
 
-  it.only('gets inner css resources also for cached resources', async () => {
+  it('gets inner css resources also for cached resources', async () => {
     const server = await testServer();
     closeServer = server.close;
 
     const baseUrl = `http://localhost:${server.port}`;
 
-    const jpgName = 'smurfs.jpg';
     const jpgName1 = 'smurfs1.jpg';
     const jpgName2 = 'smurfs2.jpg';
     const jpgName3 = 'smurfs3.jpg';

@@ -67,14 +67,4 @@ describe('extractResources', () => {
     const resourceUrls = await page.evaluate(extractResources);
     expect(resourceUrls).to.deep.equal(expected);
   });
-
-  // TODO
-  it.skip('works for font', () => {
-    const htmlStr = `<body/>`;
-    const expected = [];
-
-    const jsdom = new JSDOM(htmlStr);
-    const resourceUrls = extractResources(jsdom.window.document.documentElement);
-    expect(resourceUrls).to.deep.equal(expected);
-  });
 });
