@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test:mocha": ": ${APPLITOOLS_API_KEY:?} && mocha --no-timeouts 'tests/**/*.test.js'",
+    "test:mocha": "mocha --no-timeouts 'tests/**/*.test.js'",
     "eslint": "eslint '**/*.js'",
     "test": "npm run test:mocha && npm run eslint",
     "build": "#",
@@ -41,6 +41,7 @@
     "jsdom": "^11.11.0",
     "mocha": "^5.2.0",
     "nock": "^9.2.6",
-    "prettier": "^1.13.0"
+    "prettier": "^1.13.0",
+    "puppeteer": "^1.5.0"
   }
 }
