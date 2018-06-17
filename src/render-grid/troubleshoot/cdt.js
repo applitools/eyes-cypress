@@ -123,10 +123,23 @@ function createAbsolutizedDomNodes(domNodes, resources, baseUrl) {
   return newDomNodes;
 }
 
+function getFileExtension(contentType) {
+  let fileExtension = extension(contentType);
+
+  // NOTE: this is because of missing mime type(s) in the `mime-db` package. Patching more missing types should be done inside this `if` statement.
+  if (!fileExtension) {
+    if (contentType === 'application/font-woff2') {
+      fileExtension = 'woff2';
+    }
+  }
+
+  return fileExtension;
+}
+
 function getResourceName(resource) {
   const sha256 = resource.getSha256Hash();
-  const contentType = resource.getContentType();
-  return `${sha256}.${extension(contentType)}`;
+  const fileExtension = getFileExtension(resource.getContentType());
+  return `${sha256}.${fileExtension}`;
 }
 
 module.exports = {
