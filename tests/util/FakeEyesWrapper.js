@@ -31,7 +31,7 @@ class FakeEyesWrapper {
 
   async open(_appName, _testName, _viewportSize) {}
 
-  async postRender({
+  async renderBatch({
     url: _url,
     resources,
     tag,

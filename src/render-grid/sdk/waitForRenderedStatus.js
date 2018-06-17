@@ -5,7 +5,7 @@ const GET_STATUS_INTERVAL = 500; // TODO take from SDK?
 const TIMEOUT = 120000; // 2 minutes of timeout
 const psetTimeout = p(setTimeout);
 
-async function waitForRenderedStatus(renderId, wrapper) {
+async function waitForRenderedStatus(renderIds, wrapper) {
   async function getStatus() {
     if (timeoutReached) {
       wrapper._logger.verbose('waitForRenderedStatus: timeout reached');
@@ -13,16 +13,22 @@ async function waitForRenderedStatus(renderId, wrapper) {
     }
 
     try {
-      const renderStatus = await wrapper.getRenderStatus(renderId);
-      const status = renderStatus.getStatus();
-      if (!status || status === RenderStatus.RENDERING) {
+      const renderStatus = await wrapper.getRenderStatus(renderIds);
+      const error = renderStatus.find(
+        rs => (rs.getStatus() === RenderStatus.ERROR ? rs.getError() : null),
+      );
+      if (error) {
+        throw error;
+      }
+
+      const statuses = renderStatus.map(rs => rs.getStatus());
+      if (statuses.some(status => !status || status === RenderStatus.RENDERING)) {
         await psetTimeout(GET_STATUS_INTERVAL);
         return await getStatus();
-      } else if (status === RenderStatus.ERROR) {
-        throw renderStatus.getError();
       }
+
       clearTimeout(timeoutId);
-      return renderStatus.getImageLocation();
+      return renderStatus.map(rs => rs.getImageLocation());
     } catch (ex) {
       wrapper._logger.log(`error during getRenderStatus: ${ex}`);
       await psetTimeout(GET_STATUS_INTERVAL); // TODO use GeneralUtils from SDK?

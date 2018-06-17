@@ -2,7 +2,10 @@ const EyesWrapper = require('./EyesWrapper');
 const getAllResources = require('./getAllResources');
 const waitForRenderedStatus = require('./waitForRenderedStatus');
 const {URL} = require('url');
-// const saveData = require('../troubleshoot/saveData');
+const saveData = require('../troubleshoot/saveData');
+const {setIsVerbose} = require('./log');
+
+let batchInfo;
 
 async function openEyes({
   appName,
@@ -11,35 +14,41 @@ async function openEyes({
   url,
   apiKey,
   isVerbose = false,
-  wrapper = new EyesWrapper({apiKey, isVerbose}),
+  saveDebugData = false,
+  wrappers,
 }) {
+  setIsVerbose(isVerbose);
   const renderPromises = [];
 
   async function checkWindow({resourceUrls, cdt, tag}) {
     async function checkWindowDo() {
       if (!renderInfo) {
-        renderInfo = await wrapper.getRenderInfo();
+        renderInfo = await renderWrapper.getRenderInfo();
+        renderWrapper.setRenderingInfo(renderInfo);
       }
 
       const absoluteUrls =
         resourceUrls && resourceUrls.map(resourceUrl => new URL(resourceUrl, url).href);
       const resources = await getAllResources(absoluteUrls);
 
-      const renderId = await wrapper.postRender({
+      const renderIds = await renderWrapper.renderBatch({
         url,
         resources,
         tag,
         cdt,
-        viewportSize,
+        viewportSizes,
         renderInfo,
       });
 
-      // TODO troubleshoot flag
-      // await saveData({renderId, cdt, resources, url});
+      if (saveDebugData) {
+        for (const renderId of renderIds) {
+          await saveData({renderId, cdt, resources, url});
+        }
+      }
 
-      const screenshotUrl = await waitForRenderedStatus(renderId, wrapper);
+      const screenshotUrls = await waitForRenderedStatus(renderIds, renderWrapper);
 
-      return {screenshotUrl, tag};
+      return {screenshotUrls, tag};
     }
     const renderPromise = checkWindowDo();
 
@@ -50,19 +59,37 @@ async function openEyes({
     const results = [];
 
     for (const renderPromise of renderPromises) {
-      const renderResult = await renderPromise;
-
-      results.push(await wrapper.checkWindow(renderResult));
+      const {screenshotUrls, tag} = await renderPromise;
+      for (let i = 0, ii = screenshotUrls.length; i < ii; i++) {
+        results.push(await wrappers[i].checkWindow({screenshotUrl: screenshotUrls[i], tag}));
+      }
     }
 
-    await wrapper.close();
+    await Promise.all(wrappers.map(wrapper => wrapper.close()));
 
     return results;
   }
 
-  let renderInfo;
+  async function initWrappers() {
+    wrappers = wrappers || [];
+    for (const viewportSize of viewportSizes) {
+      const wrapper = new EyesWrapper({apiKey, isVerbose});
+      await wrapper.open(appName, testName, viewportSize);
+      wrappers.push(wrapper);
+    }
 
-  await wrapper.open(appName, testName, viewportSize);
+    renderWrapper = wrappers[0];
+    if (!batchInfo) {
+      batchInfo = renderWrapper.getBatch();
+      for (const wrapper of wrappers) {
+        wrapper.setBatch(batchInfo);
+      }
+    }
+  }
+
+  let renderInfo, renderWrapper;
+  const viewportSizes = Array.isArray(viewportSize) ? viewportSize : [viewportSize];
+  initWrappers();
 
   return {
     checkWindow,

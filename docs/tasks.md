@@ -13,7 +13,7 @@
 - [x] readme
 - [x] extract resources from html (scripts, videos, iframes, etc.)
 - [x] look inside css/svg/? (imports, fonts, bg images)
-- [ ] support renderInfo instead of renderWidth (with sizeMode)
+- [x] support renderInfo instead of renderWidth (with sizeMode)
 - [x] waitForRenderedStatus - pass wrapper and timeout of 2 minutes
 - [ ] optimize: background renders, matchWindow loop, queues
 - [ ] add 'use strict'
@@ -32,7 +32,7 @@
 - [ ] test coverage for actual test creation in eyes server (need metadata from Adam)
 - [ ] improve readme with examples
 - [ ] fail test with proper link to eyes in the `close` command
-- [ ] support multiple viewport sizes in one render
+- [x] support multiple viewport sizes in one render
 
 ## publish tasks
 - [ ] change `src` to `lib` ?

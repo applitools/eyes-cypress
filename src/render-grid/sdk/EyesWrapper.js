@@ -47,6 +47,11 @@ class EyesWrapper extends EyesBase {
     return await this._serverConnector.renderInfo();
   }
 
+  setRenderingInfo(renderingInfo) {
+    this._serverConnector.setRenderingAuthToken(renderingInfo.getAccessToken());
+    this._serverConnector.setRenderingServerUrl(renderingInfo.getServiceUrl());
+  }
+
   /**
    * Create a screenshot of a page on RenderingGrid server
    *
@@ -55,29 +60,27 @@ class EyesWrapper extends EyesBase {
    * @param {RenderingInfo} [renderingInfo]
    * @return {Promise.<String>} The results of the render
    */
-  async postRender({url, resources, cdt, viewportSize, renderInfo}) {
-    this._serverConnector.setRenderingAuthToken(renderInfo.getAccessToken());
-    this._serverConnector.setRenderingServerUrl(renderInfo.getServiceUrl());
+  async renderBatch({url, resources, cdt, viewportSizes, renderInfo}) {
     const rGridDom = this.createRGridDom({resources, cdt});
 
-    const renderRequest = new RenderRequest(
-      renderInfo.getResultsUrl(),
-      url,
-      rGridDom,
-      RenderInfo.fromRectangleSize(new RectangleSize(viewportSize)),
-      'Linux',
-      'chrome',
+    const renderRequests = viewportSizes.map(
+      viewportSize =>
+        new RenderRequest(
+          renderInfo.getResultsUrl(),
+          url,
+          rGridDom,
+          RenderInfo.fromRectangleSize(new RectangleSize(viewportSize)),
+          'Linux',
+          'chrome',
+        ),
     );
-    const runningRender = await this._renderWindowTask.postRender(renderRequest);
-    return runningRender.getRenderId();
+
+    const runningRenders = await this._renderWindowTask.postRenderBatch(renderRequests);
+    return runningRenders.map(rr => rr.getRenderId());
   }
 
   async getRenderStatus(renderId) {
     return await this._serverConnector.renderStatusById(renderId);
-  }
-
-  async getRenderStatusByIds(renderIds) {
-    return await this._serverConnector.getRenderStatusByIds(renderIds);
   }
 
   async checkWindow({screenshotUrl, tag}) {

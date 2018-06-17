@@ -7,4 +7,8 @@ function log(msg) {
   logger.verbose(msg);
 }
 
+log.setIsVerbose = function(isVerbose) {
+  logger._logHandler.setIsVerbose(isVerbose);
+};
+
 module.exports = log;
