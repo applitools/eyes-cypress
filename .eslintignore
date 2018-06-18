@@ -3,3 +3,4 @@ tests/fixtures/testApp/cypress/support
 tests/fixtures/testApp/cypress/integration-run
 tests/fixtures/testApp/cypress/integration-pack
 tests/fixtures/testApp/cypress/integration-timeout
+node_modules
