@@ -4,16 +4,19 @@ const fs = require('fs');
 const {promisify: p} = require('util');
 const {resolve} = require('path');
 const {renderDomNodesToHtml, createAbsolutizedDomNodes, getResourceName} = require('./cdt');
+const getFolderName = require('./getFolderName');
 const {mapValues} = require('lodash');
+const _mkdirp = require('mkdirp');
 
 const writeFile = p(fs.writeFile);
-const mkdir = p(fs.mkdir);
+const mkdirp = p(_mkdirp);
 
 async function saveData({renderId, cdt, resources, url}) {
   log(`saving data for renderId=${renderId}`);
-  const path = resolve(__dirname, '../../../.applitools', renderId); // TODO production path
+  const folderName = getFolderName(renderId, new Date());
+  const path = resolve(process.cwd(), '.applitools', folderName);
   try {
-    await mkdir(path);
+    await mkdirp(path);
   } catch (ex) {
     log(`${path} already exists`);
   }
