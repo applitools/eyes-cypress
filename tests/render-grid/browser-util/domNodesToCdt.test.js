@@ -8,15 +8,15 @@ const {loadFixture, loadJsonFixture} = require('../../util/loadFixture');
 const _fs = require('fs');
 const {resolve: _r} = require('path');
 
-function getElementNodes(htmlStr) {
-  const dom = new JSDOM(htmlStr);
-  return [dom.window.document.documentElement];
+function getDocNode(htmlStr) {
+  const dom = new JSDOM(htmlStr, {url: 'http://something.org/'});
+  return dom.window.document;
 }
 
 describe('domNodesToCdt', () => {
   it('works for DOM with 1 element', () => {
-    const elementNodes = getElementNodes('<div style="color:red;">hello</div>');
-    const cdt = domNodesToCdt(elementNodes);
+    const docNode = getDocNode('<div style="color:red;">hello</div>');
+    const cdt = domNodesToCdt(docNode);
     const expected = [
       {
         nodeType: NODE_TYPES.DOCUMENT,
@@ -55,9 +55,9 @@ describe('domNodesToCdt', () => {
   });
 
   it('works for test.html', () => {
-    const elementNodes = getElementNodes(loadFixture('test.html'));
-    const cdt = domNodesToCdt(elementNodes);
-    // _fs.writeFileSync(_r(__dirname, '../../fixtures/test.cdt.json'), JSON.stringify(cdt));
+    const docNode = getDocNode(loadFixture('test.html'));
+    const cdt = domNodesToCdt(docNode);
+    // _fs.writeFileSync(_r(__dirname, '../../fixtures/test.cdt.json'), JSON.stringify(cdt, null, 2));
     const expectedCdt = loadJsonFixture('test.cdt.json');
     expect(cdt).to.deep.equal(expectedCdt);
   });

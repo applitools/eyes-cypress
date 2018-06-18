@@ -23,10 +23,10 @@
 - [x] proper command logging
 - [ ] docs: troubleshooting section
 - [x] stop sending scripts
-- [ ] extract doctype into cdt
+- [x] extract doctype into cdt
 - [ ] troubleshoot flag + readme + production path
-- [ ] check `UnhandledPromiseRejectionWarning: Error: Not running` in test `starts at a custom port`
-- [ ] check `Error: Could not parse CSS @import URL imported2.css relative to base URL "about:blank"` in test `works for test.html`
+- [x] check `UnhandledPromiseRejectionWarning: Error: Not running` in test `starts at a custom port`
+- [x] check `Error: Could not parse CSS @import URL imported2.css relative to base URL "about:blank"` in test `works for test.html`
 
 ## Discussion w/ Gil
 - [ ] test coverage for actual test creation in eyes server (need metadata from Adam)

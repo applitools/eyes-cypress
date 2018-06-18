@@ -36,9 +36,8 @@ Cypress.Commands.add('eyesOpen', (appName, testName, viewportSize, isVerbose) =>
 Cypress.Commands.add('eyesCheckWindow', (tag, {timeout} = {}) => {
   Cypress.log({name: 'Eyes: check window'});
   return cy.document({log: false}).then({timeout: timeout || 60000}, doc => {
-    const {documentElement} = doc;
-    const cdt = domNodesToCdt([documentElement]);
-    const resourceUrls = extractResources(documentElement);
+    const cdt = domNodesToCdt(doc);
+    const resourceUrls = extractResources(doc);
     return EyesServer.checkWindow(resourceUrls, cdt, tag);
   });
 });

@@ -6,13 +6,13 @@ const NODE_TYPES = {
   DOCUMENT_TYPE: 10,
 };
 
-function domNodesToCdt(elementNodes) {
+function domNodesToCdt(docNode) {
   const domNodes = [
     {
       nodeType: NODE_TYPES.DOCUMENT,
     },
   ];
-  domNodes[0].childNodeIndexes = childrenFactory(domNodes, elementNodes);
+  domNodes[0].childNodeIndexes = childrenFactory(domNodes, docNode.childNodes);
   return domNodes;
 }
 
@@ -50,10 +50,10 @@ const elementNodeFactory = (domNodes, elementNode) => {
       nodeType: NODE_TYPES.TEXT,
       nodeValue: elementNode.nodeValue,
     };
-  } else if (nodeType === NODE_TYPES.DOCUMENT) {
+  } else if (nodeType === NODE_TYPES.DOCUMENT_TYPE) {
     node = {
       nodeType: NODE_TYPES.DOCUMENT_TYPE,
-      nodeName: 'HTML',
+      nodeName: elementNode.nodeName,
     };
   }
 

@@ -2,8 +2,13 @@
   {
     "nodeType": 9,
     "childNodeIndexes": [
-      39
+      1,
+      40
     ]
+  },
+  {
+    "nodeType": 10,
+    "nodeName": "html"
   },
   {
     "nodeType": 3,
@@ -37,7 +42,7 @@
     "nodeName": "STYLE",
     "attributes": [],
     "childNodeIndexes": [
-      4
+      5
     ]
   },
   {
@@ -68,13 +73,13 @@
     "nodeName": "HEAD",
     "attributes": [],
     "childNodeIndexes": [
-      1,
       2,
       3,
-      5,
+      4,
       6,
       7,
-      8
+      8,
+      9
     ]
   },
   {
@@ -99,7 +104,7 @@
       }
     ],
     "childNodeIndexes": [
-      12
+      13
     ]
   },
   {
@@ -120,7 +125,7 @@
       }
     ],
     "childNodeIndexes": [
-      15
+      16
     ]
   },
   {
@@ -145,7 +150,7 @@
       }
     ],
     "childNodeIndexes": [
-      18
+      19
     ]
   },
   {
@@ -170,7 +175,7 @@
       }
     ],
     "childNodeIndexes": [
-      21
+      22
     ]
   },
   {
@@ -244,7 +249,7 @@
       }
     ],
     "childNodeIndexes": [
-      31
+      32
     ]
   },
   {
@@ -257,8 +262,8 @@
       }
     ],
     "childNodeIndexes": [
-      30,
-      32
+      31,
+      33
     ]
   },
   {
@@ -279,7 +284,7 @@
       }
     ],
     "childNodeIndexes": [
-      35
+      36
     ]
   },
   {
@@ -291,14 +296,13 @@
     "nodeName": "BODY",
     "attributes": [],
     "childNodeIndexes": [
-      11,
-      13,
+      12,
       14,
-      16,
+      15,
       17,
-      19,
+      18,
       20,
-      22,
+      21,
       23,
       24,
       25,
@@ -306,10 +310,11 @@
       27,
       28,
       29,
-      33,
+      30,
       34,
-      36,
-      37
+      35,
+      37,
+      38
     ]
   },
   {
@@ -322,9 +327,9 @@
       }
     ],
     "childNodeIndexes": [
-      9,
       10,
-      38
+      11,
+      39
     ]
   }
 ]
