@@ -13,22 +13,22 @@ async function waitForRenderedStatus(renderIds, wrapper) {
     }
 
     try {
-      const renderStatus = await wrapper.getRenderStatus(renderIds);
-      const error = renderStatus.find(
+      const renderStatuses = await wrapper.getRenderStatus(renderIds);
+      const error = renderStatuses.find(
         rs => (rs.getStatus() === RenderStatus.ERROR ? rs.getError() : null),
       );
       if (error) {
         throw error;
       }
 
-      const statuses = renderStatus.map(rs => rs.getStatus());
+      const statuses = renderStatuses.map(rs => rs.getStatus());
       if (statuses.some(status => !status || status === RenderStatus.RENDERING)) {
         await psetTimeout(GET_STATUS_INTERVAL);
         return await getStatus();
       }
 
       clearTimeout(timeoutId);
-      return renderStatus.map(rs => rs.getImageLocation());
+      return renderStatuses.map(rs => rs.getImageLocation());
     } catch (ex) {
       wrapper._logger.log(`error during getRenderStatus: ${ex}`);
       await psetTimeout(GET_STATUS_INTERVAL); // TODO use GeneralUtils from SDK?

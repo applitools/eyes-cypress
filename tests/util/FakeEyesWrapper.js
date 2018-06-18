@@ -5,6 +5,7 @@ const BAD_SCREENSHOT_URL = 'BAD_SCREENSHOT_URL';
 const GOOD_SCREENSHOT_URL = 'GOOD_SCREENSHOT_URL';
 const BAD_RENDER_ID = 'BAD_RENDER_ID';
 const GOOD_RENDER_ID = 'GOOD_RENDER_ID';
+const SOME_BATCH = 'SOME_BATCH';
 const crypto = require('crypto');
 
 function compare(o1, o2) {
@@ -19,46 +20,56 @@ function getSha256Hash(content) {
 }
 
 class FakeEyesWrapper {
-  constructor({goodFilenames, goodResourceUrls, goodTags}) {
+  constructor({goodFilename, goodResourceUrls, goodTags}) {
     this._logger = {
       verbose: console.log,
       log: console.log,
     };
-    this.goodFilenames = goodFilenames;
+    this.goodFilename = goodFilename;
     this.goodResourceUrls = goodResourceUrls;
     this.goodTags = goodTags;
+    this.batch;
   }
 
   async open(_appName, _testName, _viewportSize) {}
 
-  async renderBatch({
-    url: _url,
-    resources,
-    tag,
-    cdt,
-    renderWidth: _renderWidth,
-    renderInfo: _renderInfo,
-  }) {
-    const actualResources = Object.keys(resources).map(resourceUrl => ({
-      url: resourceUrl,
-      hash: resources[resourceUrl].getSha256Hash(),
+  async renderBatch(renderRequests) {
+    return renderRequests.map(renderRequest => this.getRenderIdForRequest(renderRequest));
+  }
+
+  getRenderIdForRequest(renderRequest) {
+    const resources = renderRequest.getResources();
+    const actualResources = resources.map(resource => ({
+      url: resource.getUrl(),
+      hash: resource.getSha256Hash(),
     }));
-    const isGoodCdt = !cdt || compare(cdt, this.expectedCdt(tag));
-    const isGoodResources = this.expectedResources(tag).every(
-      er => !!actualResources.find(ar => compare(er, ar)),
-    );
+    const isGoodResources =
+      !actualResources.length ||
+      this.expectedResources.every(er => !!actualResources.find(ar => compare(er, ar)));
+
+    const cdt = renderRequest.getDom().getDomNodes();
+    const isGoodCdt = cdt.length === 0 || compare(cdt, this.expectedCdt); // allowing [] for easier testing (only need to pass `cdt:[]` in the test)
+
     const isGood = isGoodCdt && isGoodResources;
     return isGood ? GOOD_RENDER_ID : BAD_RENDER_ID;
   }
 
-  async getRenderStatus(renderId) {
-    const result = new RenderStatusResults();
-    result.setStatus(RenderStatus.RENDERED);
-    result.setImageLocation(renderId === GOOD_RENDER_ID ? GOOD_SCREENSHOT_URL : BAD_SCREENSHOT_URL);
-    return result;
+  async getRenderStatus(renderIds) {
+    return renderIds.map(renderId => {
+      const result = new RenderStatusResults();
+      result.setStatus(RenderStatus.RENDERED);
+      result.setImageLocation(
+        renderId === GOOD_RENDER_ID ? GOOD_SCREENSHOT_URL : BAD_SCREENSHOT_URL,
+      );
+      return result;
+    });
   }
 
-  async getRenderInfo() {}
+  async getRenderInfo() {
+    return {getResultsUrl: () => 'some webhook'};
+  }
+
+  setRenderingInfo() {}
 
   async checkWindow({screenshotUrl, tag}) {
     if (this.goodTags && !this.goodTags.includes(tag))
@@ -74,15 +85,23 @@ class FakeEyesWrapper {
 
   async close() {}
 
-  expectedCdt(tag) {
-    return loadJsonFixture(this.goodFilenames[tag]);
+  get expectedCdt() {
+    return loadJsonFixture(this.goodFilename);
   }
 
-  expectedResources(tag) {
-    return this.goodResourceUrls[tag].map(resourceUrl => ({
+  get expectedResources() {
+    return this.goodResourceUrls.map(resourceUrl => ({
       url: resourceUrl,
       hash: getSha256Hash(loadFixtureBuffer(new URL(resourceUrl).pathname.slice(1))),
     }));
+  }
+
+  getBatch() {
+    return this.batch || SOME_BATCH;
+  }
+
+  setBatch(batch) {
+    this.batch = batch;
   }
 }
 

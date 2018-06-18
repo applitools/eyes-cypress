@@ -4,9 +4,6 @@ const {
   NullRegionProvider,
   CheckSettings,
   ConsoleLogHandler,
-  RGridDom,
-  RenderRequest,
-  RenderInfo,
 } = require('@applitools/eyes.sdk.core');
 
 const VERSION = require('../../../package.json').version;
@@ -55,26 +52,10 @@ class EyesWrapper extends EyesBase {
   /**
    * Create a screenshot of a page on RenderingGrid server
    *
-   * @param {String} url The url of the page to be rendered
-   * @param {RGridDom} rGridDom The DOM of a page with resources
-   * @param {RenderingInfo} [renderingInfo]
-   * @return {Promise.<String>} The results of the render
+   * @param {RenderRequest[]} renderRequests The requests to be sent to the rendering grid
+   * @return {Promise.<String[]>} The results of the render
    */
-  async renderBatch({url, resources, cdt, viewportSizes, renderInfo}) {
-    const rGridDom = this.createRGridDom({resources, cdt});
-
-    const renderRequests = viewportSizes.map(
-      viewportSize =>
-        new RenderRequest(
-          renderInfo.getResultsUrl(),
-          url,
-          rGridDom,
-          RenderInfo.fromRectangleSize(new RectangleSize(viewportSize)),
-          'Linux',
-          'chrome',
-        ),
-    );
-
+  async renderBatch(renderRequests) {
     const runningRenders = await this._renderWindowTask.postRenderBatch(renderRequests);
     return runningRenders.map(rr => rr.getRenderId());
   }
@@ -104,15 +85,6 @@ class EyesWrapper extends EyesBase {
 
   async getTitle() {
     return await 'some title'; // TODO what should this be? is it connected with the tag in `checkWindow` somehow?
-  }
-
-  createRGridDom({cdt, resources}) {
-    const resourceArr = Object.values(resources);
-    const rGridDom = new RGridDom();
-    rGridDom.setDomNodes(cdt);
-    rGridDom.setResources(resourceArr);
-
-    return rGridDom;
   }
 }
 

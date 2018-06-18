@@ -1,70 +1,67 @@
 'use strict';
-const {describe, it, before, after} = require('mocha');
+const {describe, it, before, after, beforeEach} = require('mocha');
 const {expect} = require('chai');
 const openEyes = require('../../../../src/render-grid/sdk/openEyes');
 const FakeEyesWrapper = require('../../../util/FakeEyesWrapper');
 const testServer = require('../../../util/testServer');
 const {loadJsonFixture} = require('../../../util/loadFixture');
 
-describe('openEyes', () => {
+describe.only('openEyes', () => {
   let baseUrl, closeServer, wrapper;
 
   before(async () => {
     const server = await testServer({port: 3456}); // TODO fixed port avoids 'need-more-resources' for dom. Is this desired? should both paths be tested?
     baseUrl = `http://localhost:${server.port}`;
     closeServer = server.close;
-    wrapper = new FakeEyesWrapper({
-      goodFilenames: {good1: 'test.cdt.json', good2: 'test.cdt.1.json'},
-      goodResourceUrls: {
-        good1: [`${baseUrl}/smurfs.jpg`, `${baseUrl}/test.css`],
-        good2: [`${baseUrl}/smurfs.jpg`, `${baseUrl}/test.1.css`],
-      },
-      goodTags: ['good1', 'good2'],
-    });
   });
 
   after(() => {
     closeServer();
   });
 
+  beforeEach(() => {
+    openEyes.clearBatch();
+    wrapper = new FakeEyesWrapper({
+      goodFilename: 'test.cdt.json',
+      goodResourceUrls: [`${baseUrl}/smurfs.jpg`, `${baseUrl}/test.css`],
+      goodTags: ['good1', 'good2'],
+    });
+  });
+
   it("doesn't throw exception", async () => {
     const {checkWindow, close} = await openEyes({
-      wrapper,
+      wrappers: [wrapper],
       url: `${baseUrl}/test.html`,
     });
-    await checkWindow({tag: 'good1'});
-    expect((await close()).map(r => r.getAsExpected())).to.eql([false]);
+    await checkWindow({cdt: [], resourceUrls: [], tag: 'good1'});
+    expect((await close()).map(r => r.getAsExpected())).to.eql([true]);
   });
 
   it('throws with bad tag', async () => {
     const {checkWindow, close} = await openEyes({
-      wrapper,
+      wrappers: [wrapper],
       url: `${baseUrl}/test.html`,
     });
-    await checkWindow({tag: 'bad!'});
+    await checkWindow({cdt: [], resourceUrls: [], tag: 'bad!'});
     expect(await close().then(() => 'ok', () => 'not ok')).to.equal('not ok');
   });
 
   it('passes with correct dom', async () => {
     const {checkWindow, close} = await openEyes({
-      wrapper,
+      wrappers: [wrapper],
       url: `${baseUrl}/test.html`,
     });
 
-    const resourceUrls = wrapper.goodResourceUrls.good1;
+    const resourceUrls = wrapper.goodResourceUrls;
     const cdt = loadJsonFixture('test.cdt.json');
     await checkWindow({resourceUrls, cdt, tag: 'good1'});
 
-    const resourceUrls1 = wrapper.goodResourceUrls.good2;
-    const cdt1 = loadJsonFixture('test.cdt.1.json');
-    await checkWindow({resourceUrls: resourceUrls1, cdt: cdt1, tag: 'good2'});
-
-    expect((await close()).map(r => r.getAsExpected())).to.eql([true, true]);
+    expect((await close()).map(r => r.getAsExpected())).to.eql([true]);
   });
 
   it('fails with incorrect dom', async () => {
     const {checkWindow, close} = await openEyes({
-      wrapper,
+      wrappers: [wrapper],
       url: `${baseUrl}/test.html`,
     });
     const resourceUrls = ['smurfs.jpg', 'test.css'];
@@ -74,5 +71,37 @@ describe('openEyes', () => {
     await checkWindow({resourceUrls, cdt, tag: 'good1'});
 
     expect((await close()).map(r => r.getAsExpected())).to.eql([false]);
+  });
+
+  it('renders multiple viewport sizes', async () => {
+    const {checkWindow, close} = await openEyes({
+      wrappers: [wrapper, wrapper, wrapper],
+      viewportSize: [
+        {width: 320, height: 480},
+        {width: 640, height: 768},
+        {width: 1600, height: 900},
+      ],
+      url: `${baseUrl}/test.html`,
+    });
+
+    const resourceUrls = wrapper.goodResourceUrls;
+    const cdt = loadJsonFixture('test.cdt.json');
+    await checkWindow({resourceUrls, cdt, tag: 'good1'});
+    expect((await close()).map(r => r.getAsExpected())).to.eql([true, true, true]);
+  });
+
+  it('runs all tests in the same batch', async () => {
+    const batch = `some batch ${Date.now()}`;
+    wrapper.setBatch(batch);
+    expect(wrapper.getBatch() === batch); // sometimes I'm a little defensive. It's human
+
+    await openEyes({
+      wrappers: [wrapper],
+      url: 'some url',
+    });
+
+    const newWrapper = new FakeEyesWrapper({});
+    await openEyes({wrappers: [newWrapper]});
+    expect(newWrapper.getBatch()).to.equal(batch);
   });
 });

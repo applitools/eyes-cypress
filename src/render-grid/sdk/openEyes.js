@@ -4,6 +4,7 @@ const waitForRenderedStatus = require('./waitForRenderedStatus');
 const {URL} = require('url');
 const saveData = require('../troubleshoot/saveData');
 const {setIsVerbose} = require('./log');
+const createRenderRequests = require('./createRenderRequests');
 
 let batchInfo;
 
@@ -31,14 +32,14 @@ async function openEyes({
         resourceUrls && resourceUrls.map(resourceUrl => new URL(resourceUrl, url).href);
       const resources = await getAllResources(absoluteUrls);
 
-      const renderIds = await renderWrapper.renderBatch({
+      const renderRequests = createRenderRequests({
         url,
         resources,
-        tag,
         cdt,
         viewportSizes,
         renderInfo,
       });
+      const renderIds = await renderWrapper.renderBatch(renderRequests);
 
       if (saveDebugData) {
         for (const renderId of renderIds) {
@@ -71,30 +72,36 @@ async function openEyes({
   }
 
   async function initWrappers() {
-    wrappers = wrappers || [];
     for (const viewportSize of viewportSizes) {
       const wrapper = new EyesWrapper({apiKey, isVerbose});
       await wrapper.open(appName, testName, viewportSize);
       wrappers.push(wrapper);
     }
-
-    renderWrapper = wrappers[0];
-    if (!batchInfo) {
-      batchInfo = renderWrapper.getBatch();
-      for (const wrapper of wrappers) {
-        wrapper.setBatch(batchInfo);
-      }
-    }
   }
 
-  let renderInfo, renderWrapper;
+  let renderInfo;
   const viewportSizes = Array.isArray(viewportSize) ? viewportSize : [viewportSize];
-  initWrappers();
+  if (!wrappers) {
+    initWrappers();
+  }
+
+  const renderWrapper = wrappers[0];
+  if (!batchInfo) {
+    batchInfo = renderWrapper.getBatch();
+  }
+  for (const wrapper of wrappers) {
+    wrapper.setBatch(batchInfo);
+  }
 
   return {
     checkWindow,
     close,
   };
 }
+
+// for tests
+openEyes.clearBatch = () => {
+  batchInfo = null;
+};
 
 module.exports = openEyes;
