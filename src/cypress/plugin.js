@@ -5,14 +5,12 @@ const cors = require('cors');
 const openEyes = require('../render-grid/sdk/openEyes');
 const log = require('../render-grid/sdk/log');
 const {promisify: p} = require('util');
+const {initConfig} = require('./config');
 
 /*****************************/
 /******* Eyes API key *******/
 /*****************************/
-const apiKey = process.env.APPLITOOLS_API_KEY;
-if (!apiKey) {
-  throw new Error('APPLITOOLS_API_KEY env variable is not defined');
-}
+const getConfig = initConfig(process.cwd());
 
 /*****************************/
 /******* Eyes Commands *******/
@@ -20,10 +18,11 @@ if (!apiKey) {
 let checkWindow, close;
 
 const eyesCommands = {
-  open: async ({url, appName, testName, viewportSize, isVerbose}) => {
-    const eyes = await openEyes({apiKey, url, appName, testName, viewportSize, isVerbose});
-    checkWindow = eyes.checkWindow.bind(eyes);
-    close = eyes.close.bind(eyes);
+  open: async args => {
+    const config = Object.assign(getConfig(args));
+    const eyes = await openEyes(config);
+    checkWindow = eyes.checkWindow;
+    close = eyes.close;
   },
 
   checkWindow: async ({resourceUrls, cdt, tag}) => {
@@ -72,7 +71,8 @@ app.post('/eyes/:command', express.json({limit: '100mb'}), async (req, res) => {
     res.sendStatus(200);
   } catch (ex) {
     console.error('error in eyes api:', ex);
-    res.sendStatus(500);
+    console.log(ex.message);
+    res.status(500).send(ex.message);
   }
 });
 

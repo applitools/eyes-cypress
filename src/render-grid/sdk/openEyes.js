@@ -79,6 +79,10 @@ async function openEyes({
     }
   }
 
+  if (!apiKey) {
+    throw new Error('APPLITOOLS_API_KEY env variable is not defined');
+  }
+
   const viewportSizes = Array.isArray(viewportSize) ? viewportSize : [viewportSize];
   if (!wrappers) {
     await initWrappers();
