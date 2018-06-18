@@ -1,1 +1,330 @@
-[{"nodeType":9,"childNodeIndexes":[39]},{"nodeType":3,"nodeValue":"\n  "},{"nodeType":1,"nodeName":"LINK","attributes":[{"name":"href","value":"test.css"},{"name":"rel","value":"stylesheet"}],"childNodeIndexes":[]},{"nodeType":3,"nodeValue":"\n  "},{"nodeType":3,"nodeValue":"\n    @import 'imported2.css';\n  "},{"nodeType":1,"nodeName":"STYLE","attributes":[],"childNodeIndexes":[4]},{"nodeType":3,"nodeValue":"\n  "},{"nodeType":1,"nodeName":"LINK","attributes":[{"name":"rel","value":"stylesheet"},{"name":"href","value":"https://fonts.googleapis.com/css?family=Zilla+Slab"}],"childNodeIndexes":[]},{"nodeType":3,"nodeValue":"\n"},{"nodeType":1,"nodeName":"HEAD","attributes":[],"childNodeIndexes":[1,2,3,5,6,7,8]},{"nodeType":3,"nodeValue":"\n"},{"nodeType":3,"nodeValue":"\n  "},{"nodeType":3,"nodeValue":"hi, I'm red"},{"nodeType":1,"nodeName":"DIV","attributes":[{"name":"style","value":"color:red;"}],"childNodeIndexes":[12]},{"nodeType":3,"nodeValue":"\n  "},{"nodeType":3,"nodeValue":"We've met already, I'm blue"},{"nodeType":1,"nodeName":"DIV","attributes":[{"name":"class","value":"blue"}],"childNodeIndexes":[15]},{"nodeType":3,"nodeValue":"\n  "},{"nodeType":3,"nodeValue":"This is Zilla Slab font"},{"nodeType":1,"nodeName":"DIV","attributes":[{"name":"class","value":"font-zilla"},{"name":"style","value":"font-size:36px"}],"childNodeIndexes":[18]},{"nodeType":3,"nodeValue":"\n  "},{"nodeType":3,"nodeValue":"This is Shadows Into Light font"},{"nodeType":1,"nodeName":"DIV","attributes":[{"name":"class","value":"font-shadows"},{"name":"style","value":"font-size:36px"}],"childNodeIndexes":[21]},{"nodeType":3,"nodeValue":"\n  "},{"nodeType":1,"nodeName":"IMG","attributes":[{"name":"src","value":"smurfs.jpg"}],"childNodeIndexes":[]},{"nodeType":3,"nodeValue":"\n  "},{"nodeType":1,"nodeName":"DIV","attributes":[{"name":"class","value":"bg-smurfs1"},{"name":"style","value":"margin-bottom:10px;"}],"childNodeIndexes":[]},{"nodeType":3,"nodeValue":"\n  "},{"nodeType":1,"nodeName":"DIV","attributes":[{"name":"class","value":"bg-smurfs2"}],"childNodeIndexes":[]},{"nodeType":3,"nodeValue":"\n  "},{"nodeType":3,"nodeValue":"The background on this should be "},{"nodeType":3,"nodeValue":"rebeccapurple"},{"nodeType":1,"nodeName":"A","attributes":[{"name":"href","value":"https://meyerweb.com/eric/thoughts/2014/06/19/rebeccapurple/"}],"childNodeIndexes":[31]},{"nodeType":1,"nodeName":"DIV","attributes":[{"name":"class","value":"imported2"}],"childNodeIndexes":[30,32]},{"nodeType":3,"nodeValue":"\n  "},{"nodeType":3,"nodeValue":"The background on this should be darkcyan"},{"nodeType":1,"nodeName":"DIV","attributes":[{"name":"class","value":"imported-nested"}],"childNodeIndexes":[35]},{"nodeType":3,"nodeValue":"\n\n"},{"nodeType":1,"nodeName":"BODY","attributes":[],"childNodeIndexes":[11,13,14,16,17,19,20,22,23,24,25,26,27,28,29,33,34,36,37]},{"nodeType":1,"nodeName":"HTML","attributes":[{"name":"lang","value":"en"}],"childNodeIndexes":[9,10,38]}]
+[
+  {
+    "nodeType": 9,
+    "childNodeIndexes": [
+      39
+    ]
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "\n  "
+  },
+  {
+    "nodeType": 1,
+    "nodeName": "LINK",
+    "attributes": [
+      {
+        "name": "href",
+        "value": "test.css"
+      },
+      {
+        "name": "rel",
+        "value": "stylesheet"
+      }
+    ],
+    "childNodeIndexes": []
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "\n  "
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "\n    @import 'imported2.css';\n  "
+  },
+  {
+    "nodeType": 1,
+    "nodeName": "STYLE",
+    "attributes": [],
+    "childNodeIndexes": [
+      4
+    ]
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "\n  "
+  },
+  {
+    "nodeType": 1,
+    "nodeName": "LINK",
+    "attributes": [
+      {
+        "name": "rel",
+        "value": "stylesheet"
+      },
+      {
+        "name": "href",
+        "value": "https://fonts.googleapis.com/css?family=Zilla+Slab"
+      }
+    ],
+    "childNodeIndexes": []
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "\n"
+  },
+  {
+    "nodeType": 1,
+    "nodeName": "HEAD",
+    "attributes": [],
+    "childNodeIndexes": [
+      1,
+      2,
+      3,
+      5,
+      6,
+      7,
+      8
+    ]
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "\n"
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "\n  "
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "hi, I'm red"
+  },
+  {
+    "nodeType": 1,
+    "nodeName": "DIV",
+    "attributes": [
+      {
+        "name": "style",
+        "value": "color:red;"
+      }
+    ],
+    "childNodeIndexes": [
+      12
+    ]
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "\n  "
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "We've met already, I'm blue"
+  },
+  {
+    "nodeType": 1,
+    "nodeName": "DIV",
+    "attributes": [
+      {
+        "name": "class",
+        "value": "blue"
+      }
+    ],
+    "childNodeIndexes": [
+      15
+    ]
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "\n  "
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "This is Zilla Slab font"
+  },
+  {
+    "nodeType": 1,
+    "nodeName": "DIV",
+    "attributes": [
+      {
+        "name": "class",
+        "value": "font-zilla"
+      },
+      {
+        "name": "style",
+        "value": "font-size:36px"
+      }
+    ],
+    "childNodeIndexes": [
+      18
+    ]
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "\n  "
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "This is Shadows Into Light font"
+  },
+  {
+    "nodeType": 1,
+    "nodeName": "DIV",
+    "attributes": [
+      {
+        "name": "class",
+        "value": "font-shadows"
+      },
+      {
+        "name": "style",
+        "value": "font-size:36px"
+      }
+    ],
+    "childNodeIndexes": [
+      21
+    ]
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "\n  "
+  },
+  {
+    "nodeType": 1,
+    "nodeName": "IMG",
+    "attributes": [
+      {
+        "name": "src",
+        "value": "smurfs.jpg"
+      }
+    ],
+    "childNodeIndexes": []
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "\n  "
+  },
+  {
+    "nodeType": 1,
+    "nodeName": "DIV",
+    "attributes": [
+      {
+        "name": "class",
+        "value": "bg-smurfs1"
+      },
+      {
+        "name": "style",
+        "value": "margin-bottom:10px;"
+      }
+    ],
+    "childNodeIndexes": []
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "\n  "
+  },
+  {
+    "nodeType": 1,
+    "nodeName": "DIV",
+    "attributes": [
+      {
+        "name": "class",
+        "value": "bg-smurfs2"
+      }
+    ],
+    "childNodeIndexes": []
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "\n  "
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "The background on this should be "
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "rebeccapurple"
+  },
+  {
+    "nodeType": 1,
+    "nodeName": "A",
+    "attributes": [
+      {
+        "name": "href",
+        "value": "https://meyerweb.com/eric/thoughts/2014/06/19/rebeccapurple/"
+      }
+    ],
+    "childNodeIndexes": [
+      31
+    ]
+  },
+  {
+    "nodeType": 1,
+    "nodeName": "DIV",
+    "attributes": [
+      {
+        "name": "class",
+        "value": "imported2"
+      }
+    ],
+    "childNodeIndexes": [
+      30,
+      32
+    ]
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "\n  "
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "The background on this should be darkcyan"
+  },
+  {
+    "nodeType": 1,
+    "nodeName": "DIV",
+    "attributes": [
+      {
+        "name": "class",
+        "value": "imported-nested"
+      }
+    ],
+    "childNodeIndexes": [
+      35
+    ]
+  },
+  {
+    "nodeType": 3,
+    "nodeValue": "\n\n"
+  },
+  {
+    "nodeType": 1,
+    "nodeName": "BODY",
+    "attributes": [],
+    "childNodeIndexes": [
+      11,
+      13,
+      14,
+      16,
+      17,
+      19,
+      20,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      33,
+      34,
+      36,
+      37
+    ]
+  },
+  {
+    "nodeType": 1,
+    "nodeName": "HTML",
+    "attributes": [
+      {
+        "name": "lang",
+        "value": "en"
+      }
+    ],
+    "childNodeIndexes": [
+      9,
+      10,
+      38
+    ]
+  }
+]
