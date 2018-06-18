@@ -33,8 +33,8 @@ describe('cypress plugin', () => {
       closePluginServer = closeEyes;
     });
 
-    after(() => {
-      closePluginServer();
+    after(async () => {
+      await closePluginServer();
     });
 
     it('handles "open"', async () => {
@@ -55,6 +55,7 @@ describe('cypress plugin', () => {
         testName: 'handle checkWindow',
         tag: 'good1',
         viewportSize: {width: 800, height: 600},
+        // isVerbose: true,
       });
 
       const resp = await send('checkWindow', {
@@ -63,6 +64,8 @@ describe('cypress plugin', () => {
       });
 
       expect(resp.status).to.equal(200);
+
+      expect((await send('close')).status).to.equal(200);
     });
 
     it('handles "close"', async () => {
@@ -76,10 +79,6 @@ describe('cypress plugin', () => {
       const resp = await send('close');
 
       expect(resp.status).to.equal(200);
-    });
-
-    after(() => {
-      closePluginServer();
     });
   });
 
@@ -98,7 +97,7 @@ describe('cypress plugin', () => {
       });
       expect(resp.status).to.equal(200);
 
-      closeEyes();
+      await closeEyes();
     });
 
     it('starts at a random port', async () => {
@@ -114,7 +113,7 @@ describe('cypress plugin', () => {
       });
       expect(resp.status).to.equal(200);
 
-      closeEyes();
+      await closeEyes();
     });
   });
 });
