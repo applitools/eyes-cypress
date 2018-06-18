@@ -6,7 +6,7 @@ const FakeEyesWrapper = require('../../../util/FakeEyesWrapper');
 const testServer = require('../../../util/testServer');
 const {loadJsonFixture} = require('../../../util/loadFixture');
 
-describe.only('openEyes', () => {
+describe('openEyes', () => {
   let baseUrl, closeServer, wrapper;
 
   before(async () => {

@@ -23,10 +23,7 @@ async function openEyes({
 
   async function checkWindow({resourceUrls, cdt, tag}) {
     async function checkWindowDo() {
-      if (!renderInfo) {
-        renderInfo = await renderWrapper.getRenderInfo();
-        renderWrapper.setRenderingInfo(renderInfo);
-      }
+      const renderInfo = await renderInfoPromise;
 
       const absoluteUrls =
         resourceUrls && resourceUrls.map(resourceUrl => new URL(resourceUrl, url).href);
@@ -72,6 +69,7 @@ async function openEyes({
   }
 
   async function initWrappers() {
+    wrappers = [];
     for (const viewportSize of viewportSizes) {
       const wrapper = new EyesWrapper({apiKey, isVerbose});
       await wrapper.open(appName, testName, viewportSize);
@@ -79,10 +77,9 @@ async function openEyes({
     }
   }
 
-  let renderInfo;
   const viewportSizes = Array.isArray(viewportSize) ? viewportSize : [viewportSize];
   if (!wrappers) {
-    initWrappers();
+    await initWrappers();
   }
 
   const renderWrapper = wrappers[0];
@@ -92,6 +89,10 @@ async function openEyes({
   for (const wrapper of wrappers) {
     wrapper.setBatch(batchInfo);
   }
+  const renderInfoPromise = renderWrapper.getRenderInfo().then(renderInfo => {
+    renderWrapper.setRenderingInfo(renderInfo);
+    return renderInfo;
+  });
 
   return {
     checkWindow,
