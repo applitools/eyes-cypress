@@ -41,7 +41,7 @@ class EyesWrapper extends EyesBase {
    * @return {Promise.<RenderingInfo>}
    */
   async getRenderInfo() {
-    return await this._serverConnector.renderInfo();
+    return this._serverConnector.renderInfo();
   }
 
   setRenderingInfo(renderingInfo) {
