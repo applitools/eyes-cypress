@@ -46,6 +46,8 @@ async function openEyes({
 
       const screenshotUrls = await waitForRenderedStatus(renderIds, renderWrapper);
 
+      if (!screenshotUrls) throw new Error(`no screenshots found for renderIds ${renderIds}`);
+
       return {screenshotUrls, tag};
     }
     const renderPromise = checkWindowDo();
