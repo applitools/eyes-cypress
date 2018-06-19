@@ -24,13 +24,14 @@
 - [ ] docs: troubleshooting section
 - [x] stop sending scripts
 - [x] extract doctype into cdt
-- [ ] troubleshoot flag + readme + production path
+- [x] troubleshoot flag + production path
 - [x] check `UnhandledPromiseRejectionWarning: Error: Not running` in test `starts at a custom port`
 - [x] check `Error: Could not parse CSS @import URL imported2.css relative to base URL "about:blank"` in test `works for test.html`
+- [x] support videos
 
 ## Discussion w/ Gil
 - [ ] test coverage for actual test creation in eyes server (need metadata from Adam)
-- [ ] improve readme with examples
+- [x] improve readme with examples
 - [ ] fail test with proper link to eyes in the `close` command
 - [x] support multiple viewport sizes in one render
 

@@ -27,21 +27,44 @@ import '@applitools/eyes.cypress/commands
 Run your cypress tests with the environment variable `APPLITOOLS_API_KEY` set to the API key you have from Applitools Eyes.
 
 ## Usage
-After completing all of the above, you will be able to use the following commands to take screenshots during tests and use Applitools Eyes to manage them:
 
-### Open
+After completing all of the above, you will be able to use commands from `eyes.cypress` in your cypress tests to take screenshots and use Applitools Eyes to manage them:
+
+### Example
+```
+describe('Hello world', () => {
+  it('', () => {
+    cy.visit('https://applitools.com/helloworld');
+    cy.eyesOpen({
+      appName: 'Hello World!',
+      testName: 'My first JavaScript test!',
+      viewportSize: { width: 800, height: 600 },
+    });
+    cy.eyesCheckWindow('Main Page');
+    cy.get('button').click();
+    cy.eyesCheckWindow('Click!');
+    cy.eyesClose();
+  });
+});
+```
+Note: don't forget to set the `APPLITOOLS_API_KEY` environment variable.
+
+### Commands
+Here's an overview of the available commands:
+
+##### Open
 This will start a session with the Applitools server. It should be called for each test, so that all screenshots for each test are grouped together.
 ```
 cy.eyesOpen(appName, testName, { width, height })
 ```
 
-### Check window
+##### Check window
 This will take a screenshot of your application at the moment of calling, and upload it to Applitools Eyes for matcing against the baseline.
 ```
 cy.eyesCheckWindow()
 ```
 
-### Close
+##### Close
 This will close the session that was started with the `eyesOpen` call. It is important to call this at the end (or `after()`) each test, symmetrically to `eyesOpen`.
 ```
 cy.eyesClose()
