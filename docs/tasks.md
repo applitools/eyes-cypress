@@ -15,27 +15,27 @@
 - [x] look inside css/svg/? (imports, fonts, bg images)
 - [x] support renderInfo instead of renderWidth (with sizeMode)
 - [x] waitForRenderedStatus - pass wrapper and timeout of 2 minutes
-- [ ] optimize: background renders, matchWindow loop, queues
-- [ ] add 'use strict'
 - [x] getAllResources should receive absolute urls
-- [ ] getAllResources should not keep global cache
-- [ ] error handling: close/checkWindow without open
 - [x] proper command logging
-- [ ] docs: troubleshooting section
 - [x] stop sending scripts
 - [x] extract doctype into cdt
 - [x] troubleshoot flag + production path
 - [x] check `UnhandledPromiseRejectionWarning: Error: Not running` in test `starts at a custom port`
 - [x] check `Error: Could not parse CSS @import URL imported2.css relative to base URL "about:blank"` in test `works for test.html`
 - [x] support videos
-
-## Discussion w/ Gil
-- [ ] test coverage for actual test creation in eyes server (need metadata from Adam)
 - [x] improve readme with examples
-- [ ] fail test with proper link to eyes in the `close` command
 - [x] support multiple viewport sizes in one render
+- [ ] docs: troubleshooting section
+- [ ] getAllResources should not keep global cache
+- [ ] error handling: close/checkWindow without open
+- [ ] add 'use strict'
+- [ ] test coverage for actual test creation in eyes server (need metadata from Adam)
+- [ ] fail test with proper link to eyes in the `close` command
 
 ## publish tasks
-- [ ] change `src` to `lib` ?
 - [x] expose `@applitools/eyes.cypress/commands`
 - [x] merge PR with `renderStatusById` in eyes.sdk.core
+
+## later tasks
+- [ ] optimize: background renders, matchWindow loop, queues
+- [ ] change `src` to `lib` ?
