@@ -5,6 +5,7 @@ const {URL} = require('url');
 const saveData = require('../troubleshoot/saveData');
 const {setIsVerbose} = require('./log');
 const createRenderRequests = require('./createRenderRequests');
+const renderBatch = require('./renderBatch');
 
 let batchInfo;
 
@@ -36,7 +37,7 @@ async function openEyes({
         viewportSizes,
         renderInfo,
       });
-      const renderIds = await renderWrapper.renderBatch(renderRequests);
+      const renderIds = await renderBatch(renderRequests, renderWrapper);
 
       if (saveDebugData) {
         for (const renderId of renderIds) {

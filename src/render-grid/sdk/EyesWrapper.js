@@ -56,8 +56,11 @@ class EyesWrapper extends EyesBase {
    * @return {Promise.<String[]>} The results of the render
    */
   async renderBatch(renderRequests) {
-    const runningRenders = await this._renderWindowTask.postRenderBatch(renderRequests);
-    return runningRenders.map(rr => rr.getRenderId());
+    return await this._renderWindowTask.postRenderBatch(renderRequests);
+  }
+
+  async putResources(rGridDom, runningRender) {
+    return await this._renderWindowTask.putResources(rGridDom, runningRender);
   }
 
   async getRenderStatus(renderId) {
