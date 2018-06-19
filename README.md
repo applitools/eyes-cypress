@@ -71,13 +71,13 @@ cy.eyesClose()
 ### Plugin port
 The `eyes.cypress` package uses a local server for communication between the browser and the node plugin. The port used is `7373` by default, but that may be altered.
 
-##### Default port
+##### Option 1: Default port
 The basic usage described above looks like this (this is done in the `pluginsFile`):
 ```
 require('@applitools/eyes.cypress')
 ```
 
-##### Custom port
+##### Option 2: Custom port
 In some cases, the `7373` port might be unavailable, so in order to use a different port, you may do the following:
 ```
 require('@applitools/eyes.cypress')({ port: 8484 })
@@ -90,7 +90,7 @@ module.exports = () => {
 }
 ```
 
-##### Available port
+##### Option 3: Available port
 If you want to be absolutely sure that `eyes.cypress` will use an available port, it's also possible to pass `0` as the port:
 ```
 const { getEyesPort } = require('@applitools/eyes.cypress')({ port: 0 });
