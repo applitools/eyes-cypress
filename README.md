@@ -2,9 +2,6 @@
 Applitoos Eyes SDK for [Cypress](https://www.cypress.io/).
 
 ## Installation
-### Set environment variable
-Add your Applitools API key to your environment variables as `APPLITOOLS_API_KEY`.
-
 ### Install npm package
 Install `eyes.cypress` as a local dev dependency in your tested project:
 ```
