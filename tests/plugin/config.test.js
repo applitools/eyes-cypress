@@ -4,7 +4,7 @@ const {expect} = require('chai');
 const {initConfig} = require('../../src/cypress/config');
 const {resolve} = require('path');
 
-describe.only('config', () => {
+describe('config', () => {
   let getConfig, prevEnv;
   const configPath = resolve(__dirname, 'fixtures');
   beforeEach(() => {

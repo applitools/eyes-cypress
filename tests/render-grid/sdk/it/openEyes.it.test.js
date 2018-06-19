@@ -8,6 +8,7 @@ const {loadJsonFixture} = require('../../../util/loadFixture');
 
 describe('openEyes', () => {
   let baseUrl, closeServer, wrapper;
+  const apiKey = 'some api key';
 
   before(async () => {
     const server = await testServer({port: 3456}); // TODO fixed port avoids 'need-more-resources' for dom. Is this desired? should both paths be tested?
@@ -32,6 +33,7 @@ describe('openEyes', () => {
     const {checkWindow, close} = await openEyes({
       wrappers: [wrapper],
       url: `${baseUrl}/test.html`,
+      apiKey,
     });
     await checkWindow({cdt: [], resourceUrls: [], tag: 'good1'});
     expect((await close()).map(r => r.getAsExpected())).to.eql([true]);
@@ -41,6 +43,7 @@ describe('openEyes', () => {
     const {checkWindow, close} = await openEyes({
       wrappers: [wrapper],
       url: `${baseUrl}/test.html`,
+      apiKey,
     });
     await checkWindow({cdt: [], resourceUrls: [], tag: 'bad!'});
     expect(await close().then(() => 'ok', () => 'not ok')).to.equal('not ok');
@@ -50,6 +53,7 @@ describe('openEyes', () => {
     const {checkWindow, close} = await openEyes({
       wrappers: [wrapper],
       url: `${baseUrl}/test.html`,
+      apiKey,
     });
 
     const resourceUrls = wrapper.goodResourceUrls;
@@ -63,6 +67,7 @@ describe('openEyes', () => {
     const {checkWindow, close} = await openEyes({
       wrappers: [wrapper],
       url: `${baseUrl}/test.html`,
+      apiKey,
     });
     const resourceUrls = ['smurfs.jpg', 'test.css'];
     const cdt = loadJsonFixture('test.cdt.json');
@@ -82,6 +87,7 @@ describe('openEyes', () => {
         {width: 1600, height: 900},
       ],
       url: `${baseUrl}/test.html`,
+      apiKey,
     });
 
     const resourceUrls = wrapper.goodResourceUrls;
@@ -98,10 +104,11 @@ describe('openEyes', () => {
     await openEyes({
       wrappers: [wrapper],
       url: 'some url',
+      apiKey,
     });
 
     const newWrapper = new FakeEyesWrapper({});
-    await openEyes({wrappers: [newWrapper]});
+    await openEyes({wrappers: [newWrapper], apiKey});
     expect(newWrapper.getBatch()).to.equal(batch);
   });
 });

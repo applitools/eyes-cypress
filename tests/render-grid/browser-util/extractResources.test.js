@@ -65,6 +65,17 @@ describe('extractResources', () => {
     const expected = ['imported2.css'];
     await page.goto(`data:text/html,${htmlStr}`);
     const resourceUrls = await page.evaluate(extractResources);
-    expect(resourceUrls).to.deep.equal(expected);
+    expect(resourceUrls).to.eql(expected);
+  });
+
+  it('works for video', async () => {
+    const htmlStr = `
+      <video poster="/path/to/poster.jpg">
+        <source src="/path/to/video.mp4" type="video/mp4">
+      </video>`;
+    const expected = ['/path/to/video.mp4', '/path/to/poster.jpg'];
+    await page.goto(`data:text/html,${htmlStr}`);
+    const resourceUrls = await page.evaluate(extractResources);
+    expect(resourceUrls).to.eql(expected);
   });
 });
