@@ -3,38 +3,15 @@ const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const renderBatch = require('../../../../src/render-grid/sdk/renderBatch');
 const {RenderStatus} = require('@applitools/eyes.sdk.core');
-
-const creatFakeRunningRender = (renderId, renderStatus) => {
-  return {
-    getRenderStatus() {
-      return renderStatus;
-    },
-    getRenderId() {
-      return renderId;
-    },
-  };
-};
-
-const createFakeRenderRequest = dom => {
-  return {
-    getRenderId() {
-      return this.renderId;
-    },
-    setRenderId(renderId) {
-      this.renderId = renderId;
-    },
-    getDom() {
-      return dom;
-    },
-  };
-};
+const FakeRunningRender = require('../../../util/FakeRunningRender');
+const FakeRenderRequest = require('../../../util/FakeRenderRequest');
 
 const createFakeWrapper = () => {
   return {
     async renderBatch(renderRequests) {
       return renderRequests.map((renderRequest, i) => {
         const renderId = renderRequest.getRenderId();
-        return creatFakeRunningRender(
+        return new FakeRunningRender(
           renderId || `id${i + 1}`,
           renderId ? `status${i + 1}` : RenderStatus.NEED_MORE_RESOURCES,
         );
@@ -50,9 +27,9 @@ const createFakeWrapper = () => {
 describe('renderBatch', () => {
   it('works', async () => {
     const renderRequests = [
-      createFakeRenderRequest('dom1'),
-      createFakeRenderRequest('dom2'),
-      createFakeRenderRequest('dom3'),
+      new FakeRenderRequest('dom1'),
+      new FakeRenderRequest('dom2'),
+      new FakeRenderRequest('dom3'),
     ];
 
     const wrapper = createFakeWrapper();

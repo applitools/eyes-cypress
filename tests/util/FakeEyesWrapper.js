@@ -7,6 +7,7 @@ const BAD_RENDER_ID = 'BAD_RENDER_ID';
 const GOOD_RENDER_ID = 'GOOD_RENDER_ID';
 const SOME_BATCH = 'SOME_BATCH';
 const crypto = require('crypto');
+const FakeRunningRender = require('./FakeRunningRender');
 
 function compare(o1, o2) {
   return JSON.stringify(o1) === JSON.stringify(o2);
@@ -34,10 +35,10 @@ class FakeEyesWrapper {
   async open(_appName, _testName, _viewportSize) {}
 
   async renderBatch(renderRequests) {
-    return renderRequests.map(renderRequest => this.getRenderIdForRequest(renderRequest));
+    return renderRequests.map(renderRequest => this.getRunningRenderForRequest(renderRequest));
   }
 
-  getRenderIdForRequest(renderRequest) {
+  getRunningRenderForRequest(renderRequest) {
     const resources = renderRequest.getResources();
     const actualResources = resources.map(resource => ({
       url: resource.getUrl(),
@@ -51,7 +52,9 @@ class FakeEyesWrapper {
     const isGoodCdt = cdt.length === 0 || compare(cdt, this.expectedCdt); // allowing [] for easier testing (only need to pass `cdt:[]` in the test)
 
     const isGood = isGoodCdt && isGoodResources;
-    return isGood ? GOOD_RENDER_ID : BAD_RENDER_ID;
+    const renderId = isGood ? GOOD_RENDER_ID : BAD_RENDER_ID;
+
+    return new FakeRunningRender(renderId, RenderStatus.RENDERED);
   }
 
   async getRenderStatus(renderIds) {
