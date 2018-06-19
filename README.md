@@ -66,6 +66,11 @@ This will close the session that was started with the `eyesOpen` call. It is imp
 ```
 cy.eyesClose()
 ```
+Note about timeouts: the `cy.eyesClose()` command should be called at the end of the test, and depending on various factors such as the website's size and number of screenshots (i.e. the number of calls to `cy.eyesCheckWindow()`), the elapsed time it takes for this command to complete may vary.
+The default timeout is 2 minutes, but in the rare cases that's not enough, it's possible to configure this by passing a value:
+```
+cy.eyesClose({ timeout: 180000 }) // timeout of 3 minutes
+```
 
 ## Advanced configuration
 ### Plugin port

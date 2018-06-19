@@ -41,16 +41,18 @@ Cypress.Commands.add('eyesOpen', (args = {}) => {
   });
 });
 
-Cypress.Commands.add('eyesCheckWindow', (tag, {timeout} = {}) => {
+Cypress.Commands.add('eyesCheckWindow', tag => {
   Cypress.log({name: 'Eyes: check window'});
-  return cy.document({log: false}).then({timeout: timeout || 60000}, doc => {
+  return cy.document({log: false}).then(doc => {
     const cdt = domNodesToCdt(doc);
     const resourceUrls = extractResources(doc);
     return EyesServer.checkWindow(resourceUrls, cdt, tag);
   });
 });
 
-Cypress.Commands.add('eyesClose', () => {
+Cypress.Commands.add('eyesClose', ({timeout} = {}) => {
   Cypress.log({name: 'Eyes: close'});
-  return EyesServer.close();
+  return cy.then({timeout: timeout || 120000}, () => {
+    return EyesServer.close();
+  });
 });
