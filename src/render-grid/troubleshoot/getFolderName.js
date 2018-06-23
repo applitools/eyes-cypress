@@ -9,9 +9,9 @@ function pad(num) {
 }
 
 function formatDate(d) {
-  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(
-    d.getDate(),
-  )}-${d.getHours()}${d.getMinutes()}`;
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}-${pad(d.getHours())}${pad(
+    d.getMinutes(),
+  )}`;
 }
 
 module.exports = getFolderName;
