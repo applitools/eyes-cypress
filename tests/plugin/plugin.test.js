@@ -55,7 +55,7 @@ describe('cypress plugin', () => {
         testName: 'handle checkWindow',
         tag: 'good1',
         viewportSize: {width: 800, height: 600},
-        // isVerbose: true,
+        // showLogs: true,
       });
 
       const resp = await send('checkWindow', {

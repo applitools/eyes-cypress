@@ -30,14 +30,14 @@ describe('openEyes', () => {
     openEyes.clearBatch();
   });
 
-  it('passes with correct screenshot', async () => {
+  it.only('passes with correct screenshot', async () => {
     const {checkWindow, close} = await openEyes({
       appName: 'some app',
       testName: 'passes with correct screenshot',
       apiKey,
       url: `${baseUrl}/test.html`,
       viewportSize: [{width: 640, height: 480}, {width: 800, height: 600}],
-      // isVerbose: true,
+      // showLogs: true,
     });
 
     const resourceUrls = ['smurfs.jpg', 'test.css', 'imported2.css'];
@@ -53,7 +53,7 @@ describe('openEyes', () => {
       apiKey,
       url: `${baseUrl}/test.html`,
       viewportSize: [{width: 640, height: 480}, {width: 800, height: 600}],
-      // isVerbose: true,
+      // showLogs: true,
     });
 
     const resourceUrls = ['smurfs.jpg', 'test.css', 'imported2.css'];
