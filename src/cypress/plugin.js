@@ -6,6 +6,9 @@ const openEyes = require('../render-grid/sdk/openEyes');
 const log = require('../render-grid/sdk/log');
 const {promisify: p} = require('util');
 const {initConfig} = require('./config');
+const psetTimeout = p(setTimeout);
+
+const DEFAULT_TIMEOUT = 120000;
 
 /*****************************/
 /******* Eyes API key *******/
@@ -29,8 +32,15 @@ const eyesCommands = {
     await checkWindow({resourceUrls, cdt, tag});
   },
 
-  close: async () => {
-    await close();
+  close: async ({timeout = DEFAULT_TIMEOUT}) => {
+    return Promise.race([
+      close(),
+      psetTimeout(timeout).then(() => {
+        throw new Error(
+          "The cy.eyesClose command timed out. The default timeout is 2 minutes. It's possible to increase this timeout by passing a larger value, e.g. for 3 minutes: cy.eyesClose({ timeout: 180000 })",
+        );
+      }, timeout),
+    ]);
   },
 };
 

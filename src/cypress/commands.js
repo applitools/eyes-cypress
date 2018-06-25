@@ -7,15 +7,23 @@ const send = makeSend(Cypress.config('eyesPort') || require('./defaultPort'), fe
 
 const EyesServer = {
   open(args) {
-    return this._send('open', args);
+    return this._send('open', args).catch(ex => {
+      if (ex.message === 'Failed to fetch') {
+        throw new Error(
+          "Eyes.Cypress communication failure. Maybe you used a custom plugin port and didn't export it as eyesPort from the pluginsFile? Check your pluginsFile (normally located at cypress/plugins/index.js) for the require('@applitools/eyes.cypress') statement.",
+        );
+      } else {
+        throw ex;
+      }
+    });
   },
 
   checkWindow(resourceUrls, cdt, tag) {
     return this._send('checkWindow', {resourceUrls, cdt, tag});
   },
 
-  close() {
-    return this._send('close');
+  close({timeout}) {
+    return this._send('close', {timeout});
   },
 
   _send: function(command, data) {
@@ -52,7 +60,5 @@ Cypress.Commands.add('eyesCheckWindow', tag => {
 
 Cypress.Commands.add('eyesClose', ({timeout} = {}) => {
   Cypress.log({name: 'Eyes: close'});
-  return cy.then({timeout: timeout || 120000}, () => {
-    return EyesServer.close();
-  });
+  return EyesServer.close({timeout});
 });

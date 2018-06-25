@@ -81,7 +81,9 @@ async function openEyes({
   }
 
   if (!apiKey) {
-    throw new Error('APPLITOOLS_API_KEY env variable is not defined');
+    throw new Error(
+      'APPLITOOLS_API_KEY env variable is not defined. It is required to define this variable when running Cypress for Applitools visual tests to run successfully.',
+    );
   }
 
   const viewportSizes = Array.isArray(viewportSize) ? viewportSize : [viewportSize];
