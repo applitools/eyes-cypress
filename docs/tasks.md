@@ -22,19 +22,24 @@
 - [x] troubleshoot flag + production path
 - [x] check `UnhandledPromiseRejectionWarning: Error: Not running` in test `starts at a custom port`
 - [x] check `Error: Could not parse CSS @import URL imported2.css relative to base URL "about:blank"` in test `works for test.html`
+- [x] expose `@applitools/eyes.cypress/commands`
+- [x] merge PR with `renderStatusById` in eyes.sdk.core
 - [x] support videos
 - [x] improve readme with examples
 - [x] support multiple viewport sizes in one render
-- [ ] docs: troubleshooting section
-- [ ] getAllResources should not keep global cache
+- [x] docs: troubleshooting section
+- [ ] proper timeout message
+- [ ] missing `eyesPort` export message
+- [ ] getAllResources should not keep global cache (plus tests)
+- [ ] assert second render request has "rendering" status
 - [ ] error handling: close/checkWindow without open
 - [ ] add 'use strict'
 - [ ] test coverage for actual test creation in eyes server (need metadata from Adam)
 - [ ] fail test with proper link to eyes in the `close` command
-
-## publish tasks
-- [x] expose `@applitools/eyes.cypress/commands`
-- [x] merge PR with `renderStatusById` in eyes.sdk.core
+- [ ] make git repo and npm package public
+- [ ] add sizeMode to checkWindow params
+- [ ] viewportSize should include browser (and change its name)
+- [ ] markdown lint
 
 ## later tasks
 - [ ] optimize: background renders, matchWindow loop, queues

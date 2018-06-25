@@ -3,34 +3,51 @@ Applitoos Eyes SDK for [Cypress](https://www.cypress.io/).
 
 ## Installation
 ### Install npm package
-Install `eyes.cypress` as a local dev dependency in your tested project:
+Install Eyes.Cypress as a local dev dependency in your tested project:
 ```
 npm install --save-dev @applitools/eyes.cypress
 ```
 
-### Install eyes.cypress plugin
-Add this to your `pluginsFile` (normally, this is `cypress/plugins/index.js`):
+### Configure Eyes.Cypress plugin
+Eyes.Cypress acts as a [Cypress plugin](https://docs.cypress.io/guides/tooling/plugins-guide.html), so it should be configured as such.
+Unfortunately there's no easy way to do this automatically, so you need to manually add the following code to your `pluginsFile`:
 ```
 require('@applitools/eyes.cypress')
 ```
+Normally, this is `cypress/plugins/index.js`. You can read more about it in Cypress' docs [here](https://docs.cypress.io/guides/references/configuration.html#Folders-Files).
 
-### Install custom commands
-Add this to your `supportFile` (normally, this is `cypress/support/index.js`):
-```
-import '@applitools/eyes.cypress/commands
-```
 
-### API key
-Run your cypress tests with the environment variable `APPLITOOLS_API_KEY` set to the API key you have from Applitools Eyes.
+### Configure custom commands
+Eyes.Cypress exposes new commands to your tests. This means that more methods will be available on the `cy` object. To enable this, it's required to configure these custom commands.
+As with the plugin, there's no automatic way to configure this in cypress, so you need to manually add the following code to your `supportFile`:
+```
+import '@applitools/eyes.cypress/commands'
+```
+Normally, this is `cypress/support/index.js`. You can read more about it in Cypress' docs [here](https://docs.cypress.io/guides/references/configuration.html#Folders-Files).
+
+### Applitools API key
+In order to authenticate via the Applitools server, you need to supply the Eyes.Cypress SDK with the API key you got from Applitools. Read more about how to obtain the API key [here](https://applitools.com/docs/topics/overview/obtain-api-key.html).
+
+
+To to this, set the environment variable `APPLITOOLS_API_KEY` to the API key before running your tests.
+For example, on Linux/Mac:
+```
+$ APPLITOOLS_API_KEY=<your_key> npx cypress open
+```
+And on Windows:
+```
+$ set APPLITOOLS_API_KEY=<your_key>
+$ npx cypress open
+```
 
 ## Usage
 
-After completing all of the above, you will be able to use commands from `eyes.cypress` in your cypress tests to take screenshots and use Applitools Eyes to manage them:
+After completing all of the above, you will be able to use commands from Eyes.Cypress in your cypress tests to take screenshots and use Applitools Eyes to manage them:
 
 ### Example
 ```
 describe('Hello world', () => {
-  it('', () => {
+  it('works', () => {
     cy.visit('https://applitools.com/helloworld');
     cy.eyesOpen({
       appName: 'Hello World!',
@@ -44,40 +61,103 @@ describe('Hello world', () => {
   });
 });
 ```
-Note: don't forget to set the `APPLITOOLS_API_KEY` environment variable.
 
 ### Commands
-Here's an overview of the available commands:
+In addition to the built-in commands provided by Cypress, like `cy.visit` and `cy.get`, Eyes.Cypress defines new custom commands, which enable the visual testing with Applitools Eyes. These commands are:
 
 ##### Open
-This will start a session with the Applitools server. It should be called for each test, so that all screenshots for each test are grouped together.
+Create an Applitools test.
+This will start a session with the Applitools server.
+
 ```
-cy.eyesOpen(appName, testName, { width, height })
+cy.eyesOpen({
+  appName: '',
+  testName: ''
+});
 ```
 
+It's possible to pass a config object to `eyesOpen` with all the possible configuration properties. Read the [Advanced configuration] section for a detailed description.
+
 ##### Check window
-This will take a screenshot of your application at the moment of calling, and upload it to Applitools Eyes for matcing against the baseline.
+Generate a screenshot of the current page and add it to the Applitools Test.
 ```
 cy.eyesCheckWindow()
 ```
 
 ##### Close
-This will close the session that was started with the `eyesOpen` call. It is important to call this at the end (or `after()`) each test, symmetrically to `eyesOpen`.
+close the applitools test and check that all screenshots are valid.
+
+It is important to call this at the end (or `after()`) each test, symmetrically to `eyesOpen`.
 ```
-cy.eyesClose()
-```
-Note about timeouts: the `cy.eyesClose()` command should be called at the end of the test, and depending on various factors such as the website's size and number of screenshots (i.e. the number of calls to `cy.eyesCheckWindow()`), the elapsed time it takes for this command to complete may vary.
-The default timeout is 2 minutes, but in the rare cases that's not enough, it's possible to configure this by passing a value:
-```
-cy.eyesClose({ timeout: 180000 }) // timeout of 3 minutes
+cy.eyesClose({
+
+  // depending on various factors such as the website's size and number of
+  // screenshots (i.e. the number of calls to `cy.eyesCheckWindow()`),
+  // the elapsed time it takes for `cy.eyesClose` to complete may vary.
+  timeout: 120000,
+
+})
 ```
 
 ## Advanced configuration
+
+It's possible to define the following configuration for tests:
+
+| Property name   | Default value               | Description  |
+| --------------- |:---------------------------:| -----:|
+| `appName`       | ''                          | Your application name that will be shown in test results |
+| `testName`      | ''                          | Test name |
+| `viewportSize`  | { width: 800, height: 600 } | The size of the generated screenshots. This doesn't need to be the same as the size of the browser that Cypress is running.  It's also possible to send an array of sizes:<br/><br/>It's also possible to send an array of sizes, e.g. `[{width: 800, height: 600}, { width: 1024, height: 768 }]`|
+| `showLogs`      | false                       | Whether or not you want to see logs of the Eyes.Cypress plugin. Logs are written to the same output of the Cypress process. |
+| `saveDebugData` | false                       | Whether to save troubleshooting data. See the troubleshooting section of this doc for more info. |
+| `batchName`     | null                        | Provides ability to group tests into batches. Read more about batches [here](https://applitools.com/docs/topics/working-with-test-batches/how-to-group-tests-into-batches.html). |
+
+There are 3 ways to specify test configuration:
+1) Arguments to `cy.eyesOpen()`
+2) Environment variables
+3) The `eyes.json` file
+
+The list above is also the order of precedence, which means that if you pass a property to `cy.eyesOpen` it will override the environment variable, and the environment variable will override the value defined in the `eyes.json` file.
+
+##### Method 1: Arguments for `cy.eyesOpen`
+Pass a config object as the only argument. For example:
+```
+cy.eyesOpen({
+  appName: 'My app',
+  testName: 'My test',
+  showLogs: true,
+  batchName: 'My batch'
+})
+```
+
+##### Method 2: Environment variables
+The name of the corresponding environment variable is in uppercase, with the `APPLITOOLS_` prefix, and separating underscores instead of camel case:
+```
+APPLITOOLS_APP_NAME
+APPLITOOLS_TEST_NAME
+APPLITOOLS_VIEWPORT_SIZE
+APPLITOOLS_SHOW_LOGS
+APPLITOOLS_SAVE_DEBUG_DATA
+APPLITOOLS_BATCH_NAME
+```
+
+##### Method 3: The `eyes.json` file
+It's possible to have a file called `eyes.json` at the same folder location as `cypress.json`. In this file specify the desired configuration, in a valid JSON format. For example:
+```
+{
+  "appName": "My app",
+  "showLogs": true,
+  "batchName": "My batch"
+}
+```
+
 ### Plugin port
-The `eyes.cypress` package uses a local server for communication between the browser and the node plugin. The port used is `7373` by default, but that may be altered.
+The Eyes.Cypress SDK has 2 parts: (1) a cypress plugin, and (2) custom commands that run in the browser. The SDK uses a local server for communication between those 2 parts. The plugin is responsible for starting the server, and the custom commands send requests to this server operate the SDK.
+
+By default, the server listens at port `7373` , but that may be altered for cases where this port is already taken.
 
 ##### Option 1: Default port
-The basic usage described above looks like this (this is done in the `pluginsFile`):
+When configuring the plugin as described in the section 'Configure Eyes.Cypress plugin' above, the port that will be used is `7373`:
 ```
 require('@applitools/eyes.cypress')
 ```
@@ -91,14 +171,29 @@ When doing so, it's also necessary to pass the port as a `Cypress` config variab
 ```
 module.exports = () => {
   ...
-  return { eyesPort: 8484, ... };
+  return {
+    eyesPort: 8484,
+    ...
+  };
 }
 ```
 
 ##### Option 3: Available port
-If you want to be absolutely sure that `eyes.cypress` will use an available port, it's also possible to pass `0` as the port:
+If you want to be absolutely sure that Eyes.Cypress will use an available port, it's also possible to pass `0` as the port:
 ```
 const { getEyesPort } = require('@applitools/eyes.cypress')({ port: 0 });
-const eyesPort = await getEyesPort();
 ```
-Now it is guaranteed that `eyesPort` is available. Don't forget to return it from `module.exports`, like in the case for custom port above.
+Now it is guaranteed that `eyesPort` is available. Now it's also necessary to pass the port as a `Cypress` config variable on to the browser. So in the `pluginsFile` add a property named `eyesPort` to your configuration:
+```
+module.exports = () => {
+  ...
+  return {
+    eyesPort: (await getEyesPort()),
+    ...
+  }
+}
+```
+
+## Troubleshooting
+
+If issues occur, the `saveDebugData` config property can be set to true in order to save helpful information. The information will be saved under a folder named `.applitools` in the current working directory. This could be then used for getting support on your issue.

@@ -15,11 +15,11 @@ async function openEyes({
   viewportSize = {width: 1024, height: 768},
   url,
   apiKey,
-  isVerbose = false,
+  showLogs = false,
   saveDebugData = false,
   wrappers,
 }) {
-  setIsVerbose(isVerbose);
+  setIsVerbose(showLogs);
   const renderPromises = [];
 
   async function checkWindow({resourceUrls, cdt, tag}) {
@@ -74,7 +74,7 @@ async function openEyes({
   async function initWrappers() {
     wrappers = [];
     for (const viewportSize of viewportSizes) {
-      const wrapper = new EyesWrapper({apiKey, isVerbose});
+      const wrapper = new EyesWrapper({apiKey, isVerbose: showLogs});
       await wrapper.open(appName, testName, viewportSize);
       wrappers.push(wrapper);
     }
