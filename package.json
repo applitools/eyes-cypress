@@ -8,7 +8,7 @@
     "eslint": "eslint '**/*.js'",
     "test": "npm run test:mocha && npm run eslint",
     "build": "#",
-    "cypress": "cd tests/fixtures/testApp && cypress open --config integrationFolder=cypress/integration-timeout,pluginsFile=cypress/plugins/index-run.js,supportFile=cypress/support/index-run.js"
+    "cypress": "cd tests/fixtures/testApp && cypress open --config integrationFolder=cypress/integration-play,pluginsFile=cypress/plugins/index-run.js,supportFile=cypress/support/index-run.js"
   },
   "files": [
     "src",

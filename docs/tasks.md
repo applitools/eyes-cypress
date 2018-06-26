@@ -40,6 +40,7 @@
 - [ ] add sizeMode to checkWindow params
 - [ ] viewportSize should include browser (and change its name)
 - [ ] markdown lint
+- [ ] reimplement close with polling
 
 ## later tasks
 - [ ] optimize: background renders, matchWindow loop, queues

@@ -30,7 +30,7 @@ describe('openEyes', () => {
     openEyes.clearBatch();
   });
 
-  it.only('passes with correct screenshot', async () => {
+  it('passes with correct screenshot', async () => {
     const {checkWindow, close} = await openEyes({
       appName: 'some app',
       testName: 'passes with correct screenshot',
