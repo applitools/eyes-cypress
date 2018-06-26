@@ -1,7 +1,5 @@
 const openEyes = require('../../render-grid/sdk/openEyes');
-const {promisify: p} = require('util');
 const {initConfig} = require('./config');
-const psetTimeout = p(setTimeout);
 const getConfig = initConfig(process.cwd());
 
 const DEFAULT_TIMEOUT = 120000;
