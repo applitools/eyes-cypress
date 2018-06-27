@@ -5,7 +5,7 @@ describe('eyes.cypress', () => {
     cy.eyesOpen({
       appName: 'some app',
       testName: 'cypress-run',
-      viewportSize: {width: 1024, height: 768},
+      browser: {width: 1024, height: 768},
       showLogs: true
     });
     cy.eyesCheckWindow('some tag');

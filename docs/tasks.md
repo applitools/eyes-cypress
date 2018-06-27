@@ -37,7 +37,7 @@
 - [ ] test coverage for actual test creation in eyes server (need metadata from Adam)
 - [ ] fail test with proper link to eyes in the `close` command
 - [x] make git repo and npm package public
-- [ ] add sizeMode to checkWindow params
+- [x] add sizeMode to checkWindow params
 - [ ] viewportSize should include browser (and change its name)
 - [x] markdown lint
 - [x] reimplement close with polling

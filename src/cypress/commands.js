@@ -20,8 +20,8 @@ const EyesServer = {
     });
   },
 
-  checkWindow(resourceUrls, cdt, tag) {
-    return sendRequest('checkWindow', {resourceUrls, cdt, tag});
+  checkWindow(resourceUrls, cdt, tag, sizeMode) {
+    return this._send('checkWindow', {resourceUrls, cdt, tag, sizeMode});
   },
 
   close: poll(function({timeout}) {
@@ -29,7 +29,14 @@ const EyesServer = {
   }),
 };
 
+Cypress.Commands.add('bla', ({timeout} = {timeout: 40000}) => {
+  console.log('!!! timeout', timeout);
+  Cypress.log({name: 'bla bla ' + timeout});
+  return EyesServer._send('bla', {timeout});
+});
+
 Cypress.Commands.add('eyesOpen', (args = {}) => {
+  console.log('!!! open', args);
   Cypress.log({name: 'Eyes: open'});
   return cy.window({log: false}).then(win => {
     const openArgs = Object.assign({url: win.location.href}, args);

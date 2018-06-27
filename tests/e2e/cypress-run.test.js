@@ -32,7 +32,7 @@ describe('cypress run', () => {
     process.chdir(rootPath);
   });
 
-  it.only('works', async () => {
+  it('works', async () => {
     try {
       await pexec(
         './node_modules/.bin/cypress run --config integrationFolder=cypress/integration-run,pluginsFile=cypress/plugins/index-run.js,supportFile=cypress/support/index-run.js',

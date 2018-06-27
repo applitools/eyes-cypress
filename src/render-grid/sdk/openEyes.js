@@ -22,7 +22,7 @@ async function openEyes({
   setIsVerbose(showLogs);
   const renderPromises = [];
 
-  async function checkWindow({resourceUrls, cdt, tag}) {
+  async function checkWindow({resourceUrls, cdt, tag, sizeMode}) {
     async function checkWindowDo() {
       const renderInfo = await renderInfoPromise;
 
@@ -36,6 +36,7 @@ async function openEyes({
         cdt,
         viewportSizes,
         renderInfo,
+        sizeMode,
       });
       const renderIds = await renderBatch(renderRequests, renderWrapper);
 
