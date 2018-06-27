@@ -3,8 +3,10 @@ const morgan = require('morgan');
 const cors = require('cors');
 const log = require('../../render-grid/sdk/log');
 const {promisify: p} = require('util');
-const eyesCommands = require('./handlers');
+const makeHandlers = require('./handlers');
 const psetTimeout = p(setTimeout);
+const openEyes = require('../../render-grid/sdk/openEyes');
+const handlers = makeHandlers(openEyes);
 
 let eyesPort = require('./defaultPort');
 let server;
@@ -36,18 +38,17 @@ app.get('/hb', (_req, res) => res.sendStatus(200));
 app.post('/eyes/:command', express.json({limit: '100mb'}), async (req, res) => {
   log(`eyes api: ${req.params.command}, ${Object.keys(req.body)}`);
   try {
-    await eyesCommands[req.params.command](req.body);
-    res.sendStatus(200);
+    const result = await handlers[req.params.command](req.body);
+    res.set('Content-Type', 'application/json');
+    res.status(200).send(result);
   } catch (ex) {
     console.error('error in eyes api:', ex);
-    console.log(ex.message);
     res.status(500).send(ex.message);
   }
 });
 
 // start server after process tick (or as microtask) to allow user to set custom port
 Promise.resolve().then(() => {
-  console.log('!!!!');
   log(`starting plugin at port ${eyesPort}`);
   server = app.listen(eyesPort, () => {
     log(`server running at port: ${server.address().port}`);

@@ -1,6 +1,6 @@
-/* globals describe,it,cy */
+/* globals describe,it,cy,Cypress */
 describe('eyes.cypress', () => {
-  it('runs', () => {
+  it.skip('runs website', () => {
     cy.visit('http://applitools.com');
     cy.eyesOpen({
       appName: 'some app',
@@ -15,6 +15,19 @@ describe('eyes.cypress', () => {
     cy.eyesCheckWindow('walkme page');
     cy.get('.navbar a[href="/pricing"]').click();
     cy.eyesCheckWindow('walkme page');
+    cy.eyesClose();
+  });
+
+  it('runs', () => {
+    const url = `http://localhost:${Cypress.config('testPort')}/test.html`;
+    cy.visit(url);
+    cy.eyesOpen({
+      appName: 'some app',
+      testName: 'cypress-play-test',
+      viewportSize: {width: 1024, height: 768},
+      showLogs: true,
+    });
+    cy.eyesCheckWindow('some tag');
     cy.eyesClose();
   });
 });

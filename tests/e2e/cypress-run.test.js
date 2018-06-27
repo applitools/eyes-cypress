@@ -1,8 +1,10 @@
 'use strict';
 const {describe, it, before, after} = require('mocha');
+const {expect} = require('chai');
 const {exec} = require('child_process');
 const {promisify: p} = require('util');
 const {resolve} = require('path');
+const {TIMEOUT_MSG} = require('../../src/cypress/plugin/pollingHandler');
 
 require('dotenv').config(); // TODO can this be removed because the plugin already does this?
 
@@ -30,7 +32,7 @@ describe('cypress run', () => {
     process.chdir(rootPath);
   });
 
-  it('works', async () => {
+  it.only('works', async () => {
     try {
       await pexec(
         './node_modules/.bin/cypress run --config integrationFolder=cypress/integration-run,pluginsFile=cypress/plugins/index-run.js,supportFile=cypress/support/index-run.js',
@@ -39,23 +41,24 @@ describe('cypress run', () => {
         },
       );
     } catch (ex) {
-      console.error('Error!', ex.stdout);
+      console.error('Error during test!', ex.stdout);
       throw ex;
     }
   });
 
-  it('considers timeout passed to checkWindow', async () => {
+  it('considers timeout passed to close', async () => {
     try {
-      await pexec(
+      const buff = await pexec(
         './node_modules/.bin/cypress run --config integrationFolder=cypress/integration-timeout,pluginsFile=cypress/plugins/index-run.js,supportFile=cypress/support/index-run.js',
         {
           maxBuffer: 10000000,
         },
       );
-      throw new Error('should have timed out');
+
+      expect(buff.stderr).to.include(TIMEOUT_MSG);
     } catch (ex) {
       console.error('Error!', ex.stdout);
-      // Don't throw error
+      throw ex;
     }
   });
 });

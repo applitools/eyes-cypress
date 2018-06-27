@@ -1,5 +1,5 @@
-module.exports = (port, fetch) => (command, data) => {
-  return fetch(`http://localhost:${port}/eyes/${command}`, {
+module.exports = (port, fetch) => (command, data) =>
+  fetch(`http://localhost:${port}/eyes/${command}`, {
     method: 'POST',
     body: data ? JSON.stringify(data) : undefined,
     headers: {
@@ -7,4 +7,3 @@ module.exports = (port, fetch) => (command, data) => {
     },
     mode: 'cors',
   });
-};
