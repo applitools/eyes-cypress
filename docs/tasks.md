@@ -39,8 +39,8 @@
 - [x] make git repo and npm package public
 - [ ] add sizeMode to checkWindow params
 - [ ] viewportSize should include browser (and change its name)
-- [ ] markdown lint
-- [ ] reimplement close with polling
+- [x] markdown lint
+- [x] reimplement close with polling
 
 ## later tasks
 - [ ] optimize: background renders, matchWindow loop, queues
