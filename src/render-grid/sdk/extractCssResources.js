@@ -4,7 +4,7 @@ const {URL} = require('url');
 
 // NOTE: this is also implemented on the client side (copy pasted to enable unit testing `extractResources` with puppeteer)
 function getUrlFromCssText(cssText) {
-  const match = cssText.match(/url\((?!['"]?(?:data|http):)['"]?([^'"\)]*)['"]?\)/);
+  const match = cssText.match(/url\((?!['"]?:)['"]?([^'"\)]*)['"]?\)/);
   return match ? match[1] : match;
 }
 
@@ -32,7 +32,15 @@ function extractResourcesFromStyleSheet(styleSheet) {
 }
 
 function extractCssResources(cssText, absoluteUrl) {
-  const styleSheet = parse(cssText);
+  let styleSheet;
+
+  try {
+    styleSheet = parse(cssText);
+  } catch (ex) {
+    console.error(ex);
+    return [];
+  }
+
   return extractResourcesFromStyleSheet(styleSheet).map(url => absolutizeUrl(url, absoluteUrl));
 }
 
