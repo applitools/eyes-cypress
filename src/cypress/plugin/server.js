@@ -34,16 +34,17 @@ const app = express();
 app.use(cors());
 app.use(morgan('combined'));
 app.get('/hb', (_req, res) => res.sendStatus(200));
+app.get('/err', (_req, res) => res.status(500).send('this is a test error'));
 
 app.post('/eyes/:command', express.json({limit: '100mb'}), async (req, res) => {
   log(`eyes api: ${req.params.command}, ${Object.keys(req.body)}`);
   try {
     const result = await handlers[req.params.command](req.body);
     res.set('Content-Type', 'application/json');
-    res.status(200).send(result);
+    res.status(200).send({success: true, result});
   } catch (ex) {
     console.error('error in eyes api:', ex);
-    res.status(500).send(ex.message);
+    res.status(200).send({success: false, error: ex.message});
   }
 });
 

@@ -48,17 +48,14 @@ describe('cypress run', () => {
 
   it('considers timeout passed to close', async () => {
     try {
-      const buff = await pexec(
+      await pexec(
         './node_modules/.bin/cypress run --config integrationFolder=cypress/integration-timeout,pluginsFile=cypress/plugins/index-run.js,supportFile=cypress/support/index-run.js',
         {
           maxBuffer: 10000000,
         },
       );
-
-      expect(buff.stderr).to.include(TIMEOUT_MSG);
     } catch (ex) {
-      console.error('Error!', ex.stdout);
-      throw ex;
+      expect(ex.stderr).to.include(TIMEOUT_MSG);
     }
   });
 });

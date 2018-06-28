@@ -35,9 +35,7 @@ describe('command handlers', () => {
   });
 
   it('handles "open"', async () => {
-    const {
-      result: {checkWindow},
-    } = await handlers.open({__test: 123});
+    const {checkWindow} = await handlers.open({__test: 123});
 
     expect((await checkWindow()).__test).to.equal('checkWindow_123');
   });
@@ -57,7 +55,7 @@ describe('command handlers', () => {
     const resourceUrls = 'resourceUrls';
     const tag = 'tag';
 
-    const {result} = await handlers.checkWindow({cdt, resourceUrls, tag});
+    const result = await handlers.checkWindow({cdt, resourceUrls, tag});
 
     expect(result).to.eql({__test: 'checkWindow_123', resourceUrls, cdt, tag});
   });

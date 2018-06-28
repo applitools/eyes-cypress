@@ -13,7 +13,7 @@ function makeHandlers(openEyes) {
       const eyes = await openEyes(config);
       checkWindow = eyes.checkWindow;
       close = pollingHandler(eyes.close);
-      return {result: eyes};
+      return eyes;
     },
 
     checkWindow: async ({resourceUrls, cdt, tag}) => {
@@ -21,7 +21,7 @@ function makeHandlers(openEyes) {
         throw new Error('Please call cy.eyesOpen() before calling cy.eyesCheckWindow()');
       }
 
-      return {result: await checkWindow({resourceUrls, cdt, tag})};
+      return await checkWindow({resourceUrls, cdt, tag});
     },
 
     close: async ({timeout = DEFAULT_TIMEOUT} = {}) => {

@@ -16,7 +16,7 @@ describe('eyes.cypress', () => {
     // cy.eyesCheck(Target.region('.something'))
     // cy.get('.something').eyesCheckRegion()
 
-    cy.eyes().Open('some app', 'cypress-run', {width: 1024, height: 768});
+    // cy.eyes().Open('some app', 'cypress-run', {width: 1024, height: 768});
 
 
     // cy.eyes().CheckWindow('some tag');

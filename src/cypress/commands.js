@@ -1,23 +1,15 @@
-/* global fetch, Cypress, cy */
+/* global Cypress, cy */
 
 const extractResources = require('../render-grid/browser-util/extractResources');
 const domNodesToCdt = require('../render-grid/browser-util/domNodesToCdt');
 const poll = require('./poll');
 const makeSend = require('./makeSend');
 const port = Cypress.config('eyesPort') || require('./plugin/defaultPort');
-const send = makeSend(port, fetch);
+const send = makeSend(port, cy.request);
 
 const EyesServer = {
   open(args) {
-    return sendRequest('open', args).catch(ex => {
-      if (ex.message === 'Failed to fetch') {
-        throw new Error(
-          `Eyes.Cypress communication failure. Configured eyesPort is ${port}. Maybe you used a custom plugin port and didn't export it as eyesPort from the pluginsFile? Check your pluginsFile (normally located at cypress/plugins/index.js) for the require('@applitools/eyes.cypress') statement.`,
-        );
-      } else {
-        throw ex;
-      }
-    });
+    return sendRequest('open', args);
   },
 
   checkWindow(resourceUrls, cdt, tag) {
@@ -48,26 +40,14 @@ Cypress.Commands.add('eyesCheckWindow', tag => {
 
 Cypress.Commands.add('eyesClose', ({timeout} = {}) => {
   Cypress.log({name: 'Eyes: close'});
-  return EyesServer.close({timeout}).catch(ex => {
-    console.log('bbb', ex);
-  });
+  return EyesServer.close({timeout});
 });
 
 function sendRequest(command, data) {
-  let resp;
-  return send(command, data)
-    .then(_resp => {
-      resp = _resp;
-      if (resp.status === 500) {
-        return resp.text();
-      } else {
-        return resp.json();
-      }
-    })
-    .then(result => {
-      if (resp.status === 500) {
-        return Promise.reject(result);
-      }
-      return result;
-    });
+  return send(command, data).then(resp => {
+    if (!resp.body.success) {
+      throw new Error(resp.body.error);
+    }
+    return resp.body.result;
+  });
 }
