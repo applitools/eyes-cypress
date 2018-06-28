@@ -36,7 +36,10 @@ describe('openEyes', () => {
       testName: 'passes with correct screenshot',
       apiKey,
       url: `${baseUrl}/test.html`,
-      viewportSize: [{width: 640, height: 480}, {width: 800, height: 600}],
+      browser: [
+        {width: 640, height: 480, name: 'chrome'},
+        {width: 800, height: 600, name: 'firefox'},
+      ],
       // showLogs: true,
     });
 
@@ -52,7 +55,7 @@ describe('openEyes', () => {
       testName: 'fails with incorrect screenshot',
       apiKey,
       url: `${baseUrl}/test.html`,
-      viewportSize: [{width: 640, height: 480}, {width: 800, height: 600}],
+      browser: [{width: 640, height: 480}, {width: 800, height: 600}],
       // showLogs: true,
     });
 

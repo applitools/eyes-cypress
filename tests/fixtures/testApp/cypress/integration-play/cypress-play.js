@@ -5,7 +5,7 @@ describe('eyes.cypress', () => {
     cy.eyesOpen({
       appName: 'some app',
       testName: 'cypress-play',
-      viewportSize: [{width: 1024, height: 768}, {width: 800, height: 600}],
+      browser: [{width: 1024, height: 768}, {width: 800, height: 600}],
       showLogs: true,
     });
     cy.eyesCheckWindow('homepage');
@@ -24,7 +24,7 @@ describe('eyes.cypress', () => {
     cy.eyesOpen({
       appName: 'some app',
       testName: 'cypress-play-test',
-      viewportSize: {width: 1024, height: 768},
+      browser: {width: 1024, height: 768},
       showLogs: true,
     });
     cy.eyesCheckWindow('some tag');

@@ -12,8 +12,8 @@ const EyesServer = {
     return sendRequest('open', args);
   },
 
-  checkWindow(resourceUrls, cdt, tag) {
-    return sendRequest('checkWindow', {resourceUrls, cdt, tag});
+  checkWindow(resourceUrls, cdt, tag, sizeMode) {
+    return sendRequest('checkWindow', {resourceUrls, cdt, tag, sizeMode});
   },
 
   close: poll(function({timeout}) {

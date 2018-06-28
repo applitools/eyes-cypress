@@ -65,7 +65,7 @@ describe('Hello world', () => {
     cy.eyesOpen({
       appName: 'Hello World!',
       testName: 'My first JavaScript test!',
-      viewportSize: { width: 800, height: 600 },
+      browser: { width: 800, height: 600 },
     });
     cy.eyesCheckWindow('Main Page');
     cy.get('button').click();
@@ -126,7 +126,7 @@ It's possible to define the following configuration for tests:
 | --------------- |:---------------------------:| -----:|
 | `appName`       | ''                          | Your application name that will be shown in test results |
 | `testName`      | ''                          | Test name |
-| `viewportSize`  | { width: 800, height: 600 } | The size of the generated screenshots. This doesn't need to be the same as the size of the browser that Cypress is running.  It's also possible to send an array of sizes:<br/><br/>It's also possible to send an array of sizes, e.g. `[{width: 800, height: 600}, { width: 1024, height: 768 }]`|
+| `browser`       | { width: 800, height: 600 } | The size of the generated screenshots. This doesn't need to be the same as the size of the browser that Cypress is running.  It's also possible to send an array of sizes:<br/><br/>It's also possible to send an array of sizes, e.g. `[{width: 800, height: 600}, { width: 1024, height: 768 }]`|
 | `showLogs`      | false                       | Whether or not you want to see logs of the Eyes.Cypress plugin. Logs are written to the same output of the Cypress process. |
 | `saveDebugData` | false                       | Whether to save troubleshooting data. See the troubleshooting section of this doc for more info. |
 | `batchName`     | null                        | Provides ability to group tests into batches. Read more about batches [here](https://applitools.com/docs/topics/working-with-test-batches/how-to-group-tests-into-batches.html). |

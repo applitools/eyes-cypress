@@ -4,7 +4,7 @@ describe('Hello world', () => {
     cy.eyesOpen({
       appName: 'Hello World!',
       testName: 'My first JavaScript test!',
-      viewportSize: { width: 800, height: 600 },
+      browser: { width: 800, height: 600 },
       showLogs: true
     });
     cy.eyesCheckWindow('Main Page');

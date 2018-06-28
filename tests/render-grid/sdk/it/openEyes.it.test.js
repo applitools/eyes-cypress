@@ -81,11 +81,7 @@ describe('openEyes', () => {
   it('renders multiple viewport sizes', async () => {
     const {checkWindow, close} = await openEyes({
       wrappers: [wrapper, wrapper, wrapper],
-      viewportSize: [
-        {width: 320, height: 480},
-        {width: 640, height: 768},
-        {width: 1600, height: 900},
-      ],
+      browser: [{width: 320, height: 480}, {width: 640, height: 768}, {width: 1600, height: 900}],
       url: `${baseUrl}/test.html`,
       apiKey,
     });
@@ -110,5 +106,34 @@ describe('openEyes', () => {
     const newWrapper = new FakeEyesWrapper({});
     await openEyes({wrappers: [newWrapper], apiKey});
     expect(newWrapper.getBatch()).to.equal(batch);
+  });
+
+  it('renders the correct sizeMode', async () => {
+    const {checkWindow, close} = await openEyes({
+      wrappers: [wrapper],
+      browser: {width: 320, height: 480},
+      url: `${baseUrl}/test.html`,
+      apiKey,
+    });
+
+    const resourceUrls = wrapper.goodResourceUrls;
+    const cdt = loadJsonFixture('test.cdt.json');
+    await checkWindow({resourceUrls, cdt, tag: 'good1', sizeMode: 'some size mode'});
+    expect((await close()).map(r => r.getAsExpected())).to.eql([true]);
+  });
+
+  // TODO
+  it.skip('renders the correct browser', async () => {
+    const {checkWindow, close} = await openEyes({
+      wrappers: [wrapper],
+      browser: {width: 320, height: 480, browser: 'ucbrowser'},
+      url: `${baseUrl}/test.html`,
+      apiKey,
+    });
+
+    const resourceUrls = wrapper.goodResourceUrls;
+    const cdt = loadJsonFixture('test.cdt.json');
+    await checkWindow({resourceUrls, cdt, tag: 'good1', sizeMode: 'some size mode'});
+    expect((await close()).map(r => r.getAsExpected())).to.eql([true]);
   });
 });

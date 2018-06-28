@@ -34,14 +34,15 @@
 - [ ] assert second render request has "rendering" status
 - [ ] error handling: close/checkWindow without open
 - [ ] add 'use strict'
-- [ ] test coverage for actual test creation in eyes server (need metadata from Adam)
 - [ ] fail test with proper link to eyes in the `close` command
 - [x] make git repo and npm package public
 - [x] add sizeMode to checkWindow params
-- [ ] viewportSize should include browser (and change its name)
+- [x] viewportSize should include browser (and change its name)
 - [x] markdown lint
 - [x] reimplement close with polling
+- [x] switch from 'fetch' to 'cy.request'
+- [ ] optimize: background renders, matchWindow loop, queues
+- [ ] test coverage for actual test creation in eyes server (need metadata from Adam)
 
 ## later tasks
-- [ ] optimize: background renders, matchWindow loop, queues
 - [ ] change `src` to `lib` ?

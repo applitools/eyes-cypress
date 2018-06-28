@@ -15,8 +15,9 @@ class EyesWrapper extends EyesBase {
     this.setLogHandler(new ConsoleLogHandler(isVerbose)); // TODO open to configuration / based on env
   }
 
-  async open(appName, testName, viewportSize) {
+  async open(appName, testName, viewportSize, browserName) {
     await super.openBase(appName, testName);
+    browserName && this.setHostApp(browserName);
 
     this._viewportSizeHandler.set(new RectangleSize(viewportSize)); // Not doing this causes an exception at a later
   }

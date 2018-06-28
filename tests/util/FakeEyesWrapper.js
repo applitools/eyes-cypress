@@ -25,7 +25,15 @@ function addSizeMode(str, sizeMode) {
 }
 
 function getSizeMode(str) {
-  return str.match(/_sizeMode:(.+)$/)[1];
+  return str.match(/_sizeMode:([^_]+)/)[1];
+}
+
+function addBrowserName(str, browserName) {
+  return `${str}_browserName:${browserName}`;
+}
+
+function getBrowserName(str) {
+  return str.match(/_browserName:([^_]+)/)[1];
 }
 
 class FakeEyesWrapper {
@@ -43,6 +51,7 @@ class FakeEyesWrapper {
   async open(_appName, _testName, _viewportSize) {}
 
   async renderBatch(renderRequests) {
+    this.sizeMode = renderRequests[0].getRenderInfo().getSizeMode();
     return renderRequests.map(renderRequest => this.getRunningRenderForRequest(renderRequest));
   }
 
@@ -59,10 +68,11 @@ class FakeEyesWrapper {
     const cdt = renderRequest.getDom().getDomNodes();
     const isGoodCdt = cdt.length === 0 || compare(cdt, this.expectedCdt); // allowing [] for easier testing (only need to pass `cdt:[]` in the test)
     const sizeMode = renderRequest.getRenderInfo().getSizeMode();
+    const browserName = renderRequest.getBrowserName();
 
     const isGood = isGoodCdt && isGoodResources;
     const renderId = isGood ? GOOD_RENDER_ID : BAD_RENDER_ID;
-    const renderIdWithSizeMode = addSizeMode(renderId, sizeMode);
+    const renderIdWithSizeMode = addBrowserName(addSizeMode(renderId, sizeMode), browserName);
 
     return new FakeRunningRender(renderIdWithSizeMode, RenderStatus.RENDERED);
   }
@@ -70,12 +80,16 @@ class FakeEyesWrapper {
   async getRenderStatus(renderIds) {
     return renderIds.map(renderId => {
       const sizeMode = getSizeMode(renderId);
+      const browserName = getBrowserName(renderId);
       const result = new RenderStatusResults();
       result.setStatus(RenderStatus.RENDERED);
       const imageLocation = renderId.match(GOOD_RENDER_ID)
         ? GOOD_SCREENSHOT_URL
         : BAD_SCREENSHOT_URL;
-      const imageLocationWithSizeMode = addSizeMode(imageLocation, sizeMode);
+      const imageLocationWithSizeMode = addBrowserName(
+        addSizeMode(imageLocation, sizeMode),
+        browserName,
+      );
       result.setImageLocation(imageLocationWithSizeMode);
       return result;
     });
@@ -87,14 +101,14 @@ class FakeEyesWrapper {
 
   setRenderingInfo() {}
 
-  async checkWindow({screenshotUrl, tag, sizeMode = 'full-page'}) {
+  async checkWindow({screenshotUrl, tag}) {
     if (this.goodTags && !this.goodTags.includes(tag))
       throw new Error(`Tag ${tag} should be one of the good tags ${this.goodTags}`);
 
     const result = new MatchResult();
     const goodScreenshot = !!screenshotUrl.match(GOOD_SCREENSHOT_URL);
     const screenshotSizeMode = getSizeMode(screenshotUrl);
-    const asExpected = goodScreenshot && screenshotSizeMode === sizeMode;
+    const asExpected = goodScreenshot && screenshotSizeMode === this.sizeMode;
     result.setAsExpected(asExpected);
     return result;
   }

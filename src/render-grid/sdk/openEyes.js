@@ -9,10 +9,14 @@ const renderBatch = require('./renderBatch');
 
 let batchInfo;
 
+// TODO replace with getInferredEnvironment once render service returns userAgent
+const getHostAppFromBrowserName = browserName =>
+  browserName.charAt(0).toUpperCase() + browserName.slice(1);
+
 async function openEyes({
   appName,
   testName,
-  viewportSize = {width: 1024, height: 768},
+  browser = {width: 1024, height: 768},
   url,
   apiKey,
   showLogs = false,
@@ -34,7 +38,7 @@ async function openEyes({
         url,
         resources,
         cdt,
-        viewportSizes,
+        browsers,
         renderInfo,
         sizeMode,
       });
@@ -74,9 +78,14 @@ async function openEyes({
 
   async function initWrappers() {
     wrappers = [];
-    for (const viewportSize of viewportSizes) {
+    for (const browser of browsers) {
       const wrapper = new EyesWrapper({apiKey, isVerbose: showLogs});
-      await wrapper.open(appName, testName, viewportSize);
+      await wrapper.open(
+        appName,
+        testName,
+        {width: browser.width, height: browser.height},
+        browser.name && getHostAppFromBrowserName(browser.name), // TODO replace with getInferredEnvironment once render service returns userAgent
+      );
       wrappers.push(wrapper);
     }
   }
@@ -87,7 +96,7 @@ async function openEyes({
     );
   }
 
-  const viewportSizes = Array.isArray(viewportSize) ? viewportSize : [viewportSize];
+  const browsers = Array.isArray(browser) ? browser : [browser];
   if (!wrappers) {
     await initWrappers();
   }
