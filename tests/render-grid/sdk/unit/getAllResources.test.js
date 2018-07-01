@@ -213,4 +213,12 @@ describe('getAllResources', () => {
     const resourcesFromCache = await getAllResources([cssUrl]);
     expect(resourcesFromCache).to.deep.equal(expectedFromCache);
   });
+
+  it("doesn't crash with unsupported protocols", async () => {
+    const resources = await getAllResources([
+      'data:text/html,<div>',
+      'blob:http://localhost/something.css',
+    ]).then(x => x, err => err);
+    expect(resources).to.eql({});
+  });
 });

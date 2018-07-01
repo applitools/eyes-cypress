@@ -59,7 +59,7 @@ async function getOrFetchResources(resourceUrls, cache) {
     const cacheEntry = cache.getWithDependencies(url);
     if (cacheEntry) {
       Object.assign(resources, mapValues(cacheEntry, fromCacheToRGridResource));
-    } else {
+    } else if (/^https?:\/\//.test(url)) {
       missingResourceUrls.push(url);
     }
   }
