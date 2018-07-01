@@ -2,7 +2,7 @@ const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const extractCssResources = require('../../../../src/render-grid/sdk/extractCssResources');
 
-describe('extractCssResources', () => {
+describe.only('extractCssResources', () => {
   it('supports property url()', async () => {
     const cssText = `
       .selector { background: url('hello.jpg'); }
@@ -36,6 +36,18 @@ describe('extractCssResources', () => {
     const baseUrl = 'http://some/path';
     const resourceUrls = extractCssResources(cssText, baseUrl);
     expect(resourceUrls).to.eql(['http://some/some.css']);
+  });
+
+  it('supports @support rule', async () => {
+    const cssText = `@supports (display: grid) {
+      div {
+        display: grid;
+        background: url('hello.jpg');
+      }
+    }`;
+    const baseUrl = 'http://some/path';
+    const resourceUrls = extractCssResources(cssText, baseUrl);
+    expect(resourceUrls).to.eql(['http://some/hello.jpg']);
   });
 
   it("doesn't crash on parse error", async () => {
