@@ -1,7 +1,7 @@
 'use strict';
 const {describe, it, beforeEach, afterEach} = require('mocha');
 const {expect} = require('chai');
-const {initConfig} = require('../../src/cypress/plugin/config');
+const {initConfig, toEnvVarName} = require('../../src/cypress/plugin/config');
 const {resolve} = require('path');
 const {omit} = require('lodash');
 
@@ -73,5 +73,12 @@ describe('config', () => {
     const config = getConfig(args);
     const expectedConfig = {saveDebugData: true};
     expect(config).to.eql(expectedConfig);
+  });
+});
+
+describe('toEnvVarName', () => {
+  it('works', () => {
+    expect(toEnvVarName('someCamelCase')).to.equal('SOME_CAMEL_CASE');
+    expect(toEnvVarName('CapitalSomeCamelCase')).to.equal('CAPITAL_SOME_CAMEL_CASE');
   });
 });

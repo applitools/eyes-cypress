@@ -129,7 +129,8 @@ It's possible to define the following configuration for tests:
 | `browser`       | { width: 800, height: 600 } | The size of the generated screenshots. This doesn't need to be the same as the size of the browser that Cypress is running.  It's also possible to send an array of sizes:<br/><br/>It's also possible to send an array of sizes, e.g. `[{width: 800, height: 600}, { width: 1024, height: 768 }]`|
 | `showLogs`      | false                       | Whether or not you want to see logs of the Eyes.Cypress plugin. Logs are written to the same output of the Cypress process. |
 | `saveDebugData` | false                       | Whether to save troubleshooting data. See the troubleshooting section of this doc for more info. |
-| `batchName`     | null                        | Provides ability to group tests into batches. Read more about batches [here](https://applitools.com/docs/topics/working-with-test-batches/how-to-group-tests-into-batches.html). |
+| `batchId`       | random                      | Provides ability to group tests into batches. Read more about batches [here](https://applitools.com/docs/topics/working-with-test-batches/how-to-group-tests-into-batches.html). |
+| `batchName`     | null                        | Provide a name to the batch. |
 
 There are 3 ways to specify test configuration:
 1) Arguments to `cy.eyesOpen()`
