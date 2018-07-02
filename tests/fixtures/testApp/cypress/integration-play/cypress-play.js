@@ -50,13 +50,13 @@ describe('eyes.cypress', () => {
         browser: {width: 1200, height: 800},
         showLogs: true,
       });
-      cy.eyesCheckWindow('homepage');
-      cy.get(':nth-child(1) > .nav-link').click();
-      cy.eyesCheckWindow('proposals');
-      verifyCount();
-      cy.get('.flex-wrap > :nth-child(1)').click();
-      cy.eyesCheckWindow('filtered proposals');
-      verifyCount();
+      cy.eyesCheckWindow({tag: 'homepage', sizeMode: 'viewport'});
+      // cy.get(':nth-child(1) > .nav-link').click();
+      // cy.eyesCheckWindow('proposals');
+      // verifyCount();
+      // cy.get('.flex-wrap > :nth-child(1)').click();
+      // cy.eyesCheckWindow('filtered proposals');
+      // verifyCount();
       cy.eyesClose();
     });
   });

@@ -12,7 +12,7 @@ const EyesServer = {
     return sendRequest('open', args);
   },
 
-  checkWindow(resourceUrls, cdt, tag, sizeMode) {
+  checkWindow({resourceUrls, cdt, tag, sizeMode}) {
     return sendRequest('checkWindow', {resourceUrls, cdt, tag, sizeMode});
   },
 
@@ -29,12 +29,20 @@ Cypress.Commands.add('eyesOpen', (args = {}) => {
   });
 });
 
-Cypress.Commands.add('eyesCheckWindow', tag => {
+Cypress.Commands.add('eyesCheckWindow', args => {
+  let tag, sizeMode;
+  if (typeof args === 'string') {
+    tag = args;
+  } else if (typeof args === 'object') {
+    tag = args.tag;
+    sizeMode = args.sizeMode;
+  }
+
   Cypress.log({name: 'Eyes: check window'});
   return cy.document({log: false}).then(doc => {
     const cdt = domNodesToCdt(doc);
     const resourceUrls = extractResources(doc);
-    return EyesServer.checkWindow(resourceUrls, cdt, tag);
+    return EyesServer.checkWindow({resourceUrls, cdt, tag, sizeMode});
   });
 });
 
