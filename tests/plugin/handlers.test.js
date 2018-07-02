@@ -1,3 +1,4 @@
+'use strict';
 const {describe, it, beforeEach} = require('mocha');
 const {expect} = require('chai');
 const makeHandlers = require('../../src/cypress/plugin/handlers');

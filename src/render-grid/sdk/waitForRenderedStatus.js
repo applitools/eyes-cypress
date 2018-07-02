@@ -1,3 +1,4 @@
+'use strict';
 const {RenderStatus} = require('@applitools/eyes.sdk.core');
 const {promisify: p} = require('util');
 

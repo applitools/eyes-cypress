@@ -1,3 +1,4 @@
+'use strict';
 const {Logger, ConsoleLogHandler} = require('@applitools/eyes.sdk.core');
 
 const logger = new Logger();

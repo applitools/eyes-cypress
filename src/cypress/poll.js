@@ -1,3 +1,4 @@
+'use strict';
 function poll(doWork) {
   function doPoll(args) {
     return doWork(args).then(result => {

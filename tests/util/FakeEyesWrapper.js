@@ -1,3 +1,4 @@
+'use strict';
 const {MatchResult, RenderStatusResults, RenderStatus} = require('@applitools/eyes.sdk.core');
 const {URL} = require('url');
 const {loadJsonFixture, loadFixtureBuffer} = require('./loadFixture');

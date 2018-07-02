@@ -1,5 +1,5 @@
 /* global Cypress, cy */
-
+'use strict';
 const extractResources = require('../render-grid/browser-util/extractResources');
 const domNodesToCdt = require('../render-grid/browser-util/domNodesToCdt');
 const poll = require('./poll');

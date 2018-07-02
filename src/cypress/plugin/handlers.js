@@ -1,3 +1,4 @@
+'use strict';
 const pollingHandler = require('./pollingHandler');
 const {initConfig} = require('./config');
 const getConfig = initConfig(process.cwd());

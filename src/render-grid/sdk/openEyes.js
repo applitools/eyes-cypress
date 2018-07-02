@@ -1,3 +1,4 @@
+'use strict';
 const EyesWrapper = require('./EyesWrapper');
 const getAllResources = require('./getAllResources');
 const waitForRenderedStatus = require('./waitForRenderedStatus');

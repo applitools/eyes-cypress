@@ -1,3 +1,4 @@
+'use strict';
 const {describe, it, after} = require('mocha');
 const {exec} = require('child_process');
 const {resolve} = require('path');

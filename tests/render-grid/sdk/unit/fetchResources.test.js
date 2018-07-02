@@ -1,3 +1,4 @@
+'use strict';
 const {describe, it, before, after} = require('mocha');
 const fetchResources = require('../../../../src/render-grid/sdk/fetchResources');
 const {expect} = require('chai');

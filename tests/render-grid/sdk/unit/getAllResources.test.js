@@ -1,3 +1,4 @@
+'use strict';
 const {describe, it, afterEach} = require('mocha');
 const {expect} = require('chai');
 const {mapValues} = require('lodash');

@@ -1,3 +1,4 @@
+'use strict';
 const PollingStatus = {
   IDLE: 'IDLE',
   WIP: 'WIP',

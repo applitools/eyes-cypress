@@ -1,4 +1,5 @@
 /* eslint-disable no-use-before-define */
+'use strict';
 const NODE_TYPES = {
   ELEMENT: 1,
   TEXT: 3,
