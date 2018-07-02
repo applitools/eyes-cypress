@@ -1,4 +1,5 @@
-## tasks
+# tasks
+
 - [x] reorder folders
 - [x] write more tests for (rg-client, rg-server)
 - [x] code review
@@ -30,19 +31,16 @@
 - [x] docs: troubleshooting section
 - [x] proper timeout message
 - [x] missing `eyesPort` export message
-- [ ] getAllResources should not keep global cache (plus tests)
-- [ ] assert second render request has "rendering" status
-- [ ] error handling: close/checkWindow without open
-- [ ] add 'use strict'
-- [ ] fail test with proper link to eyes in the `close` command
+- [x] fail test with proper link to eyes in the `close` command
 - [x] make git repo and npm package public
 - [x] add sizeMode to checkWindow params
 - [x] viewportSize should include browser (and change its name)
 - [x] markdown lint
 - [x] reimplement close with polling
 - [x] switch from 'fetch' to 'cy.request'
-- [ ] optimize: background renders, matchWindow loop, queues
+- [x] optimize: background renders, matchWindow loop, queues
 - [ ] test coverage for actual test creation in eyes server (need metadata from Adam)
-
-## later tasks
-- [ ] change `src` to `lib` ?
+- [ ] getAllResources should not keep global cache (plus tests)
+- [ ] assert second render request has "rendering" status
+- [ ] error handling: close/checkWindow without open
+- [ ] add 'use strict'
