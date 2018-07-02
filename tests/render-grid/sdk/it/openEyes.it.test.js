@@ -5,6 +5,8 @@ const openEyes = require('../../../../src/render-grid/sdk/openEyes');
 const FakeEyesWrapper = require('../../../util/FakeEyesWrapper');
 const testServer = require('../../../util/testServer');
 const {loadJsonFixture} = require('../../../util/loadFixture');
+const {promisify: p} = require('util');
+const psetTimeout = p(setTimeout);
 
 describe('openEyes', () => {
   let baseUrl, closeServer, wrapper;
@@ -120,6 +122,44 @@ describe('openEyes', () => {
     const cdt = loadJsonFixture('test.cdt.json');
     await checkWindow({resourceUrls, cdt, tag: 'good1', sizeMode: 'some size mode'});
     expect((await close()).map(r => r.getAsExpected())).to.eql([true]);
+  });
+
+  it('runs matchWindow in the correct order', async () => {
+    const wrapper1 = new FakeEyesWrapper({goodFilename: 'test.cdt.json', goodResourceUrls: []});
+    const wrapper2 = new FakeEyesWrapper({goodFilename: 'test.cdt.json', goodResourceUrls: []});
+
+    wrapper1.checkWindow = async ({tag}) => {
+      if (tag === 'one') {
+        await psetTimeout(200);
+      } else if (tag === 'two') {
+        await psetTimeout(50);
+      }
+      return `${tag}1`;
+    };
+
+    wrapper2.checkWindow = async ({tag}) => {
+      if (tag === 'one') {
+        await psetTimeout(150);
+      } else if (tag === 'two') {
+        await psetTimeout(150);
+      }
+      return `${tag}2`;
+    };
+
+    const {checkWindow, close} = await openEyes({
+      wrappers: [wrapper1, wrapper2],
+      browser: [{width: 320, height: 480}, {width: 640, height: 768}],
+      url: `${baseUrl}/test.html`,
+      apiKey,
+    });
+
+    const resourceUrls = wrapper.goodResourceUrls;
+    const cdt = loadJsonFixture('test.cdt.json');
+    await checkWindow({resourceUrls, cdt, tag: 'one'});
+    await checkWindow({resourceUrls, cdt, tag: 'two'});
+    await checkWindow({resourceUrls, cdt, tag: 'three'});
+    const results = await close();
+    expect(results).to.eql(['one2', 'one1', 'two1', 'three1', 'two2', 'three2']);
   });
 
   // TODO

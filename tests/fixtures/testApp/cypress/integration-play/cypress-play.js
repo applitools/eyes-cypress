@@ -1,4 +1,4 @@
-/* globals describe,it,cy,Cypress */
+/* globals describe,it,cy,Cypress,context */
 describe('eyes.cypress', () => {
   it.skip('runs website', () => {
     cy.visit('http://applitools.com');

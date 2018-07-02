@@ -23,11 +23,15 @@ async function openEyes({
   saveDebugData = false,
   wrappers,
 }) {
-  setIsVerbose(showLogs);
-  const renderPromises = [];
-
   async function checkWindow({resourceUrls, cdt, tag, sizeMode}) {
-    async function checkWindowDo() {
+    async function checkWindowJob(renderPromise, prevJobPromise, index) {
+      const renderId = (await renderPromise)[index];
+      const [screenshotUrl] = await waitForRenderedStatus([renderId], renderWrapper);
+      await prevJobPromise;
+      results.push(await wrappers[index].checkWindow({screenshotUrl, tag}));
+    }
+
+    async function startRender() {
       const renderInfo = await renderInfoPromise;
 
       const absoluteUrls =
@@ -50,29 +54,20 @@ async function openEyes({
         }
       }
 
-      const screenshotUrls = await waitForRenderedStatus(renderIds, renderWrapper);
-
-      if (!screenshotUrls) throw new Error(`no screenshots found for renderIds ${renderIds}`);
-
-      return {screenshotUrls, tag};
+      return renderIds;
     }
-    const renderPromise = checkWindowDo();
 
-    renderPromises.push(renderPromise);
+    /******* checkWindow body start *******/
+
+    const renderPromise = startRender();
+    checkWindowPromises = browsers.map((_browser, i) =>
+      checkWindowJob(renderPromise, checkWindowPromises[i], i),
+    );
   }
 
   async function close() {
-    const results = [];
-
-    for (const renderPromise of renderPromises) {
-      const {screenshotUrls, tag} = await renderPromise;
-      for (let i = 0, ii = screenshotUrls.length; i < ii; i++) {
-        results.push(await wrappers[i].checkWindow({screenshotUrl: screenshotUrls[i], tag}));
-      }
-    }
-
+    await Promise.all(checkWindowPromises);
     await Promise.all(wrappers.map(wrapper => wrapper.close()));
-
     return results;
   }
 
@@ -89,6 +84,12 @@ async function openEyes({
       wrappers.push(wrapper);
     }
   }
+
+  /******* openEyes body start *******/
+
+  setIsVerbose(showLogs);
+  let checkWindowPromises = [];
+  const results = [];
 
   if (!apiKey) {
     throw new Error(
