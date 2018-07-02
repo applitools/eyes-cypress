@@ -1,11 +1,14 @@
 /* globals describe,it,cy,Cypress,context */
 describe('eyes.cypress', () => {
-  it.skip('runs website', () => {
+  it('runs website', () => {
     cy.visit('http://applitools.com');
     cy.eyesOpen({
       appName: 'some app',
       testName: 'cypress-play',
-      browser: [{width: 1024, height: 768}, {width: 800, height: 600}],
+      browser: [
+        {width: 1024, height: 768, name: 'chrome'},
+        {width: 800, height: 600, name: 'firefox'},
+      ],
       showLogs: true,
     });
     cy.eyesCheckWindow('homepage');
@@ -14,7 +17,7 @@ describe('eyes.cypress', () => {
     cy.get('a[href="/case-studies/walkme"]').click({force: true});
     cy.eyesCheckWindow('walkme page');
     cy.get('.navbar a[href="/pricing"]').click();
-    cy.eyesCheckWindow('walkme page');
+    cy.eyesCheckWindow('pricing page');
     cy.eyesClose();
   });
 
@@ -31,7 +34,7 @@ describe('eyes.cypress', () => {
     cy.eyesClose();
   });
 
-  context('Reversim website', () => {
+  context.skip('Reversim website', () => {
     it('works', () => {
       function verifyCount() {
         cy.get(
