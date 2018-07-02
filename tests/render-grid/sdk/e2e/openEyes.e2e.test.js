@@ -6,7 +6,7 @@ if (!apiKey) {
   throw new Error('APPLITOOLS_API_KEY env variable is not defined');
 }
 
-const {describe, it, before, after, beforeEach} = require('mocha');
+const {describe, it, before, after} = require('mocha');
 const {expect} = require('chai');
 const openEyes = require('../../../../src/render-grid/sdk/openEyes');
 const testServer = require('../../../util/testServer');
@@ -24,10 +24,6 @@ describe('openEyes', () => {
 
   after(async () => {
     await closeServer();
-  });
-
-  beforeEach(() => {
-    openEyes.clearBatch();
   });
 
   it('passes with correct screenshot', async () => {

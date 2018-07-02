@@ -1,5 +1,6 @@
 'use strict';
 const {resolve} = require('path');
+const getBatch = require('./getBatch');
 
 const configFilename = 'eyes.json';
 
@@ -20,7 +21,12 @@ function initConfig(configFolder) {
     if (envConfig[p] === undefined) delete envConfig[p];
   }
 
-  return config => Object.assign({}, defaultConfig, envConfig, config);
+  const priorConfig = Object.assign({}, defaultConfig, envConfig);
+  Object.assign(priorConfig, getBatch(priorConfig));
+
+  return config => {
+    return Object.assign({}, priorConfig, config);
+  };
 }
 
 module.exports = {

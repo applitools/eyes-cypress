@@ -6,8 +6,7 @@ const saveData = require('../troubleshoot/saveData');
 const {setIsVerbose} = require('./log');
 const createRenderRequests = require('./createRenderRequests');
 const renderBatch = require('./renderBatch');
-
-let batchInfo;
+const {BatchInfo} = require('@applitools/eyes.sdk.core');
 
 // TODO replace with getInferredEnvironment once render service returns userAgent
 const getHostAppFromBrowserName = browserName =>
@@ -22,6 +21,8 @@ async function openEyes({
   showLogs = false,
   saveDebugData = false,
   wrappers,
+  batchName,
+  batchId,
 }) {
   async function checkWindow({resourceUrls, cdt, tag, sizeMode}) {
     async function checkWindowJob(renderPromise, prevJobPromise, index) {
@@ -103,12 +104,13 @@ async function openEyes({
   }
 
   const renderWrapper = wrappers[0];
-  if (!batchInfo) {
-    batchInfo = renderWrapper.getBatch();
-  }
+
+  const batchInfo = new BatchInfo(batchName, null, batchId);
+
   for (const wrapper of wrappers) {
     wrapper.setBatch(batchInfo);
   }
+
   const renderInfoPromise = renderWrapper.getRenderInfo().then(renderInfo => {
     renderWrapper.setRenderingInfo(renderInfo);
     return renderInfo;
@@ -119,10 +121,5 @@ async function openEyes({
     close,
   };
 }
-
-// for tests
-openEyes.clearBatch = () => {
-  batchInfo = null;
-};
 
 module.exports = openEyes;

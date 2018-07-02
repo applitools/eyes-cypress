@@ -54,12 +54,12 @@ describe('eyes.cypress', () => {
         showLogs: true,
       });
       cy.eyesCheckWindow({tag: 'homepage', sizeMode: 'viewport'});
-      // cy.get(':nth-child(1) > .nav-link').click();
-      // cy.eyesCheckWindow('proposals');
-      // verifyCount();
-      // cy.get('.flex-wrap > :nth-child(1)').click();
-      // cy.eyesCheckWindow('filtered proposals');
-      // verifyCount();
+      cy.get(':nth-child(1) > .nav-link').click();
+      cy.eyesCheckWindow({tag: 'proposals', sizeMode: 'viewport'});
+      verifyCount();
+      cy.get('.flex-wrap > :nth-child(1)').click();
+      cy.eyesCheckWindow({tag: 'filtered proposals', sizeMode: 'viewport'});
+      verifyCount();
       cy.eyesClose();
     });
   });

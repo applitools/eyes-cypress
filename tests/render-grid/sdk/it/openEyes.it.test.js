@@ -23,7 +23,6 @@ describe('openEyes', () => {
   });
 
   beforeEach(() => {
-    openEyes.clearBatch();
     wrapper = new FakeEyesWrapper({
       goodFilename: 'test.cdt.json',
       goodResourceUrls: [`${baseUrl}/smurfs.jpg`, `${baseUrl}/test.css`],
@@ -94,20 +93,19 @@ describe('openEyes', () => {
     expect((await close()).map(r => r.getAsExpected())).to.eql([true, true, true]);
   });
 
-  it('runs all tests in the same batch', async () => {
-    const batch = `some batch ${Date.now()}`;
-    wrapper.setBatch(batch);
-    expect(wrapper.getBatch() === batch); // sometimes I'm a little defensive. It's human
-
+  it('handles `batchName` and `batchId` param', async () => {
+    const batchName = `some batch name ${Date.now()}`;
+    const batchId = `some batch ID ${Date.now()}`;
     await openEyes({
       wrappers: [wrapper],
       url: 'some url',
       apiKey,
+      batchName,
+      batchId,
     });
 
-    const newWrapper = new FakeEyesWrapper({});
-    await openEyes({wrappers: [newWrapper], apiKey});
-    expect(newWrapper.getBatch()).to.equal(batch);
+    expect(wrapper.getBatch().getName()).to.equal(batchName);
+    expect(wrapper.getBatch().getId()).to.equal(batchId);
   });
 
   it('renders the correct sizeMode', async () => {
