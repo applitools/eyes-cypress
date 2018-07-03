@@ -36,7 +36,7 @@ describe('openEyes', () => {
         {width: 640, height: 480, name: 'chrome'},
         {width: 800, height: 600, name: 'firefox'},
       ],
-      // showLogs: true,
+      showLogs: process.env.APPLITOOLS_SHOW_LOGS,
     });
 
     const resourceUrls = ['smurfs.jpg', 'test.css', 'imported2.css'];
@@ -52,7 +52,7 @@ describe('openEyes', () => {
       apiKey,
       url: `${baseUrl}/test.html`,
       browser: [{width: 640, height: 480}, {width: 800, height: 600}],
-      // showLogs: true,
+      showLogs: process.env.APPLITOOLS_SHOW_LOGS,
     });
 
     const resourceUrls = ['smurfs.jpg', 'test.css', 'imported2.css'];
