@@ -1,5 +1,5 @@
 'use strict';
-const {parse, CSSImportRule, CSSStyleRule, CSSFontFaceRule} = require('cssom');
+const {parse, CSSImportRule, CSSStyleRule, CSSFontFaceRule, CSSSupportsRule} = require('cssom');
 const {URL} = require('url');
 
 // NOTE: this is also implemented on the client side (copy pasted to enable unit testing `extractResources` with puppeteer)
@@ -20,6 +20,8 @@ function extractResourcesFromStyleSheet(styleSheet) {
       return acc.concat(rule.href);
     } else if (rule instanceof CSSFontFaceRule) {
       return acc.concat(getUrlFromCssText(rule.style.getPropertyValue('src')));
+    } else if (rule instanceof CSSSupportsRule) {
+      return acc.concat(extractResourcesFromStyleSheet(rule));
     } else if (rule instanceof CSSStyleRule) {
       for (let i = 0, ii = rule.style.length; i < ii; i++) {
         const url = getUrlFromCssText(rule.style.getPropertyValue(rule.style[i]));

@@ -39,6 +39,18 @@ describe('extractCssResources', () => {
     expect(resourceUrls).to.eql(['http://some/some.css']);
   });
 
+  it('supports @support rule', async () => {
+    const cssText = `@supports (display: grid) {
+      div {
+        display: grid;
+        background: url('hello.jpg');
+      }
+    }`;
+    const baseUrl = 'http://some/path';
+    const resourceUrls = extractCssResources(cssText, baseUrl);
+    expect(resourceUrls).to.eql(['http://some/hello.jpg']);
+  });
+
   it("doesn't crash on parse error", async () => {
     const cssText = `something that doesn't get parsed`;
     const baseUrl = 'http://some/path';

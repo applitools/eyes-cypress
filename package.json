@@ -22,7 +22,7 @@
   "dependencies": {
     "@applitools/eyes.sdk.core": "^1.6.0",
     "cors": "^2.8.4",
-    "cssom": "0.3.1",
+    "cssom": "git+https://github.com/amitzur/CSSOM.git#925260ff2c8f8387cf76df4d5776a06044a644c8",
     "dotenv": "^5.0.1",
     "express": "^4.16.3",
     "he": "^1.1.1",

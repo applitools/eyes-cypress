@@ -1,6 +1,6 @@
 /* globals describe,it,cy,Cypress,context */
 describe('eyes.cypress', () => {
-  it('runs website', () => {
+  it.skip('runs website', () => {
     cy.visit('http://applitools.com');
     cy.eyesOpen({
       appName: 'some app',
@@ -21,6 +21,21 @@ describe('eyes.cypress', () => {
     cy.eyesClose();
   });
 
+  it.skip('hacker news', () => {
+    cy.visit('http://news.ycombinator.com');
+    cy.eyesOpen({
+      appName: 'hacker news',
+      testName: 'hacker news',
+      browser: [
+        {width: 1024, height: 768, name: 'chrome'},
+        {width: 800, height: 600, name: 'firefox'},
+      ],
+      showLogs: true,
+    });
+    cy.eyesCheckWindow('homepage');
+    cy.eyesClose();
+  });
+
   it.skip('runs', () => {
     const url = `http://localhost:${Cypress.config('testPort')}/test.html`;
     cy.visit(url);
@@ -34,7 +49,7 @@ describe('eyes.cypress', () => {
     cy.eyesClose();
   });
 
-  context.skip('Reversim website', () => {
+  context('Reversim website', () => {
     it('works', () => {
       function verifyCount() {
         cy.get(
