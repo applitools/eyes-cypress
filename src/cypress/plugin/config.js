@@ -31,7 +31,9 @@ function initConfig(configFolder) {
   Object.assign(priorConfig, getBatch(priorConfig));
 
   return config => {
-    return Object.assign({}, priorConfig, config);
+    const ret = Object.assign({}, priorConfig, config);
+    console.log('running with config:', ret);
+    return ret;
   };
 }
 
