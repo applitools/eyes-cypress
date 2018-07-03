@@ -25,10 +25,16 @@ async function openEyes({
   batchName,
   batchId,
 }) {
-  async function checkWindow({resourceUrls, cdt, tag, sizeMode}) {
+  async function checkWindow({resourceUrls, cdt, tag, sizeMode = 'full-page'}) {
     async function checkWindowJob(renderPromise, prevJobPromise, index) {
       const renderId = (await renderPromise)[index];
+      renderWrapper._logger.log(
+        `render request complete for ${renderId}. tag=${tag} sizeMode=${sizeMode} browser: ${JSON.stringify(
+          browsers[index],
+        )}`,
+      );
       const [screenshotUrl] = await waitForRenderedStatus([renderId], renderWrapper);
+      renderWrapper._logger.log(`screenshot available for ${renderId} at ${screenshotUrl}`);
       await prevJobPromise;
       results.push(await wrappers[index].checkWindow({screenshotUrl, tag}));
     }

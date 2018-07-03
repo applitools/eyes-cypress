@@ -40,12 +40,13 @@
 - [x] switch from 'fetch' to 'cy.request'
 - [x] optimize: background renders, matchWindow loop, queues
 - [x] fix and test associated batch
+- [x] add 'use strict'
 - [ ] test coverage for actual test creation in eyes server (need metadata from Adam)
 - [ ] getAllResources should not keep global cache (plus tests)
 - [ ] assert second render request has "rendering" status
 - [ ] error handling: close/checkWindow without open
-- [ ] add 'use strict'
 - [ ] add more configs from `EyesBase`
 - [ ] optimize render status calls
 - [ ] add perf measures
 - [ ] rearrange tests
+- [ ] handle crash errors
