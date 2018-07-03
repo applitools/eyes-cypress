@@ -39,7 +39,7 @@ describe('openEyes', () => {
       showLogs: process.env.APPLITOOLS_SHOW_LOGS,
     });
 
-    const resourceUrls = ['smurfs.jpg', 'test.css', 'imported2.css'];
+    const resourceUrls = ['smurfs.jpg', 'test.css'];
     const cdt = loadJsonFixture('test.cdt.json');
     await checkWindow({resourceUrls, cdt, tag: 'first'});
     await close();
@@ -55,7 +55,7 @@ describe('openEyes', () => {
       showLogs: process.env.APPLITOOLS_SHOW_LOGS,
     });
 
-    const resourceUrls = ['smurfs.jpg', 'test.css', 'imported2.css'];
+    const resourceUrls = ['smurfs.jpg', 'test.css'];
     const cdt = loadJsonFixture('test.cdt.json');
     cdt.find(node => node.nodeValue === "hi, I'm red").nodeValue = "hi, I'm green";
     await checkWindow({resourceUrls, cdt, tag: 'first'});

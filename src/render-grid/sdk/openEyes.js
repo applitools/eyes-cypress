@@ -8,6 +8,7 @@ const {setIsVerbose} = require('./log');
 const createRenderRequests = require('./createRenderRequests');
 const renderBatch = require('./renderBatch');
 const {BatchInfo} = require('@applitools/eyes.sdk.core');
+const extractCssResourcesFromCdt = require('./extractCssResourcesFromCdt');
 
 // TODO replace with getInferredEnvironment once render service returns userAgent
 const getHostAppFromBrowserName = browserName =>
@@ -25,7 +26,7 @@ async function openEyes({
   batchName,
   batchId,
 }) {
-  async function checkWindow({resourceUrls, cdt, tag, sizeMode = 'full-page'}) {
+  async function checkWindow({resourceUrls = [], cdt, tag, sizeMode = 'full-page'}) {
     async function checkWindowJob(renderPromise, prevJobPromise, index) {
       const renderId = (await renderPromise)[index];
       renderWrapper._logger.log(
@@ -42,8 +43,8 @@ async function openEyes({
     async function startRender() {
       const renderInfo = await renderInfoPromise;
 
-      const absoluteUrls =
-        resourceUrls && resourceUrls.map(resourceUrl => new URL(resourceUrl, url).href);
+      const resourceUrlsWithCss = resourceUrls.concat(extractCssResourcesFromCdt(cdt, url));
+      const absoluteUrls = resourceUrlsWithCss.map(resourceUrl => new URL(resourceUrl, url).href);
       const resources = await getAllResources(absoluteUrls);
 
       const renderRequests = createRenderRequests({
