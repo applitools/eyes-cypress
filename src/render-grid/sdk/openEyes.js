@@ -2,7 +2,8 @@
 const EyesWrapper = require('./EyesWrapper');
 const getAllResources = require('./getAllResources');
 const waitForRenderedStatus = require('./waitForRenderedStatus');
-const {URL} = require('url');
+const absolutizeUrl = require('./absolutizeUrl');
+const {mapKeys, mapValues} = require('lodash');
 const saveData = require('../troubleshoot/saveData');
 const {setIsVerbose} = require('./log');
 const createRenderRequests = require('./createRenderRequests');
@@ -26,7 +27,13 @@ async function openEyes({
   batchName,
   batchId,
 }) {
-  async function checkWindow({resourceUrls = [], cdt, tag, sizeMode = 'full-page'}) {
+  async function checkWindow({
+    resourceUrls = [],
+    resourceContents = {},
+    cdt,
+    tag,
+    sizeMode = 'full-page',
+  }) {
     async function checkWindowJob(renderPromise, prevJobPromise, index) {
       const renderId = (await renderPromise)[index];
       renderWrapper._logger.log(
@@ -42,10 +49,6 @@ async function openEyes({
 
     async function startRender() {
       const renderInfo = await renderInfoPromise;
-
-      const resourceUrlsWithCss = resourceUrls.concat(extractCssResourcesFromCdt(cdt, url));
-      const absoluteUrls = resourceUrlsWithCss.map(resourceUrl => new URL(resourceUrl, url).href);
-      const resources = await getAllResources(absoluteUrls);
 
       const renderRequests = createRenderRequests({
         url,
@@ -67,6 +70,13 @@ async function openEyes({
     }
 
     /******* checkWindow body start *******/
+    const resourceUrlsWithCss = resourceUrls.concat(extractCssResourcesFromCdt(cdt, url));
+    const absoluteUrls = resourceUrlsWithCss.map(resourceUrl => absolutizeUrl(resourceUrl, url));
+    const absoluteResourceContents = mapValues(
+      mapKeys(resourceContents, (_value, key) => absolutizeUrl(key, url)),
+      ({url: resourceUrl, type, value}) => ({url: absolutizeUrl(resourceUrl, url), type, value}),
+    );
+    const resources = await getAllResources(absoluteUrls, absoluteResourceContents);
 
     const renderPromise = startRender();
     checkWindowPromises = browsers.map((_browser, i) =>

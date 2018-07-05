@@ -1,19 +1,12 @@
 'use strict';
 const {parse, CSSImportRule, CSSStyleRule, CSSFontFaceRule, CSSSupportsRule} = require('cssom');
-const {URL} = require('url');
+const absolutizeUrl = require('./absolutizeUrl');
 
-// NOTE: this is also implemented on the client side (copy pasted to enable unit testing `extractResources` with puppeteer)
 function getUrlFromCssText(cssText) {
   const match = cssText.match(/url\((?!['"]?:)['"]?([^'"\)]*)['"]?\)/);
   return match ? match[1] : match;
 }
 
-// should this simple yet repetitive thing be exported as a separate module?
-function absolutizeUrl(url, absoluteUrl) {
-  return new URL(url, absoluteUrl).href;
-}
-
-// NOTE: this is also implemented on the client side (copy pasted to enable unit testing `extractResources` with puppeteer)
 function extractResourcesFromStyleSheet(styleSheet) {
   const resourceUrls = [...styleSheet.cssRules].reduce((acc, rule) => {
     if (rule instanceof CSSImportRule) {

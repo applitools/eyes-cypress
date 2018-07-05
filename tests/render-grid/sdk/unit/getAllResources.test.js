@@ -89,7 +89,7 @@ describe('getAllResources', () => {
     } catch (ex) {
       throw ex;
     } finally {
-      closeServer();
+      await closeServer();
     }
   });
 
@@ -112,7 +112,7 @@ describe('getAllResources', () => {
     } catch (ex) {
       throw ex;
     } finally {
-      closeServer();
+      await closeServer();
     }
 
     const expectedFromCache = mapValues(expected, rGridResource => {
@@ -221,5 +221,50 @@ describe('getAllResources', () => {
       'blob:http://localhost/something.css',
     ]).then(x => x, err => err);
     expect(resources).to.eql({});
+  });
+
+  it('gets resources from prefilled resources', async () => {
+    const server = await testServer();
+    closeServer = server.close;
+
+    const baseUrl = `http://localhost:${server.port}`;
+
+    const cssName = 'blob.css';
+    const cssValue = loadFixtureBuffer(cssName);
+    const cssUrl = `${baseUrl}/${cssName}`;
+    const cssType = 'text/css; charset=UTF-8';
+
+    const imgName = 'smurfs4.jpg';
+    const imgUrl = `${baseUrl}/${imgName}`;
+    const imgValue = loadFixtureBuffer(imgName);
+    const imgType = 'image/jpeg';
+
+    const fontZillaName = 'zilla_slab.woff2';
+    const fontZillaUrl = `${baseUrl}/${fontZillaName}`;
+    const fontZillaValue = loadFixtureBuffer(fontZillaName);
+    const fontZillaType = 'application/font-woff2';
+
+    const preResources = {
+      [cssUrl]: {url: cssUrl, type: cssType, value: cssValue},
+    };
+
+    try {
+      const resources = await getAllResources([fontZillaUrl], preResources);
+
+      const expected = mapValues(
+        {
+          [cssUrl]: {type: cssType, value: cssValue},
+          [imgUrl]: {type: imgType, value: imgValue},
+          [fontZillaUrl]: {type: fontZillaType, value: fontZillaValue},
+        },
+        ({type, value}, url) => toRGridResource({type, value, url}),
+      );
+
+      expect(resources).to.eql(expected);
+    } catch (ex) {
+      throw ex;
+    } finally {
+      await closeServer();
+    }
   });
 });

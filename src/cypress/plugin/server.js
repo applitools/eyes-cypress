@@ -1,6 +1,7 @@
 'use strict';
 const express = require('express');
 const morgan = require('morgan');
+const bodyParser = require('body-parser');
 const cors = require('cors');
 const log = require('../../render-grid/sdk/log');
 const {promisify: p} = require('util');
@@ -36,6 +37,11 @@ app.use(cors());
 app.use(morgan('combined'));
 app.get('/hb', (_req, res) => res.sendStatus(200));
 app.get('/err', (_req, res) => res.status(500).send('this is a test error'));
+
+app.put('/eyes/resource/:id', bodyParser.raw({type: '*/*'}), async (req, res) => {
+  handlers.putResource(req.params.id, Buffer.from(JSON.parse(req.body).data));
+  res.status(200).send({success: true});
+});
 
 app.post('/eyes/:command', express.json({limit: '100mb'}), async (req, res) => {
   log(`eyes api: ${req.params.command}, ${Object.keys(req.body)}`);

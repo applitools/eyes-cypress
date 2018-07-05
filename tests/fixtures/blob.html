@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head></head>
+<body>
+  <script>
+      fetch('blob.css').then(resp => resp.blob()).then(blob => {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = URL.createObjectURL(blob);
+        document.head.appendChild(link);
+      });
+    </script>
+</body>
+</html>

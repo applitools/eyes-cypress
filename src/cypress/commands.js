@@ -1,4 +1,4 @@
-/* global Cypress, cy */
+/* global Cypress,cy,window */
 'use strict';
 const extractResources = require('../render-grid/browser-util/extractResources');
 const domNodesToCdt = require('../render-grid/browser-util/domNodesToCdt');
@@ -9,15 +9,27 @@ const send = makeSend(port, cy.request);
 
 const EyesServer = {
   open(args) {
-    return sendRequest('open', args);
+    return sendRequest({command: 'open', data: args});
   },
 
-  checkWindow({resourceUrls, cdt, tag, sizeMode}) {
-    return sendRequest('checkWindow', {resourceUrls, cdt, tag, sizeMode});
+  putResource({url, type, value}) {
+    return sendRequest({
+      command: `resource/${url}`,
+      data: new window.frameElement.ownerDocument.defaultView.Blob([value]), // yucky! cypress uses socket.io to communicate between browser and node. In order to encode the data in binary format, socket.io checks for binary values. But `value instanceof Blob` is falsy since Blob from the cypress runner window is not the Blob from the command's window. So using the Blob from cypress runner window here.
+      method: 'PUT',
+      headers: {'Content-Type': type},
+    });
+  },
+
+  checkWindow({resourceUrls, blobs, cdt, tag, sizeMode}) {
+    const blobData = blobs.map(({url, type}) => ({url, type}));
+    return Promise.all(blobs.map(EyesServer.putResource)).then(() =>
+      sendRequest({command: 'checkWindow', data: {resourceUrls, cdt, tag, sizeMode, blobData}}),
+    );
   },
 
   close: poll(function({timeout}) {
-    return sendRequest('close', {timeout});
+    return sendRequest({command: 'close', data: {timeout}});
   }),
 };
 
@@ -39,11 +51,14 @@ Cypress.Commands.add('eyesCheckWindow', args => {
   }
 
   Cypress.log({name: 'Eyes: check window'});
-  return cy.document({log: false}).then(doc => {
-    const cdt = domNodesToCdt(doc);
-    const resourceUrls = extractResources(doc);
-    return EyesServer.checkWindow({resourceUrls, cdt, tag, sizeMode});
-  });
+  return cy.document({log: false}).then(doc =>
+    cy.window().then(win => {
+      const cdt = domNodesToCdt(doc);
+      return extractResources(doc, win).then(({resourceUrls, blobs}) => {
+        return EyesServer.checkWindow({resourceUrls, blobs, cdt, tag, sizeMode});
+      });
+    }),
+  );
 });
 
 Cypress.Commands.add('eyesClose', ({timeout} = {}) => {
@@ -51,8 +66,8 @@ Cypress.Commands.add('eyesClose', ({timeout} = {}) => {
   return EyesServer.close({timeout});
 });
 
-function sendRequest(command, data) {
-  return send(command, data).then(resp => {
+function sendRequest(args) {
+  return send(args).then(resp => {
     if (!resp.body.success) {
       throw new Error(resp.body.error);
     }

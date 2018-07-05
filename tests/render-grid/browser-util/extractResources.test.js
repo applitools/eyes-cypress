@@ -3,8 +3,25 @@ const {describe, it, before, after} = require('mocha');
 const {expect} = require('chai');
 const puppeteer = require('puppeteer');
 const _extractResources = require('../../../src/render-grid/browser-util/extractResources');
+const testServer = require('../../util/testServer');
+const {loadFixture} = require('../../util/loadFixture');
 
-const extractResources = new Function(`return (${_extractResources})(document.documentElement)`);
+const serialize = ({resourceUrls, blobs}) => {
+  //eslint-disable-next-line
+  const decoder = new TextDecoder('utf-8');
+  return {
+    resourceUrls,
+    blobs: blobs.map(({url, type, value}) => ({
+      url,
+      type,
+      value: decoder.decode(value),
+    })),
+  };
+};
+
+const extractResources = new Function(
+  `return (${_extractResources})(document.documentElement, window).then(${serialize})`,
+);
 
 describe('extractResources', () => {
   let browser, page;
@@ -28,7 +45,7 @@ describe('extractResources', () => {
       'https://is2-ssl.mzstatic.com/image/thumb/Video117/v4/15/c8/06/15c8063f-c4c7-c6dd-d531-5b2814ddc634/source/227x227bb.jpg',
     ];
 
-    const resourceUrls = await page.evaluate(extractResources);
+    const {resourceUrls} = await page.evaluate(extractResources);
     expect(resourceUrls).to.deep.equal(expected);
   });
 
@@ -42,7 +59,7 @@ describe('extractResources', () => {
     const expected = ['http://link/to/css'];
 
     await page.goto(`data:text/html,${htmlStr}`);
-    const resourceUrls = await page.evaluate(extractResources);
+    const {resourceUrls} = await page.evaluate(extractResources);
     expect(resourceUrls).to.deep.equal(expected);
   });
 
@@ -57,7 +74,7 @@ describe('extractResources', () => {
     const expected = [];
 
     await page.goto(`data:text/html,${htmlStr}`);
-    const resourceUrls = await page.evaluate(extractResources);
+    const {resourceUrls} = await page.evaluate(extractResources);
     expect(resourceUrls).to.deep.equal(expected);
   });
 
@@ -68,7 +85,39 @@ describe('extractResources', () => {
       </video>`;
     const expected = ['/path/to/video.mp4', '/path/to/poster.jpg'];
     await page.goto(`data:text/html,${htmlStr}`);
-    const resourceUrls = await page.evaluate(extractResources);
+    const {resourceUrls} = await page.evaluate(extractResources);
     expect(resourceUrls).to.eql(expected);
+  });
+
+  it('works for blob urls', async () => {
+    const server = await testServer();
+
+    try {
+      const baseUrl = `http://localhost:${server.port}`;
+      await page.goto(`${baseUrl}/blob.html`, {waitUntil: ['load', 'networkidle0']});
+      const blobUrl = await page.evaluate(() =>
+        //eslint-disable-next-line
+        document.getElementsByTagName('link')[0].getAttribute('href'),
+      );
+
+      // console.log('blob url is ', blobUrl);
+      // page.on('console', msg => {
+      //   for (let i = 0; i < msg.args().length; ++i) console.log(`${i}: ${msg.args()[i]}`);
+      // });
+
+      const {blobs} = await page.evaluate(extractResources);
+      const shortenedBlobUrl = blobUrl.replace(/^blob:http:\/\/localhost:\d+\/(.+)/, '$1');
+      expect(blobs).to.eql([
+        {
+          url: shortenedBlobUrl,
+          type: 'text/css',
+          value: loadFixture('blob.css'),
+        },
+      ]);
+    } catch (ex) {
+      throw ex;
+    } finally {
+      await server.close();
+    }
   });
 });

@@ -11,7 +11,7 @@ const {expect} = require('chai');
 const openEyes = require('../../../../src/render-grid/sdk/openEyes');
 const testServer = require('../../../util/testServer');
 const {DiffsFoundError} = require('@applitools/eyes.sdk.core');
-const {loadJsonFixture} = require('../../../util/loadFixture');
+const {loadJsonFixture, loadFixtureBuffer} = require('../../../util/loadFixture');
 
 describe('openEyes', () => {
   let baseUrl, closeServer;
@@ -37,11 +37,24 @@ describe('openEyes', () => {
         {width: 800, height: 600, name: 'firefox'},
       ],
       showLogs: process.env.APPLITOOLS_SHOW_LOGS,
+      saveDebugData: process.env.APPLITOOLS_SAVE_DEBUG_DATA,
     });
 
     const resourceUrls = ['smurfs.jpg', 'test.css'];
     const cdt = loadJsonFixture('test.cdt.json');
-    await checkWindow({resourceUrls, cdt, tag: 'first'});
+    const resourceContents = {
+      [`a-made-up-blob-url-1`]: {
+        url: `a-made-up-blob-url-1`,
+        type: 'text/css',
+        value: loadFixtureBuffer('blob.css'),
+      },
+      [`a-made-up-blob-url-2`]: {
+        url: `a-made-up-blob-url-2`,
+        type: 'image/jpeg',
+        value: loadFixtureBuffer('smurfs4.jpg'),
+      },
+    };
+    await checkWindow({resourceUrls, resourceContents, cdt, tag: 'first'});
     await close();
   });
 
@@ -53,12 +66,25 @@ describe('openEyes', () => {
       url: `${baseUrl}/test.html`,
       browser: [{width: 640, height: 480}, {width: 800, height: 600}],
       showLogs: process.env.APPLITOOLS_SHOW_LOGS,
+      saveDebugData: process.env.APPLITOOLS_SAVE_DEBUG_DATA,
     });
 
     const resourceUrls = ['smurfs.jpg', 'test.css'];
     const cdt = loadJsonFixture('test.cdt.json');
     cdt.find(node => node.nodeValue === "hi, I'm red").nodeValue = "hi, I'm green";
-    await checkWindow({resourceUrls, cdt, tag: 'first'});
+    const resourceContents = {
+      [`a-made-up-blob-url-1`]: {
+        url: `a-made-up-blob-url-1`,
+        type: 'text/css',
+        value: loadFixtureBuffer('blob.css'),
+      },
+      [`a-made-up-blob-url-2`]: {
+        url: `a-made-up-blob-url-2`,
+        type: 'image/jpeg',
+        value: loadFixtureBuffer('smurfs4.jpg'),
+      },
+    };
+    await checkWindow({resourceUrls, resourceContents, cdt, tag: 'first'});
     expect(await close().then(() => 'ok', err => err)).to.be.instanceOf(DiffsFoundError);
   });
 });

@@ -1,8 +1,9 @@
 'use strict';
-module.exports = (port, fetch) => (command, data) =>
+module.exports = (port, fetch) => ({command, data, method = 'POST', headers}) =>
   fetch({
     url: `http://localhost:${port}/eyes/${command}`,
-    method: 'POST',
+    method,
     body: data,
     log: false,
+    headers,
   });

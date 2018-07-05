@@ -57,8 +57,8 @@ describe('domNodesToCdt', () => {
   it('works for test.html', () => {
     const docNode = getDocNode(loadFixture('test.html'));
     const cdt = domNodesToCdt(docNode);
-    // _fs.writeFileSync(_r(__dirname, '../../fixtures/test.cdt.json'), JSON.stringify(cdt, null, 2));
-    const expectedCdt = loadJsonFixture('test.cdt.json');
+    // _fs.writeFileSync(_r(__dirname, '../../fixtures/test.orig.cdt.json'), JSON.stringify(cdt, null, 2));
+    const expectedCdt = loadJsonFixture('test.orig.cdt.json');
     expect(cdt).to.deep.equal(expectedCdt);
   });
 });

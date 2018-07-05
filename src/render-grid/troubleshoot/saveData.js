@@ -26,7 +26,14 @@ async function saveData({renderId, cdt, resources, url}) {
   writeFile(resolve(path, `${renderId}.html`), html);
   writeFile(
     resolve(path, 'resources.json'),
-    JSON.stringify(mapValues(resources, resource => resource.getContentType()), null, 2),
+    JSON.stringify(
+      mapValues(resources, resource => ({
+        type: resource.getContentType(),
+        hash: resource.getSha256Hash(),
+      })),
+      null,
+      2,
+    ),
   );
   Object.keys(resources).map(resourceUrl => {
     const resource = resources[resourceUrl];

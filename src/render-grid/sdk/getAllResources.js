@@ -52,8 +52,29 @@ function toCacheEntry(rGridResource) {
   };
 }
 
-async function getOrFetchResources(resourceUrls, cache) {
+async function getDependantResources({url, type, value}, cache) {
+  let dependentResources, fetchedResources;
+  if (/text\/css/.test(type)) {
+    dependentResources = extractCssResources(value.toString(), url);
+    fetchedResources = await getOrFetchResources(dependentResources, cache);
+  }
+  return {dependentResources, fetchedResources};
+}
+
+async function processResource(resource, cache) {
+  let {dependentResources, fetchedResources} = await getDependantResources(resource, cache);
+  const rGridResource = fromFetchedToRGridResource(resource);
+  cache.add(toCacheEntry(rGridResource), dependentResources);
+  return Object.assign({[resource.url]: rGridResource}, fetchedResources);
+}
+
+async function getOrFetchResources(resourceUrls, cache, preResources = {}) {
   const resources = {};
+
+  for (const url in preResources) {
+    Object.assign(resources, await processResource(preResources[url], cache));
+  }
+
   const missingResourceUrls = [];
   for (const url of resourceUrls) {
     const cacheEntry = cache.getWithDependencies(url);
@@ -66,25 +87,17 @@ async function getOrFetchResources(resourceUrls, cache) {
 
   await Promise.all(
     missingResourceUrls.map(url =>
-      fetchResource(url).then(async resource => {
-        let dependentResources;
-        if (/text\/css/.test(resource.type)) {
-          dependentResources = extractCssResources(resource.value.toString(), url);
-          const fetchedResources = await getOrFetchResources(dependentResources, cache);
-          Object.assign(resources, fetchedResources);
-        }
-        const rGridResource = fromFetchedToRGridResource(resource);
-        resources[url] = rGridResource;
-        cache.add(toCacheEntry(rGridResource), dependentResources);
-      }),
+      fetchResource(url).then(async resource =>
+        Object.assign(resources, await processResource(resource, cache)),
+      ),
     ),
   );
 
   return resources;
 }
 
-async function getAllResources(absoluteUrls = []) {
-  return await getOrFetchResources(absoluteUrls, allResources);
+async function getAllResources(absoluteUrls = [], preResources) {
+  return await getOrFetchResources(absoluteUrls, allResources, preResources);
 }
 
 // NOTE: ugly, because of tests. Other alternative is to export a "createGetAllResources" which would initialize the cache.

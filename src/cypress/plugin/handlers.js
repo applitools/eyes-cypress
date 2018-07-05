@@ -4,7 +4,7 @@ const {initConfig} = require('./config');
 const getConfig = initConfig(process.cwd());
 
 function makeHandlers(openEyes) {
-  let checkWindow, close;
+  let checkWindow, close, resources;
 
   return {
     open: async args => {
@@ -12,15 +12,28 @@ function makeHandlers(openEyes) {
       const eyes = await openEyes(config);
       checkWindow = eyes.checkWindow;
       close = pollingHandler(eyes.close);
+      resources = {};
       return eyes;
     },
 
-    checkWindow: async args => {
+    putResource: (id, buffer) => {
+      if (!resources) {
+        throw new Error('Please call cy.eyesOpen() before calling cy.eyesCheckWindow()');
+      }
+      resources[id] = buffer;
+    },
+
+    checkWindow: async ({resourceUrls, cdt, tag, blobData = [], sizeMode}) => {
       if (!checkWindow) {
         throw new Error('Please call cy.eyesOpen() before calling cy.eyesCheckWindow()');
       }
 
-      return await checkWindow(args);
+      const resourceContents = blobData.reduce((acc, {url, type}) => {
+        acc[url] = {url, type, value: resources[url]};
+        return acc;
+      }, {});
+
+      return await checkWindow({resourceUrls, resourceContents, cdt, tag, sizeMode});
     },
 
     close: async ({timeout} = {}) => {
@@ -28,6 +41,7 @@ function makeHandlers(openEyes) {
         throw new Error('Please call cy.eyesOpen() before calling cy.eyesClose()');
       }
 
+      resources = null;
       return await close(timeout);
     },
   };

@@ -35,17 +35,28 @@ const elementNodeFactory = (domNodes, elementNode) => {
   let node;
   const {nodeType} = elementNode;
   if (nodeType === NODE_TYPES.ELEMENT) {
-    node = {
-      nodeType: NODE_TYPES.ELEMENT,
-      nodeName: elementNode.nodeName,
-      attributes: Object.keys(elementNode.attributes).map(key => ({
-        name: elementNode.attributes[key].localName,
-        value: elementNode.attributes[key].value,
-      })),
-      childNodeIndexes: elementNode.childNodes.length
-        ? childrenFactory(domNodes, elementNode.childNodes)
-        : [],
-    };
+    if (elementNode.nodeName !== 'SCRIPT') {
+      node = {
+        nodeType: NODE_TYPES.ELEMENT,
+        nodeName: elementNode.nodeName,
+        attributes: Object.keys(elementNode.attributes).map(key => {
+          let value = elementNode.attributes[key].value;
+          const name = elementNode.attributes[key].localName;
+
+          if (/^blob:/.test(value)) {
+            value = value.replace(/^blob:http:\/\/localhost:\d+\/(.+)/, '$1'); // TODO don't replace localhost once render-grid implements absolute urls
+          }
+
+          return {
+            name,
+            value,
+          };
+        }),
+        childNodeIndexes: elementNode.childNodes.length
+          ? childrenFactory(domNodes, elementNode.childNodes)
+          : [],
+      };
+    }
   } else if (nodeType === NODE_TYPES.TEXT) {
     node = {
       nodeType: NODE_TYPES.TEXT,

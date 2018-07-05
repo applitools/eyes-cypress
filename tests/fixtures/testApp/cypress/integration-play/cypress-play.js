@@ -36,7 +36,7 @@ describe('eyes.cypress', () => {
     cy.eyesClose();
   });
 
-  it.skip('runs', () => {
+  it('runs', () => {
     const url = `http://localhost:${Cypress.config('testPort')}/test.html`;
     cy.visit(url);
     cy.eyesOpen({
@@ -44,12 +44,13 @@ describe('eyes.cypress', () => {
       testName: 'cypress-play-test',
       browser: {width: 1024, height: 768},
       showLogs: true,
+      saveDebugData: true,
     });
     cy.eyesCheckWindow('some tag');
     cy.eyesClose();
   });
 
-  context('Reversim website', () => {
+  context.skip('Reversim website', () => {
     it('works', () => {
       function verifyCount() {
         cy.get(

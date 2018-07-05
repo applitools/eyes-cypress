@@ -3,16 +3,12 @@
     "nodeType": 9,
     "childNodeIndexes": [
       1,
-      64
+      61
     ]
   },
   {
     "nodeType": 10,
     "nodeName": "html"
-  },
-  {
-    "nodeType": 3,
-    "nodeValue": " "
   },
   {
     "nodeType": 3,
@@ -46,7 +42,7 @@
     "nodeName": "STYLE",
     "attributes": [],
     "childNodeIndexes": [
-      6
+      5
     ]
   },
   {
@@ -74,33 +70,16 @@
   },
   {
     "nodeType": 1,
-    "nodeName": "LINK",
-    "attributes": [
-      {
-        "name": "rel",
-        "value": "stylesheet"
-      },
-      {
-        "name": "href",
-        "value": "a-made-up-blob-url-1"
-      }
-    ],
-    "childNodeIndexes": []
-  },
-  {
-    "nodeType": 1,
     "nodeName": "HEAD",
     "attributes": [],
     "childNodeIndexes": [
       2,
       3,
       4,
-      5,
+      6,
       7,
       8,
-      9,
-      10,
-      11
+      9
     ]
   },
   {
@@ -125,7 +104,7 @@
       }
     ],
     "childNodeIndexes": [
-      15
+      13
     ]
   },
   {
@@ -146,7 +125,7 @@
       }
     ],
     "childNodeIndexes": [
-      18
+      16
     ]
   },
   {
@@ -171,7 +150,7 @@
       }
     ],
     "childNodeIndexes": [
-      21
+      19
     ]
   },
   {
@@ -196,7 +175,7 @@
       }
     ],
     "childNodeIndexes": [
-      24
+      22
     ]
   },
   {
@@ -212,7 +191,7 @@
     "nodeName": "DIV",
     "attributes": [],
     "childNodeIndexes": [
-      27
+      25
     ]
   },
   {
@@ -243,7 +222,7 @@
     "nodeName": "DIV",
     "attributes": [],
     "childNodeIndexes": [
-      32
+      30
     ]
   },
   {
@@ -278,7 +257,7 @@
     "nodeName": "DIV",
     "attributes": [],
     "childNodeIndexes": [
-      37
+      35
     ]
   },
   {
@@ -313,7 +292,7 @@
     "nodeName": "DIV",
     "attributes": [],
     "childNodeIndexes": [
-      42
+      40
     ]
   },
   {
@@ -361,7 +340,7 @@
       }
     ],
     "childNodeIndexes": [
-      49
+      47
     ]
   },
   {
@@ -378,8 +357,8 @@
       }
     ],
     "childNodeIndexes": [
-      48,
-      50
+      46,
+      48
     ]
   },
   {
@@ -400,7 +379,7 @@
       }
     ],
     "childNodeIndexes": [
-      53
+      51
     ]
   },
   {
@@ -421,7 +400,7 @@
       }
     ],
     "childNodeIndexes": [
-      56
+      54
     ]
   },
   {
@@ -438,13 +417,13 @@
       }
     ],
     "childNodeIndexes": [
-      47,
-      51,
+      45,
+      49,
+      50,
       52,
-      54,
+      53,
       55,
-      57,
-      58
+      56
     ]
   },
   {
@@ -457,49 +436,37 @@
   },
   {
     "nodeType": 1,
-    "nodeName": "IMG",
-    "attributes": [
-      {
-        "name": "src",
-        "value": "a-made-up-blob-url-2"
-      }
-    ],
-    "childNodeIndexes": []
-  },
-  {
-    "nodeType": 1,
     "nodeName": "BODY",
     "attributes": [],
     "childNodeIndexes": [
+      12,
       14,
-      16,
+      15,
       17,
-      19,
+      18,
       20,
-      22,
+      21,
       23,
-      25,
+      24,
       26,
+      27,
       28,
       29,
-      30,
       31,
+      32,
       33,
       34,
-      35,
       36,
+      37,
       38,
       39,
-      40,
       41,
+      42,
       43,
       44,
-      45,
-      46,
-      59,
-      60,
-      61,
-      62
+      57,
+      58,
+      59
     ]
   },
   {
@@ -512,9 +479,9 @@
       }
     ],
     "childNodeIndexes": [
-      12,
-      13,
-      63
+      10,
+      11,
+      60
     ]
   }
 ]

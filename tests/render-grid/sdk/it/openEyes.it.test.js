@@ -4,7 +4,7 @@ const {expect} = require('chai');
 const openEyes = require('../../../../src/render-grid/sdk/openEyes');
 const FakeEyesWrapper = require('../../../util/FakeEyesWrapper');
 const testServer = require('../../../util/testServer');
-const {loadJsonFixture} = require('../../../util/loadFixture');
+const {loadJsonFixture, loadFixtureBuffer} = require('../../../util/loadFixture');
 const {promisify: p} = require('util');
 const psetTimeout = p(setTimeout);
 
@@ -36,7 +36,8 @@ describe('openEyes', () => {
       url: `${baseUrl}/test.html`,
       apiKey,
     });
-    await checkWindow({cdt: [], resourceUrls: [], tag: 'good1'});
+
+    await checkWindow({cdt: [], tag: 'good1'});
     expect((await close()).map(r => r.getAsExpected())).to.eql([true]);
   });
 
@@ -158,6 +159,28 @@ describe('openEyes', () => {
     await checkWindow({resourceUrls, cdt, tag: 'three'});
     const results = await close();
     expect(results).to.eql(['one2', 'one1', 'two1', 'three1', 'two2', 'three2']);
+  });
+
+  it('handles resourceContents in checkWindow', async () => {
+    const {checkWindow, close} = await openEyes({
+      wrappers: [wrapper],
+      url: `${baseUrl}/test.html`,
+      apiKey,
+    });
+
+    const blobUrl = `blob.css`;
+    const resourceContents = {
+      [blobUrl]: {
+        url: blobUrl,
+        type: 'text/css',
+        value: loadFixtureBuffer('blob.css'),
+      },
+    };
+
+    wrapper.goodResourceUrls = [`${baseUrl}/blob.css`, `${baseUrl}/smurfs4.jpg`];
+
+    await checkWindow({cdt: [], resourceContents, tag: 'good1'});
+    expect((await close()).map(r => r.getAsExpected())).to.eql([true]);
   });
 
   // TODO
