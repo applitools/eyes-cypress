@@ -3,8 +3,6 @@ const pollingHandler = require('./pollingHandler');
 const {initConfig} = require('./config');
 const getConfig = initConfig(process.cwd());
 
-const DEFAULT_TIMEOUT = 120000;
-
 function makeHandlers(openEyes) {
   let checkWindow, close;
 
@@ -17,20 +15,20 @@ function makeHandlers(openEyes) {
       return eyes;
     },
 
-    checkWindow: async ({resourceUrls, cdt, tag}) => {
+    checkWindow: async args => {
       if (!checkWindow) {
         throw new Error('Please call cy.eyesOpen() before calling cy.eyesCheckWindow()');
       }
 
-      return await checkWindow({resourceUrls, cdt, tag});
+      return await checkWindow(args);
     },
 
-    close: async ({timeout = DEFAULT_TIMEOUT} = {}) => {
+    close: async ({timeout} = {}) => {
       if (!close) {
         throw new Error('Please call cy.eyesOpen() before calling cy.eyesClose()');
       }
 
-      return await close({timeout});
+      return await close(timeout);
     },
   };
 }
