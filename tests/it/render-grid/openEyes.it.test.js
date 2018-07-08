@@ -48,6 +48,7 @@ describe('openEyes', () => {
       apiKey,
     });
     await checkWindow({cdt: [], resourceUrls: [], tag: 'bad!'});
+    await psetTimeout(0); // because FakeEyesWrapper throws, and then the error is set async and will be read in the next call to close()
     expect(await close().then(() => 'ok', () => 'not ok')).to.equal('not ok');
   });
 
@@ -196,5 +197,65 @@ describe('openEyes', () => {
     const cdt = loadJsonFixture('test.cdt.json');
     await checkWindow({resourceUrls, cdt, tag: 'good1', sizeMode: 'some size mode'});
     expect((await close()).map(r => r.getAsExpected())).to.eql([true]);
+  });
+
+  it('handles error during getRenderInfo', async () => {
+    let error;
+    wrapper.getRenderInfo = async () => {
+      throw new Error('getRenderInfo');
+    };
+    const {checkWindow, close} = await openEyes({
+      wrappers: [wrapper],
+      url: `bla`,
+      apiKey,
+    });
+
+    error = await checkWindow({resourceUrls: [], cdt: []}).then(x => x, err => err);
+    expect(error).to.equal(undefined);
+    await psetTimeout(0);
+    error = await checkWindow({resourceUrls: [], cdt: []}).then(x => x, err => err);
+    expect(error.message).to.equal('getRenderInfo');
+    error = await close().then(x => x, err => err);
+    expect(error.message).to.equal('getRenderInfo');
+  });
+
+  it('handles error during rendering', async () => {
+    let error;
+    wrapper.renderBatch = async () => {
+      throw new Error('renderBatch');
+    };
+    const {checkWindow, close} = await openEyes({
+      wrappers: [wrapper],
+      url: `bla`,
+      apiKey,
+    });
+
+    error = await checkWindow({resourceUrls: [], cdt: []}).then(x => x, err => err);
+    expect(error).to.equal(undefined);
+    await psetTimeout(0);
+    error = await checkWindow({resourceUrls: [], cdt: []}).then(x => x, err => err);
+    expect(error.message).to.equal('renderBatch');
+    error = await close().then(x => x, err => err);
+    expect(error.message).to.equal('renderBatch');
+  });
+
+  it('handles error during checkWindow', async () => {
+    let error;
+    wrapper.checkWindow = async () => {
+      throw new Error('checkWindow');
+    };
+    const {checkWindow, close} = await openEyes({
+      wrappers: [wrapper],
+      url: `bla`,
+      apiKey,
+    });
+
+    error = await checkWindow({resourceUrls: [], cdt: []}).then(x => x, err => err);
+    expect(error).to.equal(undefined);
+    await psetTimeout(0);
+    error = await checkWindow({resourceUrls: [], cdt: []}).then(x => x, err => err);
+    expect(error.message).to.equal('checkWindow');
+    error = await close().then(x => x, err => err);
+    expect(error.message).to.equal('checkWindow');
   });
 });

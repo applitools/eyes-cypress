@@ -34,8 +34,11 @@ async function openEyes({
     tag,
     sizeMode = 'full-page',
   }) {
-    async function checkWindowJob(renderPromise, prevJobPromise, index) {
-      const renderId = (await renderPromise)[index];
+    async function checkWindowJob(prevJobPromise, index) {
+      const renderIds = await renderPromise;
+      if (!renderIds) return;
+
+      const renderId = renderIds[index];
       renderWrapper._logger.log(
         `render request complete for ${renderId}. tag=${tag} sizeMode=${sizeMode} browser: ${JSON.stringify(
           browsers[index],
@@ -70,6 +73,9 @@ async function openEyes({
     }
 
     /******* checkWindow body start *******/
+    if (error) {
+      throw error;
+    }
     const resourceUrlsWithCss = resourceUrls.concat(extractCssResourcesFromCdt(cdt, url));
     const absoluteUrls = resourceUrlsWithCss.map(resourceUrl => absolutizeUrl(resourceUrl, url));
     const absoluteResourceContents = mapValues(
@@ -78,13 +84,20 @@ async function openEyes({
     );
     const resources = await getAllResources(absoluteUrls, absoluteResourceContents);
 
-    const renderPromise = startRender();
+    const renderPromise = startRender().catch(setError);
     checkWindowPromises = browsers.map((_browser, i) =>
-      checkWindowJob(renderPromise, checkWindowPromises[i], i),
+      checkWindowJob(checkWindowPromises[i], i).catch(setError),
     );
   }
 
+  function setError(err) {
+    error = err;
+  }
+
   async function close() {
+    if (error) {
+      throw error;
+    }
     await Promise.all(checkWindowPromises);
     await Promise.all(wrappers.map(wrapper => wrapper.close()));
     return results;
@@ -110,6 +123,7 @@ async function openEyes({
   const getAllResources = makeGetAllResources();
   let checkWindowPromises = [];
   const results = [];
+  let error;
 
   if (!apiKey) {
     throw new Error(

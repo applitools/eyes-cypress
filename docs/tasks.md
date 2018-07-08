@@ -45,9 +45,9 @@
 - [x] test coverage for actual test creation in eyes server (need metadata from Adam)
 - [x] getAllResources should not keep global cache (plus tests)
 - [x] assert second render request has "rendering" status
-- [ ] error handling: close/checkWindow without open
+- [x] error handling: close/checkWindow without open
 - [ ] add more configs from `EyesBase`
 - [ ] optimize render status calls
 - [ ] add perf measures
 - [x] rearrange tests
-- [ ] handle crash errors
+- [x] handle crash errors

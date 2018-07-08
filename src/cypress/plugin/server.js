@@ -39,8 +39,13 @@ app.get('/hb', (_req, res) => res.sendStatus(200));
 app.get('/err', (_req, res) => res.status(500).send('this is a test error'));
 
 app.put('/eyes/resource/:id', bodyParser.raw({type: '*/*', limit: '100mb'}), async (req, res) => {
-  handlers.putResource(req.params.id, Buffer.from(JSON.parse(req.body).data));
-  res.status(200).send({success: true});
+  try {
+    handlers.putResource(req.params.id, Buffer.from(JSON.parse(req.body).data));
+    res.status(200).send({success: true});
+  } catch (ex) {
+    console.error('error in PUT resource', req.params && req.params.id, ex);
+    res.status(200).send({success: false, error: ex.message});
+  }
 });
 
 app.post('/eyes/:command', express.json({limit: '100mb'}), async (req, res) => {
