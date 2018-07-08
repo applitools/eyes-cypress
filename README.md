@@ -98,8 +98,17 @@ It's possible to pass a config object to `eyesOpen` with all the possible config
 Generate a screenshot of the current page and add it to the Applitools Test.
 
 ```js
-cy.eyesCheckWindow()
+cy.eyesCheckWindow(tag)
+
+OR
+
+cy.eyesCheckWindow({ tag: 'your tag', sizeMode: 'your size mode' })
 ```
+
+##### Arguments to `cy.eyesCheckWindow`
+
+- `tag` (optional): A logical name for this check.
+- `sizeMode` (optional): Possible values are `viewport` or `full-page`. The default is `full-page`, which means a screenshot of everything that exists in the DOM at the point of calling `eyesCheckWindow` will be rendered. If set to `viewport`, only a screenshot the size of the browser will be rendered (the size of the browser can be set in the call to `cy.eyesOpen` - see advanced configuration bellow).
 
 #### Close
 
@@ -108,15 +117,12 @@ close the applitools test and check that all screenshots are valid.
 It is important to call this at the end (or `after()`) each test, symmetrically to `eyesOpen`.
 
 ```js
-cy.eyesClose({
-
-  // depending on various factors such as the website's size and number of
-  // screenshots (i.e. the number of calls to `cy.eyesCheckWindow()`),
-  // the elapsed time it takes for `cy.eyesClose` to complete may vary.
-  timeout: 120000,
-
-})
+cy.eyesClose({ timeout });
 ```
+
+##### Arguments to `cy.eyesClose`
+
+- `timeout` (optional): Depending on various factors such as the website's size and number of screenshots (i.e. the number of calls to `cy.eyesCheckWindow()`), the elapsed time it takes for `cy.eyesClose` to complete may vary. The default timeout is `120000` (2 minutes), and it's possible to pass a different value for cases where this need to be larger (e.g. `180000` for setting the timeout to 3 minutes).
 
 ## Advanced configuration
 
@@ -124,7 +130,6 @@ It's possible to define the following configuration for tests:
 
 | Property name   | Default value               | Description  |
 | --------------- |:---------------------------:| -----:|
-| `appName`       | ''                          | Your application name that will be shown in test results |
 | `testName`      | ''                          | Test name |
 | `browser`       | { width: 800, height: 600 } | The size of the generated screenshots. This doesn't need to be the same as the size of the browser that Cypress is running.  It's also possible to send an array of sizes:<br/><br/>It's also possible to send an array of sizes, e.g. `[{width: 800, height: 600}, { width: 1024, height: 768 }]`|
 | `showLogs`      | false                       | Whether or not you want to see logs of the Eyes.Cypress plugin. Logs are written to the same output of the Cypress process. |
