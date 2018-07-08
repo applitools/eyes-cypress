@@ -1,8 +1,8 @@
 'use strict';
 const {describe, it, beforeEach} = require('mocha');
 const {expect} = require('chai');
-const makeHandlers = require('../../src/cypress/plugin/handlers');
-const {PollingStatus, TIMEOUT_MSG} = require('../../src/cypress/plugin/pollingHandler');
+const makeHandlers = require('../../../src/cypress/plugin/handlers');
+const {PollingStatus, TIMEOUT_MSG} = require('../../../src/cypress/plugin/pollingHandler');
 const {promisify: p} = require('util');
 const psetTimeout = p(setTimeout);
 

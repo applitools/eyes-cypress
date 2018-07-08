@@ -2,9 +2,9 @@
 const {describe, it, afterEach} = require('mocha');
 const {expect} = require('chai');
 const fetch = require('node-fetch');
-const defaultPort = require('../../src/cypress/plugin/defaultPort');
+const defaultPort = require('../../../src/cypress/plugin/defaultPort');
 
-const pluginPath = '../../src/cypress/plugin';
+const pluginPath = '../../../src/cypress/plugin';
 
 describe('plugin server', () => {
   afterEach(() => {

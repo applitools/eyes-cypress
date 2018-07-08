@@ -1,7 +1,7 @@
 'use strict';
 const {describe, it, beforeEach, afterEach} = require('mocha');
 const {expect} = require('chai');
-const {initConfig, toEnvVarName} = require('../../src/cypress/plugin/config');
+const {initConfig, toEnvVarName} = require('../../../src/cypress/plugin/config');
 const {resolve} = require('path');
 const {omit} = require('lodash');
 

@@ -42,12 +42,12 @@
 - [x] fix and test associated batch
 - [x] add 'use strict'
 - [ ] use user agent for inferred env
-- [ ] test coverage for actual test creation in eyes server (need metadata from Adam)
+- [x] test coverage for actual test creation in eyes server (need metadata from Adam)
 - [x] getAllResources should not keep global cache (plus tests)
 - [x] assert second render request has "rendering" status
 - [ ] error handling: close/checkWindow without open
 - [ ] add more configs from `EyesBase`
 - [ ] optimize render status calls
 - [ ] add perf measures
-- [ ] rearrange tests
+- [x] rearrange tests
 - [ ] handle crash errors

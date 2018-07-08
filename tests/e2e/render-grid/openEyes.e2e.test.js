@@ -8,10 +8,10 @@ if (!apiKey) {
 
 const {describe, it, before, after} = require('mocha');
 const {expect} = require('chai');
-const openEyes = require('../../../../src/render-grid/sdk/openEyes');
-const testServer = require('../../../util/testServer');
+const openEyes = require('../../../src/render-grid/sdk/openEyes');
+const testServer = require('../../util/testServer');
 const {DiffsFoundError} = require('@applitools/eyes.sdk.core');
-const {loadJsonFixture, loadFixtureBuffer} = require('../../../util/loadFixture');
+const {loadJsonFixture, loadFixtureBuffer} = require('../../util/loadFixture');
 
 describe('openEyes', () => {
   let baseUrl, closeServer;

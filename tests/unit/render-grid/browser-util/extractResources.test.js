@@ -2,9 +2,9 @@
 const {describe, it, before, after} = require('mocha');
 const {expect} = require('chai');
 const puppeteer = require('puppeteer');
-const _extractResources = require('../../../src/render-grid/browser-util/extractResources');
-const testServer = require('../../util/testServer');
-const {loadFixture} = require('../../util/loadFixture');
+const _extractResources = require('../../../../src/render-grid/browser-util/extractResources');
+const testServer = require('../../../util/testServer');
+const {loadFixture} = require('../../../util/loadFixture');
 
 const serialize = ({resourceUrls, blobs}) => {
   //eslint-disable-next-line

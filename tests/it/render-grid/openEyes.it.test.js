@@ -1,10 +1,10 @@
 'use strict';
 const {describe, it, before, after, beforeEach} = require('mocha');
 const {expect} = require('chai');
-const openEyes = require('../../../../src/render-grid/sdk/openEyes');
-const FakeEyesWrapper = require('../../../util/FakeEyesWrapper');
-const testServer = require('../../../util/testServer');
-const {loadJsonFixture, loadFixtureBuffer} = require('../../../util/loadFixture');
+const openEyes = require('../../../src/render-grid/sdk/openEyes');
+const FakeEyesWrapper = require('../../util/FakeEyesWrapper');
+const testServer = require('../../util/testServer');
+const {loadJsonFixture, loadFixtureBuffer} = require('../../util/loadFixture');
 const {promisify: p} = require('util');
 const psetTimeout = p(setTimeout);
 

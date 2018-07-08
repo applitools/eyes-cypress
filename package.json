@@ -4,8 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "test:min": "mocha --no-timeouts 'tests/render-grid/**/*.test.js'",
     "test:mocha": "mocha --no-timeouts 'tests/**/*.test.js'",
+    "test:unit": "mocha --no-timeouts 'tests/unit/**/*.test.js'",
+    "test:it": "mocha --no-timeouts 'tests/it/**/*.test.js'",
+    "test:e2e": "mocha --no-timeouts 'tests/e2e/**/*.test.js'",
     "eslint": "eslint '**/*.js'",
     "test": "npm run test:mocha && npm run eslint",
     "build": "#",

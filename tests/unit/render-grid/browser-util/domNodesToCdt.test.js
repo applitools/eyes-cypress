@@ -2,9 +2,9 @@
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const {JSDOM} = require('jsdom');
-const domNodesToCdt = require('../../../src/render-grid/browser-util/domNodesToCdt');
+const domNodesToCdt = require('../../../../src/render-grid/browser-util/domNodesToCdt');
 const {NODE_TYPES} = domNodesToCdt;
-const {loadFixture, loadJsonFixture} = require('../../util/loadFixture');
+const {loadFixture, loadJsonFixture} = require('../../../util/loadFixture');
 const _fs = require('fs');
 const {resolve: _r} = require('path');
 
