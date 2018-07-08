@@ -223,6 +223,26 @@ describe('getAllResources', () => {
     expect(resources).to.eql({});
   });
 
+  it('handles uppercase urls', async () => {
+    const server = await testServer();
+    closeServer = server.close;
+    try {
+      const url = `HTTP://LOCALHOST:${server.port}/IMPORTED2.CSS`;
+      const resources = await getAllResources([url]).then(x => x, err => err);
+      expect(resources).to.eql({
+        [url]: toRGridResource({
+          url,
+          type: 'text/css; charset=UTF-8',
+          value: loadFixtureBuffer('imported2.css'),
+        }),
+      });
+    } catch (ex) {
+      throw ex;
+    } finally {
+      await closeServer();
+    }
+  });
+
   it('gets resources from prefilled resources', async () => {
     const server = await testServer();
     closeServer = server.close;

@@ -4,6 +4,7 @@ const extractCssResources = require('./extractCssResources');
 const {mapValues} = require('lodash');
 const {RGridResource} = require('@applitools/eyes.sdk.core');
 const createResourceCache = require('./createResourceCache');
+const {URL} = require('url');
 
 function fromCacheToRGridResource({url, type, hash}) {
   const resource = new RGridResource();
@@ -57,7 +58,7 @@ async function getOrFetchResources(resourceUrls, cache, preResources = {}) {
     const cacheEntry = cache.getWithDependencies(url);
     if (cacheEntry) {
       Object.assign(resources, mapValues(cacheEntry, fromCacheToRGridResource));
-    } else if (/^https?:\/\//.test(url)) {
+    } else if (/^https?:$/i.test(new URL(url).protocol)) {
       missingResourceUrls.push(url);
     }
   }
