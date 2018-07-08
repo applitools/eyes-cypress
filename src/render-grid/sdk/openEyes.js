@@ -8,7 +8,7 @@ const saveData = require('../troubleshoot/saveData');
 const {setIsVerbose} = require('./log');
 const createRenderRequests = require('./createRenderRequests');
 const renderBatch = require('./renderBatch');
-const {BatchInfo} = require('@applitools/eyes.sdk.core');
+const {BatchInfo, ConsoleLogHandler, NullLogHandler} = require('@applitools/eyes.sdk.core');
 const extractCssResourcesFromCdt = require('./extractCssResourcesFromCdt');
 
 // TODO replace with getInferredEnvironment once render service returns userAgent
@@ -105,8 +105,9 @@ async function openEyes({
 
   async function initWrappers() {
     wrappers = [];
+    const logHandler = showLogs ? new ConsoleLogHandler(true) : new NullLogHandler();
     for (const browser of browsers) {
-      const wrapper = new EyesWrapper({apiKey, isVerbose: showLogs});
+      const wrapper = new EyesWrapper({apiKey, logHandler});
       await wrapper.open(
         appName,
         testName,
@@ -148,6 +149,9 @@ async function openEyes({
     renderWrapper.setRenderingInfo(renderInfo);
     return renderInfo;
   });
+
+  renderWrapper._logger.log('aaa');
+  renderWrapper._logger.verbose('bbb');
 
   return {
     checkWindow,

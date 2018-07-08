@@ -4,16 +4,15 @@ const {
   RectangleSize,
   NullRegionProvider,
   CheckSettings,
-  ConsoleLogHandler,
 } = require('@applitools/eyes.sdk.core');
 
 const VERSION = require('../../../package.json').version;
 
 class EyesWrapper extends EyesBase {
-  constructor({apiKey, isVerbose = false} = {}) {
+  constructor({apiKey, logHandler} = {}) {
     super();
     this.setApiKey(apiKey);
-    this.setLogHandler(new ConsoleLogHandler(isVerbose)); // TODO open to configuration / based on env
+    logHandler && this.setLogHandler(logHandler);
   }
 
   async open(appName, testName, viewportSize, browserName) {
