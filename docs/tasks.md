@@ -41,6 +41,7 @@
 - [x] optimize: background renders, matchWindow loop, queues
 - [x] fix and test associated batch
 - [x] add 'use strict'
+- [ ] use user agent for inferred env
 - [ ] test coverage for actual test creation in eyes server (need metadata from Adam)
 - [ ] getAllResources should not keep global cache (plus tests)
 - [ ] assert second render request has "rendering" status
