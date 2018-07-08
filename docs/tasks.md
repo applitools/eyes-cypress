@@ -44,7 +44,7 @@
 - [ ] use user agent for inferred env
 - [ ] test coverage for actual test creation in eyes server (need metadata from Adam)
 - [ ] getAllResources should not keep global cache (plus tests)
-- [ ] assert second render request has "rendering" status
+- [x] assert second render request has "rendering" status
 - [ ] error handling: close/checkWindow without open
 - [ ] add more configs from `EyesBase`
 - [ ] optimize render status calls
