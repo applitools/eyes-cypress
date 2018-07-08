@@ -21,6 +21,10 @@
   "engines": {
     "node": ">=8.0.0"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/applitools/eyes.cypress.git"
+  },
   "dependencies": {
     "@applitools/eyes.sdk.core": "^1.7.0",
     "body-parser": "^1.18.2",
