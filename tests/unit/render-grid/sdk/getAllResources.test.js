@@ -5,6 +5,7 @@ const {mapValues} = require('lodash');
 const makeGetAllResources = require('../../../../src/render-grid/sdk/getAllResources');
 const {RGridResource} = require('@applitools/eyes.sdk.core');
 const testServer = require('../../../util/testServer');
+const testLogger = require('../../../util/testLogger');
 const {loadFixtureBuffer} = require('../../../util/loadFixture');
 
 function toRGridResource({url, type, value}) {
@@ -21,7 +22,7 @@ describe('getAllResources', () => {
   let getAllResources;
 
   beforeEach(() => {
-    getAllResources = makeGetAllResources();
+    getAllResources = makeGetAllResources(testLogger);
   });
 
   it('works for absolute urls', async () => {

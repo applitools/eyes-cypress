@@ -5,7 +5,6 @@ const waitForRenderedStatus = require('./waitForRenderedStatus');
 const absolutizeUrl = require('./absolutizeUrl');
 const {mapKeys, mapValues} = require('lodash');
 const saveData = require('../troubleshoot/saveData');
-const {setIsVerbose} = require('./log');
 const createRenderRequests = require('./createRenderRequests');
 const renderBatch = require('./renderBatch');
 const {BatchInfo, ConsoleLogHandler, NullLogHandler} = require('@applitools/eyes.sdk.core');
@@ -39,13 +38,13 @@ async function openEyes({
       if (!renderIds) return;
 
       const renderId = renderIds[index];
-      renderWrapper._logger.log(
+      logger.log(
         `render request complete for ${renderId}. tag=${tag} sizeMode=${sizeMode} browser: ${JSON.stringify(
           browsers[index],
         )}`,
       );
       const [screenshotUrl] = await waitForRenderedStatus([renderId], renderWrapper);
-      renderWrapper._logger.log(`screenshot available for ${renderId} at ${screenshotUrl}`);
+      logger.log(`screenshot available for ${renderId} at ${screenshotUrl}`);
       await prevJobPromise;
       results.push(await wrappers[index].checkWindow({screenshotUrl, tag}));
     }
@@ -65,7 +64,7 @@ async function openEyes({
 
       if (saveDebugData) {
         for (const renderId of renderIds) {
-          await saveData({renderId, cdt, resources, url});
+          await saveData({renderId, cdt, resources, url, logger});
         }
       }
 
@@ -119,9 +118,6 @@ async function openEyes({
   }
 
   /******* openEyes body start *******/
-
-  setIsVerbose(showLogs);
-  const getAllResources = makeGetAllResources();
   let checkWindowPromises = [];
   const results = [];
   let error;
@@ -150,8 +146,8 @@ async function openEyes({
     return renderInfo;
   });
 
-  renderWrapper._logger.log('aaa');
-  renderWrapper._logger.verbose('bbb');
+  const logger = renderWrapper._logger;
+  const getAllResources = makeGetAllResources(logger);
 
   return {
     checkWindow,

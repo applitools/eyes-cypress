@@ -3,7 +3,7 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const log = require('../../render-grid/sdk/log');
+const log = require('./log');
 const {promisify: p} = require('util');
 const makeHandlers = require('./handlers');
 const psetTimeout = p(setTimeout);
@@ -34,7 +34,7 @@ async function closeEyes() {
 
 const app = express();
 app.use(cors());
-app.use(morgan('combined'));
+if (process.env.APPLITOOLS_DEV_MODE) app.use(morgan('combined'));
 app.get('/hb', (_req, res) => res.sendStatus(200));
 app.get('/err', (_req, res) => res.status(500).send('this is a test error'));
 

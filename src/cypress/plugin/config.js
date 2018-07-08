@@ -2,6 +2,7 @@
 const {resolve} = require('path');
 const getBatch = require('./getBatch');
 const configParams = require('./configParams');
+const log = require('./log');
 
 const configFilename = 'eyes.json';
 
@@ -15,7 +16,7 @@ function initConfig(configFolder) {
   try {
     defaultConfig = require(configPath);
   } catch (ex) {
-    console.log(`no eyes.json config file found at ${configPath}`);
+    log(`no eyes.json config file found at ${configPath}`);
   }
 
   const envConfig = {};
@@ -32,7 +33,7 @@ function initConfig(configFolder) {
 
   return config => {
     const ret = Object.assign({}, priorConfig, config);
-    console.log('running with config:', ret);
+    log(`running with config: ${JSON.stringify(ret)}`);
     return ret;
   };
 }

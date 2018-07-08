@@ -73,7 +73,7 @@ const elementNodeFactory = (domNodes, elementNode) => {
     domNodes.push(node);
     return domNodes.length - 1;
   } else {
-    console.log(`Unknown nodeType: ${nodeType}`);
+    // console.log(`Unknown nodeType: ${nodeType}`);
     return null;
   }
 };

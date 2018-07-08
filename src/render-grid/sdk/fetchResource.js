@@ -1,9 +1,8 @@
 'use strict';
 const fetch = require('node-fetch');
-const log = require('./log');
 
-module.exports = url => {
-  log(`fetching ${url}`);
+module.exports = (url, logger) => {
+  logger.log(`fetching ${url}`);
   return fetch(url).then(resp =>
     resp.buffer().then(buff => ({
       url,

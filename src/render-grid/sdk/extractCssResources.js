@@ -26,13 +26,13 @@ function extractResourcesFromStyleSheet(styleSheet) {
   return [...new Set(resourceUrls)];
 }
 
-function extractCssResources(cssText, absoluteUrl) {
+function extractCssResources(cssText, absoluteUrl, logger) {
   let styleSheet;
 
   try {
     styleSheet = parse(cssText);
   } catch (ex) {
-    console.error(ex);
+    logger.log(ex);
     return [];
   }
 
