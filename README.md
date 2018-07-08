@@ -108,7 +108,7 @@ cy.eyesCheckWindow({ tag: 'your tag', sizeMode: 'your size mode' })
 ##### Arguments to `cy.eyesCheckWindow`
 
 - `tag` (optional): A logical name for this check.
-- `sizeMode` (optional): Possible values are `viewport` or `full-page`. The default is `full-page`, which means a screenshot of everything that exists in the DOM at the point of calling `eyesCheckWindow` will be rendered. If set to `viewport`, only a screenshot the size of the browser will be rendered (the size of the browser can be set in the call to `cy.eyesOpen` - see advanced configuration bellow).
+- `sizeMode` (optional): Possible values are `viewport` or `full-page`. The default is `full-page`, which means a screenshot of everything that exists in the DOM at the point of calling `eyesCheckWindow` will be rendered. If set to `viewport`, only a screenshot the size of the browser will be rendered (the size of the browser can be set in the call to `cy.eyesOpen` - see advanced configuration below).
 
 #### Close
 
