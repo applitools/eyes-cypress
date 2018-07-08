@@ -63,13 +63,14 @@ describe('eyes.cypress', () => {
       }
 
       cy.visit('http://localhost:3000');
+      // cy.visit('https://summit2018.reversim.com');
       cy.eyesOpen({
         appName: 'reversim website',
         testName: 'works',
         browser: {width: 1200, height: 800},
         showLogs: true,
       });
-      cy.eyesCheckWindow({tag: 'homepage', sizeMode: 'viewport'});
+      cy.eyesCheckWindow('homepage');
       cy.get(':nth-child(1) > .nav-link').click();
       cy.eyesCheckWindow({tag: 'proposals', sizeMode: 'viewport'});
       verifyCount();

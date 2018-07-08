@@ -52,7 +52,7 @@ Cypress.Commands.add('eyesCheckWindow', args => {
 
   Cypress.log({name: 'Eyes: check window'});
   return cy.document({log: false}).then(doc =>
-    cy.window().then(win => {
+    cy.window({log: false}).then(win => {
       const cdt = domNodesToCdt(doc);
       return extractResources(doc, win).then(({resourceUrls, blobs}) => {
         return EyesServer.checkWindow({resourceUrls, blobs, cdt, tag, sizeMode});

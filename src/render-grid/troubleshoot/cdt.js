@@ -130,6 +130,8 @@ function getFileExtension(contentType) {
   if (!fileExtension) {
     if (contentType === 'application/font-woff2') {
       fileExtension = 'woff2';
+    } else if (contentType === 'application/x-font-ttf') {
+      fileExtension = 'ttf';
     }
   }
 
