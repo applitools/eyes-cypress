@@ -24,7 +24,7 @@ const createFakeWrapper = () => {
   };
 };
 
-describe.only('renderBatch', () => {
+describe('renderBatch', () => {
   it('works', async () => {
     const renderRequests = [
       new FakeRenderRequest('dom1'),

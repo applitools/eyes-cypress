@@ -1,6 +1,6 @@
 'use strict';
 const EyesWrapper = require('./EyesWrapper');
-const getAllResources = require('./getAllResources');
+const makeGetAllResources = require('./getAllResources');
 const waitForRenderedStatus = require('./waitForRenderedStatus');
 const absolutizeUrl = require('./absolutizeUrl');
 const {mapKeys, mapValues} = require('lodash');
@@ -107,6 +107,7 @@ async function openEyes({
   /******* openEyes body start *******/
 
   setIsVerbose(showLogs);
+  const getAllResources = makeGetAllResources();
   let checkWindowPromises = [];
   const results = [];
 

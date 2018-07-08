@@ -3,30 +3,7 @@ const fetchResource = require('./fetchResource');
 const extractCssResources = require('./extractCssResources');
 const {mapValues} = require('lodash');
 const {RGridResource} = require('@applitools/eyes.sdk.core');
-
-// NOTE: `let` and not `const` because of tests
-let allResources = {_cache: {}};
-allResources.add = (entry, dependencies) => {
-  allResources._cache[entry.url] = Object.assign({dependencies}, entry);
-};
-
-allResources.getWithDependencies = key => {
-  function doGet(_key) {
-    const entry = allResources._cache[_key];
-    if (!entry) return;
-
-    const ret = {};
-    ret[_key] = entry; // TODO omit dependencies
-    if (entry.dependencies) {
-      entry.dependencies.forEach(dep => {
-        Object.assign(ret, doGet(dep));
-      });
-    }
-    return ret;
-  }
-
-  return doGet(key);
-};
+const createResourceCache = require('./createResourceCache');
 
 function fromCacheToRGridResource({url, type, hash}) {
   const resource = new RGridResource();
@@ -64,7 +41,7 @@ async function getDependantResources({url, type, value}, cache) {
 async function processResource(resource, cache) {
   let {dependentResources, fetchedResources} = await getDependantResources(resource, cache);
   const rGridResource = fromFetchedToRGridResource(resource);
-  cache.add(toCacheEntry(rGridResource), dependentResources);
+  cache.add(resource.url, toCacheEntry(rGridResource), dependentResources);
   return Object.assign({[resource.url]: rGridResource}, fetchedResources);
 }
 
@@ -96,13 +73,10 @@ async function getOrFetchResources(resourceUrls, cache, preResources = {}) {
   return resources;
 }
 
-async function getAllResources(absoluteUrls = [], preResources) {
-  return await getOrFetchResources(absoluteUrls, allResources, preResources);
+function makeGetAllResources() {
+  const cache = createResourceCache();
+  return async (absoluteUrls = [], preResources) =>
+    await getOrFetchResources(absoluteUrls, cache, preResources);
 }
 
-// NOTE: ugly, because of tests. Other alternative is to export a "createGetAllResources" which would initialize the cache.
-getAllResources.clearCache = () => {
-  allResources._cache = {};
-};
-
-module.exports = getAllResources;
+module.exports = makeGetAllResources;

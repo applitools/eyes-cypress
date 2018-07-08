@@ -1,9 +1,8 @@
 'use strict';
-const {describe, it, afterEach} = require('mocha');
+const {describe, it, beforeEach} = require('mocha');
 const {expect} = require('chai');
 const {mapValues} = require('lodash');
-const getAllResources = require('../../../../src/render-grid/sdk/getAllResources');
-const {clearCache} = getAllResources;
+const makeGetAllResources = require('../../../../src/render-grid/sdk/getAllResources');
 const {RGridResource} = require('@applitools/eyes.sdk.core');
 const testServer = require('../../../util/testServer');
 const {loadFixtureBuffer} = require('../../../util/loadFixture');
@@ -19,9 +18,10 @@ function toRGridResource({url, type, value}) {
 
 describe('getAllResources', () => {
   let closeServer;
+  let getAllResources;
 
-  afterEach(() => {
-    clearCache();
+  beforeEach(() => {
+    getAllResources = makeGetAllResources();
   });
 
   it('works for absolute urls', async () => {
