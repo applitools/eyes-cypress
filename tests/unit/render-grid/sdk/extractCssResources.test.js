@@ -5,7 +5,7 @@ const testLogger = require('../../../util/testLogger');
 const extractCssResources = require('../../../../src/render-grid/sdk/extractCssResources');
 
 describe('extractCssResources', () => {
-  it('supports property url()', async () => {
+  it('supports property url()', () => {
     const cssText = `
       .selector { background: url('hello.jpg'); }
       .selector2 { background-image: url("hello2.jpg"); }
@@ -20,7 +20,7 @@ describe('extractCssResources', () => {
     ]);
   });
 
-  it('supports @font-face rule', async () => {
+  it('supports @font-face rule', () => {
     const cssText = `@font-face {
       font-family: 'Zilla Slab';
       font-style: normal;
@@ -33,14 +33,14 @@ describe('extractCssResources', () => {
     expect(resourceUrls).to.eql(['http://some/zilla_slab.woff2']);
   });
 
-  it('supports @import rule', async () => {
+  it('supports @import rule', () => {
     const cssText = `@import 'some.css';`;
     const baseUrl = 'http://some/path';
     const resourceUrls = extractCssResources(cssText, baseUrl, testLogger);
     expect(resourceUrls).to.eql(['http://some/some.css']);
   });
 
-  it('supports @support rule', async () => {
+  it('supports @support rule', () => {
     const cssText = `@supports (display: grid) {
       div {
         display: grid;
@@ -52,10 +52,21 @@ describe('extractCssResources', () => {
     expect(resourceUrls).to.eql(['http://some/hello.jpg']);
   });
 
-  it("doesn't crash on parse error", async () => {
+  it("doesn't crash on parse error", () => {
     const cssText = `something that doesn't get parsed`;
     const baseUrl = 'http://some/path';
     const resourceUrls = extractCssResources(cssText, baseUrl, testLogger);
     expect(resourceUrls).to.eql([]);
+  });
+
+  it('supports resources inside @media queries', async () => {
+    const cssText = `@media (max-width:991px) {
+      .bla {
+        background: url('hello.jpg');
+      }
+    }`;
+    const baseUrl = 'http://some/path';
+    const resourceUrls = extractCssResources(cssText, baseUrl, testLogger);
+    expect(resourceUrls).to.eql(['http://some/hello.jpg']);
   });
 });
