@@ -17,7 +17,7 @@ function fromCacheToRGridResource({url, type, hash}) {
 function fromFetchedToRGridResource({url, type, value}) {
   const rGridResource = new RGridResource();
   rGridResource.setUrl(url);
-  rGridResource.setContentType(type);
+  rGridResource.setContentType(type || 'application/x-applitools-unknown'); // TODO test this
   rGridResource.setContent(value);
   return rGridResource;
 }

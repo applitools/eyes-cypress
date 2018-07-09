@@ -288,4 +288,37 @@ describe('getAllResources', () => {
       await closeServer();
     }
   });
+
+  // TODO enable this
+  it.skip('works for unknown content-type', async () => {
+    const server = await testServer();
+    closeServer = server.close;
+
+    const url = 'no-content-type';
+    const absoluteUrl = `http://localhost:${server.port}/${url}`;
+    const expected = {
+      [absoluteUrl]: toRGridResource({
+        url: absoluteUrl,
+        type: 'application/x-applitools-unknown',
+        value: loadFixtureBuffer(url),
+      }),
+    };
+
+    try {
+      const resources = await getAllResources([absoluteUrl]);
+      expect(resources).to.deep.equal(expected);
+    } catch (ex) {
+      throw ex;
+    } finally {
+      await closeServer();
+    }
+
+    const expectedFromCache = mapValues(expected, rGridResource => {
+      rGridResource._content = null; // yuck! but this is the symmetrical yuck of getAllResources::fromCacheToRGridResource since we save resource in cache without content, but with SHA256
+      return rGridResource;
+    });
+
+    const resourcesFromCache = await getAllResources([absoluteUrl]);
+    expect(resourcesFromCache).to.deep.equal(expectedFromCache);
+  });
 });
