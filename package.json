@@ -1,6 +1,6 @@
 {
   "name": "@applitools/eyes.cypress",
-  "version": "1.5.6",
+  "version": "1.5.7",
   "main": "index.js",
   "license": "MIT",
   "bin": {
