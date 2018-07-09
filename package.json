@@ -3,6 +3,9 @@
   "version": "1.5.6",
   "main": "index.js",
   "license": "MIT",
+  "bin": {
+    "eyes-setup": "./bin/eyes-setup.js"
+  },
   "scripts": {
     "test:mocha": "mocha --no-timeouts 'tests/**/*.test.js'",
     "test:unit": "mocha --no-timeouts 'tests/unit/**/*.test.js'",
@@ -15,6 +18,7 @@
   },
   "files": [
     "src",
+    "bin",
     "index.js",
     "commands.js"
   ],

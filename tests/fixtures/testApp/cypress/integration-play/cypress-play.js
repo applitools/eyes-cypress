@@ -36,7 +36,7 @@ describe('eyes.cypress', () => {
     cy.eyesClose();
   });
 
-  it('runs', () => {
+  it.skip('runs', () => {
     const url = `http://localhost:${Cypress.config('testPort')}/test.html`;
     cy.visit(url);
     cy.eyesOpen({
@@ -62,13 +62,14 @@ describe('eyes.cypress', () => {
         });
       }
 
-      cy.visit('http://localhost:3000');
-      // cy.visit('https://summit2018.reversim.com');
+      // cy.visit('http://localhost:3000');
+      cy.visit('https://summit2018.reversim.com');
       cy.eyesOpen({
         appName: 'reversim website',
         testName: 'works',
         browser: {width: 1200, height: 800},
         showLogs: true,
+        saveDebugData: true,
       });
       cy.eyesCheckWindow('homepage');
       cy.get(':nth-child(1) > .nav-link').click();
@@ -77,6 +78,26 @@ describe('eyes.cypress', () => {
       cy.get('.flex-wrap > :nth-child(1)').click();
       cy.eyesCheckWindow({tag: 'filtered proposals', sizeMode: 'viewport'});
       verifyCount();
+      cy.eyesClose();
+    });
+  });
+
+  describe('cnn', () => {
+    it('cnn works', () => {
+      cy.visit('https://cnn.com');
+
+      cy.eyesOpen({
+        showLogs: true,
+        appName: 'cypress play around',
+        testName: 'cypress play around',
+        viewportSize: [
+          // {width: 800, height: 600},
+          {width: 1024, height: 768},
+        ],
+      });
+
+      cy.eyesCheckWindow('first'); // visual snapshot
+
       cy.eyesClose();
     });
   });
