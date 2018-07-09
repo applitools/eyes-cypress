@@ -12,7 +12,21 @@ Install Eyes.Cypress as a local dev dependency in your tested project:
 npm install --save-dev @applitools/eyes.cypress
 ```
 
-### Configure Eyes.Cypress plugin
+### Configure plugin and commands
+
+#### Automatic configuration
+
+Run the following command in your terminal:
+
+```bash
+npx eyes-setup
+```
+
+The above command will add the necessary imports to your cypress `pluginsFile` and `supportFile`, as described in the manual configuration below.
+
+#### Manual configuration
+
+##### Configure Eyes.Cypress plugin
 
 Eyes.Cypress acts as a [Cypress plugin](https://docs.cypress.io/guides/tooling/plugins-guide.html), so it should be configured as such.
 Unfortunately there's no easy way to do this automatically, so you need to manually add the following code to your `pluginsFile`:
@@ -23,7 +37,7 @@ require('@applitools/eyes.cypress')
 
 Normally, this is `cypress/plugins/index.js`. You can read more about it in Cypress' docs [here](https://docs.cypress.io/guides/references/configuration.html#Folders-Files).
 
-### Configure custom commands
+##### Configure custom commands
 
 Eyes.Cypress exposes new commands to your tests. This means that more methods will be available on the `cy` object. To enable this, it's required to configure these custom commands.
 As with the plugin, there's no automatic way to configure this in cypress, so you need to manually add the following code to your `supportFile`:
@@ -55,7 +69,7 @@ npx cypress open
 
 ## Usage
 
-After completing all of the above, you will be able to use commands from Eyes.Cypress in your cypress tests to take screenshots and use Applitools Eyes to manage them:
+After completing the configuation (either automatic or manual) and defining the API key, you will be able to use commands from Eyes.Cypress in your cypress tests to take screenshots and use Applitools Eyes to manage them:
 
 ### Example
 
