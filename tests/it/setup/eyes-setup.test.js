@@ -5,12 +5,16 @@ const {expect} = require('chai');
 const {readFileSync, writeFileSync} = require('fs');
 const {resolve} = require('path');
 const {pluginRequire} = require('../../../src/cypress/setup/addEyesCypressPlugin');
+const {commandsImport} = require('../../../src/cypress/setup/addEyesCommands');
 
-describe('eyes-setup script', () => {
+describe.only('eyes-setup script', () => {
   let cwd;
   const fixturesPath = resolve(__dirname, 'fixtures');
-  const pluginFilePath = resolve(fixturesPath, 'cypress/plugins/index-bla.js');
-  const origFileContent = readFileSync(pluginFilePath);
+  const pluginFilePath = resolve(fixturesPath, 'cypress/plugins/index-bla-plugin.js');
+  const origPluginFileContent = readFileSync(pluginFilePath).toString();
+
+  const supportFilePath = resolve(fixturesPath, 'cypress/support/index-bla-commands.js');
+  const origSupportFileContent = readFileSync(supportFilePath).toString();
 
   before(() => {
     cwd = process.cwd();
@@ -19,17 +23,24 @@ describe('eyes-setup script', () => {
 
   after(() => {
     process.chdir(cwd);
-    writeFileSync(pluginFilePath, origFileContent);
+    writeFileSync(pluginFilePath, origPluginFileContent);
+    writeFileSync(supportFilePath, origSupportFileContent);
   });
 
   it('works', () => {
-    const pluginFileContent = readFileSync(pluginFilePath).toString();
     require('../../../bin/eyes-setup');
 
     expect(readFileSync(pluginFilePath).toString()).to.equal(
-      pluginFileContent.replace(
-        "const _fs = require('fs');",
-        `${pluginRequire}\nconst _fs = require('fs');`,
+      origPluginFileContent.replace(
+        'module.exports = (on, config) => {',
+        `${pluginRequire}\nmodule.exports = (on, config) => {`,
+      ),
+    );
+
+    expect(readFileSync(supportFilePath).toString()).to.equal(
+      origSupportFileContent.replace(
+        "import './commands'",
+        `${commandsImport}\nimport './commands'`,
       ),
     );
   });

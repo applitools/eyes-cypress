@@ -1,20 +1,20 @@
 'use strict';
 
-const pluginRequire = `\nrequire('@applitools/eyes.cypress');\n`;
+const commandsImport = `\nimport '@applitools/eyes.cypress/commands'\n`;
 
 function shouldSkipLine(line) {
   return line.trim() === '' || /^\s*['"]use strict/.test(line) || /^\s*\/\//.test(line);
 }
 
-function addEyesCypressPlugin(content) {
+function addEyesCommands(content) {
   const lines = content.split('\n');
   let i = 0;
   while (shouldSkipLine(lines[i++])) {}
   let index = i === 1 ? i : i - 1;
-  lines.splice(index, 0, pluginRequire);
+  lines.splice(index, 0, commandsImport);
 
   return lines.join('\n');
 }
 
-module.exports = addEyesCypressPlugin;
-module.exports.pluginRequire = pluginRequire;
+module.exports = addEyesCommands;
+module.exports.commandsImport = commandsImport;
