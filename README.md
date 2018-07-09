@@ -42,7 +42,8 @@ To to this, set the environment variable `APPLITOOLS_API_KEY` to the API key bef
 For example, on Linux/Mac:
 
 ```bash
-APPLITOOLS_API_KEY=<your_key> npx cypress open
+export APPLITOOLS_API_KEY=<your_key>
+npx cypress open
 ```
 
 And on Windows:
