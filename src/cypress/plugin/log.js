@@ -8,8 +8,8 @@ const logHandler = process.env.APPLITOOLS_DEV_MODE
 
 logger.setLogHandler(logHandler);
 
-function log(msg) {
-  logger.verbose(msg);
+function log(...args) {
+  logger.verbose(...args);
 }
 
 module.exports = log;

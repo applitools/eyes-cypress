@@ -49,13 +49,13 @@ app.put('/eyes/resource/:id', bodyParser.raw({type: '*/*', limit: '100mb'}), asy
 });
 
 app.post('/eyes/:command', express.json({limit: '100mb'}), async (req, res) => {
-  log(`eyes api: ${req.params.command}, ${Object.keys(req.body)}`);
+  log(`eyes api: ${req.params.command}`, Object.keys(req.body));
   try {
     const result = await handlers[req.params.command](req.body);
     res.set('Content-Type', 'application/json');
     res.status(200).send({success: true, result});
   } catch (ex) {
-    console.error('error in eyes api:', ex);
+    log('error in eyes api:', ex);
     res.status(200).send({success: false, error: ex.message});
   }
 });
