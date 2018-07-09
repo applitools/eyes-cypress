@@ -5,7 +5,7 @@ const {expect} = require('chai');
 const {resolve} = require('path');
 const getCypressConfig = require('../../../src/cypress/setup/getCypressConfig');
 
-describe.only('getCypressConfig', () => {
+describe('getCypressConfig', () => {
   it('finds existing cypress.json', () => {
     const cwd = resolve(__dirname, 'fixtures');
     expect(getCypressConfig(cwd)).to.eql({

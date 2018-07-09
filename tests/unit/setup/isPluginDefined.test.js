@@ -4,7 +4,7 @@ const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const isPluginDefined = require('../../../src/cypress/setup/isPluginDefined');
 
-describe.only('isPluginDefined', () => {
+describe('isPluginDefined', () => {
   it('handles single quote require', () => {
     const text = "require('@applitools/eyes.cypress');";
     expect(isPluginDefined(text)).to.equal(true);

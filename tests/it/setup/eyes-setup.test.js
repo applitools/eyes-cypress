@@ -7,7 +7,7 @@ const {resolve} = require('path');
 const {pluginRequire} = require('../../../src/cypress/setup/addEyesCypressPlugin');
 const {commandsImport} = require('../../../src/cypress/setup/addEyesCommands');
 
-describe.only('eyes-setup script', () => {
+describe('eyes-setup script', () => {
   let cwd;
   const fixturesPath = resolve(__dirname, 'fixtures');
   const pluginFilePath = resolve(fixturesPath, 'cypress/plugins/index-bla-plugin.js');
