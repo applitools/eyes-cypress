@@ -59,7 +59,7 @@ describe('extractCssResources', () => {
     expect(resourceUrls).to.eql([]);
   });
 
-  it('supports resources inside @media queries', async () => {
+  it('supports resources inside @media queries', () => {
     const cssText = `@media (max-width:991px) {
       .bla {
         background: url('hello.jpg');
@@ -68,5 +68,33 @@ describe('extractCssResources', () => {
     const baseUrl = 'http://some/path';
     const resourceUrls = extractCssResources(cssText, baseUrl, testLogger);
     expect(resourceUrls).to.eql(['http://some/hello.jpg']);
+  });
+
+  it('supports multiple src properties in @font-face rules', () => {
+    const cssText = `
+   @font-face {
+     font-family: 'FontAwesome';
+     src: url('//use.fontawesome.com/releases/v4.7.0/fonts/fontawesome-webfont.eot');
+     src: url('//use.fontawesome.com/releases/v4.7.0/fonts/fontawesome-webfont.eot?#iefix') format('embedded-opentype'),
+          url('//use.fontawesome.com/releases/v4.7.0/fonts/fontawesome-webfont.woff2') format('woff2'),
+          url('//use.fontawesome.com/releases/v4.7.0/fonts/fontawesome-webfont.woff') format('woff'),
+          url('//use.fontawesome.com/releases/v4.7.0/fonts/fontawesome-webfont.ttf') format('truetype'),
+          url('//use.fontawesome.com/releases/v4.7.0/fonts/fontawesome-webfont.svg#fontawesomeregular') format('svg');
+     font-weight: normal;
+     font-style: normal;
+   }`;
+
+    // NOTE: the first src property will be overriden by the second one. That's fine. We don't want to support that use case since this type of definition is meant
+    // to provide support for older browsers. The first `src` will be read by older browsers, and the second one for modern ones. We're working on modern ones.
+
+    const baseUrl = 'http://some/path';
+    const resourceUrls = extractCssResources(cssText, baseUrl, testLogger);
+    expect(resourceUrls).to.eql([
+      'http://use.fontawesome.com/releases/v4.7.0/fonts/fontawesome-webfont.eot?#iefix',
+      'http://use.fontawesome.com/releases/v4.7.0/fonts/fontawesome-webfont.woff2',
+      'http://use.fontawesome.com/releases/v4.7.0/fonts/fontawesome-webfont.woff',
+      'http://use.fontawesome.com/releases/v4.7.0/fonts/fontawesome-webfont.ttf',
+      'http://use.fontawesome.com/releases/v4.7.0/fonts/fontawesome-webfont.svg#fontawesomeregular',
+    ]);
   });
 });

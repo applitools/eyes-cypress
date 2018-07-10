@@ -10,8 +10,13 @@ const {
 const absolutizeUrl = require('./absolutizeUrl');
 
 function getUrlFromCssText(cssText) {
-  const match = cssText.match(/url\((?!['"]?:)['"]?([^'"\)]*)['"]?\)/);
-  return match ? match[1] : match;
+  const re = /url\((?!['"]?:)['"]?([^'"\)]*)['"]?\)/g;
+  const ret = [];
+  let result;
+  while ((result = re.exec(cssText)) !== null) {
+    ret.push(result[1]);
+  }
+  return ret;
 }
 
 function extractResourcesFromStyleSheet(styleSheet) {
@@ -24,8 +29,8 @@ function extractResourcesFromStyleSheet(styleSheet) {
       return acc.concat(extractResourcesFromStyleSheet(rule));
     } else if (rule instanceof CSSStyleRule) {
       for (let i = 0, ii = rule.style.length; i < ii; i++) {
-        const url = getUrlFromCssText(rule.style.getPropertyValue(rule.style[i]));
-        url && acc.push(url);
+        const urls = getUrlFromCssText(rule.style.getPropertyValue(rule.style[i]));
+        urls.length && (acc = acc.concat(urls));
       }
     }
     return acc;
