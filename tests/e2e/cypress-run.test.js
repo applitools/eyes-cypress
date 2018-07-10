@@ -53,7 +53,7 @@ describe('cypress run', () => {
         },
       );
     } catch (ex) {
-      expect(ex.stderr).to.include(TIMEOUT_MSG);
+      expect(ex.stdout).to.include(TIMEOUT_MSG);
     }
   });
 });
