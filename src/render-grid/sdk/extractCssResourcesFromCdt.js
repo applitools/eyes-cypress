@@ -1,12 +1,19 @@
 'use strict';
 const extractCssResources = require('./extractCssResources');
+const getUrlFromCssText = require('./getUrlFromCssText');
 
 function extractCssResourcesFromCdt(cdt, baseUrl) {
   return cdt.reduce((acc, node) => {
     if (node.nodeName === 'STYLE') {
       const cssText = node.childNodeIndexes.map(index => cdt[index].nodeValue).join('');
-      return acc.concat(extractCssResources(cssText, baseUrl));
-    } else return acc;
+      acc = acc.concat(extractCssResources(cssText, baseUrl));
+    } else if (node.nodeType === 1) {
+      const styleAttr =
+        node.attributes && node.attributes.find(attr => attr.name.toUpperCase() === 'STYLE');
+
+      if (styleAttr) acc = acc.concat(getUrlFromCssText(styleAttr.value));
+    }
+    return acc;
   }, []);
 }
 

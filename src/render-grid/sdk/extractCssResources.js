@@ -7,17 +7,8 @@ const {
   CSSSupportsRule,
   CSSMediaRule,
 } = require('cssom');
+const getUrlFromCssText = require('./getUrlFromCssText');
 const absolutizeUrl = require('./absolutizeUrl');
-
-function getUrlFromCssText(cssText) {
-  const re = /url\((?!['"]?:)['"]?([^'"\)]*)['"]?\)/g;
-  const ret = [];
-  let result;
-  while ((result = re.exec(cssText)) !== null) {
-    ret.push(result[1]);
-  }
-  return ret;
-}
 
 function extractResourcesFromStyleSheet(styleSheet) {
   const resourceUrls = [...styleSheet.cssRules].reduce((acc, rule) => {
