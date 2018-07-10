@@ -4,7 +4,7 @@ const {expect} = require('chai');
 const {loadJsonFixture} = require('../../../util/loadFixture');
 const extractCssResourcesFromCdt = require('../../../../src/render-grid/sdk/extractCssResourcesFromCdt');
 
-describe.only('extractCssResourcesFromCdt', () => {
+describe('extractCssResourcesFromCdt', () => {
   it('works', () => {
     const cdt = loadJsonFixture('test.cdt.json');
     const resourceUrls = extractCssResourcesFromCdt(cdt, 'http://some/url');
