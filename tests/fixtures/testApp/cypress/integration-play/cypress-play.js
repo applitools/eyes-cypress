@@ -50,7 +50,7 @@ describe('eyes.cypress', () => {
     cy.eyesClose();
   });
 
-  context.skip('Reversim website', () => {
+  context('Reversim website', () => {
     it('works', () => {
       function verifyCount() {
         cy.get(
@@ -82,7 +82,7 @@ describe('eyes.cypress', () => {
     });
   });
 
-  describe('cnn', () => {
+  describe.skip('cnn', () => {
     it('cnn works', () => {
       cy.visit('https://cnn.com');
 

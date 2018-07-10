@@ -32,7 +32,7 @@ async function waitForRenderedStatus(renderIds, wrapper) {
       return renderStatuses.map(rs => rs.getImageLocation());
     } catch (ex) {
       wrapper._logger.log(`error during getRenderStatus: ${ex}`);
-      await psetTimeout(GET_STATUS_INTERVAL); // TODO use GeneralUtils from SDK?
+      await psetTimeout(GET_STATUS_INTERVAL);
       return await getStatus();
     }
   }
@@ -43,14 +43,3 @@ async function waitForRenderedStatus(renderIds, wrapper) {
 }
 
 module.exports = waitForRenderedStatus;
-
-/*****
- * TODO: when this is rewritten to be optimized, it should query status for multiple renderIds
-
-  async function getRenderStatus(renderIds) {
-    // TODO send POST to /render-status (_serverConnector.getRenderStatusByIds)
-    // TODO remove completed renderIds from array
-    // TODO call matchWindow on completed renderIds
-  }
-
- */

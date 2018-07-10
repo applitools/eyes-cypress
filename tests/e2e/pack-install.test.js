@@ -4,7 +4,6 @@ const {exec} = require('child_process');
 const {resolve} = require('path');
 const {promisify: p} = require('util');
 
-require('dotenv').config(); // TODO can this be removed because the plugin already does this?
 const rootPath = resolve(__dirname, '../..');
 const rootPackageJson = require(resolve(rootPath, 'package.json'));
 const testAppPath = resolve(__dirname, '../fixtures/testApp');

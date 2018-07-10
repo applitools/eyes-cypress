@@ -1,5 +1,4 @@
 'use strict';
-require('dotenv').config();
 
 const apiKey = process.env.APPLITOOLS_API_KEY; // TODO bad for tests. what to do
 if (!apiKey) {

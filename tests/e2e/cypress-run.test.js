@@ -6,8 +6,6 @@ const {promisify: p} = require('util');
 const {resolve} = require('path');
 const {TIMEOUT_MSG} = require('../../src/cypress/plugin/pollingHandler');
 
-require('dotenv').config(); // TODO can this be removed because the plugin already does this?
-
 const pexec = p(exec);
 
 const rootPath = resolve(__dirname, '../..');
