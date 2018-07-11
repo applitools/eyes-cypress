@@ -3,7 +3,7 @@ const {describe, it, beforeEach, afterEach} = require('mocha');
 const {expect} = require('chai');
 const {initConfig, toEnvVarName} = require('../../../src/cypress/plugin/config');
 const {resolve} = require('path');
-const {omit} = require('lodash');
+const omit = require('lodash.omit');
 
 function configWithoutBatch(config) {
   return omit(config, ['batchName', 'batchId']);
