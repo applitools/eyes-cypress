@@ -1,6 +1,10 @@
 'use strict';
 const EyesWrapper = require('./EyesWrapper');
 const makeGetAllResources = require('./getAllResources');
+const makeExtractCssResources = require('./extractCssResources');
+const makeFetchResource = require('./fetchResource');
+const makeExtractCssResourcesFromCdt = require('./extractCssResourcesFromCdt');
+const createResourceCache = require('./createResourceCache');
 const waitForRenderedStatus = require('./waitForRenderedStatus');
 const absolutizeUrl = require('./absolutizeUrl');
 const {mapKeys, mapValues} = require('lodash');
@@ -8,7 +12,6 @@ const saveData = require('../troubleshoot/saveData');
 const createRenderRequests = require('./createRenderRequests');
 const renderBatch = require('./renderBatch');
 const {BatchInfo, ConsoleLogHandler, NullLogHandler} = require('@applitools/eyes.sdk.core');
-const extractCssResourcesFromCdt = require('./extractCssResourcesFromCdt');
 
 // TODO replace with getInferredEnvironment once render service returns userAgent
 const getHostAppFromBrowserName = browserName =>
@@ -147,7 +150,15 @@ async function openEyes({
   });
 
   const logger = renderWrapper._logger;
-  const getAllResources = makeGetAllResources(logger);
+  const resourceCache = createResourceCache();
+  const extractCssResources = makeExtractCssResources(logger);
+  const fetchResource = makeFetchResource(logger);
+  const extractCssResourcesFromCdt = makeExtractCssResourcesFromCdt(extractCssResources);
+  const getAllResources = makeGetAllResources({
+    resourceCache,
+    extractCssResources,
+    fetchResource,
+  });
 
   return {
     checkWindow,

@@ -29,17 +29,19 @@ function extractResourcesFromStyleSheet(styleSheet) {
   return [...new Set(resourceUrls)];
 }
 
-function extractCssResources(cssText, absoluteUrl, logger) {
-  let styleSheet;
+function makeExtractCssResources(logger) {
+  return function extractCssResources(cssText, absoluteUrl) {
+    let styleSheet;
 
-  try {
-    styleSheet = parse(cssText);
-  } catch (ex) {
-    logger.log(ex);
-    return [];
-  }
+    try {
+      styleSheet = parse(cssText);
+    } catch (ex) {
+      logger.log(ex);
+      return [];
+    }
 
-  return extractResourcesFromStyleSheet(styleSheet).map(url => absolutizeUrl(url, absoluteUrl));
+    return extractResourcesFromStyleSheet(styleSheet).map(url => absolutizeUrl(url, absoluteUrl));
+  };
 }
 
-module.exports = extractCssResources;
+module.exports = makeExtractCssResources;

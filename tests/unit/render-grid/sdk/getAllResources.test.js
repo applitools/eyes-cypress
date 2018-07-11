@@ -3,6 +3,9 @@ const {describe, it, beforeEach} = require('mocha');
 const {expect} = require('chai');
 const {mapValues} = require('lodash');
 const makeGetAllResources = require('../../../../src/render-grid/sdk/getAllResources');
+const makeExtractCssResources = require('../../../../src/render-grid/sdk/extractCssResources');
+const makeFetchResource = require('../../../../src/render-grid/sdk/fetchResource');
+const createResourceCache = require('../../../../src/render-grid/sdk/createResourceCache');
 const {RGridResource} = require('@applitools/eyes.sdk.core');
 const testServer = require('../../../util/testServer');
 const testLogger = require('../../../util/testLogger');
@@ -20,9 +23,12 @@ function toRGridResource({url, type, value}) {
 describe('getAllResources', () => {
   let closeServer;
   let getAllResources;
+  const extractCssResources = makeExtractCssResources(testLogger);
+  const resourceCache = createResourceCache();
+  const fetchResource = makeFetchResource(testLogger);
 
   beforeEach(() => {
-    getAllResources = makeGetAllResources(testLogger);
+    getAllResources = makeGetAllResources({resourceCache, extractCssResources, fetchResource});
   });
 
   it('works for absolute urls', async () => {

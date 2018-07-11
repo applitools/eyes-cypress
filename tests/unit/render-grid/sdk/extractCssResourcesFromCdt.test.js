@@ -2,9 +2,14 @@
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const {loadJsonFixture} = require('../../../util/loadFixture');
-const extractCssResourcesFromCdt = require('../../../../src/render-grid/sdk/extractCssResourcesFromCdt');
+const makeExtractCssResources = require('../../../../src/render-grid/sdk/extractCssResources');
+const makeExtractCssResourcesFromCdt = require('../../../../src/render-grid/sdk/extractCssResourcesFromCdt');
+const testLogger = require('../../../util/testLogger');
 
 describe('extractCssResourcesFromCdt', () => {
+  const extractCssResources = makeExtractCssResources(testLogger);
+  const extractCssResourcesFromCdt = makeExtractCssResourcesFromCdt(extractCssResources);
+
   it('works', () => {
     const cdt = loadJsonFixture('test.cdt.json');
     const resourceUrls = extractCssResourcesFromCdt(cdt, 'http://some/url');
