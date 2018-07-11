@@ -1,7 +1,6 @@
 /* global Cypress,cy,window */
 'use strict';
-const extractResources = require('../render-grid/browser-util/extractResources');
-const domNodesToCdt = require('../render-grid/browser-util/domNodesToCdt');
+const {extractResources, domNodesToCdt} = require('@applitools/rendering-grid-client/browser');
 const poll = require('./poll');
 const makeSend = require('./makeSend');
 const port = Cypress.config('eyesPort') || require('./plugin/defaultPort');

@@ -30,17 +30,13 @@
     "url": "https://github.com/applitools/eyes.cypress.git"
   },
   "dependencies": {
-    "@applitools/eyes.sdk.core": "^1.7.0",
+    "@applitools/rendering-grid-client": "^1.0.3",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
-    "cssom": "git+https://github.com/amitzur/CSSOM.git#925260ff2c8f8387cf76df4d5776a06044a644c8",
     "express": "^4.16.3",
-    "he": "^1.1.1",
     "lodash": "^4.17.10",
     "mime-types": "^2.1.18",
-    "mkdirp": "^0.5.1",
-    "morgan": "^1.9.0",
-    "node-fetch": "^2.1.2"
+    "morgan": "^1.9.0"
   },
   "devDependencies": {
     "chai": "^4.1.2",
@@ -50,10 +46,7 @@
     "eslint-plugin-mocha-no-only": "^0.0.6",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-prettier": "^2.6.0",
-    "jsdom": "^11.11.0",
     "mocha": "^5.2.0",
-    "nock": "^9.2.6",
-    "prettier": "^1.13.0",
-    "puppeteer": "^1.5.0"
+    "prettier": "^1.13.0"
   }
 }

@@ -3,12 +3,12 @@ const express = require('express');
 const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const log = require('./log');
 const {promisify: p} = require('util');
 const makeHandlers = require('./handlers');
 const psetTimeout = p(setTimeout);
-const openEyes = require('../../render-grid/sdk/openEyes');
+const {openEyes, createLogger} = require('@applitools/rendering-grid-client');
 const handlers = makeHandlers(openEyes);
+const logger = createLogger();
 
 let eyesPort = require('./defaultPort');
 let server;
@@ -21,7 +21,7 @@ async function getEyesPort() {
     await psetTimeout(10);
   }
 
-  log(`getEyesPort port=${port}`);
+  logger.log(`getEyesPort port=${port}`);
   return port;
 }
 
@@ -49,22 +49,22 @@ app.put('/eyes/resource/:id', bodyParser.raw({type: '*/*', limit: '100mb'}), asy
 });
 
 app.post('/eyes/:command', express.json({limit: '100mb'}), async (req, res) => {
-  log(`eyes api: ${req.params.command}`, Object.keys(req.body));
+  logger.log(`eyes api: ${req.params.command}`, Object.keys(req.body));
   try {
     const result = await handlers[req.params.command](req.body);
     res.set('Content-Type', 'application/json');
     res.status(200).send({success: true, result});
   } catch (ex) {
-    log('error in eyes api:', ex);
+    logger.log('error in eyes api:', ex);
     res.status(200).send({success: false, error: ex.message});
   }
 });
 
 // start server after process tick (or as microtask) to allow user to set custom port
 Promise.resolve().then(() => {
-  log(`starting plugin at port ${eyesPort}`);
+  logger.log(`starting plugin at port ${eyesPort}`);
   server = app.listen(eyesPort, () => {
-    log(`server running at port: ${server.address().port}`);
+    logger.log(`server running at port: ${server.address().port}`);
   });
 });
 

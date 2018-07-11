@@ -1,8 +1,8 @@
 'use strict';
 const {resolve} = require('path');
-const getBatch = require('./getBatch');
+const {getBatch, createLogger} = require('@applitools/rendering-grid-client');
 const configParams = require('./configParams');
-const log = require('./log');
+const logger = createLogger();
 
 const configFilename = 'eyes.json';
 
@@ -16,7 +16,7 @@ function initConfig(configFolder) {
   try {
     defaultConfig = require(configPath);
   } catch (ex) {
-    log(`no eyes.json config file found at ${configPath}`);
+    logger.log(`no eyes.json config file found at ${configPath}`);
   }
 
   const envConfig = {};
@@ -33,7 +33,7 @@ function initConfig(configFolder) {
 
   return config => {
     const ret = Object.assign({}, priorConfig, config);
-    log(`running with config: ${JSON.stringify(ret)}`);
+    logger.log(`running with config: ${JSON.stringify(ret)}`);
     return ret;
   };
 }
