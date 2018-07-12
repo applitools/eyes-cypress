@@ -46,7 +46,12 @@ describe('eyes.cypress', () => {
       showLogs: true,
       // saveDebugData: true,
     });
-    cy.eyesCheckWindow('some tag');
+    cy.eyesCheckWindow({
+      tag: 'some tag',
+      scriptHooks: {
+        beforeCaptureScreenshot: "document.body.style.backgroundColor = 'gold'",
+      },
+    });
     cy.eyesClose();
   });
 
