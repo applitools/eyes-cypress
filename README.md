@@ -143,14 +143,27 @@ cy.eyesClose({ timeout });
 
 It's possible to define the following configuration for tests:
 
-| Property name   | Default value               | Description  |
-| --------------- |:---------------------------:| -----:|
-| `testName`      | ''                          | Test name |
-| `browser`       | { width: 800, height: 600 } | The size of the generated screenshots. This doesn't need to be the same as the size of the browser that Cypress is running.  It's also possible to send an array of sizes:<br/><br/>It's also possible to send an array of sizes, e.g. `[{width: 800, height: 600}, { width: 1024, height: 768 }]`|
-| `showLogs`      | false                       | Whether or not you want to see logs of the Eyes.Cypress plugin. Logs are written to the same output of the Cypress process. |
-| `saveDebugData` | false                       | Whether to save troubleshooting data. See the troubleshooting section of this doc for more info. |
-| `batchId`       | random                      | Provides ability to group tests into batches. Read more about batches [here](https://applitools.com/docs/topics/working-with-test-batches/how-to-group-tests-into-batches.html). |
-| `batchName`     | null                        | Provide a name to the batch. |
+| Property name             | Default value               | Description   |
+| -------------             |:-------------:              |:-----------   |
+| `testName`                | ''                          | Test name     |
+| `browser`                 | { width: 800, height: 600 } | The size of the generated screenshots. This doesn't need to be the same as the size of the browser that Cypress is running.  It's also possible to send an array of sizes:<br/><br/>It's also possible to send an array of sizes, e.g. `[{width: 800, height: 600}, { width: 1024, height: 768 }]`|
+| `showLogs`                | false                       | Whether or not you want to see logs of the Eyes.Cypress plugin. Logs are written to the same output of the Cypress process. |
+| `saveDebugData`           | false                       | Whether to save troubleshooting data. See the troubleshooting section of this doc for more info. |
+| `batchId`                 | random                      | Provides ability to group tests into batches. Read more about batches [here](https://applitools.com/docs/topics/working-with-test-batches/how-to-group-tests-into-batches.html). |
+| `batchName`               | undefined                   | Provides a name to the batch. |
+| `baselineBranchName`      | undefined                   | The name of the baseline branch. |
+| `baselineEnvName`         | undefined                   | The name of the environment of the baseline. |
+| `envName`                 | undefined                   | A name for the environment in which the application under test is running. |
+| `ignoreCaret`             | false                       | Whether to ignore or the blinking caret or not when comparing images. |
+| `isDisabled`              | false                       | If true, all calls to Eyes.Cypress commandswill be silently ignored. |
+| `matchLevel`              | undefined                   | The test-wide match level to use when checking application screenshot with the expected output. |
+| `matchTimeout`            | undefined                   | Sets the maximum time (in ms) a match operation tries to perform a match. |
+| `parentBranchName`        | undefined                   | Sets the branch under which new branches are created. |
+| `proxy`                   | undefined                   | Sets the proxy settings to be used in network requests to Eyes server. |
+| `saveFailedTests`         | false                       | Set whether or not failed tests are saved by default. |
+| `saveNewTests`            | false                       | Set whether or not new tests are saved by default. |
+| `compareWithParentBranch` | false                       |  |
+| `ignoreBaseline`          | false                       |  |
 
 There are 3 ways to specify test configuration:
 1) Arguments to `cy.eyesOpen()`
