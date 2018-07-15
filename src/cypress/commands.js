@@ -5,6 +5,8 @@ const poll = require('./poll');
 const makeSend = require('./makeSend');
 const port = Cypress.config('eyesPort') || require('./plugin/defaultPort');
 const send = makeSend(port, cy.request);
+const captureFrame = require('@applitools/dom-capture/src/captureFrame');
+const defaultDomProps = require('@applitools/dom-capture/src/defaultDomProps');
 
 const EyesServer = {
   open(args) {
@@ -20,10 +22,13 @@ const EyesServer = {
     });
   },
 
-  checkWindow({resourceUrls, blobs, cdt, tag, sizeMode}) {
+  checkWindow({resourceUrls, blobs, cdt, tag, sizeMode, domCapture}) {
     const blobData = blobs.map(({url, type}) => ({url, type}));
     return Promise.all(blobs.map(EyesServer.putResource)).then(() =>
-      sendRequest({command: 'checkWindow', data: {resourceUrls, cdt, tag, sizeMode, blobData}}),
+      sendRequest({
+        command: 'checkWindow',
+        data: {resourceUrls, cdt, tag, sizeMode, blobData, domCapture},
+      }),
     );
   },
 
@@ -53,9 +58,10 @@ Cypress.Commands.add('eyesCheckWindow', args => {
   return cy.document({log: false}).then(doc =>
     cy.window({log: false}).then(win => {
       const cdt = domNodesToCdt(doc);
-      return extractResources(doc, win).then(({resourceUrls, blobs}) => {
-        return EyesServer.checkWindow({resourceUrls, blobs, cdt, tag, sizeMode});
-      });
+      const domCapture = captureFrame(defaultDomProps);
+      return extractResources(doc, win).then(({resourceUrls, blobs}) =>
+        EyesServer.checkWindow({resourceUrls, blobs, cdt, tag, sizeMode, domCapture}),
+      );
     }),
   );
 });
