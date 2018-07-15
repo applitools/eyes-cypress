@@ -30,8 +30,8 @@
     "url": "https://github.com/applitools/eyes.cypress.git"
   },
   "dependencies": {
-    "@applitools/rendering-grid-client": "^1.0.5",
     "@applitools/dom-capture": "^2.0.0",
+    "@applitools/rendering-grid-client": "^1.0.7",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.3"
@@ -43,10 +43,10 @@
     "eslint": "^4.19.1",
     "eslint-plugin-mocha-no-only": "^0.0.6",
     "eslint-plugin-node": "^6.0.1",
-    "eslint-plugin-prettier": "^2.6.0",
+    "eslint-plugin-prettier": "^2.6.2",
     "lodash.omit": "^4.5.0",
     "mocha": "^5.2.0",
     "node-fetch": "^2.1.2",
-    "prettier": "^1.13.0"
+    "prettier": "^1.13.7"
   }
 }
