@@ -22,12 +22,12 @@ const EyesServer = {
     });
   },
 
-  checkWindow({resourceUrls, blobs, cdt, tag, sizeMode, domCapture}) {
+  checkWindow({url, resourceUrls, blobs, cdt, tag, sizeMode, domCapture}) {
     const blobData = blobs.map(({url, type}) => ({url, type}));
     return Promise.all(blobs.map(EyesServer.putResource)).then(() =>
       sendRequest({
         command: 'checkWindow',
-        data: {resourceUrls, cdt, tag, sizeMode, blobData, domCapture},
+        data: {url, resourceUrls, cdt, tag, sizeMode, blobData, domCapture},
       }),
     );
   },
@@ -39,10 +39,7 @@ const EyesServer = {
 
 Cypress.Commands.add('eyesOpen', (args = {}) => {
   Cypress.log({name: 'Eyes: open'});
-  return cy.window({log: false}).then(win => {
-    const openArgs = Object.assign({url: win.location.href}, args);
-    return EyesServer.open(openArgs);
-  });
+  return EyesServer.open(args);
 });
 
 Cypress.Commands.add('eyesCheckWindow', args => {
@@ -60,7 +57,15 @@ Cypress.Commands.add('eyesCheckWindow', args => {
       const cdt = domNodesToCdt(doc);
       const domCapture = captureFrame(defaultDomProps);
       return extractResources(doc, win).then(({resourceUrls, blobs}) =>
-        EyesServer.checkWindow({resourceUrls, blobs, cdt, tag, sizeMode, domCapture}),
+        EyesServer.checkWindow({
+          url: win.location.href,
+          resourceUrls,
+          blobs,
+          cdt,
+          tag,
+          sizeMode,
+          domCapture,
+        }),
       );
     }),
   );

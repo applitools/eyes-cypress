@@ -23,7 +23,7 @@ function makeHandlers(openEyes) {
       resources[id] = buffer;
     },
 
-    checkWindow: async ({resourceUrls, cdt, tag, blobData = [], sizeMode, domCapture}) => {
+    checkWindow: async ({url, resourceUrls, cdt, tag, blobData = [], sizeMode, domCapture}) => {
       if (!checkWindow) {
         throw new Error('Please call cy.eyesOpen() before calling cy.eyesCheckWindow()');
       }
@@ -33,7 +33,15 @@ function makeHandlers(openEyes) {
         return acc;
       }, {});
 
-      return await checkWindow({resourceUrls, resourceContents, cdt, tag, sizeMode, domCapture});
+      return await checkWindow({
+        url,
+        resourceUrls,
+        resourceContents,
+        cdt,
+        tag,
+        sizeMode,
+        domCapture,
+      });
     },
 
     close: async ({timeout} = {}) => {
