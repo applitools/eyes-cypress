@@ -14,7 +14,7 @@
     "eslint": "eslint '**/*.js'",
     "test": "npm run test:mocha && npm run eslint",
     "build": "#",
-    "cypress": "cd tests/fixtures/testApp && cypress open --config integrationFolder=cypress/integration-play,pluginsFile=cypress/plugins/index-run.js,supportFile=cypress/support/index-run.js"
+    "cypress": "cd tests/fixtures/testApp && cypress open --config integrationFolder=cypress/integration-play,pluginsFile=cypress/plugins/index-play.js,supportFile=cypress/support/index-run.js"
   },
   "files": [
     "src",
@@ -39,7 +39,7 @@
   "devDependencies": {
     "chai": "^4.1.2",
     "chai-spies": "^1.0.0",
-    "cypress": "^2.1.0",
+    "cypress": "^3.0.2",
     "eslint": "^4.19.1",
     "eslint-plugin-mocha-no-only": "^0.0.6",
     "eslint-plugin-node": "^6.0.1",
