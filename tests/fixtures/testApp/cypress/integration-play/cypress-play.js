@@ -44,9 +44,18 @@ describe('eyes.cypress', () => {
       testName: 'cypress-play-test',
       browser: {width: 1024, height: 768},
       showLogs: true,
-      // saveDebugData: true,
     });
-    cy.eyesCheckWindow('some tag');
+    cy.eyesCheckWindow('full page');
+    cy.eyesCheckWindow({tag: 'selector', sizeMode: 'selector', selector: '.region'});
+    cy.get('.absolutely').then($el => {
+      const {left, top, width, height} = $el[0].getBoundingClientRect();
+      console.log({left, top, width, height});
+      cy.eyesCheckWindow({
+        tag: 'region',
+        sizeMode: 'region',
+        region: {left, top, width, height},
+      });
+    });
     cy.eyesClose();
   });
 

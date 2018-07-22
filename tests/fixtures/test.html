@@ -19,13 +19,16 @@
   <div class="bg-smurfs1" style="margin-bottom:10px;"></div>
   <div>background image from imported css #2:</div>
   <div class="bg-smurfs2" style="margin-bottom:10px;"></div>
-  <div>background image from blob css:</div>
-  <div class="bg-smurfs-blob" style="margin-bottom:10px;"></div>
-  <div style="margin-bottom:10px;">
-      <div class="imported2" style="margin-bottom:10px;">@import from &lt;style&gt; - background should be <a href="https://meyerweb.com/eric/thoughts/2014/06/19/rebeccapurple/">rebeccapurple</a></div>
-      <div class="imported-nested">@import from css file - background should be teal</div>
-      <div class="blob">blob - background should be orangered</div>
+  <div class="region">
+      <div>background image from blob css:</div>
+      <div class="bg-smurfs-blob" style="margin-bottom:10px;"></div>
+      <div style="margin-bottom:10px;">
+          <div class="imported2" style="margin-bottom:10px;">@import from &lt;style&gt; - background should be <a href="https://meyerweb.com/eric/thoughts/2014/06/19/rebeccapurple/">rebeccapurple</a></div>
+          <div class="imported-nested">@import from css file - background should be teal</div>
+          <div class="blob">blob - background should be orangered</div>
+      </div>
   </div>
+  <div class="absolutely" style="color:firebrick;display:flex;align-items:center;text-align:center;font-size:36px;font-family:'Zilla Slab';position:absolute;top:160px;left:190px;width:200px;height:200px;border:10px solid seagreen;border-radius:10px;">Absolutely positioned floating content</div>
   <script>
       fetch('smurfs.jpg').then(resp => resp.blob()).then(blob => {
         const img = document.createElement('img');
