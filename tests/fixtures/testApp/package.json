@@ -14,7 +14,5 @@
   "devDependencies": {
     "cypress": "file:../../../node_modules/cypress"
   },
-  "dependencies": {
-    "@applitools/eyes.cypress": "file:../../../applitools-eyes.cypress-1.5.18.tgz"
-  }
+  "dependencies": {}
 }

@@ -3,6 +3,7 @@ const {describe, it, after} = require('mocha');
 const {exec} = require('child_process');
 const {resolve} = require('path');
 const {promisify: p} = require('util');
+const {readFileSync, writeFileSync} = require('fs');
 
 const rootPath = resolve(__dirname, '../..');
 const rootPackageJson = require(resolve(rootPath, 'package.json'));
@@ -16,6 +17,9 @@ describe('package and install', () => {
     await pexec(
       `rm -rf node_modules cypress/videos cypress/screenshots cypress/fixtures ${packageFilePath} package-lock.json`,
     );
+    const packageJson = JSON.parse(readFileSync('package.json').toString());
+    delete packageJson.dependencies['@applitools/eyes.cypress'];
+    writeFileSync('package.json', JSON.stringify(packageJson, null, 2));
   });
 
   it('installs and runs properly', async () => {
