@@ -1,4 +1,4 @@
-/* globals describe,it,cy,Cypress,context */
+/* globals describe,it,cy */
 describe('cnn', () => {
   it('cnn works', () => {
     cy.visit('https://cnn.com');
