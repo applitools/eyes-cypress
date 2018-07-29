@@ -2,6 +2,7 @@
 const pollingHandler = require('./pollingHandler');
 const {initConfig} = require('./config');
 const getConfig = initConfig(process.cwd());
+const {PollingStatus} = pollingHandler;
 
 function makeHandlers(openEyes) {
   let checkWindow, close, resources;
@@ -50,7 +51,16 @@ function makeHandlers(openEyes) {
       }
 
       resources = null;
-      return await close(timeout);
+      let result;
+      try {
+        result = await close(timeout);
+        return result;
+      } finally {
+        if (!result || result.status === PollingStatus.DONE) {
+          close = null;
+          checkWindow = null;
+        }
+      }
     },
   };
 }

@@ -10,7 +10,7 @@ describe('command handlers', () => {
   let handlers;
   let resolve, reject;
 
-  const fakeOpenEyes = args => ({
+  const fakeOpenEyes = (args = {}) => ({
     checkWindow: async ({resourceUrls, cdt, tag} = {}) => {
       return {__test: `checkWindow_${args.__test}`, resourceUrls, cdt, tag};
     },
@@ -31,6 +31,14 @@ describe('command handlers', () => {
     return reject && reject(new Error(val));
   }
 
+  async function openAndClose(shouldReject) {
+    await handlers.open();
+    await handlers.close();
+    shouldReject ? __rejectClose('bla') : __resolveClose('kuku');
+    await psetTimeout(0);
+    await handlers.close().then(x => x, err => err);
+  }
+
   beforeEach(() => {
     handlers = makeHandlers(fakeOpenEyes);
   });
@@ -43,9 +51,17 @@ describe('command handlers', () => {
 
   it('throws when calling "checkWindow" before "open"', async () => {
     expect(await handlers.checkWindow({}).then(x => x, err => err)).to.be.an.instanceof(Error);
+    await openAndClose();
+    expect(await handlers.checkWindow({}).then(x => x, err => err)).to.be.an.instanceof(Error);
+    await openAndClose(true);
+    expect(await handlers.checkWindow({}).then(x => x, err => err)).to.be.an.instanceof(Error);
   });
 
   it('throws when calling "close" before "open"', async () => {
+    expect(await handlers.close().then(x => x, err => err)).to.be.an.instanceof(Error);
+    await openAndClose();
+    expect(await handlers.close().then(x => x, err => err)).to.be.an.instanceof(Error);
+    await openAndClose(true);
     expect(await handlers.close().then(x => x, err => err)).to.be.an.instanceof(Error);
   });
 
@@ -62,7 +78,7 @@ describe('command handlers', () => {
   });
 
   it('handles "close"', async () => {
-    await handlers.open({__test: 123});
+    await handlers.open();
 
     // IDLE ==> WIP
     let result = await handlers.close();
@@ -82,6 +98,7 @@ describe('command handlers', () => {
     expect(result).to.eql({status: PollingStatus.DONE, results: successMsg});
 
     // IDLE ==> WIP
+    await handlers.open(); // needs to be called because handlers don't allow calling close() before open();
     result = await handlers.close();
     expect(result).to.eql({status: PollingStatus.IDLE});
 
@@ -96,6 +113,7 @@ describe('command handlers', () => {
     expect(result.message).to.equal(failMsg);
 
     // IDLE ==> WIP (with timeout)
+    await handlers.open(); // needs to be called because handlers don't allow calling close() before open();
     result = await handlers.close({timeout: 50});
     expect(result).to.eql({status: PollingStatus.IDLE});
 
