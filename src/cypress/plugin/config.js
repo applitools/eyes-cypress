@@ -1,6 +1,6 @@
 'use strict';
 const {resolve} = require('path');
-const {getBatch, createLogger} = require('@applitools/rendering-grid-client');
+const {createLogger} = require('@applitools/rendering-grid-client');
 const configParams = require('./configParams');
 const logger = createLogger();
 
@@ -10,7 +10,7 @@ function toEnvVarName(camelCaseStr) {
   return camelCaseStr.replace(/(.)([A-Z])/g, '$1_$2').toUpperCase();
 }
 
-function initConfig(configFolder) {
+function initConfig(configFolder = '') {
   const configPath = resolve(configFolder, configFilename);
   let defaultConfig = {};
   try {
@@ -29,12 +29,20 @@ function initConfig(configFolder) {
   }
 
   const priorConfig = Object.assign({}, defaultConfig, envConfig);
-  Object.assign(priorConfig, getBatch(priorConfig));
+  const initialConfig = Object.assign({}, priorConfig);
 
-  return config => {
-    const ret = Object.assign({}, priorConfig, config);
-    logger.log(`running with config: ${JSON.stringify(ret)}`);
-    return ret;
+  return {
+    getConfig(config) {
+      const ret = Object.assign({}, priorConfig, config);
+      logger.log(`running with config: ${JSON.stringify(ret)}`);
+      return ret;
+    },
+    getInitialConfig() {
+      return Object.assign({}, initialConfig);
+    },
+    updateConfig(partialConfig) {
+      Object.assign(priorConfig, partialConfig);
+    },
   };
 }
 

@@ -1,7 +1,4 @@
 // eslint-disable-next-line
-require('../../../../../src/cypress/plugin');
-
-// eslint-disable-next-line
 const fetch = require('node-fetch');
 
 function uniq(arr) {
@@ -37,3 +34,6 @@ module.exports = async (on, _config) => {
   const testServer = await startTestServer();
   return {testPort: testServer.port};
 };
+
+// eslint-disable-next-line
+require('../../../../../src/cypress/plugin')(module);

@@ -31,10 +31,7 @@ describe('eyes-setup script', () => {
     require('../../../bin/eyes-setup');
 
     expect(readFileSync(pluginFilePath).toString()).to.equal(
-      origPluginFileContent.replace(
-        'module.exports = (on, config) => {',
-        `${pluginRequire}\nmodule.exports = (on, config) => {`,
-      ),
+      origPluginFileContent.replace(/}\n$/, `}\n${pluginRequire}`),
     );
 
     expect(readFileSync(supportFilePath).toString()).to.equal(

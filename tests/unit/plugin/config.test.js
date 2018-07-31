@@ -3,76 +3,53 @@ const {describe, it, beforeEach, afterEach} = require('mocha');
 const {expect} = require('chai');
 const {initConfig, toEnvVarName} = require('../../../src/cypress/plugin/config');
 const {resolve} = require('path');
-const omit = require('lodash.omit');
-
-function configWithoutBatch(config) {
-  return omit(config, ['batchName', 'batchId']);
-}
 
 describe('config', () => {
-  let getConfig, prevEnv;
+  let prevEnv;
   const configPath = resolve(__dirname, 'fixtures');
   beforeEach(() => {
     prevEnv = process.env;
     process.env = {};
-    getConfig = initConfig(configPath);
   });
 
   afterEach(() => {
     process.env = prevEnv;
   });
 
-  it('loads default config', () => {
+  it('loads default config from file', () => {
+    const {getConfig} = initConfig(configPath);
     const config = getConfig();
     const expectedConfig = {saveDebugData: true, apiKey: 'default api key'};
-    expect(configWithoutBatch(config)).to.eql(expectedConfig);
+    expect(config).to.eql(expectedConfig);
   });
 
   it('merges args with default config', () => {
-    const args = {url: 'some url'};
-    const config = getConfig(args);
-    const expectedConfig = {url: 'some url', saveDebugData: true, apiKey: 'default api key'};
-    expect(configWithoutBatch(config)).to.eql(expectedConfig);
+    const {getConfig} = initConfig();
+    const config = getConfig({url: 'some url'});
+    const expectedConfig = {url: 'some url'};
+    expect(config).to.eql(expectedConfig);
   });
 
   it('merges with env variables', () => {
-    const args = {url: 'some url'};
     process.env.APPLITOOLS_API_KEY = 'env api key';
-    getConfig = initConfig(configPath);
-    const config = getConfig(args);
+    const {getConfig} = initConfig(configPath);
+    const config = getConfig({url: 'some url'});
     const expectedConfig = {url: 'some url', apiKey: 'env api key', saveDebugData: true};
-    expect(configWithoutBatch(config)).to.eql(expectedConfig);
-  });
-
-  it('initializes batch info', () => {
-    const config = getConfig();
-    const {batchName, batchId} = config;
-    expect(batchId).not.to.equal(undefined);
-    const expectedConfig = Object.assign(
-      {saveDebugData: true, apiKey: 'default api key'},
-      {batchName, batchId},
-    );
     expect(config).to.eql(expectedConfig);
   });
 
-  it('initializes batch info considering env variables', () => {
-    process.env.APPLITOOLS_BATCH_NAME = 'env batch name';
-    process.env.APPLITOOLS_BATCH_ID = 'env batch id';
-    getConfig = initConfig(configPath);
-    const config = getConfig();
-    const expectedConfig = Object.assign(
-      {saveDebugData: true, apiKey: 'default api key'},
-      {batchName: process.env.APPLITOOLS_BATCH_NAME, batchId: process.env.APPLITOOLS_BATCH_ID},
-    );
-    expect(config).to.eql(expectedConfig);
+  it('updateConfig works', () => {
+    const {getConfig, updateConfig} = initConfig();
+    updateConfig({some: 'thing'});
+    expect(getConfig()).to.eql({some: 'thing'});
   });
 
-  // this should be removed. This functionality can be achieved by destructuring arguments to openEyes
-  it.skip("doesn't insert unknown properties to config", () => {
-    const args = {somethingThatDoesntExist: 'something'};
-    const config = getConfig(args);
-    const expectedConfig = {saveDebugData: true};
-    expect(config).to.eql(expectedConfig);
+  it('getInitialConfig works', () => {
+    const {getConfig, updateConfig, getInitialConfig} = initConfig(configPath);
+    expect(getConfig()).to.eql({apiKey: 'default api key', saveDebugData: true});
+    updateConfig({some: 'thing', apiKey: 'overriden'});
+    expect(getConfig()).to.eql({some: 'thing', apiKey: 'overriden', saveDebugData: true});
+    expect(getInitialConfig()).to.eql({apiKey: 'default api key', saveDebugData: true});
   });
 });
 

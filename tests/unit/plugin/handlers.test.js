@@ -40,7 +40,7 @@ describe('command handlers', () => {
   }
 
   beforeEach(() => {
-    handlers = makeHandlers(fakeOpenEyes);
+    handlers = makeHandlers(fakeOpenEyes, (x = {}) => x);
   });
 
   it('handles "open"', async () => {

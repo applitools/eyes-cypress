@@ -8,7 +8,7 @@ const {pluginRequire} = addEyesCypressPlugin;
 describe('addEyesCypressPlugin', () => {
   it('adds before other code', () => {
     const content = 'some.code();';
-    expect(addEyesCypressPlugin(content)).to.equal(`some.code();\n${pluginRequire}`);
+    expect(addEyesCypressPlugin(content)).to.equal(`some.code();${pluginRequire}`);
   });
 
   it('add after "use strict" and comments', () => {
@@ -30,14 +30,13 @@ describe('addEyesCypressPlugin', () => {
     // some comment
     // another comment
 
-${pluginRequire}
     some.code();
 
     module.exports = (on, config) => {
       return config;
     };
 
-    `;
+    ${pluginRequire}`;
 
     expect(addEyesCypressPlugin(content)).to.equal(expected);
   });
