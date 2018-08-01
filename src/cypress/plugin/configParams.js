@@ -2,6 +2,7 @@
 
 module.exports = [
   'appName',
+  'testName',
   'browser',
   'url',
   'apiKey',
@@ -19,9 +20,11 @@ module.exports = [
   'matchLevel',
   'matchTimeout',
   'parentBranchName',
+  'branchName',
   'proxy',
   'saveFailedTests',
   'saveNewTests',
   'compareWithParentBranch',
   'ignoreBaseline',
+  'serverUrl',
 ];
