@@ -31,8 +31,10 @@ The above command will add the necessary imports to your cypress `pluginsFile` a
 Eyes.Cypress acts as a [Cypress plugin](https://docs.cypress.io/guides/tooling/plugins-guide.html), so it should be configured as such.
 Unfortunately there's no easy way to do this automatically, so you need to manually add the following code to your `pluginsFile`:
 
+**Important**: add this code **after** the definition of `module.exports`:
+
 ```js
-require('@applitools/eyes.cypress')
+require('@applitools/eyes.cypress')(module)
 ```
 
 Normally, this is `cypress/plugins/index.js`. You can read more about it in Cypress' docs [here](https://docs.cypress.io/guides/references/configuration.html#Folders-Files).
@@ -225,7 +227,7 @@ By default, the server listens at port `7373` , but that may be altered for case
 When configuring the plugin as described in the section 'Configure Eyes.Cypress plugin' above, the port that will be used is `7373`:
 
 ```js
-require('@applitools/eyes.cypress')
+require('@applitools/eyes.cypress')(module)
 ```
 
 #### Option 2: Custom port
@@ -233,19 +235,7 @@ require('@applitools/eyes.cypress')
 In some cases, the `7373` port might be unavailable, so in order to use a different port, you may do the following:
 
 ```js
-require('@applitools/eyes.cypress')({ port: 8484 })
-```
-
-When doing so, it's also necessary to pass the port as a `Cypress` config variable to the browser, so in the `pluginsFile` add a property named `eyesPort` to your configuration:
-
-```js
-module.exports = () => {
-  ...
-  return {
-    eyesPort: 8484,
-    ...
-  };
-}
+require('@applitools/eyes.cypress')(module, { port: 8484 })
 ```
 
 #### Option 3: Available port
@@ -253,20 +243,10 @@ module.exports = () => {
 If you want to be absolutely sure that Eyes.Cypress will use an available port, it's also possible to pass `0` as the port:
 
 ```js
-const { getEyesPort } = require('@applitools/eyes.cypress')({ port: 0 });
+require('@applitools/eyes.cypress')({ port: 0 });
 ```
 
-Now it is guaranteed that `eyesPort` is available. Now it's also necessary to pass the port as a `Cypress` config variable on to the browser. So in the `pluginsFile` add a property named `eyesPort` to your configuration:
-
-```js
-module.exports = () => {
-  ...
-  return {
-    eyesPort: (await getEyesPort()),
-    ...
-  }
-}
-```
+Now it is guaranteed that `eyesPort` is available.
 
 ## Troubleshooting
 

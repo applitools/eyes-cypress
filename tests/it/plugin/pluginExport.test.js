@@ -3,6 +3,8 @@ const {describe, it, beforeEach, afterEach} = require('mocha');
 const {expect} = require('chai');
 const {initConfig} = require('../../../src/cypress/plugin/config');
 const makePluginExport = require('../../../src/cypress/plugin/pluginExport');
+const {promisify: p} = require('util');
+const psetTimeout = p(setTimeout);
 
 let batchIdCounter = 0;
 function getBatch({batchId: _batchId} = {}) {
@@ -40,11 +42,11 @@ describe('pluginExport', () => {
     process.env = prevEnv;
   });
 
-  it('works', () => {
+  it('works', async () => {
     const __module = {
       exports: (_on, config) => {
         x = config;
-        return `ret_${config}`;
+        return {bla: `ret_${config}`};
       },
     };
     let count = 0;
@@ -59,25 +61,39 @@ describe('pluginExport', () => {
     let args;
 
     pluginExport(__module);
-    const ret = __module.exports(on, 'first');
+    const ret = await __module.exports(on, 'first');
 
     expect(x).to.equal('first');
     expect(ev).to.equal('0_before:browser:launch');
-    expect(ret).to.equal('ret_first');
+    expect(ret).to.eql({bla: 'ret_first', eyesPort: undefined});
     expect(args).to.equal('0_args');
     expect(getConfig()).to.eql({batchId: 0});
 
-    const ret2 = __module.exports(on, 'second');
+    const ret2 = await __module.exports(on, 'second');
     expect(x).to.equal('second');
     expect(ev).to.equal('1_before:browser:launch');
-    expect(ret2).to.equal('ret_second');
+    expect(ret2).to.eql({bla: 'ret_second', eyesPort: undefined});
     expect(args).to.equal('1_args');
     expect(getConfig()).to.eql({batchId: 1});
   });
 
-  it('sets eyes port', () => {
-    const __module = {exports: () => {}};
-    const {getEyesPort} = pluginExport(__module, {port: 1234});
-    expect(getEyesPort()).to.equal(1234);
+  it('sets eyes port', async () => {
+    const __module = {exports: () => ({bla: 'bla'})};
+    pluginExport(__module, {port: 1234});
+    const ret = await __module.exports(() => {});
+    expect(ret).to.eql({eyesPort: 1234, bla: 'bla'});
+  });
+
+  it('handles async module.exports', async () => {
+    const __module = {
+      exports: async () => {
+        await psetTimeout(0);
+        return {bla: 'bla'};
+      },
+    };
+
+    pluginExport(__module);
+    const ret = await __module.exports(() => {});
+    expect(ret).to.eql({bla: 'bla', eyesPort: undefined});
   });
 });

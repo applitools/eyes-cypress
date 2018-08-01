@@ -12,14 +12,17 @@ function makePluginExport({
 }) {
   return function pluginExport(pluginModule, {port = eyesPort} = {}) {
     const pluginModuleExports = pluginModule.exports;
-    pluginModule.exports = (on, config) => {
-      on('before:browser:launch', (_browser, args) => {
+    pluginModule.exports = async (...args) => {
+      const on = args[0];
+      on('before:browser:launch', (_browser, browserArgs) => {
         const defaultBatch = getBatch(getInitialConfig());
         logger.log('before:browser:launch', JSON.stringify(defaultBatch)); // TODO remove JSON.stringify after release eyes.sdk.core
         updateConfig(defaultBatch);
-        return args;
+        return browserArgs;
       });
-      return pluginModuleExports(on, config);
+      const actualEyesPort = await getEyesPort();
+      const moduleExportsResult = await pluginModuleExports(...args);
+      return Object.assign({eyesPort: actualEyesPort}, moduleExportsResult);
     };
     setEyesPort(port);
     return {
