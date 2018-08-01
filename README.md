@@ -151,13 +151,14 @@ It's possible to define the following configuration for tests:
 | `saveDebugData`           | false                       | Whether to save troubleshooting data. See the troubleshooting section of this doc for more info. |
 | `batchId`                 | random                      | Provides ability to group tests into batches. Read more about batches [here](https://applitools.com/docs/topics/working-with-test-batches/how-to-group-tests-into-batches.html). |
 | `batchName`               | undefined                   | Provides a name to the batch. |
-| `baselineBranchName`      | undefined                   | The name of the baseline branch. |
 | `baselineEnvName`         | undefined                   | The name of the environment of the baseline. |
 | `envName`                 | undefined                   | A name for the environment in which the application under test is running. |
 | `ignoreCaret`             | false                       | Whether to ignore or the blinking caret or not when comparing images. |
 | `isDisabled`              | false                       | If true, all calls to Eyes.Cypress commandswill be silently ignored. |
 | `matchLevel`              | undefined                   | The test-wide match level to use when checking application screenshot with the expected output. Possible values are `Strict`, `Exact`, `Layout` and `Content`. Read more about match levels [here](http://support.applitools.com/customer/portal/articles/2088359). |
 | `matchTimeout`            | undefined                   | Sets the maximum time (in ms) a match operation tries to perform a match. |
+| `branchName`              | undefined                   | The name of the branch. |
+| `baselineBranchName`      | undefined                   | The name of the baseline branch. |
 | `parentBranchName`        | undefined                   | Sets the branch under which new branches are created. |
 | `proxy`                   | undefined                   | Sets the proxy settings to be used in network requests to Eyes server. |
 | `saveFailedTests`         | false                       | Set whether or not failed tests are saved by default. |
@@ -180,9 +181,10 @@ Pass a config object as the only argument. For example:
 ```js
 cy.eyesOpen({
   appName: 'My app',
-  testName: 'My test',
   showLogs: true,
-  batchName: 'My batch'
+  batchName: 'My batch',
+  ...
+  // all other configuration variables apply
 })
 ```
 
@@ -192,11 +194,10 @@ The name of the corresponding environment variable is in uppercase, with the `AP
 
 ```js
 APPLITOOLS_APP_NAME
-APPLITOOLS_TEST_NAME
-APPLITOOLS_VIEWPORT_SIZE
 APPLITOOLS_SHOW_LOGS
-APPLITOOLS_SAVE_DEBUG_DATA
 APPLITOOLS_BATCH_NAME
+...
+// all other configuration variables apply
 ```
 
 ### Method 3: The `eyes.json` file
@@ -208,6 +209,8 @@ It's possible to have a file called `eyes.json` at the same folder location as `
   "appName": "My app",
   "showLogs": true,
   "batchName": "My batch"
+  ...
+  // all other configuration variables apply
 }
 ```
 
