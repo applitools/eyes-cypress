@@ -11,7 +11,12 @@ describe('eyes.cypress', () => {
       showLogs: true,
       // saveDebugData: true,
     });
-    cy.eyesCheckWindow('full page');
+    cy.eyesCheckWindow({
+      tag: 'full page',
+      scriptHooks: {
+        beforeCaptureScreenshot: "document.body.style.backgroundColor = 'gold'",
+      },
+    });
     cy.eyesCheckWindow({tag: 'selector', sizeMode: 'selector', selector: '.region'});
     cy.get('.absolutely').then($el => {
       const {left, top, width, height} = $el[0].getBoundingClientRect();

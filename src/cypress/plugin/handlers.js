@@ -32,6 +32,7 @@ function makeHandlers(openEyes, getConfig) {
       domCapture,
       selector,
       region,
+      scriptHooks,
     }) => {
       if (!checkWindow) {
         throw new Error('Please call cy.eyesOpen() before calling cy.eyesCheckWindow()');
@@ -52,6 +53,7 @@ function makeHandlers(openEyes, getConfig) {
         domCapture,
         selector,
         region,
+        scriptHooks,
       });
     },
 

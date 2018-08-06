@@ -14,7 +14,7 @@ Cypress.Commands.add('eyesOpen', (args = {}) => {
 });
 
 Cypress.Commands.add('eyesCheckWindow', args => {
-  let tag, sizeMode, selector, region;
+  let tag, sizeMode, selector, region, scriptHooks;
   if (typeof args === 'string') {
     tag = args;
   } else if (typeof args === 'object') {
@@ -22,6 +22,7 @@ Cypress.Commands.add('eyesCheckWindow', args => {
     sizeMode = args.sizeMode;
     selector = args.selector;
     region = args.region;
+    scriptHooks = args.scriptHooks;
   }
 
   Cypress.log({name: 'Eyes: check window'});
@@ -35,7 +36,18 @@ Cypress.Commands.add('eyesCheckWindow', args => {
         return Promise.all(blobs.map(putResource)).then(() =>
           sendRequest({
             command: 'checkWindow',
-            data: {url, resourceUrls, cdt, tag, sizeMode, blobData, domCapture, selector, region},
+            data: {
+              url,
+              resourceUrls,
+              cdt,
+              tag,
+              sizeMode,
+              blobData,
+              domCapture,
+              selector,
+              region,
+              scriptHooks,
+            },
           }),
         );
       });
