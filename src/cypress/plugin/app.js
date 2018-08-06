@@ -11,11 +11,14 @@ function startApp(handlers, logger) {
 
   app.put('/eyes/resource/:id', bodyParser.raw({type: '*/*', limit: '100mb'}), async (req, res) => {
     try {
-      logger.log('[server] PUT resource:', req.params.id);
-      handlers.putResource(req.params.id, Buffer.from(JSON.parse(req.body).data));
+      if (!req.params || !req.params.id) throw new Error('missing resource url');
+      const id = decodeURIComponent(req.params.id);
+      const buffer = Buffer.from(JSON.parse(req.body).data);
+      logger.log('[server] PUT resource:', id, buffer.length);
+      handlers.putResource(id, buffer);
       res.status(200).send({success: true});
     } catch (ex) {
-      logger.log('[server] error in PUT resource', req.params && req.params.id, ex);
+      logger.log('[server] error in PUT resource', req.params.id, ex);
       res.status(200).send({success: false, error: ex.message});
     }
   });

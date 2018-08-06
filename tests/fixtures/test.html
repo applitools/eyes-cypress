@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <link href="test.css" rel="stylesheet" />
+  <link href="auth/auth.css" rel="stylesheet" />
   <style>
     @import 'imported2.css';
   </style>
@@ -25,6 +26,7 @@
       <div class="imported2" style="margin-bottom:10px;">@import from &lt;style&gt; - background should be <a href="https://meyerweb.com/eric/thoughts/2014/06/19/rebeccapurple/">rebeccapurple</a></div>
       <div class="imported-nested">@import from css file - background should be teal</div>
       <div class="blob">blob - background should be orangered</div>
+      <div class="auth">auth - background should be olive</div>
   </div>
   <script>
       fetch('smurfs.jpg').then(resp => resp.blob()).then(blob => {

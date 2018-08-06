@@ -15,7 +15,7 @@ const EyesServer = {
 
   putResource({url, type, value}) {
     return sendRequest({
-      command: `resource/${url}`,
+      command: `resource/${encodeURIComponent(url)}`,
       data: new window.frameElement.ownerDocument.defaultView.Blob([value]), // yucky! cypress uses socket.io to communicate between browser and node. In order to encode the data in binary format, socket.io checks for binary values. But `value instanceof Blob` is falsy since Blob from the cypress runner window is not the Blob from the command's window. So using the Blob from cypress runner window here.
       method: 'PUT',
       headers: {'Content-Type': type},
