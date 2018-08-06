@@ -11,8 +11,8 @@ describe('command handlers', () => {
   let resolve, reject;
 
   const fakeOpenEyes = (args = {}) => ({
-    checkWindow: async ({resourceUrls, cdt, tag} = {}) => {
-      return {__test: `checkWindow_${args.__test}`, resourceUrls, cdt, tag};
+    checkWindow: async (args2 = {}) => {
+      return Object.assign(args2, {__test: `checkWindow_${args.__test}`});
     },
 
     close: async () => {
@@ -71,10 +71,82 @@ describe('command handlers', () => {
     const cdt = 'cdt';
     const resourceUrls = 'resourceUrls';
     const tag = 'tag';
+    const sizeMode = 'sizeMode';
+    const domCapture = 'domCapture';
+    const selector = 'selector';
+    const region = 'region';
+    const url = 'url';
+    const resourceContents = {};
 
-    const result = await handlers.checkWindow({cdt, resourceUrls, tag});
+    const result = await handlers.checkWindow({
+      cdt,
+      resourceUrls,
+      tag,
+      url,
+      sizeMode,
+      domCapture,
+      selector,
+      region,
+    });
 
-    expect(result).to.eql({__test: 'checkWindow_123', resourceUrls, cdt, tag});
+    expect(result).to.eql({
+      __test: 'checkWindow_123',
+      resourceUrls,
+      cdt,
+      tag,
+      sizeMode,
+      url,
+      domCapture,
+      selector,
+      region,
+      resourceContents,
+    });
+  });
+
+  it('handles "putResource"', async () => {
+    await handlers.open({__test: 123});
+
+    handlers.putResource('id1', 'buff1');
+    handlers.putResource('id2', 'buff2');
+    handlers.putResource('id3', 'buff3');
+
+    const blobData = [
+      {url: 'id1', type: 'type1'},
+      {url: 'id2', type: 'type2'},
+      {url: 'id3', type: 'type3'},
+    ];
+
+    const resourceContents = {
+      id1: {url: 'id1', type: 'type1', value: 'buff1'},
+      id2: {url: 'id2', type: 'type2', value: 'buff2'},
+      id3: {url: 'id3', type: 'type3', value: 'buff3'},
+    };
+
+    const result = await handlers.checkWindow({blobData});
+    expect(result.resourceContents).to.eql(resourceContents);
+  });
+
+  it('cleans resources on close', async () => {
+    await handlers.open({__test: 123});
+
+    handlers.putResource('id', 'buff');
+    const blobData = [{url: 'id', type: 'type'}];
+    const expectedResourceContents = {
+      id: {url: 'id', type: 'type', value: 'buff'},
+    };
+    const {resourceContents: actualResourceContents} = await handlers.checkWindow({blobData});
+
+    expect(actualResourceContents).to.eql(expectedResourceContents);
+    await handlers.close();
+    __resolveClose();
+
+    const err = await handlers.checkWindow({blobData}).then(x => x, err => err);
+    expect(err).to.be.an.instanceOf(Error);
+    await handlers.open({__test: 123});
+    const {resourceContents: emptyResourceContents} = await handlers.checkWindow({blobData});
+    expect(emptyResourceContents).to.eql({
+      id: {url: 'id', type: 'type', value: undefined},
+    });
   });
 
   it('handles "close"', async () => {

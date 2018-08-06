@@ -22,7 +22,17 @@ function makeHandlers(openEyes, getConfig) {
       resources[id] = buffer;
     },
 
-    checkWindow: async ({url, resourceUrls, cdt, tag, blobData = [], sizeMode, domCapture}) => {
+    checkWindow: async ({
+      url,
+      resourceUrls,
+      cdt,
+      tag,
+      blobData = [],
+      sizeMode,
+      domCapture,
+      selector,
+      region,
+    }) => {
       if (!checkWindow) {
         throw new Error('Please call cy.eyesOpen() before calling cy.eyesCheckWindow()');
       }
@@ -40,6 +50,8 @@ function makeHandlers(openEyes, getConfig) {
         tag,
         sizeMode,
         domCapture,
+        selector,
+        region,
       });
     },
 
