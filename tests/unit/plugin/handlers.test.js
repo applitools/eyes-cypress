@@ -1,14 +1,21 @@
 'use strict';
-const {describe, it, beforeEach} = require('mocha');
+const {describe, it, beforeEach, afterEach} = require('mocha');
 const {expect} = require('chai');
 const makeHandlers = require('../../../src/cypress/plugin/handlers');
+const {initConfig} = require('../../../src/cypress/plugin/config');
 const {PollingStatus, TIMEOUT_MSG} = require('../../../src/cypress/plugin/pollingHandler');
 const {promisify: p} = require('util');
 const psetTimeout = p(setTimeout);
 
+let batchIdCounter = 0;
+function getBatch({batchId: _batchId} = {}) {
+  return {batchId: batchIdCounter++};
+}
+
 describe('command handlers', () => {
   let handlers;
   let resolve, reject;
+  let getConfig, prevEnv;
 
   const fakeOpenEyes = (args = {}) => ({
     checkWindow: async (args2 = {}) => {
@@ -40,7 +47,22 @@ describe('command handlers', () => {
   }
 
   beforeEach(() => {
-    handlers = makeHandlers(fakeOpenEyes, (x = {}) => x);
+    prevEnv = process.env;
+    process.env = {};
+    const {getConfig: _getConfig, updateConfig, getInitialConfig} = initConfig();
+    getConfig = _getConfig;
+    handlers = makeHandlers({
+      openEyes: fakeOpenEyes,
+      getConfig,
+      updateConfig,
+      getInitialConfig,
+      getBatch,
+      logger: console,
+    });
+  });
+
+  afterEach(() => {
+    process.env = prevEnv;
   });
 
   it('handles "open"', async () => {
@@ -196,5 +218,12 @@ describe('command handlers', () => {
     result = await handlers.close().then(x => x, err => err);
     expect(result).to.be.an.instanceof(Error);
     expect(result.message).to.equal(TIMEOUT_MSG);
+  });
+
+  it('handles batchStart', () => {
+    handlers.batchStart();
+    expect(getConfig()).to.eql({batchId: 0});
+    handlers.batchStart();
+    expect(getConfig()).to.eql({batchId: 1});
   });
 });

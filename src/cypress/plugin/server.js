@@ -7,16 +7,19 @@ const {startApp} = require('./app');
 const {initConfig} = require('./config');
 const {getConfig, updateConfig, getInitialConfig} = initConfig(process.cwd());
 const makeHandlers = require('./handlers');
-const handlers = makeHandlers(openEyes, getConfig);
+const handlers = makeHandlers({
+  openEyes,
+  getConfig,
+  updateConfig,
+  getInitialConfig,
+  getBatch,
+  logger,
+});
 const makePluginExport = require('./pluginExport');
 
 let eyesPort = require('./defaultPort');
 const pluginExport = makePluginExport({
   eyesPort,
-  updateConfig,
-  getInitialConfig,
-  getBatch,
-  logger,
   getEyesPort,
   setEyesPort,
   closeEyes,

@@ -1,4 +1,4 @@
-/* global Cypress,cy,window */
+/* global Cypress,cy,window,before */
 'use strict';
 const {extractResources, domNodesToCdt} = require('@applitools/rendering-grid-client/browser');
 const poll = require('./poll');
@@ -7,6 +7,10 @@ const port = Cypress.config('eyesPort') || require('./plugin/defaultPort');
 const send = makeSend(port, cy.request);
 const captureFrame = require('@applitools/dom-capture/src/captureFrame');
 const defaultDomProps = require('@applitools/dom-capture/src/defaultDomProps');
+
+before(() => {
+  sendRequest({command: 'batchStart'});
+});
 
 Cypress.Commands.add('eyesOpen', (args = {}) => {
   Cypress.log({name: 'Eyes: open'});

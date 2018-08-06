@@ -2,7 +2,7 @@
 const pollingHandler = require('./pollingHandler');
 const {PollingStatus} = pollingHandler;
 
-function makeHandlers(openEyes, getConfig) {
+function makeHandlers({openEyes, getConfig, updateConfig, getInitialConfig, getBatch, logger}) {
   let checkWindow, close, resources;
 
   return {
@@ -13,6 +13,12 @@ function makeHandlers(openEyes, getConfig) {
       close = pollingHandler(eyes.close);
       resources = {};
       return eyes;
+    },
+
+    batchStart() {
+      const defaultBatch = getBatch(getInitialConfig());
+      logger.log('new default batch', defaultBatch);
+      updateConfig(defaultBatch);
     },
 
     putResource: (id, buffer) => {
