@@ -17,7 +17,6 @@ module.exports = ({port = 0, showLog = false} = {}) => {
     res.sendStatus(200);
   });
   app.use('/auth', (req, res, next) => {
-    console.log('req.cookies', req.cookies, req.originalUrl);
     if (req.cookies.auth === 'secret') {
       next();
     } else {

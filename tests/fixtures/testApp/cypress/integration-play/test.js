@@ -20,7 +20,6 @@ describe('eyes.cypress', () => {
     cy.eyesCheckWindow({tag: 'selector', sizeMode: 'selector', selector: '.region'});
     cy.get('.absolutely').then($el => {
       const {left, top, width, height} = $el[0].getBoundingClientRect();
-      console.log({left, top, width, height});
       cy.eyesCheckWindow({
         tag: 'region',
         sizeMode: 'region',
