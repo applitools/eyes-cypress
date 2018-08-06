@@ -76,6 +76,7 @@ describe('command handlers', () => {
     const selector = 'selector';
     const region = 'region';
     const url = 'url';
+    const scriptHooks = 'scriptHooks';
     const resourceContents = {};
 
     const result = await handlers.checkWindow({
@@ -87,6 +88,7 @@ describe('command handlers', () => {
       domCapture,
       selector,
       region,
+      scriptHooks,
     });
 
     expect(result).to.eql({
@@ -100,6 +102,7 @@ describe('command handlers', () => {
       selector,
       region,
       resourceContents,
+      scriptHooks,
     });
   });
 
