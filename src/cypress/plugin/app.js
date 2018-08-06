@@ -12,7 +12,10 @@ function startApp(handlers, logger) {
   app.put('/eyes/resource/:id', bodyParser.raw({type: '*/*', limit: '100mb'}), async (req, res) => {
     try {
       logger.log('[server] PUT resource:', req.params.id);
-      handlers.putResource(req.params.id, Buffer.from(JSON.parse(req.body).data));
+      handlers.putResource(
+        decodeURIComponent(req.params.id),
+        Buffer.from(JSON.parse(req.body).data),
+      );
       res.status(200).send({success: true});
     } catch (ex) {
       logger.log('[server] error in PUT resource', req.params && req.params.id, ex);
