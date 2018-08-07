@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "@applitools/dom-capture": "^2.0.0",
-    "@applitools/rendering-grid-client": "^2.0.4",
+    "@applitools/rendering-grid-client": "^2.0.5",
     "body-parser": "1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.3"
