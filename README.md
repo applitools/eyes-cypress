@@ -180,9 +180,9 @@ cy.eyesClose({ timeout });
 It's possible to define the following configuration for tests:
 
 | Property name             | Default value               | Description   |
-| -------------             |:-------------:              |:-----------   |
-| `testName`                | ''                          | Test name     |
-| `browser`                 | { width: 800, height: 600 } | The size of the generated screenshots. This doesn't need to be the same as the size of the browser that Cypress is running.  It's also possible to send an array of sizes:<br/><br/>It's also possible to send an array of sizes, e.g. `[{width: 800, height: 600}, { width: 1024, height: 768 }]`|
+| -------------             |:-------------              |:-----------   |
+| `testName`                | The value of Cypress's test title | Test name. If this is not specified, the test name will be the title of the `it` block where the test is running.    |
+| `browser`                 | { width: 800, height: 600, name: 'chrome' } | The size and browser of the generated screenshots. This doesn't need to be the same as the browser that Cypress is running. It could be a different size and also a different browser. Currently, `firefox` is supported in addition to `chrome`.<br/><br/>It's also possible to send an array of browsers, e.g. `[{width: 800, height: 600, name: 'firefox'}, { width: 1024, height: 768, name: 'chrome' }]`.|
 | `showLogs`                | false                       | Whether or not you want to see logs of the Eyes.Cypress plugin. Logs are written to the same output of the Cypress process. |
 | `saveDebugData`           | false                       | Whether to save troubleshooting data. See the troubleshooting section of this doc for more info. |
 | `batchId`                 | random                      | Provides ability to group tests into batches. Read more about batches [here](https://applitools.com/docs/topics/working-with-test-batches/how-to-group-tests-into-batches.html). |
