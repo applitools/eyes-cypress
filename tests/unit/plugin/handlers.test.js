@@ -99,6 +99,7 @@ describe('command handlers', () => {
     const region = 'region';
     const url = 'url';
     const scriptHooks = 'scriptHooks';
+    const ignore = 'ignore';
     const resourceContents = {};
 
     const result = await handlers.checkWindow({
@@ -111,6 +112,7 @@ describe('command handlers', () => {
       selector,
       region,
       scriptHooks,
+      ignore,
     });
 
     expect(result).to.eql({
@@ -125,6 +127,7 @@ describe('command handlers', () => {
       region,
       resourceContents,
       scriptHooks,
+      ignore,
     });
   });
 
