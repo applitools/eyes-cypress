@@ -10,7 +10,7 @@ describe('eyes.cypress', () => {
     });
   });
 
-  it('hooks', () => {
+  it('region', () => {
     cy.setCookie('auth', 'secret');
     const url = `http://localhost:${Cypress.config('testPort')}/test.html`;
     cy.visit(url);

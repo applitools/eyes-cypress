@@ -125,7 +125,41 @@ cy.eyesCheckWindow({ tag: 'your tag', sizeMode: 'your size mode' })
 ##### Arguments to `cy.eyesCheckWindow`
 
 - `tag` (optional): A logical name for this check.
-- `sizeMode` (optional): Possible values are `viewport` or `full-page`. The default is `full-page`, which means a screenshot of everything that exists in the DOM at the point of calling `eyesCheckWindow` will be rendered. If set to `viewport`, only a screenshot the size of the browser will be rendered (the size of the browser can be set in the call to `cy.eyesOpen` - see advanced configuration below).
+- `sizeMode` (optional): Possible values are:
+
+  - **`full-page`**: This is the default value. It means a screenshot of everything that exists in the DOM at the point of calling `eyesCheckWindow` will be rendered.
+  - **`viewport`**: Only a screenshot the size of the browser will be rendered (the size of the browser can be set in the call to `cy.eyesOpen` - see advanced configuration below).
+  - **`selector`**: Take a screenshot of the content of the element targeted by the css selector. It's necessary to specify the value of the selector in the `selector` argument.
+  - ** `region`**: Take a screenshot of a region of the page, specified by coordinates. It's necessary to specify the value of the region in the `region` argument.
+
+- `selector` (optional): In case `sizeMode` is `selector`, this should be the actual css selector to an element, and the screenshot would be the content of that element. For example:
+
+```js
+cy.eyesCheckWindow({
+  sizeMode: 'selector',
+  selector: '.my-element'
+});
+```
+
+- `region` (optional): In case `sizeMode` is `region`, this should be an object describing the region's coordinates. For example:
+
+```js
+cy.eyesCheckWindow({
+  sizeMode: 'region',
+  region: {top: 100, left: 0, width: 1000, height: 200}
+});
+```
+
+- `ignore` (optional): A single or an array of regions to ignore when checking for visual differences. For example:
+
+```js
+cy.eyesCheckWindow({
+  ignore: [
+    {top: 100, left: 0, width: 1000, height: 100},
+    {top: 500, left: 0, width: 1000, height: 100}
+  ]
+});
+```
 
 #### Close
 
