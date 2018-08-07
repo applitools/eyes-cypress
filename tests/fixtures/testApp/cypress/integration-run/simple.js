@@ -1,15 +1,17 @@
 describe('eyes.cypress', () => {
-  it('runs', () => {
+
+  // This also tests the setting of `testName` inside `it`
+
+  it('simple', () => {
     cy.setCookie('auth', 'secret');
     const url = `http://localhost:${Cypress.config('testPort')}/test.html`;
     cy.visit(url);
     cy.eyesOpen({
       appName: 'some app',
-      testName: 'cypress-pack',
       browser: {width: 1024, height: 768},
-      showLogs: true
+      showLogs: true,
     });
-    cy.eyesCheckWindow();
+    cy.eyesCheckWindow('full page');
     cy.eyesClose();
   });
 });

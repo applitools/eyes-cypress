@@ -1,4 +1,7 @@
 describe('Hello world', () => {
+
+  // This also tests the override of `testName`
+  
   it('shows how to use Applitools Eyes with Cypress', () => {
     cy.visit('https://applitools.com/helloworld');
     cy.eyesOpen({

@@ -12,9 +12,10 @@ before(() => {
   sendRequest({command: 'batchStart'});
 });
 
-Cypress.Commands.add('eyesOpen', (args = {}) => {
+Cypress.Commands.add('eyesOpen', function(args = {}) {
+  const {title: testName} = this.currentTest || this.test;
   Cypress.log({name: 'Eyes: open'});
-  return sendRequest({command: 'open', data: args});
+  return sendRequest({command: 'open', data: Object.assign({testName}, args)});
 });
 
 Cypress.Commands.add('eyesCheckWindow', args => {
