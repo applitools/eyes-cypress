@@ -4,13 +4,13 @@
 			"path": "."
 		},
 		{
-			"path": "/Users/amit/clients/applitools/rendering-grid/packages/rendering-grid-client"
+			"path": "../rendering-grid/packages/rendering-grid-client"
 		},
 		{
-			"path": "/Users/amit/clients/applitools/rendering-grid/packages/dom-capture"
+			"path": "../rendering-grid/packages/dom-capture"
 		},
 		{
-			"path": "/Users/amit/clients/applitools/eyes.sdk.javascript1/eyes.sdk.core"
+			"path": "../eyes.sdk.javascript1/eyes.sdk.core"
 		}
 	],
 	"settings": {}
