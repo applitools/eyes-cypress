@@ -5,11 +5,8 @@
       "node": true
   },
   "parserOptions": {
-      "ecmaVersion": 2017,
+      "ecmaVersion": 2018,
       "sourceType": "module",
-      "ecmaFeatures": {
-          "experimentalObjectRestSpread": true
-      }
   },
   "extends": ["plugin:node/recommended"],
   "plugins": [
