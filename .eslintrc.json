@@ -6,7 +6,7 @@
   },
   "parserOptions": {
       "ecmaVersion": 2018,
-      "sourceType": "module",
+      "sourceType": "module"
   },
   "extends": ["plugin:node/recommended"],
   "plugins": [
