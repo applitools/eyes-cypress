@@ -1,21 +1,14 @@
 'use strict';
-const {describe, it, beforeEach, afterEach} = require('mocha');
+const {describe, it, beforeEach} = require('mocha');
 const {expect} = require('chai');
 const makeHandlers = require('../../../src/cypress/plugin/handlers');
-const {initConfig} = require('../../../src/cypress/plugin/config');
 const {PollingStatus, TIMEOUT_MSG} = require('../../../src/cypress/plugin/pollingHandler');
 const {promisify: p} = require('util');
 const psetTimeout = p(setTimeout);
 
-let batchIdCounter = 0;
-function getBatch({batchId: _batchId} = {}) {
-  return {batchId: batchIdCounter++};
-}
-
 describe('command handlers', () => {
   let handlers;
   let resolve, reject;
-  let getConfig, prevEnv;
 
   const fakeOpenEyes = (args = {}) => ({
     checkWindow: async (args2 = {}) => {
@@ -23,46 +16,40 @@ describe('command handlers', () => {
     },
 
     close: async () => {
-      return new Promise((_resolve, _reject) => {
-        resolve = _resolve;
-        reject = _reject;
-      });
+      return {__test: `close_${args.__test}`};
     },
   });
 
-  function __resolveClose(val) {
+  const openEyesWithCloseRejection = () => ({
+    checkWindow: async x => x,
+    close: async () => Promise.reject('bla'),
+  });
+
+  const fakeBatchEnd = async () => {
+    return new Promise((_resolve, _reject) => {
+      resolve = _resolve;
+      reject = _reject;
+    });
+  };
+
+  function __resolveBatchEnd(val) {
     return resolve && resolve(val);
   }
 
-  function __rejectClose(val) {
+  function __rejectBatchEnd(val) {
     return reject && reject(new Error(val));
   }
 
-  async function openAndClose(shouldReject) {
+  async function openAndClose() {
     await handlers.open();
-    await handlers.close();
-    shouldReject ? __rejectClose('bla') : __resolveClose('kuku');
-    await psetTimeout(0);
-    await handlers.close().then(x => x, err => err);
+    await handlers.close().catch(x => x);
   }
 
   beforeEach(() => {
-    prevEnv = process.env;
-    process.env = {};
-    const {getConfig: _getConfig, updateConfig, getInitialConfig} = initConfig();
-    getConfig = _getConfig;
     handlers = makeHandlers({
       openEyes: fakeOpenEyes,
-      getConfig,
-      updateConfig,
-      getInitialConfig,
-      getBatch,
-      logger: console,
+      batchEnd: fakeBatchEnd,
     });
-  });
-
-  afterEach(() => {
-    process.env = prevEnv;
   });
 
   it('handles "open"', async () => {
@@ -75,7 +62,12 @@ describe('command handlers', () => {
     expect(await handlers.checkWindow({}).then(x => x, err => err)).to.be.an.instanceof(Error);
     await openAndClose();
     expect(await handlers.checkWindow({}).then(x => x, err => err)).to.be.an.instanceof(Error);
-    await openAndClose(true);
+
+    handlers = handlers = makeHandlers({
+      openEyes: openEyesWithCloseRejection,
+    });
+    expect(await handlers.checkWindow({}).then(x => x, err => err)).to.be.an.instanceof(Error);
+    await openAndClose();
     expect(await handlers.checkWindow({}).then(x => x, err => err)).to.be.an.instanceof(Error);
   });
 
@@ -83,7 +75,12 @@ describe('command handlers', () => {
     expect(await handlers.close().then(x => x, err => err)).to.be.an.instanceof(Error);
     await openAndClose();
     expect(await handlers.close().then(x => x, err => err)).to.be.an.instanceof(Error);
-    await openAndClose(true);
+
+    handlers = handlers = makeHandlers({
+      openEyes: openEyesWithCloseRejection,
+    });
+    expect(await handlers.close().then(x => x, err => err)).to.be.an.instanceof(Error);
+    await openAndClose();
     expect(await handlers.close().then(x => x, err => err)).to.be.an.instanceof(Error);
   });
 
@@ -165,11 +162,12 @@ describe('command handlers', () => {
     const {resourceContents: actualResourceContents} = await handlers.checkWindow({blobData});
 
     expect(actualResourceContents).to.eql(expectedResourceContents);
-    await handlers.close();
-    __resolveClose();
+    handlers.close();
 
     const err = await handlers.checkWindow({blobData}).then(x => x, err => err);
     expect(err).to.be.an.instanceOf(Error);
+    const err2 = await handlers.close().then(x => x, err => err);
+    expect(err2).to.be.an.instanceOf(Error);
     await handlers.open({__test: 123});
     const {resourceContents: emptyResourceContents} = await handlers.checkWindow({blobData});
     expect(emptyResourceContents).to.eql({
@@ -178,55 +176,64 @@ describe('command handlers', () => {
   });
 
   it('handles "close"', async () => {
+    const {checkWindow, close} = await handlers.open({__test: 123});
+
+    expect((await checkWindow()).__test).to.equal('checkWindow_123');
+    expect((await close()).__test).to.equal('close_123');
+  });
+
+  it('handles "batchStart"', () => {
+    let flag;
+    handlers = makeHandlers({
+      batchStart: () => (flag = 'flag'),
+    });
+    handlers.batchStart();
+    expect(flag).to.equal(flag);
+  });
+
+  it('handles "batchEnd"', async () => {
     await handlers.open();
 
     // IDLE ==> WIP
-    let result = await handlers.close();
+    let result = await handlers.batchEnd();
     expect(result).to.eql({status: PollingStatus.IDLE});
 
     // WIP ==> WIP
-    result = await handlers.close();
+    result = await handlers.batchEnd();
     expect(result).to.eql({status: PollingStatus.WIP});
 
     // WIP ==> DONE
     const successMsg = 'success';
-    __resolveClose(successMsg);
+    __resolveBatchEnd(successMsg);
     await psetTimeout(0);
 
     // DONE ==> IDLE
-    result = await handlers.close();
+    result = await handlers.batchEnd();
     expect(result).to.eql({status: PollingStatus.DONE, results: successMsg});
 
     // IDLE ==> WIP
     await handlers.open(); // needs to be called because handlers don't allow calling close() before open();
-    result = await handlers.close();
+    result = await handlers.batchEnd();
     expect(result).to.eql({status: PollingStatus.IDLE});
 
     // WIP ==> ERROR
     const failMsg = 'fail';
-    __rejectClose(failMsg);
+    __rejectBatchEnd(failMsg);
     await psetTimeout(0);
 
     // ERROR ==> IDLE
-    result = await handlers.close().then(x => x, err => err);
+    result = await handlers.batchEnd().then(x => x, err => err);
     expect(result).to.be.an.instanceof(Error);
     expect(result.message).to.equal(failMsg);
 
     // IDLE ==> WIP (with timeout)
     await handlers.open(); // needs to be called because handlers don't allow calling close() before open();
-    result = await handlers.close({timeout: 50});
+    result = await handlers.batchEnd({timeout: 50});
     expect(result).to.eql({status: PollingStatus.IDLE});
 
     await psetTimeout(100);
-    result = await handlers.close().then(x => x, err => err);
+    result = await handlers.batchEnd().then(x => x, err => err);
     expect(result).to.be.an.instanceof(Error);
-    expect(result.message).to.equal(TIMEOUT_MSG);
-  });
-
-  it('handles batchStart', () => {
-    handlers.batchStart();
-    expect(getConfig()).to.eql({batchId: 0});
-    handlers.batchStart();
-    expect(getConfig()).to.eql({batchId: 1});
+    expect(result.message).to.equal(TIMEOUT_MSG(50));
   });
 });

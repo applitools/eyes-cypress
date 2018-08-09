@@ -1,4 +1,4 @@
-/* global Cypress,cy,window,before */
+/* global Cypress,cy,window,before,after */
 'use strict';
 const {extractResources, domNodesToCdt} = require('@applitools/rendering-grid-client/browser');
 const poll = require('./poll');
@@ -10,6 +10,14 @@ const defaultDomProps = require('@applitools/dom-capture/src/defaultDomProps');
 
 before(() => {
   sendRequest({command: 'batchStart'});
+});
+
+const batchEnd = poll(function({timeout}) {
+  return sendRequest({command: 'batchEnd', data: {timeout}});
+});
+
+after(() => {
+  return batchEnd({timeout: Cypress.config('eyesTimeout')});
 });
 
 Cypress.Commands.add('eyesOpen', function(args = {}) {
@@ -62,13 +70,9 @@ Cypress.Commands.add('eyesCheckWindow', args => {
   );
 });
 
-const close = poll(function({timeout}) {
-  return sendRequest({command: 'close', data: {timeout}});
-});
-
-Cypress.Commands.add('eyesClose', ({timeout} = {}) => {
+Cypress.Commands.add('eyesClose', () => {
   Cypress.log({name: 'Eyes: close'});
-  return close({timeout});
+  return sendRequest({command: 'close'});
 });
 
 function sendRequest(args) {

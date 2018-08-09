@@ -1,24 +1,25 @@
 'use strict';
 const pollingHandler = require('./pollingHandler');
-const {PollingStatus} = pollingHandler;
 
-function makeHandlers({openEyes, getConfig, updateConfig, getInitialConfig, getBatch, logger}) {
+function makeHandlers({openEyes, batchStart, batchEnd}) {
   let checkWindow, close, resources;
+  const pollBatchEnd = pollingHandler(batchEnd);
 
   return {
     open: async args => {
-      const config = Object.assign(getConfig(args));
-      const eyes = await openEyes(config);
+      const eyes = await openEyes(args);
       checkWindow = eyes.checkWindow;
-      close = pollingHandler(eyes.close);
+      close = eyes.close;
       resources = {};
       return eyes;
     },
 
-    batchStart() {
-      const defaultBatch = getBatch(getInitialConfig());
-      logger.log('new default batch', defaultBatch);
-      updateConfig(defaultBatch);
+    batchStart: args => {
+      return batchStart(args);
+    },
+
+    batchEnd: async ({timeout} = {}) => {
+      return await pollBatchEnd(timeout);
     },
 
     putResource: (id, buffer) => {
@@ -65,21 +66,18 @@ function makeHandlers({openEyes, getConfig, updateConfig, getInitialConfig, getB
       });
     },
 
-    close: async ({timeout} = {}) => {
+    close: async () => {
       if (!close) {
         throw new Error('Please call cy.eyesOpen() before calling cy.eyesClose()');
       }
 
       resources = null;
-      let result;
+
       try {
-        result = await close(timeout);
-        return result;
+        close(); // not returning this promise because we don't to wait on it before responding to the client
       } finally {
-        if (!result || result.status === PollingStatus.DONE) {
-          close = null;
-          checkWindow = null;
-        }
+        close = null;
+        checkWindow = null;
       }
     },
   };

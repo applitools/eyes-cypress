@@ -1,4 +1,6 @@
 describe('eyes.cypress', () => {
+  Cypress.config('eyesTimeout', 100); // this very small timeout should make the test fail
+
   it('runs', () => {
     const url = `http://localhost:${Cypress.config('testPort')}/test.html`;
     cy.visit(url);
@@ -9,6 +11,6 @@ describe('eyes.cypress', () => {
       showLogs: true
     });
     cy.eyesCheckWindow();
-    cy.eyesClose({timeout: 100}); // this very small timeout should make the test fail
+    cy.eyesClose();
   });
 });

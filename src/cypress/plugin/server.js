@@ -1,19 +1,24 @@
 'use strict';
 const {promisify: p} = require('util');
 const psetTimeout = p(setTimeout);
-const {openEyes, createLogger, getBatch} = require('@applitools/rendering-grid-client');
-const logger = createLogger();
+const {
+  makeRenderingGridClient,
+  initConfig,
+  createLogger,
+} = require('@applitools/rendering-grid-client');
+const logger = createLogger(process.env.APPLITOOLS_DEV_MODE);
 const {startApp} = require('./app');
-const {initConfig} = require('./config');
-const {getConfig, updateConfig, getInitialConfig} = initConfig(process.cwd());
 const makeHandlers = require('./handlers');
-const handlers = makeHandlers({
-  openEyes,
+const {getConfig, updateConfig, getInitialConfig} = initConfig(process.cwd());
+const {batchStart, openEyes, batchEnd} = makeRenderingGridClient({
   getConfig,
   updateConfig,
   getInitialConfig,
-  getBatch,
-  logger,
+});
+const handlers = makeHandlers({
+  batchStart,
+  openEyes,
+  batchEnd,
 });
 const makePluginExport = require('./pluginExport');
 

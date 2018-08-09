@@ -1,4 +1,4 @@
-/* globals describe,it,cy,Cypress */
+/* globals describe,it,cy,Cypress,after */
 after(() => {
   cy.then(() => {
     throw new Error('aaa');

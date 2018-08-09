@@ -36,4 +36,4 @@ module.exports = async (on, _config) => {
 };
 
 // eslint-disable-next-line
-require('../../../../../src/cypress/plugin')(module);
+require('../../../../../src/cypress/plugin')(module, {port: 0});
