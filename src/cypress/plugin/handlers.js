@@ -2,16 +2,21 @@
 const pollingHandler = require('./pollingHandler');
 
 function makeHandlers({openEyes, batchStart, batchEnd}) {
-  let checkWindow, close, resources;
+  let checkWindow, close, resources, openErr;
   const pollBatchEnd = pollingHandler(batchEnd);
 
   return {
     open: async args => {
-      const eyes = await openEyes(args);
-      checkWindow = eyes.checkWindow;
-      close = eyes.close;
-      resources = {};
-      return eyes;
+      try {
+        const eyes = await openEyes(args);
+        checkWindow = eyes.checkWindow;
+        close = eyes.close;
+        resources = {};
+        return eyes;
+      } catch (err) {
+        openErr = err;
+        throw err;
+      }
     },
 
     batchStart: args => {
@@ -67,17 +72,22 @@ function makeHandlers({openEyes, batchStart, batchEnd}) {
     },
 
     close: async () => {
-      if (!close) {
-        throw new Error('Please call cy.eyesOpen() before calling cy.eyesClose()');
-      }
-
-      resources = null;
-
       try {
+        if (openErr) {
+          return;
+        }
+
+        if (!close) {
+          throw new Error('Please call cy.eyesOpen() before calling cy.eyesClose()');
+        }
+
+        resources = null;
+
         close(); // not returning this promise because we don't to wait on it before responding to the client
       } finally {
         close = null;
         checkWindow = null;
+        openErr = null;
       }
     },
   };

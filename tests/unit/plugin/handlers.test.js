@@ -236,4 +236,15 @@ describe('command handlers', () => {
     expect(result).to.be.an.instanceof(Error);
     expect(result.message).to.equal(TIMEOUT_MSG(50));
   });
+
+  it('error in openEyes should cause close to do nothing', async () => {
+    handlers = makeHandlers({
+      openEyes: () => {
+        throw new Error('open');
+      },
+    });
+    await handlers.open().catch(x => x);
+    const err = await handlers.close().then(x => x, err => err);
+    expect(err).to.equal(undefined);
+  });
 });
