@@ -47,44 +47,56 @@ describe('command handlers', () => {
 
   beforeEach(() => {
     handlers = makeHandlers({
-      openEyes: fakeOpenEyes,
-      batchEnd: fakeBatchEnd,
+      makeRenderingGridClient: () => ({
+        openEyes: fakeOpenEyes,
+        batchEnd: fakeBatchEnd,
+      }),
     });
   });
 
   it('handles "open"', async () => {
+    handlers.batchStart();
     const {checkWindow} = await handlers.open({__test: 123});
 
     expect((await checkWindow()).__test).to.equal('checkWindow_123');
   });
 
   it('throws when calling "checkWindow" before "open"', async () => {
+    handlers.batchStart();
     expect(await handlers.checkWindow({}).then(x => x, err => err)).to.be.an.instanceof(Error);
     await openAndClose();
     expect(await handlers.checkWindow({}).then(x => x, err => err)).to.be.an.instanceof(Error);
 
     handlers = handlers = makeHandlers({
-      openEyes: openEyesWithCloseRejection,
+      makeRenderingGridClient: () => ({
+        openEyes: openEyesWithCloseRejection,
+      }),
     });
+    handlers.batchStart();
     expect(await handlers.checkWindow({}).then(x => x, err => err)).to.be.an.instanceof(Error);
     await openAndClose();
     expect(await handlers.checkWindow({}).then(x => x, err => err)).to.be.an.instanceof(Error);
   });
 
   it('throws when calling "close" before "open"', async () => {
+    handlers.batchStart();
     expect(await handlers.close().then(x => x, err => err)).to.be.an.instanceof(Error);
     await openAndClose();
     expect(await handlers.close().then(x => x, err => err)).to.be.an.instanceof(Error);
 
     handlers = handlers = makeHandlers({
-      openEyes: openEyesWithCloseRejection,
+      makeRenderingGridClient: () => ({
+        openEyes: openEyesWithCloseRejection,
+      }),
     });
+    handlers.batchStart();
     expect(await handlers.close().then(x => x, err => err)).to.be.an.instanceof(Error);
     await openAndClose();
     expect(await handlers.close().then(x => x, err => err)).to.be.an.instanceof(Error);
   });
 
   it('handles "checkWindow"', async () => {
+    handlers.batchStart();
     await handlers.open({__test: 123});
 
     const cdt = 'cdt';
@@ -129,6 +141,7 @@ describe('command handlers', () => {
   });
 
   it('handles "putResource"', async () => {
+    handlers.batchStart();
     await handlers.open({__test: 123});
 
     handlers.putResource('id1', 'buff1');
@@ -152,6 +165,7 @@ describe('command handlers', () => {
   });
 
   it('cleans resources on close', async () => {
+    handlers.batchStart();
     await handlers.open({__test: 123});
 
     handlers.putResource('id', 'buff');
@@ -162,7 +176,7 @@ describe('command handlers', () => {
     const {resourceContents: actualResourceContents} = await handlers.checkWindow({blobData});
 
     expect(actualResourceContents).to.eql(expectedResourceContents);
-    handlers.close();
+    await handlers.close();
 
     const err = await handlers.checkWindow({blobData}).then(x => x, err => err);
     expect(err).to.be.an.instanceOf(Error);
@@ -176,6 +190,7 @@ describe('command handlers', () => {
   });
 
   it('handles "close"', async () => {
+    handlers.batchStart();
     const {checkWindow, close} = await handlers.open({__test: 123});
 
     expect((await checkWindow()).__test).to.equal('checkWindow_123');
@@ -185,13 +200,14 @@ describe('command handlers', () => {
   it('handles "batchStart"', () => {
     let flag;
     handlers = makeHandlers({
-      batchStart: () => (flag = 'flag'),
+      makeRenderingGridClient: () => (flag = 'flag'),
     });
     handlers.batchStart();
-    expect(flag).to.equal(flag);
+    expect(flag).to.equal('flag');
   });
 
   it('handles "batchEnd"', async () => {
+    handlers.batchStart();
     await handlers.open();
 
     // IDLE ==> WIP
@@ -239,10 +255,13 @@ describe('command handlers', () => {
 
   it('error in openEyes should cause close to do nothing', async () => {
     handlers = makeHandlers({
-      openEyes: () => {
-        throw new Error('open');
-      },
+      makeRenderingGridClient: () => ({
+        openEyes: () => {
+          throw new Error('open');
+        },
+      }),
     });
+    handlers.batchStart();
     await handlers.open().catch(x => x);
     const err = await handlers.close().then(x => x, err => err);
     expect(err).to.equal(undefined);

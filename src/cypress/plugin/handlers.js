@@ -1,9 +1,8 @@
 'use strict';
 const pollingHandler = require('./pollingHandler');
 
-function makeHandlers({openEyes, batchStart, batchEnd}) {
-  let checkWindow, close, resources, openErr;
-  const pollBatchEnd = pollingHandler(batchEnd);
+function makeHandlers({makeRenderingGridClient, logger = console}) {
+  let openEyes, pollBatchEnd, checkWindow, close, resources, openErr;
 
   return {
     open: async args => {
@@ -20,7 +19,10 @@ function makeHandlers({openEyes, batchStart, batchEnd}) {
     },
 
     batchStart: args => {
-      return batchStart(args);
+      const client = makeRenderingGridClient(args);
+      openEyes = client.openEyes;
+      pollBatchEnd = pollingHandler(client.batchEnd);
+      return client;
     },
 
     batchEnd: async ({timeout} = {}) => {
@@ -72,23 +74,23 @@ function makeHandlers({openEyes, batchStart, batchEnd}) {
     },
 
     close: async () => {
-      try {
-        if (openErr) {
-          return;
-        }
-
-        if (!close) {
-          throw new Error('Please call cy.eyesOpen() before calling cy.eyesClose()');
-        }
-
-        resources = null;
-
-        close(); // not returning this promise because we don't to wait on it before responding to the client
-      } finally {
-        close = null;
-        checkWindow = null;
-        openErr = null;
+      if (openErr) {
+        return;
       }
+
+      if (!close) {
+        throw new Error('Please call cy.eyesOpen() before calling cy.eyesClose()');
+      }
+
+      // not returning this promise because we don't to wait on it before responding to the client
+      close().catch(err => {
+        logger.log('error in close:', err);
+      });
+
+      resources = null;
+      close = null;
+      checkWindow = null;
+      openErr = null;
     },
   };
 }

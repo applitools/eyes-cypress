@@ -6,19 +6,19 @@ const {
   initConfig,
   createLogger,
 } = require('@applitools/rendering-grid-client');
-const logger = createLogger(process.env.APPLITOOLS_DEV_MODE);
+const logger = createLogger(process.env.APPLITOOLS_SHOW_LOGS); // TODO when switching to DEBUG sometime remove this env var
 const {startApp} = require('./app');
 const makeHandlers = require('./handlers');
 const {getConfig, updateConfig, getInitialConfig} = initConfig(process.cwd());
-const {batchStart, openEyes, batchEnd} = makeRenderingGridClient({
-  getConfig,
-  updateConfig,
-  getInitialConfig,
-});
 const handlers = makeHandlers({
-  batchStart,
-  openEyes,
-  batchEnd,
+  logger,
+  makeRenderingGridClient: () =>
+    makeRenderingGridClient({
+      getConfig,
+      updateConfig,
+      getInitialConfig,
+      showLogs: process.env.APPLITOOLS_SHOW_LOGS, // TODO when switching to DEBUG sometime remove this env var
+    }),
 });
 const makePluginExport = require('./pluginExport');
 
