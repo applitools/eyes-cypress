@@ -1,6 +1,5 @@
 /* globals describe,it,cy,Cypress */
 describe('eyes.cypress', () => {
-  Cypress.config('eyesTimeout', 100);
   it('runs', () => {
     cy.setCookie('auth', 'secret');
     const url = `http://localhost:${Cypress.config('testPort')}/test.html`;
