@@ -9,7 +9,10 @@ function makeHandlers({makeRenderingGridClient, logger = console}) {
     open: async args => {
       try {
         const eyes = await openEyes(args);
-        const runningTest = {};
+        const runningTest = {
+          abort: eyes.abort,
+          closePromise: undefined,
+        };
         checkWindow = eyes.checkWindow;
         close = makeClose(eyes.close, runningTest);
         resources = {};
@@ -104,9 +107,18 @@ function makeHandlers({makeRenderingGridClient, logger = console}) {
   function makeWaitForTestResults(waitForTestResults) {
     return async function() {
       const closePromises = runningTests.filter(getClosePromise).map(getClosePromise);
-      const testResults = await waitForTestResults(closePromises);
-      // const aborts = runningTests.filter(test => !test.closePromise).map(test => test.abort);
-      // await Promise.all(aborts.map(abort => abort()));
+      const aborts = runningTests.filter(test => !test.closePromise).map(test => test.abort);
+
+      logger.log(
+        `Waiting for test results of ${closePromises.length} closed tests. Going to abort ${
+          aborts.length
+        } tests`,
+      );
+
+      const [testResults] = await Promise.all([
+        waitForTestResults(closePromises),
+        Promise.all(aborts.map(abort => abort())),
+      ]);
       return testResults;
     };
   }

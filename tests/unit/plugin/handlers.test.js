@@ -18,6 +18,8 @@ describe('command handlers', () => {
     close: async () => {
       return {__test: `close_${args.__test}`};
     },
+
+    abort: async () => {},
   });
 
   const openEyesWithCloseRejection = () => ({
@@ -265,5 +267,28 @@ describe('command handlers', () => {
     await handlers.open().catch(x => x);
     const err = await handlers.close().then(x => x, err => err);
     expect(err).to.equal(undefined);
+  });
+
+  it('handles abort', async () => {
+    let abortCount = 0;
+    handlers = makeHandlers({
+      makeRenderingGridClient: () => ({
+        openEyes: () => ({
+          checkWindow: async () => {},
+          close: async () => {},
+          abort: () => {
+            abortCount++;
+          },
+        }),
+        waitForTestResults: fakeWaitForTestResults,
+      }),
+    });
+    handlers.batchStart();
+    await handlers.open();
+    await handlers.open();
+    await handlers.batchEnd(); // IDLE --> WIP
+    await handlers.batchEnd(); // WIP --> WIP (unless an error occurred)
+    __resolveWaitForTestResults();
+    expect(abortCount).to.equal(2);
   });
 });
