@@ -25,18 +25,18 @@ describe('command handlers', () => {
     close: async () => Promise.reject('bla'),
   });
 
-  const fakeBatchEnd = async () => {
+  const fakeWaitForTestResults = async () => {
     return new Promise((_resolve, _reject) => {
       resolve = _resolve;
       reject = _reject;
     });
   };
 
-  function __resolveBatchEnd(val) {
+  function __resolveWaitForTestResults(val) {
     return resolve && resolve(val);
   }
 
-  function __rejectBatchEnd(val) {
+  function __rejectWaitForTestResults(val) {
     return reject && reject(new Error(val));
   }
 
@@ -49,7 +49,7 @@ describe('command handlers', () => {
     handlers = makeHandlers({
       makeRenderingGridClient: () => ({
         openEyes: fakeOpenEyes,
-        batchEnd: fakeBatchEnd,
+        waitForTestResults: fakeWaitForTestResults,
       }),
     });
   });
@@ -220,7 +220,7 @@ describe('command handlers', () => {
 
     // WIP ==> DONE
     const successMsg = 'success';
-    __resolveBatchEnd(successMsg);
+    __resolveWaitForTestResults(successMsg);
     await psetTimeout(0);
 
     // DONE ==> IDLE
@@ -234,7 +234,7 @@ describe('command handlers', () => {
 
     // WIP ==> ERROR
     const failMsg = 'fail';
-    __rejectBatchEnd(failMsg);
+    __rejectWaitForTestResults(failMsg);
     await psetTimeout(0);
 
     // ERROR ==> IDLE

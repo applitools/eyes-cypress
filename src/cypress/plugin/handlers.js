@@ -3,14 +3,17 @@ const pollingHandler = require('./pollingHandler');
 
 function makeHandlers({makeRenderingGridClient, logger = console}) {
   let openEyes, pollBatchEnd, checkWindow, close, resources, openErr;
+  const runningTests = [];
 
   return {
     open: async args => {
       try {
         const eyes = await openEyes(args);
+        const runningTest = {};
         checkWindow = eyes.checkWindow;
-        close = eyes.close;
+        close = makeClose(eyes.close, runningTest);
         resources = {};
+        runningTests.push(runningTest);
         return eyes;
       } catch (err) {
         openErr = err;
@@ -21,7 +24,7 @@ function makeHandlers({makeRenderingGridClient, logger = console}) {
     batchStart: args => {
       const client = makeRenderingGridClient(args);
       openEyes = client.openEyes;
-      pollBatchEnd = pollingHandler(client.batchEnd);
+      pollBatchEnd = pollingHandler(makeWaitForTestResults(client.waitForTestResults));
       return client;
     },
 
@@ -93,6 +96,27 @@ function makeHandlers({makeRenderingGridClient, logger = console}) {
       openErr = null;
     },
   };
+
+  function getClosePromise(test) {
+    return test.closePromise;
+  }
+
+  function makeWaitForTestResults(waitForTestResults) {
+    return async function() {
+      const closePromises = runningTests.filter(getClosePromise).map(getClosePromise);
+      const testResults = await waitForTestResults(closePromises);
+      // const aborts = runningTests.filter(test => !test.closePromise).map(test => test.abort);
+      // await Promise.all(aborts.map(abort => abort()));
+      return testResults;
+    };
+  }
+
+  function makeClose(doClose, runningTest) {
+    return async function() {
+      runningTest.closePromise = doClose();
+      return runningTest.closePromise;
+    };
+  }
 }
 
 module.exports = makeHandlers;
