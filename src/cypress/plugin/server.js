@@ -22,20 +22,13 @@ const handlers = makeHandlers({
 });
 const makePluginExport = require('./pluginExport');
 
-let eyesPort = require('./defaultPort');
 const pluginExport = makePluginExport({
-  eyesPort,
   getEyesPort,
-  setEyesPort,
   closeEyes,
 });
 
 let server;
 const app = startApp(handlers, logger);
-
-function setEyesPort(port) {
-  eyesPort = port;
-}
 
 async function getEyesPort() {
   let port;
@@ -59,15 +52,17 @@ async function closeEyes() {
 // start server after process tick (or as microtask) to allow user to set custom port
 Promise.resolve()
   .then(() => {
-    logger.log(`starting plugin at port ${eyesPort}`);
-    server = app.listen(eyesPort, () => {
-      logger.log(`server running at port: ${server.address().port}`);
+    logger.log(`starting plugin server`);
+    server = app.listen(0, () => {
+      logger.log(`plugin server running at port: ${server.address().port}`);
     });
 
     server.on('error', err => {
       if (err.code === 'EADDRINUSE') {
         logger.log(
-          `error: plugin server could not start at port ${eyesPort}: port is already in use.`,
+          `error: plugin server could not start at port ${
+            server.address().port
+          }: port is already in use.`,
         );
       } else {
         logger.log('error in plugin server:', err);

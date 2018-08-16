@@ -3,8 +3,7 @@
 const {extractResources, domNodesToCdt} = require('@applitools/rendering-grid-client/browser');
 const poll = require('./poll');
 const makeSend = require('./makeSend');
-const port = Cypress.config('eyesPort') || require('./plugin/defaultPort');
-const send = makeSend(port, cy.request);
+const send = makeSend(Cypress.config('eyesPort'), cy.request);
 const captureFrame = require('@applitools/dom-capture/src/captureFrame');
 const defaultDomProps = require('@applitools/dom-capture/src/defaultDomProps');
 

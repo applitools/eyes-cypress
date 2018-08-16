@@ -1,14 +1,13 @@
 'use strict';
 
-function makePluginExport({eyesPort, getEyesPort, setEyesPort, closeEyes}) {
-  return function pluginExport(pluginModule, {port = eyesPort} = {}) {
+function makePluginExport({getEyesPort, closeEyes}) {
+  return function pluginExport(pluginModule) {
     const pluginModuleExports = pluginModule.exports;
     pluginModule.exports = async (...args) => {
       const actualEyesPort = await getEyesPort();
       const moduleExportsResult = await pluginModuleExports(...args);
       return Object.assign({eyesPort: actualEyesPort}, moduleExportsResult);
     };
-    setEyesPort(port);
     return {
       getEyesPort,
       closeEyes,

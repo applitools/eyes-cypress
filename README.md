@@ -92,6 +92,38 @@ describe('Hello world', () => {
 });
 ```
 
+### Best practice for using the SDK
+
+Every call to `cy.eyesOpen` and `cy.eyesClose` defines a test in Applitool Eyes, and all the calls to `cy.eyesCheckWindow` between them are called "steps". In order to get a test structure in Applitools that corresponds to the test structure in Cypress, it's best to open/close tests in every `it` call. This can be done via the `beforeEach` and `afterEach` functions that Cypress provides (via the mocha test runner).
+
+After adjusting the example above, this becomes:
+
+```js
+describe('Hello world', () => {
+  beforEach(() => {
+    cy.eyesOpen({
+      appName: 'Hello World!',
+      testName: 'My first JavaScript test!',
+      browser: { width: 800, height: 600 },
+    });
+  });
+
+  afterEach(() => {
+    cy.eyesClose();
+  });
+
+  it('works', () => {
+    cy.visit('https://applitools.com/helloworld');
+    cy.eyesCheckWindow('Main Page');
+    cy.get('button').click();
+    cy.eyesCheckWindow('Click!');
+  });
+});
+```
+
+Applitools will take screenshots and perform the visual comparisons in the background. Performance of the tests will not be affected during the test run, but there will be a small phase at the end of the test run that waits for visual tests to end.
+**Note**: In Cypress interactive mode (`cypress open`) there is a bug that exceptions in root level `after` statements don't appear in the UI. They still appear in the browser's console, and considered failures in `cypress run`. See [this issue](https://github.com/cypress-io/cypress/issues/2296) for more information and tracking.
+
 ### Commands
 
 In addition to the built-in commands provided by Cypress, like `cy.visit` and `cy.get`, Eyes.Cypress defines new custom commands, which enable the visual testing with Applitools Eyes. These commands are:
@@ -249,38 +281,6 @@ It's possible to have a file called `eyes.json` at the same folder location as `
   // all other configuration variables apply
 }
 ```
-
-### Plugin port
-
-The Eyes.Cypress SDK has 2 parts: (1) a cypress plugin, and (2) custom commands that run in the browser. The SDK uses a local server for communication between those 2 parts. The plugin is responsible for starting the server, and the custom commands send requests to this server operate the SDK.
-
-By default, the server listens at port `7373` , but that may be altered for cases where this port is already taken.
-
-#### Option 1: Default port
-
-When configuring the plugin as described in the section 'Configure Eyes.Cypress plugin' above, the port that will be used is `7373`:
-
-```js
-require('@applitools/eyes.cypress')(module)
-```
-
-#### Option 2: Custom port
-
-In some cases, the `7373` port might be unavailable, so in order to use a different port, you may do the following:
-
-```js
-require('@applitools/eyes.cypress')(module, { port: 8484 })
-```
-
-#### Option 3: Available port
-
-If you want to be absolutely sure that Eyes.Cypress will use an available port, it's also possible to pass `0` as the port:
-
-```js
-require('@applitools/eyes.cypress')({ port: 0 });
-```
-
-Now it is guaranteed that `eyesPort` is available.
 
 ## Troubleshooting
 
