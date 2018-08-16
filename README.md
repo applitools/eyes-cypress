@@ -195,17 +195,15 @@ cy.eyesCheckWindow({
 
 #### Close
 
-close the applitools test and check that all screenshots are valid.
+Close the applitools test and check that all screenshots are valid.
 
-It is important to call this at the end (or `after()`) each test, symmetrically to `eyesOpen`.
+It is important to call this at the end of each test, symmetrically to `eyesOpen`(or in `afterEach()`, see [Best practice for using the SDK]()).
+
+Close receives no arguments.
 
 ```js
-cy.eyesClose({ timeout });
+cy.eyesClose();
 ```
-
-##### Arguments to `cy.eyesClose`
-
-- `timeout` (optional): Depending on various factors such as the website's size and number of screenshots (i.e. the number of calls to `cy.eyesCheckWindow()`), the elapsed time it takes for `cy.eyesClose` to complete may vary. The default timeout is `120000` (2 minutes), and it's possible to pass a different value for cases where this need to be larger (e.g. `180000` for setting the timeout to 3 minutes).
 
 ## Advanced configuration
 
@@ -281,6 +279,12 @@ It's possible to have a file called `eyes.json` at the same folder location as `
   // all other configuration variables apply
 }
 ```
+
+## Setting a timeout
+
+At the end of the test run, Eyes.Cypress will wait for the results of all visual tests. There's a default timeout of 2 minutes between the end of the test run and the end of the visual tests (although it should not take so long normally!).
+
+It's possible to change that default by setting the configuration variable `eyesTimeout`, in one of the varios ways to configure Cypress, as described in the [Cypress plugins documentation](https://docs.cypress.io/guides/references/configuration.html).
 
 ## Troubleshooting
 
