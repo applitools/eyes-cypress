@@ -53,13 +53,6 @@ describe('pluginExport', () => {
     expect(ret2).to.eql({bla: 'ret_second', eyesPort: undefined});
   });
 
-  it('sets eyes port', async () => {
-    const __module = {exports: () => ({bla: 'bla'})};
-    pluginExport(__module, {port: 1234});
-    const ret = await __module.exports(() => {});
-    expect(ret).to.eql({eyesPort: 1234, bla: 'bla'});
-  });
-
   it('handles async module.exports', async () => {
     const __module = {
       exports: async () => {
