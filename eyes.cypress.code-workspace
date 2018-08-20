@@ -4,13 +4,10 @@
 			"path": "."
 		},
 		{
-			"path": "../rendering-grid/packages/rendering-grid-client"
-		},
-		{
-			"path": "../rendering-grid/packages/dom-capture"
-		},
-		{
 			"path": "../eyes.sdk.javascript1/eyes.sdk.core"
+		},
+		{
+			"path": "../visual-grid-client"
 		}
 	],
 	"settings": {}
