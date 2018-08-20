@@ -15,7 +15,8 @@
     "test": "npm run test:mocha && npm run eslint",
     "build": "#",
     "cypress": "cd tests/fixtures/testApp && cypress open --config integrationFolder=cypress/integration-play,pluginsFile=cypress/plugins/index-play.js,supportFile=cypress/support/index-run.js",
-    "cypress:run": "cd tests/fixtures/testApp && cypress run --config integrationFolder=cypress/integration-play,pluginsFile=cypress/plugins/index-play.js,supportFile=cypress/support/index-run.js --spec=cypress/integration-play/actions.spec.js"
+    "cypress:run": "cd tests/fixtures/testApp && cypress run --config integrationFolder=cypress/integration-play,pluginsFile=cypress/plugins/index-play.js,supportFile=cypress/support/index-run.js --spec=cypress/integration-play/actions.spec.js",
+    "prepublishOnly": "npm version patch"
   },
   "files": [
     "src",
