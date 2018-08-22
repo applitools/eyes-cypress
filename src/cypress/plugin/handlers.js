@@ -107,7 +107,7 @@ function makeHandlers({makeVisualGridClient, logger = console}) {
   function makeWaitForTestResults(waitForTestResults) {
     return async function() {
       const closePromises = runningTests.filter(getClosePromise).map(getClosePromise);
-      const aborts = runningTests.filter(test => !test.closePromise).map(test => test.abort);
+      const aborts = runningTests.filter(test => test.abort && !test.closePromise).map(test => test.abort);
 
       logger.log(
         `Waiting for test results of ${closePromises.length} closed tests. Going to abort ${
