@@ -1,19 +1,15 @@
 'use strict';
 const {promisify: p} = require('util');
 const psetTimeout = p(setTimeout);
-const {
-  makeRenderingGridClient,
-  initConfig,
-  createLogger,
-} = require('@applitools/rendering-grid-client');
+const {makeVisualGridClient, initConfig, createLogger} = require('@applitools/visual-grid-client');
 const logger = createLogger(process.env.APPLITOOLS_SHOW_LOGS); // TODO when switching to DEBUG sometime remove this env var
 const {startApp} = require('./app');
 const makeHandlers = require('./handlers');
 const {getConfig, updateConfig, getInitialConfig} = initConfig(process.cwd());
 const handlers = makeHandlers({
   logger,
-  makeRenderingGridClient: () =>
-    makeRenderingGridClient({
+  makeVisualGridClient: () =>
+    makeVisualGridClient({
       getConfig,
       updateConfig,
       getInitialConfig,

@@ -1,7 +1,7 @@
 'use strict';
 const pollingHandler = require('./pollingHandler');
 
-function makeHandlers({makeRenderingGridClient, logger = console}) {
+function makeHandlers({makeVisualGridClient, logger = console}) {
   let openEyes, pollBatchEnd, checkWindow, close, resources, openErr;
   const runningTests = [];
 
@@ -25,7 +25,7 @@ function makeHandlers({makeRenderingGridClient, logger = console}) {
     },
 
     batchStart: args => {
-      const client = makeRenderingGridClient(args);
+      const client = makeVisualGridClient(args);
       openEyes = client.openEyes;
       pollBatchEnd = pollingHandler(makeWaitForTestResults(client.waitForTestResults));
       return client;

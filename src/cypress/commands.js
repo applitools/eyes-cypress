@@ -1,6 +1,6 @@
 /* global Cypress,cy,window,before,after */
 'use strict';
-const {extractResources, domNodesToCdt} = require('@applitools/rendering-grid-client/browser');
+const {extractResources, domNodesToCdt} = require('@applitools/visual-grid-client/browser');
 const poll = require('./poll');
 const makeSend = require('./makeSend');
 const send = makeSend(Cypress.config('eyesPort'), cy.request);

@@ -49,7 +49,7 @@ describe('command handlers', () => {
 
   beforeEach(() => {
     handlers = makeHandlers({
-      makeRenderingGridClient: () => ({
+      makeVisualGridClient: () => ({
         openEyes: fakeOpenEyes,
         waitForTestResults: fakeWaitForTestResults,
       }),
@@ -70,7 +70,7 @@ describe('command handlers', () => {
     expect(await handlers.checkWindow({}).then(x => x, err => err)).to.be.an.instanceof(Error);
 
     handlers = handlers = makeHandlers({
-      makeRenderingGridClient: () => ({
+      makeVisualGridClient: () => ({
         openEyes: openEyesWithCloseRejection,
       }),
     });
@@ -87,7 +87,7 @@ describe('command handlers', () => {
     expect(await handlers.close().then(x => x, err => err)).to.be.an.instanceof(Error);
 
     handlers = handlers = makeHandlers({
-      makeRenderingGridClient: () => ({
+      makeVisualGridClient: () => ({
         openEyes: openEyesWithCloseRejection,
       }),
     });
@@ -202,7 +202,7 @@ describe('command handlers', () => {
   it('handles "batchStart"', () => {
     let flag;
     handlers = makeHandlers({
-      makeRenderingGridClient: () => (flag = 'flag'),
+      makeVisualGridClient: () => (flag = 'flag'),
     });
     handlers.batchStart();
     expect(flag).to.equal('flag');
@@ -257,7 +257,7 @@ describe('command handlers', () => {
 
   it('error in openEyes should cause close to do nothing', async () => {
     handlers = makeHandlers({
-      makeRenderingGridClient: () => ({
+      makeVisualGridClient: () => ({
         openEyes: () => {
           throw new Error('open');
         },
@@ -272,7 +272,7 @@ describe('command handlers', () => {
   it('handles abort', async () => {
     let abortCount = 0;
     handlers = makeHandlers({
-      makeRenderingGridClient: () => ({
+      makeVisualGridClient: () => ({
         openEyes: () => ({
           checkWindow: async () => {},
           close: async () => {},
