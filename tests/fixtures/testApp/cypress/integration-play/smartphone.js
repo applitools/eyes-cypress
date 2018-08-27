@@ -1,3 +1,4 @@
+/* globals describe,it,cy,beforeEach,afterEach */
 describe('Main suite', () => {
   beforeEach(() => {
     cy.eyesOpen({
@@ -8,7 +9,7 @@ describe('Main suite', () => {
   });
 
   it('Single test', () => {
-    return cy.task('getUrls').then(urls => {
+    return cy.task('getUrls').then(_urls => {
       ['https://en.wikipedia.org/wiki/Smartphone'].forEach(url => {
         try {
           cy.visit(url);

@@ -1,5 +1,5 @@
 'use strict';
-const {describe, it} = require('mocha');
+const {describe, it, afterEach} = require('mocha');
 const {expect} = require('chai');
 const fetch = require('node-fetch');
 const {promisify: p} = require('util');
@@ -17,7 +17,7 @@ function listen(app) {
   });
 }
 
-describe.only('app', () => {
+describe('app', () => {
   let close;
   afterEach(async () => {
     await close();
