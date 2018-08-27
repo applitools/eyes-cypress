@@ -3,7 +3,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
-function startApp(handlers, logger) {
+function startApp(handlers, logger = console) {
   const app = express();
   app.use(cors());
   app.get('/hb', (_req, res) => res.sendStatus(200));
@@ -12,7 +12,7 @@ function startApp(handlers, logger) {
   app.put('/eyes/resource/:id', bodyParser.raw({type: '*/*', limit: '100mb'}), async (req, res) => {
     try {
       if (!req.params || !req.params.id) throw new Error('missing resource url');
-      const id = decodeURIComponent(req.params.id);
+      const id = req.params.id; // already decoded by express with decodeURIComponent
       const buffer = Buffer.from(JSON.parse(req.body).data);
       logger.log('[server] PUT resource:', id, buffer.length);
       handlers.putResource(id, buffer);
