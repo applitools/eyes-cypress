@@ -6,4 +6,4 @@ module.exports = async (_on, _config) => {
   return {testPort: testServer.port};
 };
 
-require('../../../../../src/cypress/plugin')(module);
+require('../../../../..')(module);

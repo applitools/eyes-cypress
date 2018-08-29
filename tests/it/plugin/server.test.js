@@ -1,22 +1,14 @@
 'use strict';
-const {describe, it, afterEach} = require('mocha');
+const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const fetch = require('node-fetch');
-
-const pluginPath = '../../../src/cypress/plugin';
+const {startServer} = require('../../../src/cypress/plugin/server');
 
 describe('plugin server', () => {
-  const __module = {exports: () => {}};
-  afterEach(() => {
-    delete require.cache[require.resolve(`${pluginPath}`)];
-    delete require.cache[require.resolve(`${pluginPath}/server`)];
-  });
-
   it('starts at a random port', async () => {
-    const {getEyesPort, closeEyes} = require(pluginPath)(__module);
-    const port = await getEyesPort();
-    const resp = await fetch(`http://localhost:${port}/hb`);
+    const {eyesPort, closeServer} = await startServer();
+    const resp = await fetch(`http://localhost:${eyesPort}/hb`);
     expect(resp.status).to.equal(200);
-    await closeEyes();
+    await closeServer();
   });
 });

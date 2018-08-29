@@ -1,11 +1,10 @@
 'use strict';
-const {promisify: p} = require('util');
-const psetTimeout = p(setTimeout);
 const {makeVisualGridClient, initConfig, createLogger} = require('@applitools/visual-grid-client');
-const logger = createLogger(process.env.APPLITOOLS_SHOW_LOGS); // TODO when switching to DEBUG sometime remove this env var
 const {startApp} = require('./app');
 const makeHandlers = require('./handlers');
 const {getConfig, updateConfig, getInitialConfig} = initConfig(process.cwd());
+const showLogs = getConfig().showLogs;
+const logger = createLogger(showLogs);
 const handlers = makeHandlers({
   logger,
   makeVisualGridClient: () =>
@@ -13,44 +12,26 @@ const handlers = makeHandlers({
       getConfig,
       updateConfig,
       getInitialConfig,
-      showLogs: process.env.APPLITOOLS_SHOW_LOGS, // TODO when switching to DEBUG sometime remove this env var
+      showLogs,
     }),
 });
-const makePluginExport = require('./pluginExport');
 
-const pluginExport = makePluginExport({
-  getEyesPort,
-  closeEyes,
-});
-
-let server;
 const app = startApp(handlers, logger);
 
-async function getEyesPort() {
-  let port;
-
-  // TODO can server.address() be undefined or null?
-  while (!server || !server.address() || !(port = server.address().port)) {
-    await psetTimeout(10);
-  }
-
-  logger.log(`getEyesPort port=${port}`);
-  return port;
-}
-
-async function closeEyes() {
-  if (server) {
-    await new Promise((resolve, reject) => server.close(err => (err ? reject(err) : resolve())));
-  }
-  server = null;
-}
-
-// start server after process tick (or as microtask) to allow user to set custom port
-Promise.resolve()
-  .then(() => {
+function startServer() {
+  return new Promise((resolve, reject) => {
     logger.log(`starting plugin server`);
-    server = app.listen(0, () => {
-      logger.log(`plugin server running at port: ${server.address().port}`);
+    const server = app.listen(0, err => {
+      if (err) {
+        logger.log('error starting plugin server', err);
+        reject(err);
+      } else {
+        logger.log(`plugin server running at port: ${server.address().port}`);
+        resolve({
+          eyesPort: server.address().port,
+          closeServer: server.close.bind(server),
+        });
+      }
     });
 
     server.on('error', err => {
@@ -63,16 +44,9 @@ Promise.resolve()
       } else {
         logger.log('error in plugin server:', err);
       }
+      reject(err);
     });
-  })
-  .catch(err => {
-    logger.log('error during server start', err);
   });
-
-function moduleExports() {
-  return pluginExport.apply(this, arguments);
 }
-moduleExports.getEyesPort = getEyesPort;
-moduleExports.closeEyes = closeEyes;
 
-module.exports = moduleExports;
+module.exports = {startServer};

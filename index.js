@@ -1,2 +1,2 @@
 'use strict';
-module.exports = require('./src/cypress/plugin');
+module.exports = require('./src/cypress/plugin/startPlugin');
