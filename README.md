@@ -197,7 +197,7 @@ cy.eyesCheckWindow({
 
 Close the applitools test and check that all screenshots are valid.
 
-It is important to call this at the end of each test, symmetrically to `eyesOpen`(or in `afterEach()`, see [Best practice for using the SDK]()).
+It is important to call this at the end of each test, symmetrically to `eyesOpen`(or in `afterEach()`, see [Best practice for using the SDK](#best-practice-for-using-the-sdk)).
 
 Close receives no arguments.
 
@@ -210,9 +210,9 @@ cy.eyesClose();
 It's possible to define the following configuration for tests:
 
 | Property name             | Default value               | Description   |
-| -------------             |:-------------              |:-----------   |
+| -------------             |:-------------               |:-----------   |
 | `testName`                | The value of Cypress's test title | Test name. If this is not specified, the test name will be the title of the `it` block where the test is running.    |
-| `browser`                 | { width: 800, height: 600, name: 'chrome' } | The size and browser of the generated screenshots. This doesn't need to be the same as the browser that Cypress is running. It could be a different size and also a different browser. Currently, `firefox` is supported in addition to `chrome`.<br/><br/>It's also possible to send an array of browsers, e.g. `[{width: 800, height: 600, name: 'firefox'}, { width: 1024, height: 768, name: 'chrome' }]`.|
+| `browser`                 | { width: 800, height: 600, name: 'chrome' } | The size and browser of the generated screenshots. This doesn't need to be the same as the browser that Cypress is running. It could be a different size and also a different browser. Currently, `firefox` and `chrome` are supported. For more info, see the [browser section below](#configuring-the-browser).|
 | `showLogs`                | false                       | Whether or not you want to see logs of the Eyes.Cypress plugin. Logs are written to the same output of the Cypress process. |
 | `saveDebugData`           | false                       | Whether to save troubleshooting data. See the troubleshooting section of this doc for more info. |
 | `batchId`                 | random                      | Provides ability to group tests into batches. Read more about batches [here](https://applitools.com/docs/topics/working-with-test-batches/how-to-group-tests-into-batches.html). |
@@ -277,6 +277,58 @@ It's possible to have a file called `eyes.json` at the same folder location as `
   "batchName": "My batch"
   ...
   // all other configuration variables apply
+}
+```
+
+## Configuring the browser
+
+Eyes.Cypress will take a screenshot of the page in the browser passed as an argument to `cy.eyesOpen`.
+
+It's also possible to send an array of browsers, for example:
+
+```js
+cy.eyesOpen({
+  ...
+  browser: [
+    {width: 800, height: 600, name: 'firefox'},
+    {width: 1024, height: 768, name: 'chrome'}
+  ]
+}
+```
+
+### Device emulation
+
+To enable chrome's device emulation, it's possible to send a device name and screen orientation, for example:
+
+```js
+cy.eyesOpen({
+  ...
+  browser: {
+    deviceName: 'iPhone X',
+    screenOrientation: 'landscape'
+  }
+}
+```
+
+The list of device names is taken from [chrome devtools predefined devices](https://raw.githubusercontent.com/chromium/chromium/0aee4434a4dba42a42abaea9bfbc0cd196a63bc1/third_party/blink/renderer/devtools/front_end/emulated_devices/module.json), and can be obtained by running the following command in a unix-based shell (installing [`jq`](https://stedolan.github.io/jq/) might be needed):
+
+```sh
+curl -s https://raw.githubusercontent.com/chromium/chromium/0aee4434a4dba42a42abaea9bfbc0cd196a63bc1/third_party/blink/renderer/devtools/front_end/emulated_devices/module.json | jq '.extensions[].device.title'
+```
+
+Possible values for screen orientation are `landscape` and `portrait`.
+
+In addition, it's possible to use chrome's device emulation with custom viewport sizes, pixel density and mobile mode, by passing `deviceScaleFactor` and `mobile` in addition to `width` and `height`. For example:
+
+```js
+cy.eyesOpen({
+  ...
+  browser: {
+    width: 800,
+    height: 600,
+    deviceScaleFactor: 3,
+    mobile: true
+  }
 }
 ```
 
