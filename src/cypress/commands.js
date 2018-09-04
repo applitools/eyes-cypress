@@ -42,7 +42,7 @@ Cypress.Commands.add('eyesCheckWindow', args => {
   return cy.document({log: false}).then(doc =>
     cy.window({log: false}).then(win => {
       const cdt = domNodesToCdt(doc);
-      const domCapture = captureFrame(defaultDomProps);
+      const domCapture = captureFrame(defaultDomProps, doc);
       const url = win.location.href;
       return extractResources(doc, win).then(({resourceUrls, blobs}) => {
         const blobData = blobs.map(({url, type}) => ({url, type}));
