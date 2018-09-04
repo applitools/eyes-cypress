@@ -2,7 +2,7 @@
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const fetch = require('node-fetch');
-const {startServer} = require('../../../src/cypress/plugin/server');
+const {startServer} = require('../../../src/plugin/server');
 
 describe('plugin server', () => {
   it('starts at a random port', async () => {

@@ -4,8 +4,8 @@ const {describe, it, before, after} = require('mocha');
 const {expect} = require('chai');
 const {readFileSync, writeFileSync} = require('fs');
 const {resolve} = require('path');
-const {pluginRequire} = require('../../../src/cypress/setup/addEyesCypressPlugin');
-const {commandsImport} = require('../../../src/cypress/setup/addEyesCommands');
+const {pluginRequire} = require('../../../src/setup/addEyesCypressPlugin');
+const {commandsImport} = require('../../../src/setup/addEyesCommands');
 
 describe('eyes-setup script', () => {
   let cwd;

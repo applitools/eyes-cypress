@@ -1,7 +1,7 @@
 'use strict';
 const {describe, it, beforeEach, afterEach} = require('mocha');
 const {expect} = require('chai');
-const makePluginExport = require('../../../src/cypress/plugin/pluginExport');
+const makePluginExport = require('../../../src/plugin/pluginExport');
 const {promisify: p} = require('util');
 const psetTimeout = p(setTimeout);
 

@@ -3,7 +3,7 @@ const {describe, it, afterEach} = require('mocha');
 const {expect} = require('chai');
 const fetch = require('node-fetch');
 const {promisify: p} = require('util');
-const {startApp} = require('../../../src/cypress/plugin/app');
+const {startApp} = require('../../../src/plugin/app');
 const psetTimeout = p(setTimeout);
 
 function listen(app) {

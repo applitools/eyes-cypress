@@ -1,2 +1,2 @@
 'use strict';
-require('./src/cypress/commands');
+require('./src/commands');

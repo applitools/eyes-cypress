@@ -1,1 +1,1 @@
-import '../../../../../src/cypress/commands';
+import '../../../../../src/commands';

@@ -3,7 +3,7 @@
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const {resolve} = require('path');
-const getCypressConfig = require('../../../src/cypress/setup/getCypressConfig');
+const getCypressConfig = require('../../../src/setup/getCypressConfig');
 
 describe('getCypressConfig', () => {
   it('finds existing cypress.json', () => {

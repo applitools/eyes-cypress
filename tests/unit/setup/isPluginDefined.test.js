@@ -2,7 +2,7 @@
 
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
-const isPluginDefined = require('../../../src/cypress/setup/isPluginDefined');
+const isPluginDefined = require('../../../src/setup/isPluginDefined');
 
 describe('isPluginDefined', () => {
   it('handles single quote require', () => {

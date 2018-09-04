@@ -2,7 +2,7 @@
 
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
-const getPluginsFilePath = require('../../../src/cypress/setup/getPluginsFilePath');
+const getPluginsFilePath = require('../../../src/setup/getPluginsFilePath');
 
 describe('getPluginsFilePath', () => {
   it('handles null config', () => {

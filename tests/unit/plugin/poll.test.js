@@ -1,7 +1,7 @@
 'use strict';
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
-const poll = require('../../../src/cypress/poll');
+const poll = require('../../../src/poll');
 const {promisify: p} = require('util');
 const psetTimeout = p(setTimeout);
 

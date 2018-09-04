@@ -2,7 +2,7 @@
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const fetch = require('node-fetch');
-const startPlugin = require('../../../src/cypress/plugin/startPlugin');
+const startPlugin = require('../../../src/plugin/startPlugin');
 
 describe('start plugin', () => {
   it('starts plugin server and patches module exports', async () => {

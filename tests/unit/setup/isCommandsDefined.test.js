@@ -2,7 +2,7 @@
 
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
-const isCommandsDefined = require('../../../src/cypress/setup/isCommandsDefined');
+const isCommandsDefined = require('../../../src/setup/isCommandsDefined');
 
 describe('isCommandsDefined', () => {
   it('handles single quote require', () => {

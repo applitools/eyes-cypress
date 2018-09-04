@@ -2,7 +2,7 @@
 
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
-const addEyesCypressPlugin = require('../../../src/cypress/setup/addEyesCypressPlugin');
+const addEyesCypressPlugin = require('../../../src/setup/addEyesCypressPlugin');
 const {pluginRequire} = addEyesCypressPlugin;
 
 describe('addEyesCypressPlugin', () => {
