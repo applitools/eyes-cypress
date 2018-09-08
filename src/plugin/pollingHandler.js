@@ -9,10 +9,7 @@ const PollingStatus = {
 
 const DEFAULT_TIMEOUT = 120000;
 
-const TIMEOUT_MSG = (timeout = DEFAULT_TIMEOUT) =>
-  `The cy.eyesClose command timed out after ${timeout}ms. The default timeout is 2 minutes. It's possible to increase this timeout by passing a larger value, e.g. for 3 minutes: cy.eyesClose({ timeout: 180000 })`;
-
-function pollingHandler(doWork) {
+function pollingHandler(doWork, getTimeoutMsg) {
   let timeoutId,
     timeoutUsed,
     pollingStatus = PollingStatus.IDLE,
@@ -51,7 +48,7 @@ function pollingHandler(doWork) {
 
       case PollingStatus.TIMEOUT:
         pollingStatus = PollingStatus.IDLE;
-        const timeoutMsg = TIMEOUT_MSG(timeoutUsed);
+        const timeoutMsg = getTimeoutMsg(timeoutUsed);
         timeoutUsed = null;
         throw new Error(timeoutMsg);
 
@@ -67,4 +64,3 @@ function pollingHandler(doWork) {
 
 module.exports = pollingHandler;
 module.exports.PollingStatus = PollingStatus;
-module.exports.TIMEOUT_MSG = TIMEOUT_MSG;

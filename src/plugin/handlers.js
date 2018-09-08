@@ -1,6 +1,9 @@
 'use strict';
 const pollingHandler = require('./pollingHandler');
 
+const TIMEOUT_MSG = timeout =>
+  `Eyes.Cypress timed out after ${timeout}ms. The default timeout is 2 minutes. It's possible to increase this timeout by setting a the value of 'eyesTimeout' in Cypress configuration, e.g. for 3 minutes: Cypress.config('eyesTimeout', 180000)`;
+
 function makeHandlers({makeVisualGridClient, logger = console}) {
   let openEyes, pollBatchEnd, checkWindow, close, resources, openErr;
   const runningTests = [];
@@ -27,7 +30,7 @@ function makeHandlers({makeVisualGridClient, logger = console}) {
     batchStart: args => {
       const client = makeVisualGridClient(args);
       openEyes = client.openEyes;
-      pollBatchEnd = pollingHandler(makeWaitForTestResults(client.waitForTestResults));
+      pollBatchEnd = pollingHandler(makeWaitForTestResults(client.waitForTestResults), TIMEOUT_MSG);
       return client;
     },
 
@@ -132,3 +135,4 @@ function makeHandlers({makeVisualGridClient, logger = console}) {
 }
 
 module.exports = makeHandlers;
+module.exports.TIMEOUT_MSG = TIMEOUT_MSG;

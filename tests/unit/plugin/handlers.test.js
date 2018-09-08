@@ -2,9 +2,10 @@
 const {describe, it, beforeEach} = require('mocha');
 const {expect} = require('chai');
 const makeHandlers = require('../../../src/plugin/handlers');
-const {PollingStatus, TIMEOUT_MSG} = require('../../../src/plugin/pollingHandler');
+const {PollingStatus} = require('../../../src/plugin/pollingHandler');
 const {promisify: p} = require('util');
 const psetTimeout = p(setTimeout);
+const {TIMEOUT_MSG} = makeHandlers;
 
 describe('command handlers', () => {
   let handlers;

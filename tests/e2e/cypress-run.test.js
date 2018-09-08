@@ -4,7 +4,7 @@ const {expect} = require('chai');
 const {exec} = require('child_process');
 const {promisify: p} = require('util');
 const {resolve} = require('path');
-const {TIMEOUT_MSG} = require('../../src/plugin/pollingHandler');
+const {TIMEOUT_MSG} = require('../../src/plugin/handlers');
 
 const pexec = p(exec);
 
