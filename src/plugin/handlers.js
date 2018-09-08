@@ -6,7 +6,7 @@ const TIMEOUT_MSG = timeout =>
 
 function makeHandlers({makeVisualGridClient, logger = console}) {
   let openEyes, pollBatchEnd, checkWindow, close, resources, openErr;
-  const runningTests = [];
+  let runningTests = [];
 
   return {
     open: async args => {
@@ -28,6 +28,7 @@ function makeHandlers({makeVisualGridClient, logger = console}) {
     },
 
     batchStart: args => {
+      runningTests = [];
       const client = makeVisualGridClient(args);
       openEyes = client.openEyes;
       pollBatchEnd = pollingHandler(makeWaitForTestResults(client.waitForTestResults), TIMEOUT_MSG);
