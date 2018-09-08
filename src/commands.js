@@ -40,7 +40,7 @@ Cypress.Commands.add('eyesCheckWindow', args => {
 
   Cypress.log({name: 'Eyes: check window'});
   return cy.document({log: false}).then(doc =>
-    cy.window({log: false}).then(win => {
+    cy.window({log: false}).then({timeout: 10000}, win => {
       const cdt = domNodesToCdt(doc);
       const domCapture = captureFrame(defaultDomProps, doc);
       const url = win.location.href;
