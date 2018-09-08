@@ -8,7 +8,7 @@ describe('Hello world', () => {
       appName: 'Hello World!',
       testName: 'My first JavaScript test!',
       browser: { width: 800, height: 600 },
-      showLogs: true
+      // showLogs: true
     });
     cy.eyesCheckWindow('Main Page');
     cy.get('button').click();

@@ -1,20 +1,24 @@
 describe('eyes.cypress', () => {
 
+  const url = `http://localhost:${Cypress.config('testPort')}/test.html`;
+
   // This also tests the setting of `testName` in `beforeEach`
 
   beforeEach(() => {
+    cy.setCookie('auth', 'secret');
     cy.eyesOpen({
       appName: 'some app',
       browser: {width: 1024, height: 768},
-      showLogs: true,
+      // showLogs: true,
     });
   });
 
-  it('region', () => {
-    cy.setCookie('auth', 'secret');
-    const url = `http://localhost:${Cypress.config('testPort')}/test.html`;
+  afterEach(() => {
+    cy.eyesClose();
+  })
+
+  it('region absolute', () => {
     cy.visit(url);
-    cy.eyesCheckWindow({tag: 'selector', sizeMode: 'selector', selector: '.region'});
     cy.get('.absolutely').then($el => {
       const {left, top, width, height} = $el[0].getBoundingClientRect();
       cy.eyesCheckWindow({
@@ -23,6 +27,17 @@ describe('eyes.cypress', () => {
         region: {left, top, width, height},
       });
     });
-    cy.eyesClose();
+  });
+  
+  it('region selector', () => {
+    cy.visit(url);
+    cy.get('.absolutely').then($el => {
+      const {left, top, width, height} = $el[0].getBoundingClientRect();
+      cy.eyesCheckWindow({
+        tag: 'region',
+        sizeMode: 'region',
+        region: {left, top, width, height},
+      });
+    });
   });
 });

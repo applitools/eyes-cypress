@@ -1,5 +1,6 @@
 'use strict';
 const pollingHandler = require('./pollingHandler');
+const {DiffsFoundError} = require('@applitools/visual-grid-client');
 
 const TIMEOUT_MSG = timeout =>
   `Eyes.Cypress timed out after ${timeout}ms. The default timeout is 2 minutes. It's possible to increase this timeout by setting a the value of 'eyesTimeout' in Cypress configuration, e.g. for 3 minutes: Cypress.config('eyesTimeout', 180000)`;
@@ -93,9 +94,7 @@ function makeHandlers({makeVisualGridClient, logger = console}) {
       }
 
       // not returning this promise because we don't to wait on it before responding to the client
-      close().catch(err => {
-        logger.log('error in close:', err);
-      });
+      close();
 
       resources = null;
       close = null;
@@ -123,15 +122,39 @@ function makeHandlers({makeVisualGridClient, logger = console}) {
         waitForTestResults(closePromises),
         Promise.all(aborts.map(abort => abort())),
       ]);
+
+      const testErrors = testResults.filter(result => result instanceof Error);
+      const diffErrors = testErrors.filter(err => err instanceof DiffsFoundError);
+      const exceptions = testErrors.filter(err => !(err instanceof DiffsFoundError));
+      logger.log('waitForTestResults: diff errors', diffErrors);
+      logger.log('waitForTestResults: test errors', exceptions);
+      if (testErrors.length) {
+        throw new Error(
+          `
+    Passed - ${testResults.length - testResults.length} tests.
+    Diffs detected - ${diffErrors.length} tests.${errorDigest(diffErrors)}
+    Errors - ${exceptions.length} tests.${errorDigest(exceptions)}`,
+        );
+      }
+
       return testResults;
     };
   }
 
   function makeClose(doClose, runningTest) {
     return async function() {
-      runningTest.closePromise = doClose();
+      runningTest.closePromise = doClose().catch(err => {
+        logger.log('error in close', err);
+        return err;
+      });
       return runningTest.closePromise;
     };
+  }
+
+  function errorDigest(errors) {
+    return errors.length
+      ? `\n\t\t\t${errors.map((err, i) => `${i + 1}) ${err}`).join('\n\t\t\t')}`
+      : '';
   }
 }
 
