@@ -2,7 +2,7 @@ describe('eyes.cypress', () => {
 
   // This also tests the setting of `testName` inside `it`
 
-  it('failed fetch', () => {
+  it.skip('failed fetch', () => {
     const url = `http://localhost:${Cypress.config('testPort')}/testFailedFetch.html`;
     cy.visit(url);
     cy.eyesOpen({
