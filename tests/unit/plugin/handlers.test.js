@@ -222,7 +222,7 @@ describe('command handlers', () => {
     expect(result).to.eql({status: PollingStatus.WIP});
 
     // WIP ==> DONE
-    const successMsg = 'success';
+    const successMsg = ['success'];
     __resolveWaitForTestResults(successMsg);
     await psetTimeout(0);
 

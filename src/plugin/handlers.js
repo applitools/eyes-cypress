@@ -1,5 +1,6 @@
 'use strict';
 const pollingHandler = require('./pollingHandler');
+const makeWaitForBatch = require('./waitForBatch');
 const {DiffsFoundError} = require('@applitools/visual-grid-client');
 
 const TIMEOUT_MSG = timeout =>
@@ -32,7 +33,13 @@ function makeHandlers({makeVisualGridClient, logger = console}) {
       runningTests = [];
       const client = makeVisualGridClient(args);
       openEyes = client.openEyes;
-      pollBatchEnd = pollingHandler(makeWaitForTestResults(client.waitForTestResults), TIMEOUT_MSG);
+      const waitForBatch = makeWaitForBatch({
+        waitForTestResults: client.waitForTestResults,
+        runningTests,
+        logger,
+        DiffsFoundError,
+      });
+      pollBatchEnd = pollingHandler(waitForBatch, TIMEOUT_MSG);
       return client;
     },
 
@@ -103,44 +110,6 @@ function makeHandlers({makeVisualGridClient, logger = console}) {
     },
   };
 
-  function getClosePromise(test) {
-    return test.closePromise;
-  }
-
-  function makeWaitForTestResults(waitForTestResults) {
-    return async function() {
-      const closePromises = runningTests.filter(getClosePromise).map(getClosePromise);
-      const aborts = runningTests.filter(test => !test.closePromise).map(test => test.abort);
-
-      logger.log(
-        `Waiting for test results of ${closePromises.length} closed tests. Going to abort ${
-          aborts.length
-        } tests`,
-      );
-
-      const [testResults] = await Promise.all([
-        waitForTestResults(closePromises),
-        Promise.all(aborts.map(abort => abort())),
-      ]);
-
-      const testErrors = testResults.filter(result => result instanceof Error);
-      const diffErrors = testErrors.filter(err => err instanceof DiffsFoundError);
-      const exceptions = testErrors.filter(err => !(err instanceof DiffsFoundError));
-      logger.log('waitForTestResults: diff errors', diffErrors);
-      logger.log('waitForTestResults: test errors', exceptions);
-      if (testErrors.length) {
-        throw new Error(
-          `
-    Passed - ${testResults.length - testResults.length} tests.
-    Diffs detected - ${diffErrors.length} tests.${errorDigest(diffErrors)}
-    Errors - ${exceptions.length} tests.${errorDigest(exceptions)}`,
-        );
-      }
-
-      return testResults;
-    };
-  }
-
   function makeClose(doClose, runningTest) {
     return async function() {
       runningTest.closePromise = doClose().catch(err => {
@@ -149,12 +118,6 @@ function makeHandlers({makeVisualGridClient, logger = console}) {
       });
       return runningTest.closePromise;
     };
-  }
-
-  function errorDigest(errors) {
-    return errors.length
-      ? `\n\t\t\t${errors.map((err, i) => `${i + 1}) ${err}`).join('\n\t\t\t')}`
-      : '';
   }
 }
 
