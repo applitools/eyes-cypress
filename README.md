@@ -230,6 +230,7 @@ It's possible to define the following configuration for tests:
 | `saveFailedTests`         | false                       | Set whether or not failed tests are saved by default. |
 | `saveNewTests`            | false                       | Set whether or not new tests are saved by default. |
 | `serverUrl`               | Default Eyes server URL     | The URL of Eyes server |
+| `properties`              | undefined                   | Custom properties for the eyes test. The format is an array of objects with name/value properties. For example: `[{name: 'My prop', value:'My value'}]`. |
 | `compareWithParentBranch` | false                       |  |
 | `ignoreBaseline`          | false                       |  |
 
