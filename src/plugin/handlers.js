@@ -6,7 +6,7 @@ const {DiffsFoundError} = require('@applitools/visual-grid-client');
 const TIMEOUT_MSG = timeout =>
   `Eyes.Cypress timed out after ${timeout}ms. The default timeout is 2 minutes. It's possible to increase this timeout by setting a the value of 'eyesTimeout' in Cypress configuration, e.g. for 3 minutes: Cypress.config('eyesTimeout', 180000)`;
 
-function makeHandlers({makeVisualGridClient, logger = console}) {
+function makeHandlers({makeVisualGridClient, config = {}, logger = console}) {
   let openEyes, pollBatchEnd, checkWindow, close, resources, openErr;
   let runningTests = [];
 
@@ -29,9 +29,9 @@ function makeHandlers({makeVisualGridClient, logger = console}) {
       }
     },
 
-    batchStart: args => {
+    batchStart: () => {
       runningTests = [];
-      const client = makeVisualGridClient(args);
+      const client = makeVisualGridClient(config);
       openEyes = client.openEyes;
       const waitForBatch = makeWaitForBatch({
         waitForTestResults: client.waitForTestResults,

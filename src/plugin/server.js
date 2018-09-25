@@ -1,19 +1,18 @@
 'use strict';
-const {makeVisualGridClient, initConfig, createLogger} = require('@applitools/visual-grid-client');
+const {
+  makeVisualGridClient,
+  makeGetConfig,
+  createLogger,
+} = require('@applitools/visual-grid-client');
 const {startApp} = require('./app');
 const makeHandlers = require('./handlers');
-const {getConfig, updateConfig, getInitialConfig} = initConfig(process.cwd());
-const showLogs = getConfig().showLogs;
-const logger = createLogger(showLogs);
+const getConfig = makeGetConfig();
+const config = getConfig();
+const logger = createLogger(config.showLogs);
 const handlers = makeHandlers({
   logger,
-  makeVisualGridClient: () =>
-    makeVisualGridClient({
-      getConfig,
-      updateConfig,
-      getInitialConfig,
-      showLogs,
-    }),
+  config,
+  makeVisualGridClient,
 });
 
 const app = startApp(handlers, logger);
