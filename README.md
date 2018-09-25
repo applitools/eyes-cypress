@@ -237,9 +237,9 @@ It's possible to define the following configuration for tests:
 There are 3 ways to specify test configuration:
 1) Arguments to `cy.eyesOpen()`
 2) Environment variables
-3) The `eyes.json` file
+3) The `applitools.config.js` file
 
-The list above is also the order of precedence, which means that if you pass a property to `cy.eyesOpen` it will override the environment variable, and the environment variable will override the value defined in the `eyes.json` file.
+The list above is also the order of precedence, which means that if you pass a property to `cy.eyesOpen` it will override the environment variable, and the environment variable will override the value defined in the `applitools.config.js` file.
 
 ### Method 1: Arguments for `cy.eyesOpen`
 
@@ -267,15 +267,15 @@ APPLITOOLS_BATCH_NAME
 // all other configuration variables apply
 ```
 
-### Method 3: The `eyes.json` file
+### Method 3: The `applitools.config.js` file
 
-It's possible to have a file called `eyes.json` at the same folder location as `cypress.json`. In this file specify the desired configuration, in a valid JSON format. For example:
+It's possible to have a file called `applitools.config.js` at the same folder location as `cypress.json`. In this file specify the desired configuration, in a valid JSON format. For example:
 
 ```js
-{
-  "appName": "My app",
-  "showLogs": true,
-  "batchName": "My batch"
+module.exports = {
+  appName: 'My app',
+  showLogs: true,
+  batchName: 'My batch'
   ...
   // all other configuration variables apply
 }
