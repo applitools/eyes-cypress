@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@applitools/dom-capture": "^2.0.1",
-    "@applitools/visual-grid-client": "^5.0.8",
+    "@applitools/visual-grid-client": "^5.1.1",
     "body-parser": "1.18.2",
     "cors": "^2.8.4",
     "express": "^4.16.3"

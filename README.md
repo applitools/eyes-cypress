@@ -188,7 +188,18 @@ cy.eyesCheckWindow({
 cy.eyesCheckWindow({
   ignore: [
     {top: 100, left: 0, width: 1000, height: 100},
-    {top: 500, left: 0, width: 1000, height: 100}
+    {selector: '.some-div-to-ignore'}
+  ]
+});
+```
+
+- `floating` (optional): A single or an array of floating regions to ignore when checking for visual differences. More information about floating regions can be found in Applitools docs [here](https://help.applitools.com/hc/en-us/articles/360006915292-Testing-of-floating-UI-elements). For example:
+
+```js
+cy.eyesCheckWindow({
+  floating: [
+    {top: 100, left: 0, width: 1000, height: 100, maxUpOffset: 20, maxDownOffset: 20, maxLeftOffset: 20, maxRightOffset: 20},
+    {selector: '.some-div-to-float', maxUpOffset: 20, maxDownOffset: 20, maxLeftOffset: 20, maxRightOffset: 20}
   ]
 });
 ```
