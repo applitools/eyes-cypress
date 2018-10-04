@@ -66,6 +66,7 @@ function makeHandlers({makeVisualGridClient, config = {}, logger = console}) {
       region,
       scriptHooks,
       ignore,
+      frames,
     }) => {
       if (!checkWindow) {
         throw new Error('Please call cy.eyesOpen() before calling cy.eyesCheckWindow()');
@@ -88,6 +89,7 @@ function makeHandlers({makeVisualGridClient, config = {}, logger = console}) {
         region,
         scriptHooks,
         ignore,
+        frames,
       });
     },
 
