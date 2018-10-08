@@ -38,10 +38,10 @@ Cypress.Commands.add('eyesCheckWindow', args => {
 
   Cypress.log({name: 'Eyes: check window'});
   return cy.document({log: false}).then(doc =>
-    cy.window({log: false}).then({timeout: 10000}, win => {
-      return processDocument(doc).then(({resourceUrls, blobs, frames, url, cdt}) => {
+    cy.window({log: false}).then({timeout: 10000}, () => {
+      return processDocument(doc).then(({resourceUrls, blobs, frames, url, cdt, allBlobs}) => {
         const blobData = blobs.map(({url, type}) => ({url, type}));
-        return Promise.all(blobs.map(putResource)).then(() =>
+        return Promise.all(allBlobs.map(putResource)).then(() =>
           sendRequest({
             command: 'checkWindow',
             data: {
