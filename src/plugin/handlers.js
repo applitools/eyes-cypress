@@ -66,15 +66,14 @@ function makeHandlers({makeVisualGridClient, config = {}, logger = console}) {
       region,
       scriptHooks,
       ignore,
+      frames,
     }) => {
       if (!checkWindow) {
         throw new Error('Please call cy.eyesOpen() before calling cy.eyesCheckWindow()');
       }
 
-      const resourceContents = blobData.reduce((acc, {url, type}) => {
-        acc[url] = {url, type, value: resources[url]};
-        return acc;
-      }, {});
+      const resourceContents = blobDataToResourceContents(blobData);
+      const framesWithResources = createResourceContents(frames);
 
       return await checkWindow({
         url,
@@ -88,6 +87,7 @@ function makeHandlers({makeVisualGridClient, config = {}, logger = console}) {
         region,
         scriptHooks,
         ignore,
+        frames: framesWithResources,
       });
     },
 
@@ -118,6 +118,25 @@ function makeHandlers({makeVisualGridClient, config = {}, logger = console}) {
       });
       return runningTest.closePromise;
     };
+  }
+
+  function createResourceContents(frames) {
+    return frames.map(frame => {
+      return {
+        url: frame.url,
+        cdt: frame.cdt,
+        resourceUrls: frame.resourceUrls,
+        resourceContents: blobDataToResourceContents(frame.blobs),
+        frames: frame.frames ? createResourceContents(frame.frames) : undefined,
+      };
+    });
+  }
+
+  function blobDataToResourceContents(blobData) {
+    return blobData.reduce((acc, {url, type}) => {
+      acc[url] = {url, type, value: resources[url]};
+      return acc;
+    }, {});
   }
 }
 

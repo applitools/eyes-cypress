@@ -1,11 +1,9 @@
 /* global Cypress,cy,window,before,after */
 'use strict';
-const {extractResources, domNodesToCdt} = require('@applitools/visual-grid-client/browser');
+const {processDocument} = require('@applitools/visual-grid-client/browser');
 const poll = require('./poll');
 const makeSend = require('./makeSend');
 const send = makeSend(Cypress.config('eyesPort'), cy.request);
-const captureFrame = require('@applitools/dom-capture/src/captureFrame');
-const defaultDomProps = require('@applitools/dom-capture/src/defaultDomProps');
 
 before(() => {
   sendRequest({command: 'batchStart'});
@@ -40,13 +38,10 @@ Cypress.Commands.add('eyesCheckWindow', args => {
 
   Cypress.log({name: 'Eyes: check window'});
   return cy.document({log: false}).then(doc =>
-    cy.window({log: false}).then({timeout: 10000}, win => {
-      const cdt = domNodesToCdt(doc);
-      const domCapture = captureFrame(defaultDomProps, doc);
-      const url = win.location.href;
-      return extractResources(doc, win).then(({resourceUrls, blobs}) => {
+    cy.window({log: false}).then({timeout: 10000}, () => {
+      return processDocument(doc).then(({resourceUrls, blobs, frames, url, cdt, allBlobs}) => {
         const blobData = blobs.map(({url, type}) => ({url, type}));
-        return Promise.all(blobs.map(putResource)).then(() =>
+        return Promise.all(allBlobs.map(putResource)).then(() =>
           sendRequest({
             command: 'checkWindow',
             data: {
@@ -56,11 +51,11 @@ Cypress.Commands.add('eyesCheckWindow', args => {
               tag,
               sizeMode,
               blobData,
-              domCapture,
               selector,
               region,
               scriptHooks,
               ignore,
+              frames,
             },
           }),
         );
