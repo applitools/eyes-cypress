@@ -140,6 +140,7 @@ describe('command handlers', () => {
       resourceContents,
       scriptHooks,
       ignore,
+      frames: [],
     });
   });
 
