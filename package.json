@@ -33,17 +33,17 @@
   },
   "dependencies": {
     "@applitools/dom-capture": "^2.0.1",
-    "@applitools/visual-grid-client": "^5.3.1",
-    "body-parser": "1.18.2",
+    "@applitools/visual-grid-client": "^5.3.2",
+    "body-parser": "^1.18.3",
     "cors": "^2.8.4",
-    "express": "^4.16.3"
+    "express": "^4.16.4"
   },
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-spies": "^1.0.0",
     "cookie-parser": "^1.4.3",
     "cypress": "^3.1.0",
-    "eslint": "^5.6.1",
+    "eslint": "^5.7.0",
     "eslint-plugin-mocha-no-only": "^1.0.0",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-prettier": "^2.7.0",
