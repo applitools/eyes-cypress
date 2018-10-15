@@ -35,9 +35,11 @@ describe('app', () => {
   it('handles resource', async () => {
     let _id, _buffer;
     const app = await startApp({
-      putResource: (id, buffer) => {
-        _id = id;
-        _buffer = buffer;
+      handlers: {
+        putResource: (id, buffer) => {
+          _id = id;
+          _buffer = buffer;
+        },
       },
     });
 
@@ -60,8 +62,10 @@ describe('app', () => {
 
   it('handles error in resource', async () => {
     const app = await startApp({
-      putResource: () => {
-        throw new Error('putResource');
+      handlers: {
+        putResource: () => {
+          throw new Error('putResource');
+        },
       },
     });
 
@@ -83,9 +87,11 @@ describe('app', () => {
   it('handles encoded resource URI', async () => {
     let _id, _buffer;
     const app = await startApp({
-      putResource: (id, buffer) => {
-        _id = id;
-        _buffer = buffer;
+      handlers: {
+        putResource: (id, buffer) => {
+          _id = id;
+          _buffer = buffer;
+        },
       },
     });
 
@@ -110,9 +116,11 @@ describe('app', () => {
   it('handles eyes command', async () => {
     let _args;
     const app = await startApp({
-      bla: async args => {
-        _args = args;
-        return args;
+      handlers: {
+        bla: async args => {
+          _args = args;
+          return args;
+        },
       },
     });
 
@@ -142,9 +150,11 @@ describe('app', () => {
   it('handles error in eyes command', async () => {
     let _args;
     const app = await startApp({
-      err: async () => {
-        await psetTimeout(0);
-        throw new Error('bla');
+      handlers: {
+        err: async () => {
+          await psetTimeout(0);
+          throw new Error('bla');
+        },
       },
     });
 
