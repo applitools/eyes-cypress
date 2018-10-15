@@ -1,1 +1,1 @@
-import '../../../../../src/commands';
+import '../../../../../commands';

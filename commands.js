@@ -1,2 +1,2 @@
 'use strict';
-require('./src/commands');
+require('./src/browser/commands');
