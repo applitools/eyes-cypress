@@ -10,7 +10,7 @@ const {
 } = require('@applitools/visual-grid-client');
 const makeHandlers = require('./handlers');
 const getConfig = makeGetConfig();
-const config = getConfig();
+const config = Object.assign({concurrency: 1}, getConfig());
 const logger = createLogger(config.showLogs);
 const handlers = makeHandlers({
   logger,
@@ -19,5 +19,7 @@ const handlers = makeHandlers({
 });
 const app = startApp({handlers, logger});
 const startServer = makeStartServer({app, logger});
+
+logger.log('eyes.cypress plugin running with config:', config);
 
 module.exports = makePluginExport(startServer);
