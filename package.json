@@ -32,7 +32,6 @@
     "url": "https://github.com/applitools/eyes.cypress.git"
   },
   "dependencies": {
-    "@applitools/dom-capture": "^2.0.6",
     "@applitools/visual-grid-client": "^5.3.5",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
