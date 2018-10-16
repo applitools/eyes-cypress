@@ -106,7 +106,6 @@ describe('command handlers', () => {
     const resourceUrls = 'resourceUrls';
     const tag = 'tag';
     const sizeMode = 'sizeMode';
-    const domCapture = 'domCapture';
     const selector = 'selector';
     const region = 'region';
     const url = 'url';
@@ -121,7 +120,6 @@ describe('command handlers', () => {
       tag,
       url,
       sizeMode,
-      domCapture,
       selector,
       region,
       scriptHooks,
@@ -136,7 +134,6 @@ describe('command handlers', () => {
       tag,
       sizeMode,
       url,
-      domCapture,
       selector,
       region,
       resourceContents,
