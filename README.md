@@ -69,6 +69,17 @@ set APPLITOOLS_API_KEY=<your_key>
 npx cypress open
 ```
 
+It's also possible to specify the API key in the `applitools.config.js` file. The property name is `apiKey`. For example:
+
+```js
+module.exports = {
+  apiKey: 'YOUR_API_KEY',
+  ...
+}
+```
+
+See the [Advanced configuration](#method-3-the-applitoolsconfigjs-file) section below for more information on using the config file.
+
 ## Usage
 
 After completing the configuation (either automatic or manual) and defining the API key, you will be able to use commands from Eyes.Cypress in your cypress tests to take screenshots and use Applitools Eyes to manage them:
@@ -103,7 +114,6 @@ describe('Hello world', () => {
   beforEach(() => {
     cy.eyesOpen({
       appName: 'Hello World!',
-      testName: 'My first JavaScript test!',
       browser: { width: 800, height: 600 },
     });
   });
@@ -112,7 +122,7 @@ describe('Hello world', () => {
     cy.eyesClose();
   });
 
-  it('works', () => {
+  it('My first JavaScript test!', () => {
     cy.visit('https://applitools.com/helloworld');
     cy.eyesCheckWindow('Main Page');
     cy.get('button').click();
@@ -122,6 +132,7 @@ describe('Hello world', () => {
 ```
 
 Applitools will take screenshots and perform the visual comparisons in the background. Performance of the tests will not be affected during the test run, but there will be a small phase at the end of the test run that waits for visual tests to end.
+
 **Note**: In Cypress interactive mode (`cypress open`) there is a bug that exceptions in root level `after` statements don't appear in the UI. They still appear in the browser's console, and considered failures in `cypress run`. See [this issue](https://github.com/cypress-io/cypress/issues/2296) for more information and tracking.
 
 ### Commands
@@ -140,7 +151,7 @@ cy.eyesOpen({
 });
 ```
 
-It's possible to pass a config object to `eyesOpen` with all the possible configuration properties. Read the [Advanced configuration] section for a detailed description.
+It's possible to pass a config object to `eyesOpen` with all the possible configuration properties. Read the [Advanced configuration](#advanced-configuration) section for a detailed description.
 
 #### Check window
 
@@ -224,7 +235,7 @@ It's possible to define the following configuration for tests:
 | -------------             |:-------------               |:-----------   |
 | `testName`                | The value of Cypress's test title | Test name. If this is not specified, the test name will be the title of the `it` block where the test is running.    |
 | `browser`                 | { width: 800, height: 600, name: 'chrome' } | The size and browser of the generated screenshots. This doesn't need to be the same as the browser that Cypress is running. It could be a different size and also a different browser. Currently, `firefox` and `chrome` are supported. For more info, see the [browser section below](#configuring-the-browser).|
-| `showLogs`                | false                       | Whether or not you want to see logs of the Eyes.Cypress plugin. Logs are written to the same output of the Cypress process. |
+| `concurrency`             | 1                           | The maximum number of tests that can run concurrently. The default value is the allowed amount for free accounts. For paid accounts, set this number to the quota set for your account. |
 | `saveDebugData`           | false                       | Whether to save troubleshooting data. See the troubleshooting section of this doc for more info. |
 | `batchId`                 | random                      | Provides ability to group tests into batches. Read more about batches [here](https://applitools.com/docs/topics/working-with-test-batches/how-to-group-tests-into-batches.html). |
 | `batchName`               | undefined                   | Provides a name to the batch. |
@@ -237,13 +248,15 @@ It's possible to define the following configuration for tests:
 | `branchName`              | undefined                   | The name of the branch. |
 | `baselineBranchName`      | undefined                   | The name of the baseline branch. |
 | `parentBranchName`        | undefined                   | Sets the branch under which new branches are created. |
-| `proxy`                   | undefined                   | Sets the proxy settings to be used in network requests to Eyes server. |
 | `saveFailedTests`         | false                       | Set whether or not failed tests are saved by default. |
 | `saveNewTests`            | false                       | Set whether or not new tests are saved by default. |
-| `serverUrl`               | Default Eyes server URL     | The URL of Eyes server |
 | `properties`              | undefined                   | Custom properties for the eyes test. The format is an array of objects with name/value properties. For example: `[{name: 'My prop', value:'My value'}]`. |
 | `compareWithParentBranch` | false                       |  |
 | `ignoreBaseline`          | false                       |  |
+| `showLogs`                | false                       | Whether or not you want to see logs of the Eyes.Cypress plugin. Logs are written to the same output of the Cypress process. |
+| `serverUrl`               | Default Eyes server URL     | The URL of Eyes server |
+| `proxy`                   | undefined                   | Sets the proxy settings to be used in network requests to Eyes server. |
+| `apiKey`                  | undefined                   | The API key used for working with the Applitools Eyes server. See more info in the [Applitools API key](#applitools-api-key) section above |
 
 There are 3 ways to specify test configuration:
 1) Arguments to `cy.eyesOpen()`
@@ -251,6 +264,8 @@ There are 3 ways to specify test configuration:
 3) The `applitools.config.js` file
 
 The list above is also the order of precedence, which means that if you pass a property to `cy.eyesOpen` it will override the environment variable, and the environment variable will override the value defined in the `applitools.config.js` file.
+
+**Important note about exceptions to this list**: The configuration properties `showLogs`, `apiKey`, `serverUrl` and `proxy` cannot be defined using the first method of passing them to `cy.eyesOpen`. They should be defined either in the `applitools.config.js` file or as environment variables.
 
 ### Method 1: Arguments for `cy.eyesOpen`
 
