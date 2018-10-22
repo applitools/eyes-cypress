@@ -7,12 +7,14 @@ const TIMEOUT_MSG = timeout =>
   `Eyes.Cypress timed out after ${timeout}ms. The default timeout is 2 minutes. It's possible to increase this timeout by setting a the value of 'eyesTimeout' in Cypress configuration, e.g. for 3 minutes: Cypress.config('eyesTimeout', 180000)`;
 
 function makeHandlers({makeVisualGridClient, config = {}, logger = console}) {
+  logger.log('[handlers] creating handlers with the following config:', config);
   let openEyes, pollBatchEnd, checkWindow, close, resources, openErr;
   let runningTests = [];
 
   return {
     open: async args => {
       try {
+        logger.log(`[handlers] open: close=${typeof close}, args=`, args);
         const eyes = await openEyes(args);
         const runningTest = {
           abort: eyes.abort,
@@ -22,14 +24,17 @@ function makeHandlers({makeVisualGridClient, config = {}, logger = console}) {
         close = makeClose(eyes.close, runningTest);
         resources = {};
         runningTests.push(runningTest);
+        logger.log('[handlers] open finished');
         return eyes;
       } catch (err) {
+        logger.log(`[handlers] openEyes error ${err}`);
         openErr = err;
         throw err;
       }
     },
 
     batchStart: () => {
+      logger.log('[handlers] batchStart');
       runningTests = [];
       const client = makeVisualGridClient(config);
       openEyes = client.openEyes;
@@ -44,6 +49,7 @@ function makeHandlers({makeVisualGridClient, config = {}, logger = console}) {
     },
 
     batchEnd: async ({timeout} = {}) => {
+      logger.log(`[handlers] batchEnd, timeout=${timeout}`);
       return await pollBatchEnd(timeout);
     },
 
@@ -68,6 +74,7 @@ function makeHandlers({makeVisualGridClient, config = {}, logger = console}) {
       frames = [],
       sendDom,
     }) => {
+      logger.log(`[handlers] checkWindow: checkWindow=${typeof checkWindow}`);
       if (!checkWindow) {
         throw new Error('Please call cy.eyesOpen() before calling cy.eyesCheckWindow()');
       }
@@ -92,6 +99,11 @@ function makeHandlers({makeVisualGridClient, config = {}, logger = console}) {
     },
 
     close: async () => {
+      logger.log(
+        `[handlers] close: openErr=${openErr}, close=${typeof close}, checkWindow=${typeof checkWindow}, resources=${
+          resources ? `count:${Object.keys(resources).length}` : resources
+        }`,
+      );
       if (openErr) {
         return;
       }
