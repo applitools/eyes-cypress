@@ -50,7 +50,7 @@ function makeHandlers({makeVisualGridClient, config = {}, logger = console}) {
 
     batchEnd: async ({timeout} = {}) => {
       logger.log(`[handlers] batchEnd, timeout=${timeout}`);
-      return await pollBatchEnd(timeout);
+      return await pollBatchEnd({timeout});
     },
 
     putResource: (id, buffer) => {

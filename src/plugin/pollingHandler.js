@@ -16,7 +16,7 @@ function pollingHandler(doWork, getTimeoutMsg) {
     workError,
     workResults;
 
-  return (timeout = DEFAULT_TIMEOUT) => {
+  return ({args, timeout = DEFAULT_TIMEOUT}) => {
     switch (pollingStatus) {
       case PollingStatus.IDLE:
         pollingStatus = PollingStatus.WIP;
@@ -25,7 +25,7 @@ function pollingHandler(doWork, getTimeoutMsg) {
           pollingStatus = PollingStatus.TIMEOUT;
           timeoutId = null;
         }, timeout);
-        doWork()
+        doWork(args)
           .then(results => {
             pollingStatus = PollingStatus.DONE;
             clearTimeout(timeoutId);
