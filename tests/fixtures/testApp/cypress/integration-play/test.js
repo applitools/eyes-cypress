@@ -1,22 +1,23 @@
-/* globals describe,it,cy,Cypress */
+/* globals describe,it,cy,Cypress,beforeEach,afterEach */
 describe('eyes.cypress', () => {
-  it('runs', () => {
+  beforeEach(() => {
     cy.setCookie('auth', 'secret');
-    const url = `http://localhost:${Cypress.config('testPort')}/test.html`;
-    cy.visit(url);
     cy.eyesOpen({
       appName: 'some app',
-      testName: 'cypress-play-test',
-      browser: {width: 1024, height: 768},
-      showLogs: true,
-      // saveDebugData: true,
     });
+  });
+  it('cypress-play-test-1', () => {
+    const url = `http://localhost:${Cypress.config('testPort')}/test.html`;
+    cy.visit(url);
     cy.eyesCheckWindow({
       tag: 'full page',
       scriptHooks: {
         beforeCaptureScreenshot: "document.body.style.backgroundColor = 'gold'",
       },
     });
+  });
+
+  it('cypress-play-test-2', () => {
     cy.eyesCheckWindow({tag: 'selector', sizeMode: 'selector', selector: '.region'});
     cy.get('.absolutely').then($el => {
       const {left, top, width, height} = $el[0].getBoundingClientRect();
@@ -26,6 +27,9 @@ describe('eyes.cypress', () => {
         region: {left, top, width, height},
       });
     });
+  });
+
+  afterEach(() => {
     cy.eyesClose();
   });
 });
