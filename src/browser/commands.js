@@ -34,7 +34,7 @@ Cypress.Commands.add('eyesOpen', function(args = {}) {
 
 Cypress.Commands.add('eyesCheckWindow', args => {
   Cypress.log({name: 'Eyes: check window'});
-  return cy.document({log: false}).then({timeout: 10000}, doc => eyesCheckWindow(doc, args));
+  return cy.document({log: false}).then({timeout: 60000}, doc => eyesCheckWindow(doc, args));
 });
 
 Cypress.Commands.add('eyesClose', () => {
