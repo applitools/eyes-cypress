@@ -5,25 +5,21 @@ function uniq(arr) {
   return Array.from(new Set(arr));
 }
 
-function getUrls() {
+async function getUrls() {
   const sitemapUrl = 'http://a142332.hostedsitemap.com/4049686/urllist.txt';
-  const filters = [/\/blog/, /\/docs\//, /\.png/, /\.pdf/];
-  return fetch(sitemapUrl)
-    .then(res => res.text())
-    .then(text =>
-      uniq(
-        text
-          .split(/\n/g)
-          .filter(u => !filters.some(f => u.match(f)))
-          .map(u => {
-            let qpIndex = u.indexOf('?');
-            if (qpIndex > -1) {
-              return u.substring(0, qpIndex);
-            }
-            return u;
-          }),
-      ),
-    );
+  const filters = [/\/blog/, /\.png/, /\.pdf/];
+
+  const resp = await fetch(sitemapUrl);
+  const text = await resp.text();
+  return uniq(text.split(/\n/g))
+    .filter(u => !filters.some(f => u.match(f)) && u.includes('/docs'))
+    .map(u => {
+      let qpIndex = u.indexOf('?');
+      if (qpIndex > -1) {
+        return u.substring(0, qpIndex);
+      }
+      return u;
+    });
 }
 
 // eslint-disable-next-line
