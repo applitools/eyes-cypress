@@ -32,7 +32,7 @@
     "url": "https://github.com/applitools/eyes.cypress.git"
   },
   "dependencies": {
-    "@applitools/visual-grid-client": "^5.3.7",
+    "@applitools/visual-grid-client": "^5.3.8",
     "body-parser": "^1.18.3",
     "cors": "^2.8.4",
     "express": "^4.16.4"
