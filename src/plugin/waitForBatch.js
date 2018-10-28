@@ -24,7 +24,7 @@ function makeWaitForBatch({
       Promise.all(aborts.map(abort => abort())),
     ]);
 
-    if (concurrency === 1) {
+    if (concurrency == 1) {
       console.log(concurrencyMsg);
     }
 

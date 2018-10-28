@@ -97,4 +97,26 @@ describe('waitForBatch', () => {
       console.log = origLog;
     }
   });
+
+  it('outputs concurrency message also with env var', async () => {
+    const origLog = console.log;
+    try {
+      const runningTests = [{closePromise: Promise.resolve('bla')}];
+      let output = '';
+      console.log = (...args) => (output += args.join(', '));
+
+      const waitForBatch = makeWaitForBatch({
+        waitForTestResults,
+        logger,
+        runningTests,
+        DiffsFoundError,
+        concurrency: '1',
+      });
+
+      expect(await waitForBatch()).to.eql(['bla']);
+      expect(output).to.equal(concurrencyMsg);
+    } finally {
+      console.log = origLog;
+    }
+  });
 });
