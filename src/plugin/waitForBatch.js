@@ -1,7 +1,14 @@
 'use strict';
 const errorDigest = require('./errorDigest');
+const concurrencyMsg = require('./concurrencyMsg');
 
-function makeWaitForBatch({waitForTestResults, runningTests, logger, DiffsFoundError}) {
+function makeWaitForBatch({
+  waitForTestResults,
+  runningTests,
+  logger,
+  DiffsFoundError,
+  concurrency,
+}) {
   return async function() {
     const closePromises = runningTests.filter(getClosePromise).map(getClosePromise);
     const aborts = runningTests.filter(test => !test.closePromise).map(test => test.abort);
@@ -16,6 +23,10 @@ function makeWaitForBatch({waitForTestResults, runningTests, logger, DiffsFoundE
       waitForTestResults(closePromises),
       Promise.all(aborts.map(abort => abort())),
     ]);
+
+    if (concurrency === 1) {
+      console.log(concurrencyMsg);
+    }
 
     const testErrors = testResults.filter(result => result instanceof Error);
     if (testErrors.length) {

@@ -227,6 +227,13 @@ Close receives no arguments.
 cy.eyesClose();
 ```
 
+## Concurrency
+
+The default level of concurrency for free accounts is `1`. This means that visual tests will not run in parallel during your tests, and will therefore be slow.
+If your account does support a higher level of concurrency, it's possible to pass a different value by specifying it in the property `concurrency` in the applitools.config.js file (see [Advanced configuration](#advanced-configuration) section below).
+
+If you are interested in speeding up your visual tests, contact sdr@applitools.com to get a trial account and faster tests with more concurrency.
+
 ## Advanced configuration
 
 It's possible to define the following configuration for tests:

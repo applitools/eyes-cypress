@@ -2,12 +2,11 @@
 const pollingHandler = require('./pollingHandler');
 const {PollingStatus} = pollingHandler;
 const makeWaitForBatch = require('./waitForBatch');
-const {DiffsFoundError} = require('@applitools/visual-grid-client');
 
 const TIMEOUT_MSG = timeout =>
   `Eyes.Cypress timed out after ${timeout}ms. The default timeout is 2 minutes. It's possible to increase this timeout by setting a the value of 'eyesTimeout' in Cypress configuration, e.g. for 3 minutes: Cypress.config('eyesTimeout', 180000)`;
 
-function makeHandlers({makeVisualGridClient, config = {}, logger = console}) {
+function makeHandlers({makeVisualGridClient, config = {}, logger = console, DiffsFoundError}) {
   logger.log('[handlers] creating handlers with the following config:', config);
   let pollOpenEyes, pollBatchEnd, checkWindow, close, resources, openErr;
   let runningTests = [];
@@ -49,6 +48,7 @@ function makeHandlers({makeVisualGridClient, config = {}, logger = console}) {
         runningTests,
         logger,
         DiffsFoundError,
+        concurrency: config.concurrency,
       });
       pollBatchEnd = pollingHandler(waitForBatch, TIMEOUT_MSG);
       return client;

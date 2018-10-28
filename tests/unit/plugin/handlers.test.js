@@ -3,6 +3,7 @@ const {describe, it, beforeEach} = require('mocha');
 const {expect} = require('chai');
 const makeHandlers = require('../../../src/plugin/handlers');
 const {PollingStatus} = require('../../../src/plugin/pollingHandler');
+const errorDigest = require('../../../src/plugin/errorDigest');
 const {promisify: p} = require('util');
 const psetTimeout = p(setTimeout);
 const {TIMEOUT_MSG} = makeHandlers;
@@ -56,12 +57,15 @@ describe('command handlers', () => {
     await handlers.close().catch(x => x);
   }
 
+  class FakeDiffError extends Error {}
+
   beforeEach(() => {
     handlers = makeHandlers({
       makeVisualGridClient: () => ({
         openEyes: fakeOpenEyes,
         waitForTestResults: fakeWaitForTestResults,
       }),
+      DiffsFoundError: FakeDiffError,
     });
   });
 
@@ -243,12 +247,12 @@ describe('command handlers', () => {
     result = await handlers.batchEnd();
     expect(result).to.eql({status: PollingStatus.IDLE});
 
-    // WIP ==> ERROR
+    // WIP ==> ERROR (unexpected)
     const failMsg = 'fail';
     __rejectWaitForTestResults(failMsg);
     await psetTimeout(0);
 
-    // ERROR ==> IDLE
+    // ERROR (unexpected) ==> IDLE
     result = await handlers.batchEnd().then(x => x, err => err);
     expect(result).to.be.an.instanceof(Error);
     expect(result.message).to.equal(failMsg);
@@ -258,10 +262,37 @@ describe('command handlers', () => {
     result = await handlers.batchEnd({timeout: 50});
     expect(result).to.eql({status: PollingStatus.IDLE});
 
+    // WIP ==> TIMEOUT
     await psetTimeout(100);
+
+    // TIMEOUT ==> IDLE
     result = await handlers.batchEnd().then(x => x, err => err);
     expect(result).to.be.an.instanceof(Error);
     expect(result.message).to.equal(TIMEOUT_MSG(50));
+
+    // IDLE ==> WIP
+    await open(); // needs to be called because handlers don't allow calling close() before open();
+    result = await handlers.batchEnd();
+    expect(result).to.eql({status: PollingStatus.IDLE});
+
+    // WIP ==> ERROR
+    const err1 = new FakeDiffError(failMsg);
+    const err2 = new Error(failMsg);
+    const testResults = ['success1', ['success2.1', 'success2.2'], err1, err2];
+    __resolveWaitForTestResults(testResults);
+    await psetTimeout(0);
+
+    // ERROR ==> IDLE
+    result = await handlers.batchEnd().then(x => x, err => err);
+    expect(result).to.be.an.instanceof(Error);
+    expect(result.message).to.equal(
+      errorDigest({
+        testCount: testResults.length,
+        testErrors: [err1, err2],
+        DiffsFoundError: FakeDiffError,
+        logger: console,
+      }),
+    );
   });
 
   it('error in openEyes should cause close to do nothing', async () => {
