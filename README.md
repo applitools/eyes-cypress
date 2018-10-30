@@ -1,6 +1,6 @@
 # Eyes.Cypress
 
-Applitoos Eyes SDK for [Cypress](https://www.cypress.io/).
+Applitools Eyes SDK for [Cypress](https://www.cypress.io/).
 
 ## Installation
 
