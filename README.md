@@ -339,7 +339,8 @@ cy.eyesOpen({
   ...
   browser: {
     deviceName: 'iPhone X',
-    screenOrientation: 'landscape'
+    screenOrientation: 'landscape',
+    name: 'chrome' // optional, just to make it explicit this is browser emulation and not a real device. Only chrome is supported for device emulation.
   }
 }
 ```
@@ -361,7 +362,8 @@ cy.eyesOpen({
     width: 800,
     height: 600,
     deviceScaleFactor: 3,
-    mobile: true
+    mobile: true,
+    name: 'chrome' // optional, just to make it explicit this is browser emulation and not a real device. Only chrome is supported for device emulation.
   }
 }
 ```
