@@ -32,10 +32,10 @@
     "url": "https://github.com/applitools/eyes.cypress.git"
   },
   "dependencies": {
-    "@applitools/visual-grid-client": "^5.3.10",
+    "@applitools/visual-grid-client": "^5.3.11",
     "body-parser": "^1.18.3",
     "chalk": "^2.4.1",
-    "cors": "^2.8.4",
+    "cors": "^2.8.5",
     "express": "^4.16.4"
   },
   "devDependencies": {
@@ -50,7 +50,7 @@
     "lodash.omit": "^4.5.0",
     "mocha": "^5.2.0",
     "morgan": "^1.9.1",
-    "node-fetch": "^2.2.0",
+    "node-fetch": "^2.2.1",
     "prettier": "^1.14.3"
   }
 }
