@@ -7,8 +7,8 @@ const {
   makeVisualGridClient,
   makeGetConfig,
   createLogger,
-  DiffsFoundError,
 } = require('@applitools/visual-grid-client');
+const getErrorsAndDiffs = require('./getErrorsAndDiffs');
 const makeHandlers = require('./handlers');
 const getConfig = makeGetConfig();
 const config = Object.assign({concurrency: 1}, getConfig());
@@ -17,7 +17,7 @@ const handlers = makeHandlers({
   logger,
   config,
   makeVisualGridClient,
-  DiffsFoundError,
+  getErrorsAndDiffs,
 });
 const app = startApp({handlers, logger});
 const startServer = makeStartServer({app, logger});

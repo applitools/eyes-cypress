@@ -16,6 +16,7 @@
     "build": "#",
     "cypress": "cd tests/fixtures/testApp && cypress open --config integrationFolder=cypress/integration-play,pluginsFile=cypress/plugins/index-play.js,supportFile=cypress/support/index-run.js",
     "cypress:run": "cd tests/fixtures/testApp && cypress run --config integrationFolder=cypress/integration-run,pluginsFile=cypress/plugins/index-run.js,supportFile=cypress/support/index-run.js",
+    "cypress:play": "cd tests/fixtures/testApp && cypress run --config integrationFolder=cypress/integration-play,pluginsFile=cypress/plugins/index-play.js,supportFile=cypress/support/index-run.js --spec=cypress/integration-play/test.js",
     "prepublishOnly": "npm version patch"
   },
   "files": [
@@ -32,6 +33,7 @@
     "url": "https://github.com/applitools/eyes.cypress.git"
   },
   "dependencies": {
+    "@applitools/functional-commons": "^1.0.27",
     "@applitools/visual-grid-client": "^5.3.11",
     "body-parser": "^1.18.3",
     "chalk": "^2.4.1",

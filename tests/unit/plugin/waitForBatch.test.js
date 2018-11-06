@@ -3,53 +3,67 @@ const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const makeWaitForBatch = require('../../../src/plugin/waitForBatch');
 const concurrencyMsg = require('../../../src/plugin/concurrencyMsg');
+const getErrorsAndDiffs = require('../../../src/plugin/getErrorsAndDiffs');
+const errorDigest = require('../../../src/plugin/errorDigest');
 const {promisify: p} = require('util');
 const psetTimeout = p(setTimeout);
+const {TestResults, TestResultsStatus} = require('@applitools/visual-grid-client');
 
 describe('waitForBatch', () => {
-  class DiffsFoundError extends Error {}
-  const waitForTestResults = async closePromises =>
-    await Promise.all(closePromises.map(p => p.then(x => x, err => err)));
-
   const logger = process.env.APPLITOOLS_SHOW_LOGS ? console : {log: () => {}};
 
-  it("returns test results when there's no error", async () => {
+  it("returns test count when there's no error", async () => {
     const runningTests = [
-      {closePromise: Promise.resolve('bla')},
-      {closePromise: Promise.resolve('bloo')},
+      {closePromise: Promise.resolve([{getStatus: () => TestResultsStatus.Passed}])},
+      {closePromise: Promise.resolve([{getStatus: () => TestResultsStatus.Passed}])},
     ];
 
     const waitForBatch = makeWaitForBatch({
-      waitForTestResults,
       logger,
       runningTests,
-      DiffsFoundError,
+      getErrorsAndDiffs,
     });
 
-    expect(await waitForBatch()).to.eql(['bla', 'bloo']);
+    expect(await waitForBatch()).to.eql(2);
   });
 
   it('throws error with digest when found errors', async () => {
-    const errors = [new Error('bla'), new DiffsFoundError('bloo')];
-    const runningTests = errors.map(err => ({closePromise: Promise.reject(err)})).concat({
-      closePromise: Promise.resolve('blee'),
-    });
+    const diffTestResults = [
+      TestResults.fromObject({
+        status: TestResultsStatus.Unresolved,
+        hostDisplaySize: {width: 1, height: 2},
+        url: 'url',
+      }),
+    ];
+    const err = new Error('bla');
+    const passedTestResults = [
+      TestResults.fromObject({
+        status: TestResultsStatus.Passed,
+        hostDisplaySize: {width: 3, height: 4},
+      }),
+    ];
+    const runningTests = [
+      {closePromise: Promise.reject(err)},
+      {
+        closePromise: Promise.resolve(diffTestResults),
+      },
+      {closePromise: Promise.resolve(passedTestResults)},
+    ];
 
     const waitForBatch = makeWaitForBatch({
-      waitForTestResults,
       logger,
       runningTests,
-      DiffsFoundError,
+      getErrorsAndDiffs,
     });
 
     const msg = await waitForBatch().then(() => 'ok', err => err.message);
 
-    const output = `
-  Passed - 1 tests.
-  Diffs detected - 1 tests.
-\t\t\t1) Error: bloo
-  Errors - 1 tests.
-\t\t\t1) Error: bla`;
+    const output = errorDigest({
+      passedTestResults,
+      diffTestResults,
+      testErrors: [err],
+      logger: {log: () => {}},
+    });
 
     expect(msg).to.equal(output);
   });
@@ -66,10 +80,9 @@ describe('waitForBatch', () => {
     ];
 
     const waitForBatch = makeWaitForBatch({
-      waitForTestResults,
       logger,
       runningTests,
-      DiffsFoundError,
+      getErrorsAndDiffs,
     });
 
     await waitForBatch();
@@ -79,19 +92,20 @@ describe('waitForBatch', () => {
   it('outputs concurrency message', async () => {
     const origLog = console.log;
     try {
-      const runningTests = [{closePromise: Promise.resolve('bla')}];
+      const runningTests = [
+        {closePromise: Promise.resolve([{getStatus: () => TestResultsStatus.Passed}])},
+      ];
       let output = '';
       console.log = (...args) => (output += args.join(', '));
 
       const waitForBatch = makeWaitForBatch({
-        waitForTestResults,
         logger,
         runningTests,
-        DiffsFoundError,
         concurrency: 1,
+        getErrorsAndDiffs,
       });
 
-      expect(await waitForBatch()).to.eql(['bla']);
+      expect(await waitForBatch()).to.eql(1);
       expect(output).to.equal(concurrencyMsg);
     } finally {
       console.log = origLog;
@@ -101,19 +115,20 @@ describe('waitForBatch', () => {
   it('outputs concurrency message also with env var', async () => {
     const origLog = console.log;
     try {
-      const runningTests = [{closePromise: Promise.resolve('bla')}];
+      const runningTests = [
+        {closePromise: Promise.resolve([{getStatus: () => TestResultsStatus.Passed}])},
+      ];
       let output = '';
       console.log = (...args) => (output += args.join(', '));
 
       const waitForBatch = makeWaitForBatch({
-        waitForTestResults,
         logger,
         runningTests,
-        DiffsFoundError,
         concurrency: '1',
+        getErrorsAndDiffs,
       });
 
-      expect(await waitForBatch()).to.eql(['bla']);
+      expect(await waitForBatch()).to.eql(1);
       expect(output).to.equal(concurrencyMsg);
     } finally {
       console.log = origLog;

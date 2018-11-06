@@ -6,7 +6,7 @@ const makeWaitForBatch = require('./waitForBatch');
 const TIMEOUT_MSG = timeout =>
   `Eyes.Cypress timed out after ${timeout}ms. The default timeout is 2 minutes. It's possible to increase this timeout by setting a the value of 'eyesTimeout' in Cypress configuration, e.g. for 3 minutes: Cypress.config('eyesTimeout', 180000)`;
 
-function makeHandlers({makeVisualGridClient, config = {}, logger = console, DiffsFoundError}) {
+function makeHandlers({makeVisualGridClient, config = {}, logger = console, getErrorsAndDiffs}) {
   logger.log('[handlers] creating handlers with the following config:', config);
   let pollOpenEyes, pollBatchEnd, checkWindow, close, resources, openErr;
   let runningTests = [];
@@ -44,11 +44,10 @@ function makeHandlers({makeVisualGridClient, config = {}, logger = console, Diff
       const client = makeVisualGridClient(config);
       pollOpenEyes = pollingHandler(client.openEyes, TIMEOUT_MSG);
       const waitForBatch = makeWaitForBatch({
-        waitForTestResults: client.waitForTestResults,
         runningTests,
         logger,
-        DiffsFoundError,
         concurrency: config.concurrency,
+        getErrorsAndDiffs,
       });
       pollBatchEnd = pollingHandler(waitForBatch, TIMEOUT_MSG);
       return client;
@@ -130,7 +129,7 @@ function makeHandlers({makeVisualGridClient, config = {}, logger = console, Diff
 
   function makeClose(doClose, runningTest) {
     return async function() {
-      runningTest.closePromise = doClose().catch(err => {
+      runningTest.closePromise = doClose(false).catch(err => {
         logger.log('error in close', err);
         return err;
       });

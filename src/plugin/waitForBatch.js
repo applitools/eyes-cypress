@@ -2,13 +2,7 @@
 const errorDigest = require('./errorDigest');
 const concurrencyMsg = require('./concurrencyMsg');
 
-function makeWaitForBatch({
-  waitForTestResults,
-  runningTests,
-  logger,
-  DiffsFoundError,
-  concurrency,
-}) {
+function makeWaitForBatch({runningTests, logger, concurrency, getErrorsAndDiffs}) {
   return async function() {
     const closePromises = runningTests.filter(getClosePromise).map(getClosePromise);
     const aborts = runningTests.filter(test => !test.closePromise).map(test => test.abort);
@@ -19,8 +13,8 @@ function makeWaitForBatch({
       } tests`,
     );
 
-    const [testResults] = await Promise.all([
-      waitForTestResults(closePromises),
+    const [{testErrors, diffTestResults, passedTestResults}] = await Promise.all([
+      getErrorsAndDiffs(closePromises),
       Promise.all(aborts.map(abort => abort())),
     ]);
 
@@ -28,14 +22,11 @@ function makeWaitForBatch({
       console.log(concurrencyMsg);
     }
 
-    const testErrors = testResults.filter(result => result instanceof Error);
-    if (testErrors.length) {
-      throw new Error(
-        errorDigest({testCount: testResults.length, testErrors, DiffsFoundError, logger}),
-      );
+    if (testErrors.length || diffTestResults.length) {
+      throw new Error(errorDigest({passedTestResults, testErrors, diffTestResults, logger}));
     }
 
-    return testResults;
+    return passedTestResults.length + testErrors.length + testErrors.length;
   };
 }
 
