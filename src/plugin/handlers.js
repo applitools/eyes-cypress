@@ -1,4 +1,5 @@
 'use strict';
+const {presult} = require('@applitools/functional-commons');
 const pollingHandler = require('./pollingHandler');
 const {PollingStatus} = pollingHandler;
 const makeWaitForBatch = require('./waitForBatch');
@@ -129,11 +130,7 @@ function makeHandlers({makeVisualGridClient, config = {}, logger = console, getE
 
   function makeClose(doClose, runningTest) {
     return async function() {
-      runningTest.closePromise = doClose(false).catch(err => {
-        logger.log('error in close', err);
-        return err;
-      });
-      return runningTest.closePromise;
+      return (runningTest.closePromise = presult(doClose(false)));
     };
   }
 
