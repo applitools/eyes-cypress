@@ -1,8 +1,7 @@
 'use strict';
-const {presult} = require('@applitools/functional-commons');
 
 async function getErrorsAndDiffs(closePromises) {
-  const testResultsOrErrs = await Promise.all(closePromises.map(presult));
+  const testResultsOrErrs = await Promise.all(closePromises);
 
   return testResultsOrErrs.reduce(
     ({testErrors, diffTestResults, passedTestResults}, [err, testResults]) => {
