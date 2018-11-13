@@ -34,7 +34,7 @@
   },
   "dependencies": {
     "@applitools/functional-commons": "^1.0.27",
-    "@applitools/visual-grid-client": "^5.4.2",
+    "@applitools/visual-grid-client": "^5.5.1",
     "body-parser": "^1.18.3",
     "chalk": "^2.4.1",
     "cors": "^2.8.5",
@@ -45,14 +45,14 @@
     "chai-spies": "^1.0.0",
     "cookie-parser": "^1.4.3",
     "cypress": "^3.1.1",
-    "eslint": "^5.8.0",
+    "eslint": "^5.9.0",
     "eslint-plugin-mocha-no-only": "^1.0.0",
     "eslint-plugin-node": "^7.0.1",
     "eslint-plugin-prettier": "^2.7.0",
     "lodash.omit": "^4.5.0",
     "mocha": "^5.2.0",
     "morgan": "^1.9.1",
-    "node-fetch": "^2.2.1",
-    "prettier": "^1.14.3"
+    "node-fetch": "^2.3.0",
+    "prettier": "^1.15.2"
   }
 }
