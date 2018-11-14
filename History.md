@@ -1,4 +1,12 @@
 
+v3.2.23 / 2018-11-14
+====================
+
+* 3.2.23 - Amit Zur [[336b6df](https://github.com/applitools/eyes.cypress/commit/336b6df260871120e491e4445a8095c925db1e89)]
+* update visual-grid-client to 5.5.3 to get sdk-core major version - Amit Zur [[2805eee](https://github.com/applitools/eyes.cypress/commit/2805eeed23161774bbec563043c9a4364cbcb5f0)]
+* add a changelog - Amit Zur [[de2a8ef](https://github.com/applitools/eyes.cypress/commit/de2a8efffe1b8ef70974517a34d7eee97e5c5751)]
+* add play spec - Amit Zur [[c286ee0](https://github.com/applitools/eyes.cypress/commit/c286ee043726cb92180a9e75f84cf02c3e63d3dc)]
+
 v3.2.22 / 2018-11-13
 ====================
 

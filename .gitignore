@@ -5,3 +5,4 @@ tests/cypress/screenshots
 tests/cypress/videos
 .applitools
 .private
+.History.md.swp
