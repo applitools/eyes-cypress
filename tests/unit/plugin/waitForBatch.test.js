@@ -34,7 +34,7 @@ describe('waitForBatch', () => {
 
   it('throws error with digest when found errors', async () => {
     const diffTestResults = [
-      TestResults.fromObject({
+      new TestResults({
         status: TestResultsStatus.Unresolved,
         hostDisplaySize: {width: 1, height: 2},
         url: 'url',
@@ -42,7 +42,7 @@ describe('waitForBatch', () => {
     ];
     const err = new Error('bla');
     const passedTestResults = [
-      TestResults.fromObject({
+      new TestResults({
         status: TestResultsStatus.Passed,
         hostDisplaySize: {width: 3, height: 4},
       }),

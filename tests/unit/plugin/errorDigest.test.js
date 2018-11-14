@@ -14,19 +14,19 @@ describe('error digest', () => {
   it('works', () => {
     const testErrors = [new Error('bla'), new Error('bloo')];
     const diffTestResults = [
-      TestResults.fromObject({
+      new TestResults({
         name: 'test1',
         hostDisplaySize: {width: 100, height: 200},
         url: 'url1',
       }),
-      TestResults.fromObject({
+      new TestResults({
         name: 'test2',
         hostDisplaySize: {width: 300, height: 400},
         url: 'url2',
       }),
     ];
     const passedTestResults = [
-      TestResults.fromObject({
+      new TestResults({
         name: 'test3',
         hostDisplaySize: {width: 1, height: 2},
       }),
