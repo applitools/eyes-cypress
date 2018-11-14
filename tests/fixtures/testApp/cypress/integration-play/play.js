@@ -1,7 +1,7 @@
 /* globals describe,it,cy */
 describe('random play', () => {
   it('random play', () => {
-    cy.visit('https://rawgit.com/bvaughn/react-virtualized/master/playground/grid.html');
+    cy.visit('https://theintercept.com/privacy-policy/');
     cy.eyesOpen({
       appName: 'cypress play around',
     });
