@@ -1,4 +1,14 @@
 
+v3.2.24 / 2018-11-20
+====================
+
+* 3.2.24 - Amit Zur [[2873a34](https://github.com/applitools/eyes.cypress/commit/2873a3471a3e9fe6cca2577307070c9e0d30142c)]
+* update visual-grid-client to 6.0.1 to fix deviceInfo - Amit Zur [[7567c4a](https://github.com/applitools/eyes.cypress/commit/7567c4af53c31d5ddf9583b0d42cdab19d73721c)]
+* add scriptHooks to readme - Amit Zur [[84c88cf](https://github.com/applitools/eyes.cypress/commit/84c88cf88629e10a5dc71eae2241c02c27b8be99)]
+* license - Amit Zur [[faaa444](https://github.com/applitools/eyes.cypress/commit/faaa444109865845460e5bef2baadd16e5ff7021)]
+* play script - Amit Zur [[9109990](https://github.com/applitools/eyes.cypress/commit/9109990a1d59bb8990051c8de2c754c9179ea6ee)]
+* changelog - Amit Zur [[85e72da](https://github.com/applitools/eyes.cypress/commit/85e72da393ac17c13e52e9bfe1b655089102aa7f)]
+
 v3.2.23 / 2018-11-14
 ====================
 
