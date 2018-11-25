@@ -2,7 +2,7 @@
 'use strict';
 const poll = require('./poll');
 const makeSend = require('./makeSend');
-const {processPage} = require('@applitools/visual-grid-client/browser');
+const {processPage} = require('@applitools/dom-capture');
 const send = makeSend(Cypress.config('eyesPort'), cy.request);
 const makeSendRequest = require('./sendRequest');
 const makeEyesCheckWindow = require('./eyesCheckWindow');
