@@ -1,4 +1,17 @@
 
+v3.2.26 / 2018-11-25
+====================
+
+* 3.2.26 - Amit Zur [[0aa1799](https://github.com/applitools/eyes.cypress/commit/0aa17997df5c35eaad555116501ebe209ab009cb)]
+* work directly with dom-capture - Amit Zur [[948b4c8](https://github.com/applitools/eyes.cypress/commit/948b4c83e9477c5bc638a42f25e5f477bc8c14db)]
+
+v3.2.25 / 2018-11-25
+====================
+
+* 3.2.25 - Amit Zur [[af24de9](https://github.com/applitools/eyes.cypress/commit/af24de94fd2050b6d14ece7b50c6ae0bfe236058)]
+* avoid sending blob content twice (no more allBlobs) - Amit Zur [[7b77012](https://github.com/applitools/eyes.cypress/commit/7b77012a5599407efa728bbc2f9d19402b3e2e91)]
+* changelog - Amit Zur [[e4310dd](https://github.com/applitools/eyes.cypress/commit/e4310dd0cec707238f18d190991b86eade27eaa6)]
+
 v3.2.24 / 2018-11-20
 ====================
 
