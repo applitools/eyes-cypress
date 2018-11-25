@@ -1,6 +1,7 @@
 'use strict';
+const getAllBlobs = require('./getAllBlobs');
 
-function makeEyesCheckWindow({sendRequest, processDocument, Blob}) {
+function makeEyesCheckWindow({sendRequest, processPage, Blob}) {
   return function eyesCheckWindow(doc, args) {
     let tag, sizeMode, selector, region, scriptHooks, ignore, sendDom;
     if (typeof args === 'string') {
@@ -15,8 +16,9 @@ function makeEyesCheckWindow({sendRequest, processDocument, Blob}) {
       sendDom = args.sendDom;
     }
 
-    return processDocument(doc).then(({resourceUrls, blobs, frames, url, cdt, allBlobs}) => {
-      const blobData = blobs.map(({url, type}) => ({url, type}));
+    return processPage(doc).then(mainFrame => {
+      const allBlobs = getAllBlobs(mainFrame);
+      const {resourceUrls, blobData, frames, url, cdt} = replaceBlobsWithBlobDataInFrame(mainFrame);
       return Promise.all(allBlobs.map(putResource)).then(() =>
         sendRequest({
           command: 'checkWindow',
@@ -46,6 +48,20 @@ function makeEyesCheckWindow({sendRequest, processDocument, Blob}) {
       method: 'PUT',
       headers: {'Content-Type': type},
     });
+  }
+
+  function replaceBlobsWithBlobDataInFrame({url, cdt, resourceUrls, blobs, frames}) {
+    return {
+      url,
+      cdt,
+      resourceUrls,
+      blobData: blobs.map(mapBlobData),
+      frames: frames.map(replaceBlobsWithBlobDataInFrame),
+    };
+  }
+
+  function mapBlobData({url, type}) {
+    return {url, type};
   }
 }
 

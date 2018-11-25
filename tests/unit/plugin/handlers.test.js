@@ -168,6 +168,68 @@ describe('handlers', () => {
     expect(result.resourceContents).to.eql(resourceContents);
   });
 
+  it('handles "checkWindow" with nested frames', async () => {
+    handlers.batchStart();
+    await open({__test: 123});
+
+    const blobData = [{url: 'id1', type: 'type1'}];
+
+    const frames = [
+      {
+        blobData: [{url: 'id2', type: 'type2'}],
+        frames: [{blobData: [{url: 'id3', type: 'type3'}]}],
+      },
+    ];
+
+    handlers.putResource('id1', 'buff1');
+    handlers.putResource('id2', 'buff2');
+    handlers.putResource('id3', 'buff3');
+
+    const result = await handlers.checkWindow({
+      blobData,
+      frames,
+    });
+
+    expect(result).to.eql({
+      __test: 'checkWindow_123',
+
+      resourceContents: {
+        id1: {url: 'id1', type: 'type1', value: 'buff1'},
+      },
+      frames: [
+        {
+          resourceContents: {
+            id2: {url: 'id2', type: 'type2', value: 'buff2'},
+          },
+          frames: [
+            {
+              resourceContents: {
+                id3: {url: 'id3', type: 'type3', value: 'buff3'},
+              },
+              resourceUrls: undefined,
+              cdt: undefined,
+              url: undefined,
+              frames: undefined,
+            },
+          ],
+          resourceUrls: undefined,
+          cdt: undefined,
+          url: undefined,
+        },
+      ],
+      resourceUrls: undefined,
+      cdt: undefined,
+      url: undefined,
+      tag: undefined,
+      sizeMode: undefined,
+      selector: undefined,
+      region: undefined,
+      scriptHooks: undefined,
+      ignore: undefined,
+      sendDom: undefined,
+    });
+  });
+
   it('cleans resources on close', async () => {
     handlers.batchStart();
     await open({__test: 123});

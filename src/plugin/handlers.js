@@ -140,7 +140,7 @@ function makeHandlers({makeVisualGridClient, config = {}, logger = console, getE
         url: frame.url,
         cdt: frame.cdt,
         resourceUrls: frame.resourceUrls,
-        resourceContents: blobDataToResourceContents(frame.blobs),
+        resourceContents: blobDataToResourceContents(frame.blobData),
         frames: frame.frames ? createResourceContents(frame.frames) : undefined,
       };
     });

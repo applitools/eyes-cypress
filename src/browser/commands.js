@@ -2,13 +2,13 @@
 'use strict';
 const poll = require('./poll');
 const makeSend = require('./makeSend');
-const {processDocument} = require('@applitools/visual-grid-client/browser');
+const {processPage} = require('@applitools/visual-grid-client/browser');
 const send = makeSend(Cypress.config('eyesPort'), cy.request);
 const makeSendRequest = require('./sendRequest');
 const makeEyesCheckWindow = require('./eyesCheckWindow');
 const sendRequest = makeSendRequest(send);
 const Blob = window.frameElement.ownerDocument.defaultView.Blob; // yucky! cypress uses socket.io to communicate between browser and node. In order to encode the data in binary format, socket.io checks for binary values. But `value instanceof Blob` is falsy since Blob from the cypress runner window is not the Blob from the command's window. So using the Blob from cypress runner window here.
-const eyesCheckWindow = makeEyesCheckWindow({sendRequest, processDocument, Blob});
+const eyesCheckWindow = makeEyesCheckWindow({sendRequest, processPage, Blob});
 
 const openEyes = poll(function(data) {
   return sendRequest({command: 'open', data});
