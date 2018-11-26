@@ -274,7 +274,7 @@ It's possible to define the following configuration for tests:
 | `ignoreBaseline`          | false                       |  |
 | `showLogs`                | false                       | Whether or not you want to see logs of the Eyes.Cypress plugin. Logs are written to the same output of the Cypress process. |
 | `serverUrl`               | Default Eyes server URL     | The URL of Eyes server |
-| `proxy`                   | undefined                   | Sets the proxy settings to be used in network requests to Eyes server. |
+| `proxy`                   | undefined                   | Sets the proxy settings to be used in network requests to Eyes server. This can be either a string to the proxy URI, or an object containing the URI, username and password.<br/><br/>For example:<br/>`{uri: 'https://myproxy', username: 'my_user', password: 'my_password'}`|
 | `apiKey`                  | undefined                   | The API key used for working with the Applitools Eyes server. See more info in the [Applitools API key](#applitools-api-key) section above |
 
 There are 3 ways to specify test configuration:
