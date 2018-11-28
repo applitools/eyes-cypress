@@ -1,4 +1,38 @@
 
+v3.3.4 / 2018-11-28
+===================
+
+* 3.3.4 - Amit Zur [[0bf7193](https://github.com/applitools/eyes.cypress/commit/0bf7193babde8d260b03d717abebd59132e7b62c)]
+* remove polling from openEyes - Amit Zur [[de134e6](https://github.com/applitools/eyes.cypress/commit/de134e64f91f3a7b2ecd7abded2327d81e3e4e92)]
+* update vgc to 7.2.4 - Amit Zur [[f1be1bf](https://github.com/applitools/eyes.cypress/commit/f1be1bf51cda3f9486bef0ced89741d7f3e0ca74)]
+* play around - Amit Zur [[f54a4e7](https://github.com/applitools/eyes.cypress/commit/f54a4e71a324f230a8bdb9327101df8e55f1a0a0)]
+* add testApp screenshots and videos to gitignore - Amit Zur [[dded9b0](https://github.com/applitools/eyes.cypress/commit/dded9b0ba8a5a06391beb1d9a2bc7a2ac8ae5840)]
+* add reference link to concurrency message - Amit Zur [[9b77060](https://github.com/applitools/eyes.cypress/commit/9b77060cc90d79b47645959566835d31456a0470)]
+
+v3.3.3 / 2018-11-27
+===================
+
+* 3.3.3 - Amit Zur [[1bf648c](https://github.com/applitools/eyes.cypress/commit/1bf648c222b20c027151809c7f8285a2b7a9c472)]
+* update vgc to 7.2.3 to fix render concurrency with failures - Amit Zur [[5e7dd4c](https://github.com/applitools/eyes.cypress/commit/5e7dd4c66e1f44d3235522855dd245e54af48333)]
+
+v3.3.2 / 2018-11-26
+===================
+
+* 3.3.2 - Amit Zur [[e08f55c](https://github.com/applitools/eyes.cypress/commit/e08f55c168eebf5eb1183e2a787f127836df9352)]
+* update vgc to 7.2.2 to fix hangs in failed renders - Amit Zur [[9b3baad](https://github.com/applitools/eyes.cypress/commit/9b3baada4821c0474857d7e280a1dca71d235743)]
+
+v3.3.1 / 2018-11-26
+===================
+
+* 3.3.1 - Amit Zur [[ff2e180](https://github.com/applitools/eyes.cypress/commit/ff2e180a811bccf3316216929bd29ccfc0c97b7d)]
+
+v3.3.0 / 2018-11-26
+===================
+
+* 3.3.0 - Amit Zur [[5f5b689](https://github.com/applitools/eyes.cypress/commit/5f5b6894464d8a4d61efc26babc04ff0bb61529d)]
+* update visual-grid-client to 7.2.1 to get proxy user/pass and perf optimization - Amit Zur [[c33c817](https://github.com/applitools/eyes.cypress/commit/c33c8175fe4fb027bcb00fe58778cfe8d5cf6dd8)]
+* changelog - Amit Zur [[649f176](https://github.com/applitools/eyes.cypress/commit/649f17673eb99998a0ee12c8252f4fc906acbf4e)]
+
 v3.2.26 / 2018-11-25
 ====================
 
