@@ -1,7 +1,6 @@
 'use strict';
 const {presult} = require('@applitools/functional-commons');
 const pollingHandler = require('./pollingHandler');
-const {PollingStatus} = pollingHandler;
 const makeWaitForBatch = require('./waitForBatch');
 
 const TIMEOUT_MSG = timeout =>
@@ -9,29 +8,24 @@ const TIMEOUT_MSG = timeout =>
 
 function makeHandlers({makeVisualGridClient, config = {}, logger = console, getErrorsAndDiffs}) {
   logger.log('[handlers] creating handlers with the following config:', config);
-  let pollOpenEyes, pollBatchEnd, checkWindow, close, resources, openErr;
+  let openEyes, pollBatchEnd, checkWindow, close, resources, openErr;
   let runningTests = [];
 
   return {
     open: async args => {
       try {
         logger.log(`[handlers] open: close=${typeof close}, args=`, args);
-        const pollResult = await pollOpenEyes({timeout: 3600000, args});
-        logger.log('[handlers] open polling result', pollResult);
-        if (pollResult.status === PollingStatus.DONE) {
-          const eyes = pollResult.results;
-          const runningTest = {
-            abort: eyes.abort,
-            closePromise: undefined,
-          };
-          checkWindow = eyes.checkWindow;
-          close = makeClose(eyes.close, runningTest);
-          resources = {};
-          runningTests.push(runningTest);
-          logger.log('[handlers] open finished');
-        }
-
-        return pollResult;
+        const eyes = await openEyes(args);
+        const runningTest = {
+          abort: eyes.abort,
+          closePromise: undefined,
+        };
+        checkWindow = eyes.checkWindow;
+        close = makeClose(eyes.close, runningTest);
+        resources = {};
+        runningTests.push(runningTest);
+        logger.log('[handlers] open finished');
+        return eyes;
       } catch (err) {
         logger.log(`[handlers] openEyes error ${err}`);
         openErr = err;
@@ -43,7 +37,7 @@ function makeHandlers({makeVisualGridClient, config = {}, logger = console, getE
       logger.log('[handlers] batchStart');
       runningTests = [];
       const client = makeVisualGridClient(config);
-      pollOpenEyes = pollingHandler(client.openEyes, TIMEOUT_MSG);
+      openEyes = client.openEyes;
       const waitForBatch = makeWaitForBatch({
         runningTests,
         logger,

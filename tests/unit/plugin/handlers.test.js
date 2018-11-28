@@ -12,7 +12,7 @@ describe('handlers', () => {
   let handlers;
   let resolve;
 
-  const fakeOpenEyes = async (args = {}) => ({
+  const fakeOpenEyes = (args = {}) => ({
     checkWindow: async (args2 = {}) => {
       return Object.assign(args2, {__test: `checkWindow_${args.__test}`});
     },
@@ -24,7 +24,7 @@ describe('handlers', () => {
     abort: async () => {},
   });
 
-  const openEyesWithCloseRejection = async () => ({
+  const openEyesWithCloseRejection = () => ({
     checkWindow: async x => x,
     close: async () => Promise.reject('bla'),
   });
@@ -37,16 +37,8 @@ describe('handlers', () => {
     return resolve && resolve(val);
   }
 
-  async function open(args) {
-    const {status} = await handlers.open(args);
-    expect(status).to.equal('IDLE');
-    const {status: status2, results} = await handlers.open();
-    expect(status2).to.equal('DONE');
-    return results;
-  }
-
   async function openAndClose() {
-    await open();
+    await handlers.open();
     await handlers.close().catch(x => x);
   }
 
@@ -60,7 +52,7 @@ describe('handlers', () => {
 
   it('handles "open"', async () => {
     handlers.batchStart();
-    const {checkWindow} = await open({__test: 123});
+    const {checkWindow} = await handlers.open({__test: 123});
     expect((await checkWindow()).__test).to.equal('checkWindow_123');
   });
 
@@ -100,7 +92,7 @@ describe('handlers', () => {
 
   it('handles "checkWindow"', async () => {
     handlers.batchStart();
-    await open({__test: 123});
+    await handlers.open({__test: 123});
 
     const cdt = 'cdt';
     const resourceUrls = 'resourceUrls';
@@ -146,7 +138,7 @@ describe('handlers', () => {
 
   it('handles "putResource"', async () => {
     handlers.batchStart();
-    await open({__test: 123});
+    await handlers.open({__test: 123});
 
     handlers.putResource('id1', 'buff1');
     handlers.putResource('id2', 'buff2');
@@ -170,7 +162,7 @@ describe('handlers', () => {
 
   it('handles "checkWindow" with nested frames', async () => {
     handlers.batchStart();
-    await open({__test: 123});
+    await handlers.open({__test: 123});
 
     const blobData = [{url: 'id1', type: 'type1'}];
 
@@ -232,7 +224,7 @@ describe('handlers', () => {
 
   it('cleans resources on close', async () => {
     handlers.batchStart();
-    await open({__test: 123});
+    await handlers.open({__test: 123});
 
     handlers.putResource('id', 'buff');
     const blobData = [{url: 'id', type: 'type'}];
@@ -248,7 +240,7 @@ describe('handlers', () => {
     expect(err).to.be.an.instanceOf(Error);
     const err2 = await handlers.close().then(x => x, err => err);
     expect(err2).to.be.an.instanceOf(Error);
-    await open({__test: 123});
+    await handlers.open({__test: 123});
     const {resourceContents: emptyResourceContents} = await handlers.checkWindow({blobData});
     expect(emptyResourceContents).to.eql({
       id: {url: 'id', type: 'type', value: undefined},
@@ -257,7 +249,7 @@ describe('handlers', () => {
 
   it('handles "close"', async () => {
     handlers.batchStart();
-    const {checkWindow, close} = await open({__test: 123});
+    const {checkWindow, close} = await handlers.open({__test: 123});
 
     expect((await checkWindow()).__test).to.equal('checkWindow_123');
     expect((await close()).__test).to.equal('close_123');
@@ -281,7 +273,7 @@ describe('handlers', () => {
     });
 
     handlers.batchStart();
-    await open();
+    await handlers.open();
 
     // IDLE ==> WIP
     let result = await handlers.batchEnd();
@@ -300,7 +292,7 @@ describe('handlers', () => {
     expect(result).to.eql({status: PollingStatus.DONE, results: 1});
 
     // IDLE ==> WIP
-    await open(); // needs to be called because handlers don't allow calling close() before open();
+    await handlers.open(); // needs to be called because handlers don't allow calling close() before open();
     result = await handlers.batchEnd();
     expect(result).to.eql({status: PollingStatus.IDLE});
 
@@ -319,7 +311,7 @@ describe('handlers', () => {
     expect(result.message).to.equal(errorDigest(Object.assign(failResult, {logger: console})));
 
     // IDLE ==> WIP (with timeout)
-    await open(); // needs to be called because handlers don't allow calling close() before open();
+    await handlers.open(); // needs to be called because handlers don't allow calling close() before open();
     result = await handlers.batchEnd({timeout: 50});
     expect(result).to.eql({status: PollingStatus.IDLE});
 
@@ -332,7 +324,7 @@ describe('handlers', () => {
     expect(result.message).to.equal(TIMEOUT_MSG(50));
 
     // IDLE ==> WIP
-    await open(); // needs to be called because handlers don't allow calling close() before open();
+    await handlers.open(); // needs to be called because handlers don't allow calling close() before open();
     result = await handlers.batchEnd();
     expect(result).to.eql({status: PollingStatus.IDLE});
 
@@ -367,7 +359,7 @@ describe('handlers', () => {
       }),
     });
     handlers.batchStart();
-    await open().catch(x => x);
+    await handlers.open().catch(x => x);
     const err = await handlers.close().then(x => x, err => err);
     expect(err).to.equal(undefined);
   });
@@ -387,8 +379,8 @@ describe('handlers', () => {
       getErrorsAndDiffs,
     });
     handlers.batchStart();
-    await open();
-    await open();
+    await handlers.open();
+    await handlers.open();
     await handlers.batchEnd(); // IDLE --> WIP
     await handlers.batchEnd(); // WIP --> WIP (unless an error occurred)
     __resolveErrorsAndDiffs();
