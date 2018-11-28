@@ -6,3 +6,5 @@ tests/cypress/videos
 .applitools
 .private
 .History.md.swp
+tests/fixtures/testApp/cypress/screenshots
+tests/fixtures/testApp/cypress/videos
