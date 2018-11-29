@@ -3,7 +3,7 @@
 function getErrorsAndDiffs(testResultsArr) {
   return testResultsArr.reduce(
     ({failed, diffs, passed}, testResults) => {
-      if (testResults.error) {
+      if (testResults instanceof Error || testResults.error) {
         failed.push(testResults);
       } else {
         if (testResults.getStatus() === 'Unresolved') {

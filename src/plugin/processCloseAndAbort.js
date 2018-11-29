@@ -6,18 +6,18 @@ function processCloseAndAbort(runningTests) {
       if (closePromise) {
         const [closeErr, closeResult] = await closePromise;
         if (closeErr) {
-          return (await getAbortResults()).map(testResult => {
-            testResult.error = closeErr;
-            return testResult;
+          return (await abort()).map(testResult => {
+            if (testResult) {
+              testResult.error = closeErr;
+              return testResult;
+            } else {
+              return closeErr;
+            }
           });
         } else {
           return closeResult;
         }
       } else {
-        return getAbortResults();
-      }
-
-      async function getAbortResults() {
         return (await abort()).filter(x => !!x);
       }
     }),

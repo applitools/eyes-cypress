@@ -12,8 +12,7 @@ function makeWaitForBatch({
   return async function(runningTests) {
     logger.log(`Waiting for test results of ${runningTests.length} tests.`);
 
-    const x = await processCloseAndAbort(runningTests);
-    const testResultsArr = flatten(x);
+    const testResultsArr = flatten(await processCloseAndAbort(runningTests));
 
     const {failed, diffs, passed} = getErrorsAndDiffs(testResultsArr);
 

@@ -58,6 +58,7 @@ describe('getErrorAndDiffs', () => {
       status: TestResultsStatus.Passed,
     });
     err2.error = new Error('bloo');
+    const err3 = new Error('kuku');
     const testResultsArr = [
       passed1,
       passed2,
@@ -67,9 +68,10 @@ describe('getErrorAndDiffs', () => {
       unresolvedNew,
       err1,
       err2,
+      err3,
     ];
     const {failed, diffs, passed} = getErrorsAndDiffs(testResultsArr);
-    expect(failed).to.eql([failed1, failed2, unresolvedNew, err1, err2]);
+    expect(failed).to.eql([failed1, failed2, unresolvedNew, err1, err2, err3]);
     expect(diffs).to.eql([unresolved]);
     expect(passed).to.eql([passed1, passed2]);
   });

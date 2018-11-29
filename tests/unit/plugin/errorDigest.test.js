@@ -24,7 +24,8 @@ describe('errorDigest', () => {
       url: 'url0',
     });
     err2.error = new Error('bloo');
-    const failed = [err1, err2];
+    const err3 = new Error('kuku');
+    const failed = [err1, err2, err3];
     const diffs = [
       new TestResults({
         name: 'test1',
@@ -59,9 +60,10 @@ describe('errorDigest', () => {
        ${chalk.red('Diffs detected - 2 tests')}
          ${chalk.red('\u2716')} ${chalk.reset('test1 [100x200]')}
          ${chalk.red('\u2716')} ${chalk.reset('test2 [300x400]')}
-       ${chalk.red('Errors - 2 tests')}
+       ${chalk.red('Errors - 3 tests')}
          ${chalk.red('\u2716')} ${chalk.reset('test0 [4x5] : Error: bla')}
          ${chalk.red('\u2716')} ${chalk.reset('test0 [6x7] : Error: bloo')}
+         ${chalk.red('\u2716')} ${chalk.reset('[Eyes test not started] : Error: kuku')}
 
        See details at: url1`;
 

@@ -21,13 +21,19 @@ function stringifyTestResults(testResults) {
   }`;
 }
 
+function stringifyError(error) {
+  return `[Eyes test not started] : ${error}`;
+}
+
 function testResultsToString(testResultsArr, isGood) {
   return testResultsArr.length
     ? `\n${indent(3)}${testResultsArr
         .map(
           testResults =>
             `${isGood ? chalk.green('\u2713') : chalk.red('\u2716')} ${chalk.reset(
-              stringifyTestResults(testResults),
+              testResults instanceof Error
+                ? stringifyError(testResults)
+                : stringifyTestResults(testResults),
             )}`,
         )
         .join(`\n${indent(3)}`)}`

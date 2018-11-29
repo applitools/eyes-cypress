@@ -26,10 +26,22 @@ describe('processCloseAndAbort', () => {
     expect(testResults).to.eql([['bla']]);
   });
 
-  it('filters undefined abort results', async () => {
+  it("filters undefined abort results when there's no close promise", async () => {
     const runningTests = [{abort: () => [undefined, 'bla', undefined]}];
     const testResults = await processCloseAndAbort(runningTests);
     expect(testResults).to.eql([['bla']]);
+  });
+
+  it('returns close error when abort returns undefined', async () => {
+    const error = new Error('kuku');
+    const runningTests = [
+      {
+        closePromise: presult(Promise.reject(error)),
+        abort: () => [undefined, {bla: 'bla'}, undefined],
+      },
+    ];
+    const testResults = await processCloseAndAbort(runningTests);
+    expect(testResults).to.eql([[error, {bla: 'bla', error}, error]]);
   });
 
   it('return filtered abort results with error when close throws an error', async () => {
