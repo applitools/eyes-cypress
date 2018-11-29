@@ -1,45 +1,33 @@
 'use strict';
 const chalk = require('chalk');
 
-function errorDigest({passedTestResults, testErrors, diffTestResults, logger}) {
-  logger.log('errorDigest: diff errors', diffTestResults);
-  logger.log('errorDigest: test errors', testErrors);
+function errorDigest({passed, failed, diffs, logger}) {
+  logger.log('errorDigest: diff errors', diffs);
+  logger.log('errorDigest: test errors', failed);
 
-  const testLink = diffTestResults.length
-    ? `\n\n${indent(2)}See details at: ${diffTestResults[0].getUrl()}`
-    : '';
+  const testLink = diffs.length ? `\n\n${indent(2)}See details at: ${diffs[0].getUrl()}` : '';
 
   return `Eyes.Cypress detected diffs or errors during execution of visual tests:
-${indent(2)}${chalk.green(`Passed - ${passedTestResults.length} tests`)}${itemToString(
-    passedTestResults,
-    stringifyTestResults,
-    true,
-  )}
-${indent(2)}${chalk.red(`Diffs detected - ${diffTestResults.length} tests`)}${itemToString(
-    diffTestResults,
-    stringifyTestResults,
-  )}
-${indent(2)}${chalk.red(`Errors - ${testErrors.length} tests`)}${itemToString(
-    testErrors,
-    stringifyException,
+${indent(2)}${chalk.green(`Passed - ${passed.length} tests`)}${testResultsToString(passed, true)}
+${indent(2)}${chalk.red(`Diffs detected - ${diffs.length} tests`)}${testResultsToString(diffs)}
+${indent(2)}${chalk.red(`Errors - ${failed.length} tests`)}${testResultsToString(
+    failed,
   )}${testLink}`;
 }
 
 function stringifyTestResults(testResults) {
-  return `${testResults.getName()} [${testResults.getHostDisplaySize()}]`;
+  return `${testResults.getName()} [${testResults.getHostDisplaySize()}]${
+    testResults.error ? ` : ${testResults.error}` : ''
+  }`;
 }
 
-function stringifyException(error) {
-  return `${error}`;
-}
-
-function itemToString(items, stringify, isGood) {
-  return items.length
-    ? `\n${indent(3)}${items
+function testResultsToString(testResultsArr, isGood) {
+  return testResultsArr.length
+    ? `\n${indent(3)}${testResultsArr
         .map(
-          err =>
+          testResults =>
             `${isGood ? chalk.green('\u2713') : chalk.red('\u2716')} ${chalk.reset(
-              stringify(err),
+              stringifyTestResults(testResults),
             )}`,
         )
         .join(`\n${indent(3)}`)}`

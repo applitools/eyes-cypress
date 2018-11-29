@@ -1,37 +1,32 @@
 'use strict';
-const errorDigest = require('./errorDigest');
 const concurrencyMsg = require('./concurrencyMsg');
+const flatten = require('lodash.flatten');
 
-function makeWaitForBatch({runningTests, logger, concurrency, getErrorsAndDiffs}) {
-  return async function() {
-    const closePromises = runningTests.filter(getClosePromise).map(getClosePromise);
-    const aborts = runningTests.filter(test => !test.closePromise).map(test => test.abort);
+function makeWaitForBatch({
+  logger,
+  concurrency,
+  processCloseAndAbort,
+  getErrorsAndDiffs,
+  errorDigest,
+}) {
+  return async function(runningTests) {
+    logger.log(`Waiting for test results of ${runningTests.length} tests.`);
 
-    logger.log(
-      `Waiting for test results of ${closePromises.length} closed tests. Going to abort ${
-        aborts.length
-      } tests`,
-    );
+    const x = await processCloseAndAbort(runningTests);
+    const testResultsArr = flatten(x);
 
-    const [{testErrors, diffTestResults, passedTestResults}] = await Promise.all([
-      getErrorsAndDiffs(closePromises),
-      Promise.all(aborts.map(abort => abort())),
-    ]);
+    const {failed, diffs, passed} = getErrorsAndDiffs(testResultsArr);
 
     if (concurrency == 1) {
       console.log(concurrencyMsg);
     }
 
-    if (testErrors.length || diffTestResults.length) {
-      throw new Error(errorDigest({passedTestResults, testErrors, diffTestResults, logger}));
+    if (failed.length || diffs.length) {
+      throw new Error(errorDigest({passed, failed, diffs, logger}));
     }
 
-    return passedTestResults.length + testErrors.length + testErrors.length;
+    return passed.length;
   };
-}
-
-function getClosePromise(test) {
-  return test.closePromise;
 }
 
 module.exports = makeWaitForBatch;

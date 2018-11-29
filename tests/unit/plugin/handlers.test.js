@@ -3,14 +3,12 @@ const {describe, it, beforeEach} = require('mocha');
 const {expect} = require('chai');
 const makeHandlers = require('../../../src/plugin/handlers');
 const {PollingStatus} = require('../../../src/plugin/pollingHandler');
-const errorDigest = require('../../../src/plugin/errorDigest');
 const {promisify: p} = require('util');
 const psetTimeout = p(setTimeout);
 const {TIMEOUT_MSG} = makeHandlers;
 
 describe('handlers', () => {
   let handlers;
-  let resolve;
 
   const fakeOpenEyes = (args = {}) => ({
     checkWindow: async (args2 = {}) => {
@@ -28,14 +26,6 @@ describe('handlers', () => {
     checkWindow: async x => x,
     close: async () => Promise.reject('bla'),
   });
-
-  function getErrorsAndDiffs() {
-    return new Promise(r => (resolve = r));
-  }
-
-  function __resolveErrorsAndDiffs(val) {
-    return resolve && resolve(val);
-  }
 
   async function openAndClose() {
     await handlers.open();
@@ -265,15 +255,45 @@ describe('handlers', () => {
   });
 
   it('handles "batchEnd"', async () => {
+    let resolveClose;
+    const openEyes = async () => ({
+      checkWindow: () => {},
+
+      close: async () =>
+        new Promise(r => {
+          resolveClose = args => r(args);
+        }),
+
+      abort: async () => {},
+    });
+
     handlers = makeHandlers({
-      makeVisualGridClient: () => ({
-        openEyes: fakeOpenEyes,
-      }),
-      getErrorsAndDiffs,
+      makeVisualGridClient: () => ({openEyes}),
+      processCloseAndAbort: async runningTests =>
+        Promise.all(
+          runningTests.map(async ({closePromise, abort}) =>
+            closePromise ? (await closePromise)[1] : abort(),
+          ),
+        ),
+      getErrorsAndDiffs: testResultsArr =>
+        testResultsArr.reduce(
+          ({passed, failed, diffs}, x) => {
+            if (x === 'passed') passed.push(x);
+            if (/^failed:/.test(x)) failed.push(x.split(':')[1]);
+            if (x === 'diffs') diffs.push(x);
+            return {passed, failed, diffs};
+          },
+          {
+            passed: [],
+            failed: [],
+            diffs: [],
+          },
+        ),
+      errorDigest: ({passed, failed, diffs}) => `${passed}::${failed}##${diffs}`,
     });
 
     handlers.batchStart();
-    await handlers.open();
+    await openAndClose();
 
     // IDLE ==> WIP
     let result = await handlers.batchEnd();
@@ -284,7 +304,7 @@ describe('handlers', () => {
     expect(result).to.eql({status: PollingStatus.WIP});
 
     // WIP ==> DONE
-    __resolveErrorsAndDiffs({passedTestResults: [{}], testErrors: [], diffTestResults: []});
+    resolveClose(['passed']);
     await psetTimeout(0);
 
     // DONE ==> IDLE
@@ -292,26 +312,21 @@ describe('handlers', () => {
     expect(result).to.eql({status: PollingStatus.DONE, results: 1});
 
     // IDLE ==> WIP
-    await handlers.open(); // needs to be called because handlers don't allow calling close() before open();
+    await openAndClose();
     result = await handlers.batchEnd();
     expect(result).to.eql({status: PollingStatus.IDLE});
 
     // WIP ==> ERROR (unexpected)
-    const failResult = {
-      passedTestResults: [],
-      testErrors: [new Error('fail')],
-      diffTestResults: [],
-    };
-    __resolveErrorsAndDiffs(failResult);
+    resolveClose(['failed:bla']);
     await psetTimeout(0);
 
     // ERROR (unexpected) ==> IDLE
     result = await handlers.batchEnd().then(x => x, err => err);
     expect(result).to.be.an.instanceof(Error);
-    expect(result.message).to.equal(errorDigest(Object.assign(failResult, {logger: console})));
+    expect(result.message).to.equal('passed::bla##');
 
     // IDLE ==> WIP (with timeout)
-    await handlers.open(); // needs to be called because handlers don't allow calling close() before open();
+    await openAndClose();
     result = await handlers.batchEnd({timeout: 50});
     expect(result).to.eql({status: PollingStatus.IDLE});
 
@@ -323,31 +338,28 @@ describe('handlers', () => {
     expect(result).to.be.an.instanceof(Error);
     expect(result.message).to.equal(TIMEOUT_MSG(50));
 
+    // IDLE ==> DONE
+    resolveClose([]);
+    await psetTimeout(0);
+
+    // DONE ==> IDLE
+    result = await handlers.batchEnd().then(x => x, err => err);
+    expect(result).to.be.an.instanceof(Error);
+    expect(result.message).to.equal('passed::bla##');
+
     // IDLE ==> WIP
-    await handlers.open(); // needs to be called because handlers don't allow calling close() before open();
+    await openAndClose();
     result = await handlers.batchEnd();
     expect(result).to.eql({status: PollingStatus.IDLE});
 
     // WIP ==> ERROR
-    const err1 = new Error('fail');
-    const testResults = {
-      passedTestResults: [{getName: () => 'name 1', getHostDisplaySize: () => 'host 1'}],
-      testErrors: [err1],
-      diffTestResults: [
-        {
-          getName: () => 'name 2',
-          getHostDisplaySize: () => 'host 2',
-          getUrl: () => 'url',
-        },
-      ],
-    };
-    __resolveErrorsAndDiffs(testResults);
+    resolveClose(['passed', 'failed:bla', 'diffs']);
     await psetTimeout(0);
 
     // ERROR ==> IDLE
     result = await handlers.batchEnd().then(x => x, err => err);
     expect(result).to.be.an.instanceof(Error);
-    expect(result.message).to.equal(errorDigest(Object.assign(testResults, {logger: console})));
+    expect(result.message).to.equal('passed,passed::bla,bla##diffs');
   });
 
   it('error in openEyes should cause close to do nothing', async () => {
@@ -362,28 +374,5 @@ describe('handlers', () => {
     await handlers.open().catch(x => x);
     const err = await handlers.close().then(x => x, err => err);
     expect(err).to.equal(undefined);
-  });
-
-  it('handles abort', async () => {
-    let abortCount = 0;
-    handlers = makeHandlers({
-      makeVisualGridClient: () => ({
-        openEyes: async () => ({
-          checkWindow: async () => {},
-          close: async () => {},
-          abort: () => {
-            abortCount++;
-          },
-        }),
-      }),
-      getErrorsAndDiffs,
-    });
-    handlers.batchStart();
-    await handlers.open();
-    await handlers.open();
-    await handlers.batchEnd(); // IDLE --> WIP
-    await handlers.batchEnd(); // WIP --> WIP (unless an error occurred)
-    __resolveErrorsAndDiffs();
-    expect(abortCount).to.equal(2);
   });
 });

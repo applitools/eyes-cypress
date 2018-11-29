@@ -1,38 +1,33 @@
 'use strict';
 
-async function getErrorsAndDiffs(closePromises) {
-  const testResultsOrErrs = await Promise.all(closePromises);
-
-  return testResultsOrErrs.reduce(
-    ({testErrors, diffTestResults, passedTestResults}, [err, testResults]) => {
-      if (err) {
-        testErrors.push(err);
+function getErrorsAndDiffs(testResultsArr) {
+  return testResultsArr.reduce(
+    ({failed, diffs, passed}, testResults) => {
+      if (testResults.error) {
+        failed.push(testResults);
       } else {
-        for (const testResult of testResults) {
-          if (testResult.getStatus() === 'Unresolved') {
-            if (testResult.getIsNew()) {
-              testErrors.push(
-                new Error(
-                  `${testResult.getName()}. Please approve the new baseline at ${testResult.getUrl()}`,
-                ),
-              );
-            } else {
-              diffTestResults.push(testResult);
-            }
-          } else if (testResult.getStatus() === 'Failed') {
-            testErrors.push(new Error(testResult.getName()));
+        if (testResults.getStatus() === 'Unresolved') {
+          if (testResults.getIsNew()) {
+            testResults.error = new Error(
+              `${testResults.getName()}. Please approve the new baseline at ${testResults.getUrl()}`,
+            );
+            failed.push(testResults);
           } else {
-            passedTestResults.push(testResult);
+            diffs.push(testResults);
           }
+        } else if (testResults.getStatus() === 'Failed') {
+          failed.push(testResults);
+        } else {
+          passed.push(testResults);
         }
       }
 
-      return {testErrors, diffTestResults, passedTestResults};
+      return {failed, diffs, passed};
     },
     {
-      testErrors: [],
-      diffTestResults: [],
-      passedTestResults: [],
+      failed: [],
+      diffs: [],
+      passed: [],
     },
   );
 }

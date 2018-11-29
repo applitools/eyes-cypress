@@ -10,10 +10,22 @@ function _wrap(str) {
   return chalk.red(`   ${new Error(str)}`);
 }
 
-describe('error digest', () => {
+describe('errorDigest', () => {
   it('works', () => {
-    const testErrors = [new Error('bla'), new Error('bloo')];
-    const diffTestResults = [
+    const err1 = new TestResults({
+      name: 'test0',
+      hostDisplaySize: {width: 4, height: 5},
+      url: 'url0',
+    });
+    err1.error = new Error('bla');
+    const err2 = new TestResults({
+      name: 'test0',
+      hostDisplaySize: {width: 6, height: 7},
+      url: 'url0',
+    });
+    err2.error = new Error('bloo');
+    const failed = [err1, err2];
+    const diffs = [
       new TestResults({
         name: 'test1',
         hostDisplaySize: {width: 100, height: 200},
@@ -25,16 +37,16 @@ describe('error digest', () => {
         url: 'url2',
       }),
     ];
-    const passedTestResults = [
+    const passed = [
       new TestResults({
         name: 'test3',
         hostDisplaySize: {width: 1, height: 2},
       }),
     ];
     const output = errorDigest({
-      passedTestResults,
-      testErrors,
-      diffTestResults,
+      passed,
+      failed,
+      diffs,
       logger: {log: () => {}},
     });
 
@@ -48,8 +60,8 @@ describe('error digest', () => {
          ${chalk.red('\u2716')} ${chalk.reset('test1 [100x200]')}
          ${chalk.red('\u2716')} ${chalk.reset('test2 [300x400]')}
        ${chalk.red('Errors - 2 tests')}
-         ${chalk.red('\u2716')} ${chalk.reset('Error: bla')}
-         ${chalk.red('\u2716')} ${chalk.reset('Error: bloo')}
+         ${chalk.red('\u2716')} ${chalk.reset('test0 [4x5] : Error: bla')}
+         ${chalk.red('\u2716')} ${chalk.reset('test0 [6x7] : Error: bloo')}
 
        See details at: url1`;
 
