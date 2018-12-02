@@ -3,7 +3,7 @@ const getAllBlobs = require('./getAllBlobs');
 
 function makeEyesCheckWindow({sendRequest, processPage, Blob}) {
   return function eyesCheckWindow(doc, args) {
-    let tag, sizeMode, selector, region, scriptHooks, ignore, sendDom;
+    let tag, sizeMode, selector, region, scriptHooks, ignore, floating, sendDom;
     if (typeof args === 'string') {
       tag = args;
     } else if (typeof args === 'object') {
@@ -13,6 +13,7 @@ function makeEyesCheckWindow({sendRequest, processPage, Blob}) {
       region = args.region;
       scriptHooks = args.scriptHooks;
       ignore = args.ignore;
+      floating = args.floating;
       sendDom = args.sendDom;
     }
 
@@ -33,6 +34,7 @@ function makeEyesCheckWindow({sendRequest, processPage, Blob}) {
             region,
             scriptHooks,
             ignore,
+            floating,
             frames,
             sendDom,
           },

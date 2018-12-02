@@ -32,6 +32,7 @@ describe('eyesCheckWindow', () => {
         frames,
         tag,
         ignore: undefined,
+        floating: undefined,
         region: undefined,
         scriptHooks: undefined,
         selector: undefined,
@@ -86,6 +87,7 @@ describe('eyesCheckWindow', () => {
     const region = 'region';
     const scriptHooks = 'scriptHooks';
     const ignore = 'ignore';
+    const floating = 'floating';
     const sendDom = 'sendDom';
 
     await eyesCheckWindow('bla doc', {
@@ -95,6 +97,7 @@ describe('eyesCheckWindow', () => {
       region,
       scriptHooks,
       ignore,
+      floating,
       sendDom,
     });
 
@@ -112,6 +115,7 @@ describe('eyesCheckWindow', () => {
         region,
         scriptHooks,
         ignore,
+        floating,
         sendDom,
       },
     });
@@ -201,6 +205,7 @@ describe('eyesCheckWindow', () => {
         region: undefined,
         scriptHooks: undefined,
         ignore: undefined,
+        floating: undefined,
         sendDom: undefined,
       },
     });

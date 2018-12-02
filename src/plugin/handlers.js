@@ -79,6 +79,7 @@ function makeHandlers({
       region,
       scriptHooks,
       ignore,
+      floating,
       frames = [],
       sendDom,
     }) => {
@@ -101,6 +102,7 @@ function makeHandlers({
         region,
         scriptHooks,
         ignore,
+        floating,
         frames: framesWithResources,
         sendDom,
       });
