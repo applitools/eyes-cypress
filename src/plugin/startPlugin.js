@@ -1,5 +1,7 @@
 'use strict';
 
+const {version: packageVersion} = require('../../package.json');
+const agentId = `eyes.cypress/${packageVersion}`;
 const makeStartServer = require('./server');
 const makePluginExport = require('./pluginExport');
 const {startApp} = require('./app');
@@ -13,7 +15,7 @@ const processCloseAndAbort = require('./processCloseAndAbort');
 const errorDigest = require('./errorDigest');
 const makeHandlers = require('./handlers');
 const getConfig = makeGetConfig();
-const config = Object.assign({concurrency: 1}, getConfig());
+const config = Object.assign({concurrency: 1, agentId}, getConfig());
 const logger = createLogger(config.showLogs);
 const handlers = makeHandlers({
   logger,
