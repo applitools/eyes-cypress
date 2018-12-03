@@ -227,6 +227,12 @@ cy.eyesCheckWindow({
 })
 ```
 
+- `sendDom` (optional): A flag to specify whether a capture of DOM and CSS should be taken when rendering the screenshot. The default value is true. This should only be modified to troubleshoot unexpected behavior, and not for normal production use.
+
+```js
+cy.eyesCheckWindow({sendDom: false})
+```
+
 #### Close
 
 Close the applitools test and check that all screenshots are valid.
@@ -248,7 +254,14 @@ If you are interested in speeding up your visual tests, contact sdr@applitools.c
 
 ## Advanced configuration
 
-It's possible to define the following configuration for tests:
+There are 3 ways to specify test configuration:
+1) Arguments to `cy.eyesOpen()`
+2) Environment variables
+3) The `applitools.config.js` file
+
+The list above is also the order of precedence, which means that if you pass a property to `cy.eyesOpen` it will override the environment variable, and the environment variable will override the value defined in the `applitools.config.js` file.
+
+Here are the available configuration properties:
 
 | Property name             | Default value               | Description   |
 | -------------             |:-------------               |:-----------   |
@@ -272,19 +285,15 @@ It's possible to define the following configuration for tests:
 | `properties`              | undefined                   | Custom properties for the eyes test. The format is an array of objects with name/value properties. For example: `[{name: 'My prop', value:'My value'}]`. |
 | `compareWithParentBranch` | false                       |  |
 | `ignoreBaseline`          | false                       |  |
+
+The following configuration properties cannot be defined using the first method of passing them to `cy.eyesOpen`. They should be defined either in the `applitools.config.js` file or as environment variables.
+
+| Property name             | Default value               | Description   |
+| -------------             |:-------------               |:-----------   |
+| `apiKey`                  | undefined                   | The API key used for working with the Applitools Eyes server. See more info in the [Applitools API key](#applitools-api-key) section above |
 | `showLogs`                | false                       | Whether or not you want to see logs of the Eyes.Cypress plugin. Logs are written to the same output of the Cypress process. |
 | `serverUrl`               | Default Eyes server URL     | The URL of Eyes server |
 | `proxy`                   | undefined                   | Sets the proxy settings to be used in network requests to Eyes server. This can be either a string to the proxy URI, or an object containing the URI, username and password.<br/><br/>For example:<br/>`{uri: 'https://myproxy', username: 'my_user', password: 'my_password'}`|
-| `apiKey`                  | undefined                   | The API key used for working with the Applitools Eyes server. See more info in the [Applitools API key](#applitools-api-key) section above |
-
-There are 3 ways to specify test configuration:
-1) Arguments to `cy.eyesOpen()`
-2) Environment variables
-3) The `applitools.config.js` file
-
-The list above is also the order of precedence, which means that if you pass a property to `cy.eyesOpen` it will override the environment variable, and the environment variable will override the value defined in the `applitools.config.js` file.
-
-**Important note about exceptions to this list**: The configuration properties `showLogs`, `apiKey`, `serverUrl` and `proxy` cannot be defined using the first method of passing them to `cy.eyesOpen`. They should be defined either in the `applitools.config.js` file or as environment variables.
 
 ### Method 1: Arguments for `cy.eyesOpen`
 
@@ -308,8 +317,23 @@ The name of the corresponding environment variable is in uppercase, with the `AP
 APPLITOOLS_APP_NAME
 APPLITOOLS_SHOW_LOGS
 APPLITOOLS_BATCH_NAME
-...
-// all other configuration variables apply
+APPLITOOLS_CONCURRENCY
+APPLITOOLS_SAVE_DEBUG_DATA
+APPLITOOLS_BATCH_ID
+APPLITOOLS_BATCH_NAME
+APPLITOOLS_BASELINE_ENV_NAME
+APPLITOOLS_ENV_NAME
+APPLITOOLS_IGNORE_CARET
+APPLITOOLS_IS_DISABLED
+APPLITOOLS_MATCH_LEVEL
+APPLITOOLS_MATCH_TIMEOUT
+APPLITOOLS_BRANCH_NAME
+APPLITOOLS_BASELINE_BRANCH_NAME
+APPLITOOLS_PARENT_BRANCH_NAME
+APPLITOOLS_SAVE_FAILED_TESTS
+APPLITOOLS_SAVE_NEW_TESTS
+APPLITOOLS_COMPARE_WITH_PARENT_BRANCH
+APPLITOOLS_IGNORE_BASELINE
 ```
 
 ### Method 3: The `applitools.config.js` file
