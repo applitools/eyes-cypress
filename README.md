@@ -172,12 +172,31 @@ cy.eyesCheckWindow({ tag: 'your tag', sizeMode: 'your size mode' })
 
   - **`full-page`**: This is the default value. It means a screenshot of everything that exists in the DOM at the point of calling `eyesCheckWindow` will be rendered.
   - **`viewport`**: Only a screenshot the size of the browser will be rendered (the size of the browser can be set in the call to `cy.eyesOpen` - see advanced configuration below).
-  - **`selector`**: Take a screenshot of the content of the element targeted by the css selector. It's necessary to specify the value of the selector in the `selector` argument.
+  - **`selector`**: Take a screenshot of the content of the element targeted by css or xpath selector. It's necessary to specify the value of the selector in the `selector` argument.
   - **`region`**: Take a screenshot of a region of the page, specified by coordinates. It's necessary to specify the value of the region in the `region` argument.
 
-- `selector` (optional): In case `sizeMode` is `selector`, this should be the actual css selector to an element, and the screenshot would be the content of that element. For example:
+- `selector` (optional): In case `sizeMode` is `selector`, this should be the actual css or xpath selector to an element, and the screenshot would be the content of that element. For example:
 
 ```js
+// Using a css selector
+cy.eyesCheckWindow({
+  sizeMode: 'selector',
+  selector: {
+    type: 'css',
+    selector: '.my-element' // or '//button'
+  }
+});
+
+// Using an xpath selector
+cy.eyesCheckWindow({
+  sizeMode: 'selector',
+  selector: {
+    type: 'xpath',
+    selector: '//button[1]'
+  }
+});
+
+// The shorthand string version defaults to css selectors
 cy.eyesCheckWindow({
   sizeMode: 'selector',
   selector: '.my-element'
