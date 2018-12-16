@@ -1,4 +1,61 @@
 
+v3.3.13 / 2018-12-16
+====================
+
+* 3.3.13 - Amit Zur [[478ca47](https://github.com/applitools/eyes.cypress/commit/478ca4727b58aab6d33f43cfb3032804216bb4f2)]
+* update dc and vgc to fetch css deps from the browser - Amit Zur [[8c285f7](https://github.com/applitools/eyes.cypress/commit/8c285f7a0f76ec4aaa25deb64355f1ee8ecdda9c)]
+
+v3.3.12 / 2018-12-11
+====================
+
+* 3.3.12 - Amit Zur [[a111092](https://github.com/applitools/eyes.cypress/commit/a111092db0e1d52d1b410aa69266ca00030dc51a)]
+* update vgc to 8.0.6 to handle null render status - Amit Zur [[848e6eb](https://github.com/applitools/eyes.cypress/commit/848e6ebc93631ecd21bd301b3a63b3f737f18d3c)]
+
+v3.3.11 / 2018-12-11
+====================
+
+* 3.3.11 - Amit Zur [[9a40fb6](https://github.com/applitools/eyes.cypress/commit/9a40fb621c1668b99f89aafbfb46a5340c761bc4)]
+* update vgc to 8.0.4 to fix statuser - Amit Zur [[f13510c](https://github.com/applitools/eyes.cypress/commit/f13510c84f88db36b5e35f6ddd9f7816c6f0a451)]
+
+v3.3.10 / 2018-12-11
+====================
+
+* 3.3.10 - Amit Zur [[4abe40e](https://github.com/applitools/eyes.cypress/commit/4abe40ee50508dae49a8e14b900ffb415338bb7b)]
+* update vgc to 8.0.2 to get statuser - Amit Zur [[8d7466e](https://github.com/applitools/eyes.cypress/commit/8d7466e1e928dd0f90a8826a794c87701b3999e7)]
+* play stuff - Amit Zur [[e6611b6](https://github.com/applitools/eyes.cypress/commit/e6611b63f95daf50e1461077177e8e8f250f185b)]
+* update readme to reflect config exceptions and add sendDom - Amit Zur [[77b1d9f](https://github.com/applitools/eyes.cypress/commit/77b1d9f1cd86cdc136d17d35e6ab380802f799c4)]
+
+v3.3.9 / 2018-12-02
+===================
+
+* 3.3.9 - Amit Zur [[e219eef](https://github.com/applitools/eyes.cypress/commit/e219eefee98732c4bbbf610832e06fc427a80df0)]
+* update vgc to 7.2.8 and use the correct agentId - Amit Zur [[d277171](https://github.com/applitools/eyes.cypress/commit/d277171ee67727a5fb0f3e8658f6f78aaaa1ae83)]
+
+v3.3.8 / 2018-12-02
+===================
+
+* 3.3.8 - Amit Zur [[fc883b6](https://github.com/applitools/eyes.cypress/commit/fc883b66de39e9b9664e8ded062daa7f0287c218)]
+* update vgc to 7.2.7 to fix unopened transactions - Amit Zur [[43c47e7](https://github.com/applitools/eyes.cypress/commit/43c47e76d04de7cc161cf756229c4fa4e0004ad3)]
+
+v3.3.7 / 2018-12-02
+===================
+
+* 3.3.7 - Amit Zur [[3303d46](https://github.com/applitools/eyes.cypress/commit/3303d4697af967658731f6bf3d57e1d9fbe91345)]
+* bring the floating region feature to life - Amit Zur [[d1c25bc](https://github.com/applitools/eyes.cypress/commit/d1c25bc0930319ca419a93e9129afe9d7b83991c)]
+
+v3.3.6 / 2018-11-29
+===================
+
+* 3.3.6 - Amit Zur [[9df6212](https://github.com/applitools/eyes.cypress/commit/9df6212d48b1be6aa6f04bb251eead7853010ce5)]
+* fix filtering of failed tests - Amit Zur [[c24a710](https://github.com/applitools/eyes.cypress/commit/c24a710b23a05df5a89e52550bf172329fd00448)]
+
+v3.3.5 / 2018-11-29
+===================
+
+* 3.3.5 - Amit Zur [[3fec07c](https://github.com/applitools/eyes.cypress/commit/3fec07cdbb8171f3055aae4b3c16b05ac7fd4520)]
+* abort failed tests and add test info for failures in error digest - Amit Zur [[1377d0c](https://github.com/applitools/eyes.cypress/commit/1377d0ce39401a75e504cbac162bc58c151b1c90)]
+* changelog - Amit Zur [[20fc20c](https://github.com/applitools/eyes.cypress/commit/20fc20ca9c274fbbffa4327656af46a275dc0d97)]
+
 v3.3.4 / 2018-11-28
 ===================
 
