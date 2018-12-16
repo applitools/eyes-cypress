@@ -1,10 +1,11 @@
-/* globals describe,it,cy */
+/* globals describe,it,cy,Cypress */
 describe('random play', () => {
   it('random play', () => {
-    cy.visit('http://localhost:3000');
+    cy.setCookie('auth', 'secret');
+    // cy.visit('http://localhost:3000');
 
-    // const url = `http://localhost:${Cypress.config('testPort')}/test.html`;
-    // cy.visit(url);
+    const url = `http://localhost:${Cypress.config('testPort')}/test.html`;
+    cy.visit(url);
 
     cy.eyesOpen({
       appName: 'cypress play around',
