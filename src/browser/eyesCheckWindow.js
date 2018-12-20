@@ -18,7 +18,7 @@ function makeEyesCheckWindow({sendRequest, processPage, Blob}) {
     }
 
     return processPage(doc).then(mainFrame => {
-      const allBlobs = getAllBlobs(mainFrame);
+      const allBlobs = getAllBlobs(mainFrame).map(mapBlob);
       const {resourceUrls, blobData, frames, url, cdt} = replaceBlobsWithBlobDataInFrame(mainFrame);
       return Promise.all(allBlobs.map(putResource)).then(() =>
         sendRequest({
@@ -63,7 +63,11 @@ function makeEyesCheckWindow({sendRequest, processPage, Blob}) {
   }
 
   function mapBlobData({url, type}) {
-    return {url, type};
+    return {url, type: type || 'application/x-applitools-unknown'};
+  }
+
+  function mapBlob({url, type, value}) {
+    return {url, type: type || 'application/x-applitools-unknown', value};
   }
 }
 

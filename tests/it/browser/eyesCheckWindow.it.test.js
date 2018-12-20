@@ -241,4 +241,57 @@ describe('eyesCheckWindow', () => {
       return {resourceUrls, blobs, frames, url, cdt};
     }
   });
+
+  it('uploads blobs from all frames and then sends only url+type (blobData)', async () => {
+    let sendRequestInput;
+    const resourcesPutted = [];
+
+    const blob1 = {url: 'blobUrl', value: 'bla'};
+    const blobs = [blob1];
+    const resourceUrls = 'resourceUrls';
+    const url = 'url';
+    const cdt = 'cdt';
+    const Blob = function() {};
+    const eyesCheckWindow = makeEyesCheckWindow({sendRequest, processPage, Blob});
+
+    await eyesCheckWindow('bla doc');
+
+    expect(sendRequestInput).to.eql({
+      command: 'checkWindow',
+      data: {
+        url,
+        cdt,
+        resourceUrls,
+        blobData: [{url: 'blobUrl', type: 'application/x-applitools-unknown'}],
+        frames: [],
+        tag: undefined,
+        sizeMode: undefined,
+        selector: undefined,
+        region: undefined,
+        scriptHooks: undefined,
+        ignore: undefined,
+        floating: undefined,
+        sendDom: undefined,
+      },
+    });
+    expect(resourcesPutted).to.eql([
+      {
+        command: `resource/blobUrl`,
+        data: new Blob(['bla']),
+        method: 'PUT',
+        headers: {'Content-Type': 'application/x-applitools-unknown'},
+      },
+    ]);
+
+    function sendRequest(arg) {
+      if (arg.command === 'checkWindow') sendRequestInput = arg;
+      else {
+        resourcesPutted.push(arg);
+      }
+    }
+
+    async function processPage() {
+      return {resourceUrls, blobs, frames: [], url, cdt};
+    }
+  });
 });
