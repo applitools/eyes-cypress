@@ -2,7 +2,7 @@
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const makeWaitForBatch = require('../../../src/plugin/waitForBatch');
-const concurrencyMsg = require('../../../src/plugin/concurrencyMsg');
+const {concurrencyMsg} = require('../../../src/plugin/concurrencyMsg');
 
 function getErrorsAndDiffs(testResultsArr) {
   return testResultsArr.reduce(

@@ -8,3 +8,5 @@ tests/cypress/videos
 .History.md.swp
 tests/fixtures/testApp/cypress/screenshots
 tests/fixtures/testApp/cypress/videos
+applitools.config.js
+tests/fixtures/testApp/package-lock.json
