@@ -1,5 +1,5 @@
 'use strict';
-const concurrencyMsg = require('./concurrencyMsg');
+const {concurrencyMsg} = require('./concurrencyMsg');
 const flatten = require('lodash.flatten');
 
 function makeWaitForBatch({

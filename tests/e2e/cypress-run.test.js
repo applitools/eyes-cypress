@@ -5,7 +5,8 @@ const {exec} = require('child_process');
 const {promisify: p} = require('util');
 const {resolve} = require('path');
 const {TIMEOUT_MSG} = require('../../src/plugin/handlers');
-
+const {msgText} = require('../../src/plugin/concurrencyMsg');
+const concurrencyMsg = msgText.substr(0, 100);
 const pexec = p(exec);
 
 const rootPath = resolve(__dirname, '../..');
@@ -54,6 +55,25 @@ describe('cypress run', () => {
       );
     } catch (ex) {
       expect(ex.stdout).to.include(TIMEOUT_MSG(100));
+    }
+  });
+
+  it('works with disabled eyes', async () => {
+    try {
+      const {stdout} = await pexec(
+        'APPLITOOLS_IS_DISABLED=1 ./node_modules/.bin/cypress run --spec cypress/integration-play/iframe.js --config integrationFolder=cypress/integration-play,pluginsFile=cypress/plugins/index-run.js,supportFile=cypress/support/index-run.js',
+        {
+          maxBuffer: 10000000,
+        },
+      );
+
+      expect(
+        stdout,
+        'cypress ran with eyes disabled but concurrency msg is shown',
+      ).to.not.have.string(concurrencyMsg);
+    } catch (ex) {
+      console.error('Error during test!', ex.stdout);
+      throw ex;
     }
   });
 });

@@ -1,16 +1,15 @@
 'use strict';
 
-function makePluginExport({startServer, getConfig}) {
+function makePluginExport({startServer, config}) {
   return function pluginExport(pluginModule) {
     let closeEyesServer;
     const pluginModuleExports = pluginModule.exports;
     pluginModule.exports = async (...args) => {
-      const {eyesPort, closeServer} = await startServer({getConfig});
+      const {eyesPort, closeServer} = await startServer();
 
       closeEyesServer = closeServer;
       const moduleExportsResult = await pluginModuleExports(...args);
-      const {isDisabled: eyesIsDisabled} = getConfig();
-      return Object.assign({eyesPort, eyesIsDisabled}, moduleExportsResult);
+      return Object.assign({eyesPort, eyesIsDisabled: !!config.isDisabled}, moduleExportsResult);
     };
     return function getCloseServer() {
       return closeEyesServer;

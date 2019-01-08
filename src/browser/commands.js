@@ -29,6 +29,12 @@ let isCurrentTestDisabled;
 Cypress.Commands.add('eyesOpen', function(args = {}) {
   const {title: testName} = this.currentTest || this.test;
   Cypress.log({name: 'Eyes: open'});
+  if (Cypress.config('eyesIsDisabled') && args.isDisabled === false) {
+    throw new Error(
+      "Applitools cannot be enabled by setting 'isDisabled' to false in cy.eyeyOpen(), " +
+        'use APPLITOOLS_IS_DISABLED env variable or set it in applitools.config.js.',
+    );
+  }
   isCurrentTestDisabled = Cypress.config('eyesIsDisabled') || args.isDisabled;
   if (isCurrentTestDisabled) return;
   return sendRequest({command: 'open', data: Object.assign({testName}, args)});

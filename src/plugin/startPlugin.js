@@ -30,4 +30,4 @@ const startServer = makeStartServer({app, logger});
 
 logger.log('eyes.cypress plugin running with config:', config);
 
-module.exports = makePluginExport({startServer, getConfig});
+module.exports = makePluginExport({startServer, config});
