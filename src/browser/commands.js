@@ -31,8 +31,7 @@ Cypress.Commands.add('eyesOpen', function(args = {}) {
   Cypress.log({name: 'Eyes: open'});
   if (Cypress.config('eyesIsDisabled') && args.isDisabled === false) {
     throw new Error(
-      "Applitools cannot be enabled by setting 'isDisabled' to false in cy.eyeyOpen(), " +
-        'use APPLITOOLS_IS_DISABLED env variable or set it in applitools.config.js.',
+      `Eyes.Cypress is disabled by an env variable or in the applitools.config.js file, but the "${testName}" test was passed isDisabled:false. A single test cannot be enabled when Eyes.Cypress is disabled through the global configuration. Please remove "isDisabled:false" from cy.eyesOpen() for this test, or enable Eyes.Cypress in the global configuration, either by unsetting the APPLITOOLS_IS_DISABLED env var, or by deleting 'isDisabled' from the applitools.config.js file.`,
     );
   }
   isCurrentTestDisabled = Cypress.config('eyesIsDisabled') || args.isDisabled;

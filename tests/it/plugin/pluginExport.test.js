@@ -6,8 +6,7 @@ const {promisify: p} = require('util');
 const psetTimeout = p(setTimeout);
 
 describe('pluginExport', () => {
-  let pluginExport, prevEnv;
-  const config = {};
+  let prevEnv;
 
   async function startServer() {
     return {
@@ -18,7 +17,6 @@ describe('pluginExport', () => {
   beforeEach(() => {
     prevEnv = process.env;
     process.env = {};
-    pluginExport = makePluginExport({startServer, config});
   });
 
   afterEach(() => {
@@ -26,6 +24,8 @@ describe('pluginExport', () => {
   });
 
   it('works', async () => {
+    const pluginExport = makePluginExport({startServer, config: {}});
+
     const __module = {
       exports: (_on, config) => {
         x = config;
@@ -49,6 +49,7 @@ describe('pluginExport', () => {
   });
 
   it('handles async module.exports', async () => {
+    const pluginExport = makePluginExport({startServer, config: {}});
     const __module = {
       exports: async () => {
         await psetTimeout(0);
@@ -61,19 +62,14 @@ describe('pluginExport', () => {
     expect(ret).to.eql({bla: 'bla', eyesPort: 123, eyesIsDisabled: false});
   });
 
-  describe('with eyes disabled', () => {
-    before(() => (config.isDisabled = true));
+  it('works with disabled eyes', async () => {
+    const pluginExport = makePluginExport({startServer, config: {isDisabled: true}});
+    const __module = {
+      exports: () => ({bla: 'ret'}),
+    };
 
-    after(() => delete config.isDisabled);
-
-    it('works with disabled eyes', async () => {
-      const __module = {
-        exports: () => ({bla: 'ret'}),
-      };
-
-      pluginExport(__module);
-      const ret = await __module.exports();
-      expect(ret).to.eql({bla: 'ret', eyesPort: 123, eyesIsDisabled: true});
-    });
+    pluginExport(__module);
+    const ret = await __module.exports();
+    expect(ret).to.eql({bla: 'ret', eyesPort: 123, eyesIsDisabled: true});
   });
 });
