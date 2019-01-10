@@ -1,5 +1,5 @@
 'use strict';
-const {describe, it} = require('mocha');
+const {describe, it, before, after, beforeEach, afterEach} = require('mocha');
 const {expect} = require('chai');
 const fetch = require('node-fetch');
 let startPlugin = require('../../../src/plugin/startPlugin');
