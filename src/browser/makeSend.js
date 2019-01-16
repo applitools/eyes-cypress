@@ -1,12 +1,15 @@
 'use strict';
 
 function makeSend(port, fetch) {
-  return function send({command, data, method = 'POST', headers}) {
-    return fetch({
-      url: `http://localhost:${port}/eyes/${command}`,
+  return function send({
+    command,
+    data,
+    method = 'POST',
+    headers = {'Content-Type': 'application/json'},
+  }) {
+    return fetch(`https://localhost:${port}/eyes/${command}`, {
       method,
-      body: data,
-      log: false,
+      body: headers['Content-Type'] === 'application/json' ? JSON.stringify(data) : data,
       headers,
     });
   };

@@ -1,7 +1,7 @@
 'use strict';
 const getAllBlobs = require('./getAllBlobs');
 
-function makeEyesCheckWindow({sendRequest, processPage, Blob}) {
+function makeEyesCheckWindow({sendRequest, processPage}) {
   return function eyesCheckWindow(doc, args) {
     let tag, sizeMode, selector, region, scriptHooks, ignore, floating, sendDom;
     if (typeof args === 'string') {
@@ -43,12 +43,12 @@ function makeEyesCheckWindow({sendRequest, processPage, Blob}) {
     });
   };
 
-  function putResource({url, type, value}) {
+  function putResource({url, value}) {
     return sendRequest({
       command: `resource/${encodeURIComponent(url)}`,
-      data: new Blob([value]),
+      data: value,
       method: 'PUT',
-      headers: {'Content-Type': type},
+      headers: {'Content-Type': 'application/octet-stream'},
     });
   }
 

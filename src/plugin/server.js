@@ -1,10 +1,20 @@
 'use strict';
+const https = require('https');
+const fs = require('fs');
+const path = require('path');
 
 function makeStartServer({logger, app}) {
   return function startServer() {
     return new Promise((resolve, reject) => {
       logger.log(`starting plugin server`);
-      const server = app.listen(0, err => {
+      const server = https.createServer(
+        {
+          key: fs.readFileSync(path.resolve(__dirname, '../pem/server.key')),
+          cert: fs.readFileSync(path.resolve(__dirname, '../pem/server.cert')),
+        },
+        app,
+      );
+      server.listen(0, err => {
         if (err) {
           logger.log('error starting plugin server', err);
           reject(err);

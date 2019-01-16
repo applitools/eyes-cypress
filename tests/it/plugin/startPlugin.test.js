@@ -1,7 +1,7 @@
 'use strict';
 const {describe, it, before, after, beforeEach, afterEach} = require('mocha');
 const {expect} = require('chai');
-const fetch = require('node-fetch');
+const fetch = require('../../util/fetchWithNoCAVerify');
 let startPlugin = require('../../../src/plugin/startPlugin');
 
 describe('start plugin', () => {
@@ -19,7 +19,7 @@ describe('start plugin', () => {
 
   it('starts plugin server and patches module exports', async () => {
     const {eyesPort} = await __module.exports();
-    const resp = await fetch(`http://localhost:${eyesPort}/hb`);
+    const resp = await fetch(`https://localhost:${eyesPort}/hb`);
     expect(resp.status).to.equal(200);
   });
 

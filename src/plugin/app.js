@@ -14,7 +14,7 @@ function startApp({handlers, logger = console} = {}) {
       if (!req.params || !req.params.id) throw new Error('missing resource url');
       const id = req.params.id; // already decoded by express with decodeURIComponent
       if (!(req.body instanceof Buffer)) throw new Error(`could not process resource ${id}`); // body-parser returned non-buffer body: https://github.com/expressjs/body-parser/blob/bd386d3a7d540bac90bbdaff88f653414f6647fc/lib/types/raw.js#L62
-      const buffer = Buffer.from(JSON.parse(req.body).data);
+      const buffer = req.body;
       logger.log('[server] PUT resource:', id, buffer.length);
       handlers.putResource(id, buffer);
       res.status(200).send({success: true});

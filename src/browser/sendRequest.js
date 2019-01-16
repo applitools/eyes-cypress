@@ -2,12 +2,14 @@
 
 function makeSendRequest(send) {
   return function sendRequest(args) {
-    return send(args).then(resp => {
-      if (!resp.body.success) {
-        throw new Error(resp.body.error);
-      }
-      return resp.body.result;
-    });
+    return send(args)
+      .then(resp => resp.json())
+      .then(body => {
+        if (!body.success) {
+          throw new Error(body.error);
+        }
+        return body.result;
+      });
   };
 }
 
