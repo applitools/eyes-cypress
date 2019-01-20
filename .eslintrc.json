@@ -19,7 +19,7 @@
           "error",
           {
               "semi": true,
-              "parser": "babel",
+              "parser": "babylon",
               "printWidth": 100,
               "singleQuote": true,
               "trailingComma": "all",
