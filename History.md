@@ -1,4 +1,13 @@
 
+v3.3.23 / 2019-01-28
+====================
+
+  * 3.3.23
+  * Renamed git repo from eyes.cypress to eyes-cypress
+  * returned eslint to babylon
+  * updated changelog and vhangelog command
+  * updated changelog (and doing changelog cmd without jq)
+
 v3.3.22 / 2019-01-20
 ====================
 
