@@ -11,7 +11,11 @@ const getErrorsAndDiffs = require('./getErrorsAndDiffs');
 const processCloseAndAbort = require('./processCloseAndAbort');
 const errorDigest = require('./errorDigest');
 const makeHandlers = require('./handlers');
-const config = Object.assign({concurrency: 1, agentId}, ConfigUtils.getConfig({configParams}));
+
+const config = Object.assign(
+  {concurrency: 1, agentId},
+  ConfigUtils.getConfig({configParams: [...configParams, 'dontFailOnDiff']}),
+);
 const logger = new Logger(config.showLogs);
 const handlers = makeHandlers({
   logger,

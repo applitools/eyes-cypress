@@ -295,7 +295,6 @@ Here are the available configuration properties:
 | `baselineEnvName`         | undefined                   | The name of the environment of the baseline. |
 | `envName`                 | undefined                   | A name for the environment in which the application under test is running. |
 | `ignoreCaret`             | false                       | Whether to ignore or the blinking caret or not when comparing images. |
-| `isDisabled`              | false                       | If true, all calls to Eyes.Cypress commandswill be silently ignored. |
 | `matchLevel`              | undefined                   | The method to use when comparing two screenshots, which expresses the extent to which the two images are expected to match. Possible values are `Strict`, `Exact`, `Layout` and `Content`. Read more about match levels [here](http://support.applitools.com/customer/portal/articles/2088359). |
 | `matchTimeout`            | undefined                   | Sets the maximum time (in ms) a match operation tries to perform a match. |
 | `branchName`              | undefined                   | The name of the branch. |
@@ -315,6 +314,9 @@ The following configuration properties cannot be defined using the first method 
 | `showLogs`                | false                       | Whether or not you want to see logs of the Eyes.Cypress plugin. Logs are written to the same output of the Cypress process. |
 | `serverUrl`               | Default Eyes server URL     | The URL of Eyes server |
 | `proxy`                   | undefined                   | Sets the proxy settings to be used in network requests to Eyes server. This can be either a string to the proxy URI, or an object containing the URI, username and password.<br/><br/>For example:<br/>`{uri: 'https://myproxy', username: 'my_user', password: 'my_password'}`|
+| `isDisabled`              | false                       | If true, all calls to Eyes.Cypress commands will be silently ignored. |
+| `dontFailOnDiff`          | false                       | If true, Cypress will not fail once an eyes visual test fails. |
+| `tapFilePath`             | undefined                   | Path to results file, if set then test results would be saved in this file.|
 
 ### Method 1: Arguments for `cy.eyesOpen`
 

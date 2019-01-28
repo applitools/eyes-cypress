@@ -9,7 +9,11 @@ function makePluginExport({startServer, config}) {
 
       closeEyesServer = closeServer;
       const moduleExportsResult = await pluginModuleExports(...args);
-      return Object.assign({eyesPort, eyesIsDisabled: !!config.isDisabled}, moduleExportsResult);
+      const eyesConfig = {
+        eyesIsDisabled: !!config.isDisabled,
+        eyesDontFailOnDiff: !!config.dontFailOnDiff,
+      };
+      return Object.assign(eyesConfig, {eyesPort}, moduleExportsResult);
     };
     return function getCloseServer() {
       return closeEyesServer;

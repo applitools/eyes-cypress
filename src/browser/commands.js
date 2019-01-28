@@ -19,7 +19,13 @@ if (!Cypress.config('eyesIsDisabled')) {
   });
 
   after(() => {
-    cy.then({timeout: 86400000}, () => batchEnd({timeout: Cypress.config('eyesTimeout')}));
+    cy.then({timeout: 86400000}, () => {
+      return batchEnd({timeout: Cypress.config('eyesTimeout')}).catch(e => {
+        if (!Cypress.config('eyesDontFailOnDiff')) {
+          throw e;
+        }
+      });
+    });
   });
 }
 

@@ -76,4 +76,21 @@ describe('cypress run', () => {
       throw ex;
     }
   });
+
+  it('works with disabled eyes', async () => {
+    try {
+      await pexec(
+        'APPLITOOLS_DONT_FAIL_ON_DIFF=1 ./node_modules/.bin/cypress run --spec cypress/integration-play/always-fail.js --config integrationFolder=cypress/integration-play,pluginsFile=cypress/plugins/index-run.js,supportFile=cypress/support/index-run.js',
+        {
+          maxBuffer: 10000000,
+        },
+      );
+    } catch (ex) {
+      console.error(
+        'Test Failed even though dontFailOnDiff flag is on, If this is the first time u ran this test then u need to set up an invalid baseline for it.',
+        ex.stdout,
+      );
+      throw ex;
+    }
+  });
 });
