@@ -14,8 +14,14 @@ const makeHandlers = require('./handlers');
 
 const config = Object.assign(
   {concurrency: 1, agentId},
-  ConfigUtils.getConfig({configParams: [...configParams, 'dontFailOnDiff', 'tapFilePath']}),
+  ConfigUtils.getConfig({configParams: [...configParams, 'failCypressOnDiff', 'tapFilePath']}),
 );
+
+// TODO - remove once eyes core is published
+if (config.failCypressOnDiff === 'false') {
+  config.failCypressOnDiff = false;
+}
+
 const logger = new Logger(config.showLogs);
 const handlers = makeHandlers({
   logger,

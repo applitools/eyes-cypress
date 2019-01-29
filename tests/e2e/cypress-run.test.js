@@ -77,17 +77,17 @@ describe('cypress run', () => {
     }
   });
 
-  it('does not fail Cypress test if dontFailOnDiff flag is set', async () => {
+  it('does not fail Cypress test if failCypressOnDiff flag is false', async () => {
     try {
       await pexec(
-        'APPLITOOLS_DONT_FAIL_ON_DIFF=1 ./node_modules/.bin/cypress run --spec cypress/integration-play/always-fail.js --config integrationFolder=cypress/integration-play,pluginsFile=cypress/plugins/index-run.js,supportFile=cypress/support/index-run.js',
+        'APPLITOOLS_FAIL_CYPRESS_ON_DIFF=false ./node_modules/.bin/cypress run --spec cypress/integration-play/always-fail.js --config integrationFolder=cypress/integration-play,pluginsFile=cypress/plugins/index-run.js,supportFile=cypress/support/index-run.js',
         {
           maxBuffer: 10000000,
         },
       );
     } catch (ex) {
       console.error(
-        'Test Failed even though dontFailOnDiff flag is on, If this is the first time u ran this test then u need to set up an invalid baseline for it.',
+        'Test Failed even though failCypressOnDiff flag is false, If this is the first time u ran this test then u need to set up an invalid baseline for it.',
         ex.stdout,
       );
       throw ex;

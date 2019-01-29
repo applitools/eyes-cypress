@@ -44,7 +44,7 @@ describe('pluginExport', () => {
     expect(ret).to.eql({
       bla: 'ret_first',
       eyesPort: 123,
-      eyesDontFailOnDiff: false,
+      eyesFailCypressOnDiff: true,
       eyesIsDisabled: false,
     });
 
@@ -53,7 +53,7 @@ describe('pluginExport', () => {
     expect(ret2).to.eql({
       bla: 'ret_second',
       eyesPort: 123,
-      eyesDontFailOnDiff: false,
+      eyesFailCypressOnDiff: true,
       eyesIsDisabled: false,
     });
   });
@@ -72,7 +72,7 @@ describe('pluginExport', () => {
     expect(ret).to.eql({
       bla: 'bla',
       eyesPort: 123,
-      eyesDontFailOnDiff: false,
+      eyesFailCypressOnDiff: true,
       eyesIsDisabled: false,
     });
   });
@@ -89,12 +89,12 @@ describe('pluginExport', () => {
       bla: 'ret',
       eyesPort: 123,
       eyesIsDisabled: true,
-      eyesDontFailOnDiff: false,
+      eyesFailCypressOnDiff: true,
     });
   });
 
-  it('works with dont fail on diff', async () => {
-    const pluginExport = makePluginExport({startServer, config: {dontFailOnDiff: true}});
+  it('works with dont fail cypress on diff', async () => {
+    const pluginExport = makePluginExport({startServer, config: {failCypressOnDiff: false}});
     const __module = {
       exports: () => ({bla: 'ret'}),
     };
@@ -105,7 +105,7 @@ describe('pluginExport', () => {
       bla: 'ret',
       eyesPort: 123,
       eyesIsDisabled: false,
-      eyesDontFailOnDiff: true,
+      eyesFailCypressOnDiff: false,
     });
   });
 });

@@ -21,7 +21,10 @@ if (!Cypress.config('eyesIsDisabled')) {
   after(() => {
     cy.then({timeout: 86400000}, () => {
       return batchEnd({timeout: Cypress.config('eyesTimeout')}).catch(e => {
-        if (!Cypress.config('eyesDontFailOnDiff')) {
+        if (
+          Cypress.config('eyesFailCypressOnDiff') ||
+          Cypress.config('eyesFailCypressOnDiff') === undefined
+        ) {
           throw e;
         }
       });
