@@ -77,7 +77,7 @@ describe('cypress run', () => {
     }
   });
 
-  it('works with disabled eyes', async () => {
+  it('does not fail Cypress test if dontFailOnDiff flag is set', async () => {
     try {
       await pexec(
         'APPLITOOLS_DONT_FAIL_ON_DIFF=1 ./node_modules/.bin/cypress run --spec cypress/integration-play/always-fail.js --config integrationFolder=cypress/integration-play,pluginsFile=cypress/plugins/index-run.js,supportFile=cypress/support/index-run.js',

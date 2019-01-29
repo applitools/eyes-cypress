@@ -8,13 +8,14 @@ function makeWaitForBatch({
   processCloseAndAbort,
   getErrorsAndDiffs,
   errorDigest,
+  handleBatchResultsFile,
 }) {
   return async function(runningTests) {
     logger.log(`Waiting for test results of ${runningTests.length} tests.`);
 
     const testResultsArr = flatten(await processCloseAndAbort(runningTests));
-
     const {failed, diffs, passed} = getErrorsAndDiffs(testResultsArr);
+    await handleBatchResultsFile(testResultsArr);
 
     if (concurrency == 1) {
       console.log(concurrencyMsg);

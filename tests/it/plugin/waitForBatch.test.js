@@ -1,0 +1,56 @@
+'use strict';
+const {describe, it} = require('mocha');
+const {expect} = require('chai');
+const makeWaitForBatch = require('../../../src/plugin/waitForBatch');
+const {TestResults} = require('@applitools/eyes-sdk-core/lib/TestResults');
+const makeHandleBatchResultsFile = require('../../../src/plugin/makeHandleBatchResultsFile');
+const baseDir = require('../../util/baseDir');
+const fs = require('fs');
+const {promisify} = require('util');
+const {resolve} = require('path');
+const readFile = promisify(fs.readFile);
+const unlink = promisify(fs.unlink);
+
+describe('waitForBatch', () => {
+  let waitForBatch, results;
+
+  before(() => {
+    waitForBatch = makeWaitForBatch({
+      logger: console,
+      processCloseAndAbort: results => results,
+      concurrency: 1,
+      getErrorsAndDiffs: results => ({failed: [], diffs: [], passed: results}),
+      errorDigest: () => null,
+      handleBatchResultsFile: makeHandleBatchResultsFile({tapFilePath: baseDir}),
+    });
+    results = [
+      {name: 'someName1', appName: 'someAppName1'},
+      {name: 'someName2', appName: 'someAppName2'},
+    ].map(result => new TestResults(result));
+  });
+
+  after(async () => {
+    await unlink(tapFilePath);
+  });
+
+  it('writes a test result file', async () => {
+    const succeeded = await waitForBatch(results);
+    expect(succeeded).to.equal(results.length);
+    await testTapFile(results);
+  });
+
+  it('re-writes a test result file', async () => {
+    const succeeded = await waitForBatch(results);
+    expect(succeeded).to.equal(results.length);
+    await testTapFile(results);
+  });
+
+  const outputLine = result =>
+    `[FAILED TEST] Test: '${result.getName()}', Application: '${result.getAppName()}'`;
+  const tapFilePath = resolve(baseDir, 'eyes.tap');
+  const testTapFile = async results => {
+    const data = await readFile(tapFilePath, 'utf8');
+    results.forEach(result => expect(data).to.include(outputLine(result)));
+    expect(data).to.include(`1..${results.length}`);
+  };
+});

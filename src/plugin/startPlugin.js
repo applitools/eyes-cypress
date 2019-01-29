@@ -14,7 +14,7 @@ const makeHandlers = require('./handlers');
 
 const config = Object.assign(
   {concurrency: 1, agentId},
-  ConfigUtils.getConfig({configParams: [...configParams, 'dontFailOnDiff']}),
+  ConfigUtils.getConfig({configParams: [...configParams, 'dontFailOnDiff', 'tapFilePath']}),
 );
 const logger = new Logger(config.showLogs);
 const handlers = makeHandlers({
