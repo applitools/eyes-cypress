@@ -31,7 +31,7 @@ describe('waitForBatch', () => {
     processCloseAndAbort: x => x,
     getErrorsAndDiffs,
     errorDigest,
-    handleBatchResultsFile: results => null,
+    handleBatchResultsFile: results => results,
   });
 
   it("returns test count when there's no error", async () => {
@@ -72,7 +72,7 @@ describe('waitForBatch', () => {
         getErrorsAndDiffs,
         errorDigest,
         concurrency: 1,
-        handleBatchResultsFile: results => null,
+        handleBatchResultsFile: results => results,
       });
 
       expect(await waitForBatch(runningTests)).to.eql(1);
@@ -95,7 +95,7 @@ describe('waitForBatch', () => {
         getErrorsAndDiffs,
         errorDigest,
         concurrency: '1',
-        handleBatchResultsFile: results => null,
+        handleBatchResultsFile: results => results,
       });
 
       expect(await waitForBatch(runningTests)).to.eql(1);
