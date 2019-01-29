@@ -1,4 +1,13 @@
 
+v3.3.24 / 2019-01-29
+====================
+
+  * 3.3.24
+  * lint test files fix
+  * Added tap file config, use tapFilePath to set a path for eyes.tap file to be saved in.
+  * Added dontFailOnDiff flag for not failing Cypress tests once a visual test fails.
+  * changelog 3.3.23
+
 v3.3.23 / 2019-01-28
 ====================
 
