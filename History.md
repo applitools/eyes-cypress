@@ -1,4 +1,11 @@
 
+v3.3.25 / 2019-01-29
+====================
+
+  * 3.3.25
+  * removed dont fail on diff flag from readme - we might want to change the name
+  * changelog 3.3.24
+
 v3.3.24 / 2019-01-29
 ====================
 
