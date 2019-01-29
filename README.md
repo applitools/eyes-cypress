@@ -315,7 +315,6 @@ The following configuration properties cannot be defined using the first method 
 | `serverUrl`               | Default Eyes server URL     | The URL of Eyes server |
 | `proxy`                   | undefined                   | Sets the proxy settings to be used in network requests to Eyes server. This can be either a string to the proxy URI, or an object containing the URI, username and password.<br/><br/>For example:<br/>`{uri: 'https://myproxy', username: 'my_user', password: 'my_password'}`|
 | `isDisabled`              | false                       | If true, all calls to Eyes.Cypress commands will be silently ignored. |
-| `dontFailOnDiff`          | false                       | If true, Cypress will not fail once an eyes visual test fails. |
 | `tapFilePath`             | undefined                   | Dir path of a results file. If set then a tap file with the test results would be saved to this location.|
 
 ### Method 1: Arguments for `cy.eyesOpen`
