@@ -14,7 +14,7 @@ const makeHandlers = require('./handlers');
 
 const config = Object.assign(
   {concurrency: 1, agentId},
-  ConfigUtils.getConfig({configParams: [...configParams, 'failCypressOnDiff', 'tapFilePath']}),
+  ConfigUtils.getConfig({configParams: [...configParams, 'failCypressOnDiff', 'tapDirPath']}),
 );
 
 // TODO - remove once ConfigUtils.getConfig has this feature (converting env variables to booleans).
