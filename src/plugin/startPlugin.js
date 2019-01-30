@@ -17,8 +17,8 @@ const config = Object.assign(
   ConfigUtils.getConfig({configParams: [...configParams, 'failCypressOnDiff', 'tapFilePath']}),
 );
 
-// TODO - remove once eyes core is published
-if (config.failCypressOnDiff === 'false') {
+// TODO - remove once ConfigUtils.getConfig has this feature (converting env variables to booleans).
+if (config.failCypressOnDiff === 'false' || config.failCypressOnDiff === '0') {
   config.failCypressOnDiff = false;
 }
 
