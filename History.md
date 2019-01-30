@@ -1,4 +1,18 @@
 
+v3.4.1 / 2019-01-30
+===================
+
+  * 3.4.1 
+  * 3.4.0 - added failCypressOnDiff to README
+
+v3.3.26 / 2019-01-30
+====================
+
+  * 3.3.26
+  * Converting env variables of false and 0 to booleans (once eyes-common major is published we can use that).
+  * Renamed flag to not fail Cypress to ^CilCypressOnDiff
+  * changelog 3.3.25
+
 v3.3.25 / 2019-01-29
 ====================
 
