@@ -1,4 +1,11 @@
 
+v3.4.2 / 2019-01-30
+===================
+
+  * 3.4.2
+  * Renamed tapFilePath to tapDirPath and fixed readme text.
+  * changelog
+
 v3.4.1 / 2019-01-30
 ===================
 
