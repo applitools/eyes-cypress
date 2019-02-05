@@ -1,4 +1,11 @@
 
+v3.4.3 / 2019-02-05
+===================
+
+  * 3.4.3
+  * Updated to VGC 10.0.4: Abort waiting for checkWindow & fetch now has a 2 min timeout.
+  * changelog
+
 v3.4.2 / 2019-01-30
 ===================
 
@@ -9,8 +16,8 @@ v3.4.2 / 2019-01-30
 v3.4.1 / 2019-01-30
 ===================
 
-  * 3.4.1 
-  * 3.4.0 - added failCypressOnDiff to README
+  * 3.4.1
+  * 3.4.0
 
 v3.3.26 / 2019-01-30
 ====================
