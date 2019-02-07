@@ -1,4 +1,11 @@
 
+v3.4.6 / 2019-02-07
+===================
+
+* 3.4.6 [[7c3ef6d](https://github.com/applitools/eyes.storybook/commit/7c3ef6d1f17f1789308349837081c533be8c86e4)]
+* Updated VGC to 10.06: removed finally from ptimeout. Updated dom-snapshot to 1.0.5: Gaurding cssRules accessor (fails on CORS). [[ba8effe](https://github.com/applitools/eyes.storybook/commit/ba8effe962f790966414c16537cc486a84ba2873)]
+* changelog [[fc496b3](https://github.com/applitools/eyes.storybook/commit/fc496b3c82abd6f88b989decac071e5e91155288)]
+
 v3.4.5 / 2019-02-07
 ===================
 
