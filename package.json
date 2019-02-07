@@ -35,11 +35,11 @@
     "url": "https://github.com/applitools/eyes-cypress.git"
   },
   "dependencies": {
-    "@applitools/dom-snapshot": "^1.0.4",
+    "@applitools/dom-snapshot": "^1.0.5",
     "@applitools/eyes-common": "^1.2.2",
     "@applitools/eyes-sdk-core": "^4.7.0",
     "@applitools/functional-commons": "^1.0.37",
-    "@applitools/visual-grid-client": "^10.0.5",
+    "@applitools/visual-grid-client": "^10.0.6",
     "body-parser": "^1.18.3",
     "chalk": "^2.4.2",
     "cors": "^2.8.5",
