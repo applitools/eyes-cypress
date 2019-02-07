@@ -35,7 +35,7 @@
     "url": "https://github.com/applitools/eyes-cypress.git"
   },
   "dependencies": {
-    "@applitools/dom-snapshot": "^1.0.2",
+    "@applitools/dom-snapshot": "^1.0.4",
     "@applitools/eyes-common": "^1.2.2",
     "@applitools/eyes-sdk-core": "^4.7.0",
     "@applitools/functional-commons": "^1.0.37",
