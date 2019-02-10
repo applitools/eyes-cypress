@@ -1,4 +1,11 @@
 
+v3.4.7 / 2019-02-10
+===================
+
+* 3.4.7 [[7297c14](https://github.com/applitools/eyes.storybook/commit/7297c14a9c8e3ef44673dc1f06d81207790de6a5)]
+* Now setting deafult VGC viewport size to Cypress browser size (If user did not set size). [[951c1fb](https://github.com/applitools/eyes.storybook/commit/951c1fba655250105372338df7c6639db37b4fa0)]
+* changelog [[6e44ee3](https://github.com/applitools/eyes.storybook/commit/6e44ee3ff9af0699654c06ed43f571b783b964d2)]
+
 v3.4.6 / 2019-02-07
 ===================
 
