@@ -15,7 +15,11 @@ if (!Cypress.config('eyesIsDisabled')) {
   });
 
   before(() => {
-    cy.then({timeout: 86400000}, () => sendRequest({command: 'batchStart'}));
+    const viewport = {
+      width: Cypress.config('viewportWidth'),
+      height: Cypress.config('viewportHeight'),
+    };
+    cy.then({timeout: 86400000}, () => sendRequest({command: 'batchStart', data: {viewport}}));
   });
 
   after(() => {

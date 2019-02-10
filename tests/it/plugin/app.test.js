@@ -34,6 +34,7 @@ describe('app', () => {
   afterEach(async () => {
     await close();
   });
+
   it('handles cors', async () => {
     const app = await startApp();
     const server = await listen(app);

@@ -17,7 +17,7 @@ const config = Object.assign(
   ConfigUtils.getConfig({configParams: [...configParams, 'failCypressOnDiff', 'tapDirPath']}),
 );
 
-// TODO - remove once ConfigUtils.getConfig has this feature (converting env variables to booleans).
+// TODO - remove the 'false' part once ConfigUtils.getConfig has this feature (converting env variables to booleans).
 if (config.failCypressOnDiff === 'false' || config.failCypressOnDiff === '0') {
   config.failCypressOnDiff = false;
 }

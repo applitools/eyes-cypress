@@ -41,10 +41,14 @@ function makeHandlers({
       }
     },
 
-    batchStart: () => {
-      logger.log('[handlers] batchStart');
+    batchStart: data => {
+      logger.log('[handlers] batchStart with data', data);
       runningTests = [];
-      const client = makeVisualGridClient(config);
+      const extraConfig =
+        data && data.viewport && data.viewport.width && data.viewport.height
+          ? {browser: data.viewport}
+          : {};
+      const client = makeVisualGridClient(Object.assign(extraConfig, config));
       openEyes = client.openEyes;
       const waitForBatch = makeWaitForBatch({
         logger,
