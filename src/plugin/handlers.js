@@ -3,6 +3,9 @@ const {presult} = require('@applitools/functional-commons');
 const pollingHandler = require('./pollingHandler');
 const makeWaitForBatch = require('./waitForBatch');
 const makeHandleBatchResultsFile = require('./makeHandleBatchResultsFile');
+const {promisify} = require('util');
+const fs = require('fs');
+const writeFile = promisify(fs.writeFile);
 
 const TIMEOUT_MSG = timeout =>
   `Eyes.Cypress timed out after ${timeout}ms. The default timeout is 2 minutes. It's possible to increase this timeout by setting a the value of 'eyesTimeout' in Cypress configuration, e.g. for 3 minutes: Cypress.config('eyesTimeout', 180000)`;
@@ -88,10 +91,14 @@ function makeHandlers({
       floating,
       frames = [],
       sendDom,
+      debugCdt,
     }) => {
       logger.log(`[handlers] checkWindow: checkWindow=${typeof checkWindow}`);
       if (!checkWindow) {
         throw new Error('Please call cy.eyesOpen() before calling cy.eyesCheckWindow()');
+      }
+      if (debugCdt) {
+        await writeFile(`./${debugCdt}.json`, JSON.stringify(cdt, null, 2));
       }
 
       const resourceContents = blobDataToResourceContents(blobData);

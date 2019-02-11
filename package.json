@@ -8,6 +8,7 @@
   },
   "scripts": {
     "test:mocha": "mocha --no-timeouts 'tests/**/*.test.js'",
+    "test:fast": "mocha --no-timeouts 'tests/!(e2e)/**/*.test.js'",
     "test:unit": "mocha --no-timeouts 'tests/unit/**/*.test.js'",
     "test:it": "mocha --no-timeouts 'tests/it/**/*.test.js'",
     "test:e2e": "mocha --no-timeouts 'tests/e2e/**/*.test.js'",

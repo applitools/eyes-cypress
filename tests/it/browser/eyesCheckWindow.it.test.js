@@ -37,6 +37,7 @@ describe('eyesCheckWindow', () => {
         selector: undefined,
         sendDom: undefined,
         sizeMode: undefined,
+        debugCdt: undefined,
       },
     });
     expect(resourcesPutted).to.eql([
@@ -119,6 +120,7 @@ describe('eyesCheckWindow', () => {
         ignore,
         floating,
         sendDom,
+        debugCdt: undefined,
       },
     });
     expect(resourcesPutted).to.eql([
@@ -212,6 +214,7 @@ describe('eyesCheckWindow', () => {
         ignore: undefined,
         floating: undefined,
         sendDom: undefined,
+        debugCdt: undefined,
       },
     });
     expect(resourcesPutted).to.eql([
@@ -282,6 +285,7 @@ describe('eyesCheckWindow', () => {
         ignore: undefined,
         floating: undefined,
         sendDom: undefined,
+        debugCdt: undefined,
       },
     });
     expect(resourcesPutted).to.eql([

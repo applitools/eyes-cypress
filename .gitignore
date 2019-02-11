@@ -12,3 +12,4 @@ applitools.config.js
 tests/fixtures/testApp/package-lock.json
 tests/fixtures/testApp/cypress/fixtures/
 *.tap
+.vscode

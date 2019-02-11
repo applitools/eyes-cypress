@@ -1,16 +1,19 @@
-/* globals describe,it,cy,Cypress */
-describe('random play', () => {
-  it('random play', () => {
-    cy.setCookie('auth', 'secret');
-    // cy.visit('http://localhost:3000');
-
-    const url = `http://localhost:${Cypress.config('testPort')}/test.html`;
-    cy.visit(url);
-
+/* globals describe,it,cy */
+describe('Hello world', () => {
+  it('works', () => {
     cy.eyesOpen({
-      appName: 'cypress play around',
+      appName: 'Oral',
+      testName: 'gils test',
     });
-    cy.eyesCheckWindow();
+    cy.visit('https://beta.oral.fi/palvelut/hammaskiven-poisto/');
+
+    cy.eyesCheckWindow({
+      tag: 'Nearby times before click',
+      debug: {cdt: 'no-get-2'},
+    });
+
+    // cy.get('[aria-controls="panel-time-reservation"]');
+
     cy.eyesClose();
   });
 });

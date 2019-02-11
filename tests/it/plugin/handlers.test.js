@@ -1,5 +1,5 @@
 'use strict';
-const {describe, it, before, after} = require('mocha');
+const {describe, it, before} = require('mocha');
 const {expect} = require('chai');
 const makeHandlers = require('../../../src/plugin/handlers');
 const getErrorsAndDiffs = require('../../../src/plugin/getErrorsAndDiffs');
