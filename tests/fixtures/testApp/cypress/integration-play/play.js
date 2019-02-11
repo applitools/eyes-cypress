@@ -9,7 +9,6 @@ describe('Hello world', () => {
 
     cy.eyesCheckWindow({
       tag: 'Nearby times before click',
-      debug: {cdt: 'no-get-2'},
     });
 
     // cy.get('[aria-controls="panel-time-reservation"]');
