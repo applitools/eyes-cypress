@@ -1,4 +1,14 @@
 
+v3.4.8 / 2019-02-12
+===================
+
+* 3.4.8 [[8a36518](https://github.com/applitools/eyes.storybook/commit/8a36518b84666c810620986eda0c13518f6e2e0d)]
+* Updated Dom-snapshot to 1.0.6: Taking value property from inputs and setting them as attributes in CDT. [[dfc2240](https://github.com/applitools/eyes.storybook/commit/dfc224027b076c8a5a8984e0056b7ecb452e3355)]
+* removed cdt file param in play test [[4c4914c](https://github.com/applitools/eyes.storybook/commit/4c4914cb13d10237f0270645276c9a84c0fc5e0d)]
+* removed vscode dir [[54aa3ae](https://github.com/applitools/eyes.storybook/commit/54aa3ae9226cb7a2bab4d175055a92658ac5f345)]
+* added debug.cdt=fileName to checkWindow [[5403b84](https://github.com/applitools/eyes.storybook/commit/5403b84df3c4652fb09079f9c11ac70c3bf59230)]
+* changelog [[b10a04e](https://github.com/applitools/eyes.storybook/commit/b10a04ed3c81d13a062aa35fea62a4db4428f0b8)]
+
 v3.4.7 / 2019-02-10
 ===================
 
