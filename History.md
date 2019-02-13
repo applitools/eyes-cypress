@@ -1,4 +1,13 @@
 
+v3.4.9 / 2019-02-13
+===================
+
+* 3.4.9 [[5d39b22](https://github.com/applitools/eyes.storybook/commit/5d39b22bfe5418eeaf65ce0bd1358b59aa695b84)]
+* changed play file [[b05ba3d](https://github.com/applitools/eyes.storybook/commit/b05ba3db35a1138bc8a1b1c54fdc3e68c15179b6)]
+* Supporting layout & strict regions (via selectors or position). [[c9657ea](https://github.com/applitools/eyes.storybook/commit/c9657eab8071c56296f3477bca939d04d74df40b)]
+* Now using GeneralUtils.getPropertyByPath for gaurding browser default viewport. [[bfd6144](https://github.com/applitools/eyes.storybook/commit/bfd6144edc7b554f51ea4e0f3103d7ab0ce072a1)]
+* changelog [[d7da8a5](https://github.com/applitools/eyes.storybook/commit/d7da8a5ed2f7e367e6f319cd2f7f3b1f7516900c)]
+
 v3.4.8 / 2019-02-12
 ===================
 
