@@ -91,6 +91,8 @@ function makeHandlers({
       scriptHooks,
       ignore,
       floating,
+      layout,
+      strict,
       frames = [],
       sendDom,
       debugCdt,
@@ -118,6 +120,8 @@ function makeHandlers({
         scriptHooks,
         ignore,
         floating,
+        layout,
+        strict,
         frames: framesWithResources,
         sendDom,
       });

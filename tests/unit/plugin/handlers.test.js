@@ -94,6 +94,8 @@ describe('handlers', () => {
     const scriptHooks = 'scriptHooks';
     const ignore = 'ignore';
     const floating = 'floating';
+    const layout = 'layout';
+    const strict = 'strict';
     const sendDom = 'sendDom';
     const resourceContents = {};
 
@@ -108,6 +110,8 @@ describe('handlers', () => {
       scriptHooks,
       ignore,
       floating,
+      layout,
+      strict,
       sendDom,
     });
 
@@ -124,6 +128,8 @@ describe('handlers', () => {
       scriptHooks,
       ignore,
       floating,
+      layout,
+      strict,
       sendDom,
       frames: [],
     });
@@ -212,6 +218,8 @@ describe('handlers', () => {
       scriptHooks: undefined,
       ignore: undefined,
       floating: undefined,
+      layout: undefined,
+      strict: undefined,
       sendDom: undefined,
     });
   });

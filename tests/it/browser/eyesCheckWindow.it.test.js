@@ -32,6 +32,8 @@ describe('eyesCheckWindow', () => {
         tag,
         ignore: undefined,
         floating: undefined,
+        layout: undefined,
+        strict: undefined,
         region: undefined,
         scriptHooks: undefined,
         selector: undefined,
@@ -91,6 +93,8 @@ describe('eyesCheckWindow', () => {
     const scriptHooks = 'scriptHooks';
     const ignore = 'ignore';
     const floating = 'floating';
+    const layout = 'layout';
+    const strict = 'strict';
     const sendDom = 'sendDom';
 
     await eyesCheckWindow('bla doc', {
@@ -101,6 +105,8 @@ describe('eyesCheckWindow', () => {
       scriptHooks,
       ignore,
       floating,
+      layout,
+      strict,
       sendDom,
     });
 
@@ -119,6 +125,8 @@ describe('eyesCheckWindow', () => {
         scriptHooks,
         ignore,
         floating,
+        layout,
+        strict,
         sendDom,
         debugCdt: undefined,
       },
@@ -213,6 +221,8 @@ describe('eyesCheckWindow', () => {
         scriptHooks: undefined,
         ignore: undefined,
         floating: undefined,
+        layout: undefined,
+        strict: undefined,
         sendDom: undefined,
         debugCdt: undefined,
       },
@@ -284,6 +294,8 @@ describe('eyesCheckWindow', () => {
         scriptHooks: undefined,
         ignore: undefined,
         floating: undefined,
+        layout: undefined,
+        strict: undefined,
         sendDom: undefined,
         debugCdt: undefined,
       },
