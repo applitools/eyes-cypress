@@ -3,6 +3,7 @@ const {presult} = require('@applitools/functional-commons');
 const pollingHandler = require('./pollingHandler');
 const makeWaitForBatch = require('./waitForBatch');
 const makeHandleBatchResultsFile = require('./makeHandleBatchResultsFile');
+const {GeneralUtils} = require('@applitools/eyes-common');
 const {promisify} = require('util');
 const fs = require('fs');
 const writeFile = promisify(fs.writeFile);
@@ -48,7 +49,8 @@ function makeHandlers({
       logger.log('[handlers] batchStart with data', data);
       runningTests = [];
       const extraConfig =
-        data && data.viewport && data.viewport.width && data.viewport.height
+        GeneralUtils.getPropertyByPath(data, 'viewport.height') &&
+        GeneralUtils.getPropertyByPath(data, 'viewport.width')
           ? {browser: data.viewport}
           : {};
       const client = makeVisualGridClient(Object.assign(extraConfig, config));
