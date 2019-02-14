@@ -20,7 +20,9 @@
     "cypress:play": "cd tests/fixtures/testApp && cypress run --config integrationFolder=cypress/integration-play,pluginsFile=cypress/plugins/index-play.js,supportFile=cypress/support/index-run.js --spec=cypress/integration-play/play.js",
     "prepublishOnly": "npm version patch",
     "changelog": "git changelog -p -f v$npm_package_version",
-    "changelog:init": "sudo apt-get install git-extras && git config --global changelog.format \"* %s [[%h](https://github.com/applitools/eyes.storybook/commit/%H)]\""
+    "changelog:init": "git config changelog.format \"* %s [[%h](https://github.com/applitools/$(echo $npm_package_name | cut  -d\"/\" -f2)/commit/%H)]\"",
+    "changelog:install": "sudo apt-get install git-extras",
+    "sss": ""
   },
   "files": [
     "src",
