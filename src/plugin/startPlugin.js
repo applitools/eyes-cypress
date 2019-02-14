@@ -16,9 +16,7 @@ const config = Object.assign(
   {concurrency: 1, agentId},
   ConfigUtils.getConfig({configParams: [...configParams, 'failCypressOnDiff', 'tapDirPath']}),
 );
-
-// TODO - remove the 'false' part once ConfigUtils.getConfig has this feature (converting env variables to booleans).
-if (config.failCypressOnDiff === 'false' || config.failCypressOnDiff === '0') {
+if (config.failCypressOnDiff === '0') {
   config.failCypressOnDiff = false;
 }
 
