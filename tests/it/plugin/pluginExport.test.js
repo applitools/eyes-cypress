@@ -46,6 +46,7 @@ describe('pluginExport', () => {
       eyesPort: 123,
       eyesFailCypressOnDiff: true,
       eyesIsDisabled: false,
+      eyesBrowser: undefined,
     });
 
     const ret2 = await __module.exports(on, 'second');
@@ -55,6 +56,7 @@ describe('pluginExport', () => {
       eyesPort: 123,
       eyesFailCypressOnDiff: true,
       eyesIsDisabled: false,
+      eyesBrowser: undefined,
     });
   });
 
@@ -74,6 +76,7 @@ describe('pluginExport', () => {
       eyesPort: 123,
       eyesFailCypressOnDiff: true,
       eyesIsDisabled: false,
+      eyesBrowser: undefined,
     });
   });
 
@@ -90,6 +93,7 @@ describe('pluginExport', () => {
       eyesPort: 123,
       eyesIsDisabled: true,
       eyesFailCypressOnDiff: true,
+      eyesBrowser: undefined,
     });
   });
 
@@ -106,6 +110,7 @@ describe('pluginExport', () => {
       eyesPort: 123,
       eyesIsDisabled: false,
       eyesFailCypressOnDiff: false,
+      eyesBrowser: undefined,
     });
   });
 });

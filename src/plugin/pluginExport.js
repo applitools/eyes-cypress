@@ -11,6 +11,7 @@ function makePluginExport({startServer, config}) {
       const moduleExportsResult = await pluginModuleExports(...args);
       const eyesConfig = {
         eyesIsDisabled: !!config.isDisabled,
+        eyesBrowser: JSON.stringify(config.browser),
         eyesFailCypressOnDiff:
           config.failCypressOnDiff === undefined ? true : !!config.failCypressOnDiff,
       };

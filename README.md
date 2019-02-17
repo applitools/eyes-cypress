@@ -398,7 +398,7 @@ module.exports = {
 
 ## Configuring the browser
 
-Eyes.Cypress will take a screenshot of the page in the browser passed as an argument to `cy.eyesOpen`.
+Eyes.Cypress will take a screenshot of the page in the requested browser, the browser can be set in the `applitools.config.js` or by passing it to `cy.eyesOpen`.
 
 It's also possible to send an array of browsers, for example:
 
@@ -411,6 +411,7 @@ cy.eyesOpen({
   ]
 }
 ```
+**Note**: that if only a single browser is set, then Eyes.Cypress changes the Cypress application viewport to that viewport size.  
 
 ### Device emulation
 
