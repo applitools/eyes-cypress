@@ -1,4 +1,17 @@
 
+v3.4.10 / 2019-02-17
+====================
+
+* 3.4.10 [[96c3b70](https://github.com/applitools/eyes-cypress/commit/96c3b70126b0a18bf80df27a9feecf0846271c9a)]
+* Now setting cy viewport size to the given viewort size (if the user set 1 size); In open & checkWindow. [[e371dd0](https://github.com/applitools/eyes-cypress/commit/e371dd0d5a3a108be63988ae390d71db6ef9f9c2)]
+* removed unneeded config fix of env variables [[943f0a1](https://github.com/applitools/eyes-cypress/commit/943f0a16ca1f3dd74c4feaf8cc0d75a78c6a215c)]
+* small package json fix [[a9620b9](https://github.com/applitools/eyes-cypress/commit/a9620b93e7dec5306b0057ca8e3d03e07ded92d9)]
+* better changelog script [[ba152f8](https://github.com/applitools/eyes-cypress/commit/ba152f8442d278f13a68728bd3737619761eeecf)]
+* better changelog script [[7664a31](https://github.com/applitools/eyes-cypress/commit/7664a31488aece8e4e37a2a7096fb9c6bf75496c)]
+* removed bad script from package json [[610bd47](https://github.com/applitools/eyes-cypress/commit/610bd47cd9c2c98579a727a01c617963bbfe7d13)]
+* better changelog init script [[4941cbb](https://github.com/applitools/eyes-cypress/commit/4941cbb658b502b4c3b17d21cf18278c1bb503da)]
+* changelog [[dbbc253](https://github.com/applitools/eyes-cypress/commit/dbbc253e08a097a4dcc1d1aa1085bf8c3455816f)]
+
 v3.4.9 / 2019-02-13
 ===================
 
