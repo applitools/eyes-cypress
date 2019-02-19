@@ -1,4 +1,16 @@
 
+v3.4.12 / 2019-02-19
+====================
+
+* 3.4.12 [[3d17042](https://github.com/applitools/eyes-cypress/commit/3d1704293dccd92952ebfff30cf120ffdbd870e5)]
+* new npm name [[2d02129](https://github.com/applitools/eyes-cypress/commit/2d021290aecc364f1d887288bc3175af55e016a2)]
+
+v3.4.11 / 2019-02-19
+====================
+
+* 3.4.11 [[0f9d4dd](https://github.com/applitools/eyes-cypress/commit/0f9d4dd211f476d7a02ed46d0d51527b3f9422f7)]
+* changelog [[2721dad](https://github.com/applitools/eyes-cypress/commit/2721dadaee3feb41b27323a1c90a24aa9ce34dc3)]
+
 v3.4.10 / 2019-02-17
 ====================
 
