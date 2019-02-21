@@ -177,105 +177,105 @@ cy.eyesCheckWindow({ tag: 'your tag', sizeMode: 'your size mode' })
 
 - `selector` (optional): In case `sizeMode` is `selector`, this should be the actual css or xpath selector to an element, and the screenshot would be the content of that element. For example:
 
-```js
-// Using a css selector
-cy.eyesCheckWindow({
-  sizeMode: 'selector',
-  selector: {
-    type: 'css',
-    selector: '.my-element' // or '//button'
-  }
-});
-
-// Using an xpath selector
-cy.eyesCheckWindow({
-  sizeMode: 'selector',
-  selector: {
-    type: 'xpath',
-    selector: '//button[1]'
-  }
-});
-
-// The shorthand string version defaults to css selectors
-cy.eyesCheckWindow({
-  sizeMode: 'selector',
-  selector: '.my-element'
-});
-```
+    ```js
+    // Using a css selector
+    cy.eyesCheckWindow({
+      sizeMode: 'selector',
+      selector: {
+        type: 'css',
+        selector: '.my-element' // or '//button'
+      }
+    });
+    
+    // Using an xpath selector
+    cy.eyesCheckWindow({
+      sizeMode: 'selector',
+      selector: {
+        type: 'xpath',
+        selector: '//button[1]'
+      }
+    });
+    
+    // The shorthand string version defaults to css selectors
+    cy.eyesCheckWindow({
+      sizeMode: 'selector',
+      selector: '.my-element'
+    });
+    ```
 
 - `region` (optional): In case `sizeMode` is `region`, this should be an object describing the region's coordinates. For example:
 
-```js
-cy.eyesCheckWindow({
-  sizeMode: 'region',
-  region: {top: 100, left: 0, width: 1000, height: 200}
-});
-```
+    ```js
+    cy.eyesCheckWindow({
+      sizeMode: 'region',
+      region: {top: 100, left: 0, width: 1000, height: 200}
+    });
+    ```
 
 - `ignore` (optional): A single or an array of regions to ignore when checking for visual differences. For example:
 
-```js
-cy.eyesCheckWindow({
-  ignore: [
-    {top: 100, left: 0, width: 1000, height: 100},
-    {selector: '.some-div-to-ignore'}
-  ]
-});
-```
+    ```js
+    cy.eyesCheckWindow({
+      ignore: [
+        {top: 100, left: 0, width: 1000, height: 100},
+        {selector: '.some-div-to-ignore'}
+      ]
+    });
+    ```
 
 - `floating` (optional): A single or an array of floating regions to ignore when checking for visual differences. More information about floating regions can be found in Applitools docs [here](https://help.applitools.com/hc/en-us/articles/360006915292-Testing-of-floating-UI-elements). For example:
 
-```js
-cy.eyesCheckWindow({
-  floating: [
-    {top: 100, left: 0, width: 1000, height: 100, maxUpOffset: 20, maxDownOffset: 20, maxLeftOffset: 20, maxRightOffset: 20},
-    {selector: '.some-div-to-float', maxUpOffset: 20, maxDownOffset: 20, maxLeftOffset: 20, maxRightOffset: 20}
-  ]
-});
-```
+    ```js
+    cy.eyesCheckWindow({
+      floating: [
+        {top: 100, left: 0, width: 1000, height: 100, maxUpOffset: 20, maxDownOffset: 20, maxLeftOffset: 20, maxRightOffset: 20},
+        {selector: '.some-div-to-float', maxUpOffset: 20, maxDownOffset: 20, maxLeftOffset: 20, maxRightOffset: 20}
+      ]
+    });
+    ```
 
 - `matchLevel` (optional): The method to use when comparing two screenshots, which expresses the extent to which the two images are expected to match. Possible values are `Strict`, `Exact`, `Layout` and `Content`. Read more about match levels [here](http://support.applitools.com/customer/portal/articles/2088359).
 
 - `layout` (optional): A single or an array of regions to match as [layout level.](https://help.applitools.com/hc/en-us/articles/360007188591-Match-Levels) For example:
 
-```js
-cy.eyesCheckWindow({
-  layout: [
-    {top: 100, left: 0, width: 1000, height: 100},
-    {selector: '.some-div-to-test-as-layout'}
-  ]
-});
-```
+    ```js
+    cy.eyesCheckWindow({
+      layout: [
+        {top: 100, left: 0, width: 1000, height: 100},
+        {selector: '.some-div-to-test-as-layout'}
+      ]
+    });
+    ```
 
 - `strict` (optional): A single or an array of regions to match as [strict level.](https://help.applitools.com/hc/en-us/articles/360007188591-Match-Levels) For example:
 
-```js
-cy.eyesCheckWindow({
-  strict: [
-    {top: 100, left: 0, width: 1000, height: 100},
-    {selector: '.some-div-to-test-as-strict'}
-  ],
-  matchLevel: 'Layout'
-});
-```
+    ```js
+    cy.eyesCheckWindow({
+      strict: [
+        {top: 100, left: 0, width: 1000, height: 100},
+        {selector: '.some-div-to-test-as-strict'}
+      ],
+      matchLevel: 'Layout'
+    });
+    ```
 
 - `scriptHooks` (optional): A set of scripts to be run by the browser during the rendering. It is intended to be used as a means to alter the page's state and structure at the time of rendering.
   An object with the following properties:
-  - `beforeCaptureScreenshot`: a script that runs after the page is loaded but before taking the screenshot. For example:
-
-```js
-cy.eyesCheckWindow({
-  scriptHooks: {
-    beforeCaptureScreenshot: "document.body.style.backgroundColor = 'gold'"
-  }
-})
-```
+    - `beforeCaptureScreenshot`: a script that runs after the page is loaded but before taking the screenshot. For example:
+        
+        ```js
+        cy.eyesCheckWindow({
+          scriptHooks: {
+            beforeCaptureScreenshot: "document.body.style.backgroundColor = 'gold'"
+          }
+        })
+        ```
 
 - `sendDom` (optional): A flag to specify whether a capture of DOM and CSS should be taken when rendering the screenshot. The default value is true. This should only be modified to troubleshoot unexpected behavior, and not for normal production use.
 
-```js
-cy.eyesCheckWindow({sendDom: false})
-```
+    ```js
+    cy.eyesCheckWindow({sendDom: false})
+    ```
 
 #### Close
 
