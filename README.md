@@ -234,26 +234,6 @@ cy.eyesCheckWindow({
 });
 ```
 
-- `scriptHooks` (optional): A set of scripts to be run by the browser during the rendering. It is intended to be used as a means to alter the page's state and structure at the time of rendering.
-  An object with the following properties:
-  - `beforeCaptureScreenshot`: a script that runs after the page is loaded but before taking the screenshot. For example:
-
-```js
-cy.eyesCheckWindow({
-  scriptHooks: {
-    beforeCaptureScreenshot: "document.body.style.backgroundColor = 'gold'"
-  }
-})
-```
-
-- `sendDom` (optional): A flag to specify whether a capture of DOM and CSS should be taken when rendering the screenshot. The default value is true. This should only be modified to troubleshoot unexpected behavior, and not for normal production use.
-
-```js
-cy.eyesCheckWindow({sendDom: false})
-```
-
-- `matchLevel` (optional): The method to use when comparing two screenshots, which expresses the extent to which the two images are expected to match. Possible values are `Strict`, `Exact`, `Layout` and `Content`. Read more about match levels [here](http://support.applitools.com/customer/portal/articles/2088359).
-
 - `layout` (optional): A single or an array of regions to match as [layout level.](https://help.applitools.com/hc/en-us/articles/360007188591-Match-Levels) For example:
 
 ```js
@@ -276,6 +256,26 @@ cy.eyesCheckWindow({
   matchLevel: 'Layout'
 });
 ```
+
+- `scriptHooks` (optional): A set of scripts to be run by the browser during the rendering. It is intended to be used as a means to alter the page's state and structure at the time of rendering.
+  An object with the following properties:
+  - `beforeCaptureScreenshot`: a script that runs after the page is loaded but before taking the screenshot. For example:
+
+```js
+cy.eyesCheckWindow({
+  scriptHooks: {
+    beforeCaptureScreenshot: "document.body.style.backgroundColor = 'gold'"
+  }
+})
+```
+
+- `sendDom` (optional): A flag to specify whether a capture of DOM and CSS should be taken when rendering the screenshot. The default value is true. This should only be modified to troubleshoot unexpected behavior, and not for normal production use.
+
+```js
+cy.eyesCheckWindow({sendDom: false})
+```
+
+- `matchLevel` (optional): The method to use when comparing two screenshots, which expresses the extent to which the two images are expected to match. Possible values are `Strict`, `Exact`, `Layout` and `Content`. Read more about match levels [here](http://support.applitools.com/customer/portal/articles/2088359).
 
 #### Close
 
