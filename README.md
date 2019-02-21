@@ -234,6 +234,8 @@ cy.eyesCheckWindow({
 });
 ```
 
+- `matchLevel` (optional): The method to use when comparing two screenshots, which expresses the extent to which the two images are expected to match. Possible values are `Strict`, `Exact`, `Layout` and `Content`. Read more about match levels [here](http://support.applitools.com/customer/portal/articles/2088359).
+
 - `layout` (optional): A single or an array of regions to match as [layout level.](https://help.applitools.com/hc/en-us/articles/360007188591-Match-Levels) For example:
 
 ```js
@@ -274,8 +276,6 @@ cy.eyesCheckWindow({
 ```js
 cy.eyesCheckWindow({sendDom: false})
 ```
-
-- `matchLevel` (optional): The method to use when comparing two screenshots, which expresses the extent to which the two images are expected to match. Possible values are `Strict`, `Exact`, `Layout` and `Content`. Read more about match levels [here](http://support.applitools.com/customer/portal/articles/2088359).
 
 #### Close
 
