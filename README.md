@@ -34,7 +34,7 @@ Unfortunately there's no easy way to do this automatically, so you need to manua
 **Important**: add this code **after** the definition of `module.exports`:
 
 ```js
-require('@applitools/eyes.cypress')(module)
+require('@applitools/eyes-cypress')(module)
 ```
 
 Normally, this is `cypress/plugins/index.js`. You can read more about it in Cypress' docs [here](https://docs.cypress.io/guides/references/configuration.html#Folders-Files).
