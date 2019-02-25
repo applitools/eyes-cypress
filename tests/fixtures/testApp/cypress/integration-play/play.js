@@ -1,18 +1,21 @@
 /* globals describe,it,cy */
+
+const url = 'https://www.applitools.com/helloworld';
+const testName = url
+  .split('.')
+  .reduce((acc, part, i, arr) => `${acc}${i !== 0 && i !== arr.length - 1 ? '.' + part : ''}`, '')
+  .substr(1);
+
 describe('Hello world', () => {
   it('works', () => {
     cy.eyesOpen({
-      appName: 'someApp',
-      testName: 'Check all landing page widgets',
-      browser: [
-        {width: 1440, height: 900, name: 'firefox'},
-        {width: 1440, height: 900, name: 'chrome'},
-      ],
+      appName: 'CypressPlay',
+      testName: testName,
     });
-    cy.visit('https://www.unibet.com/betting#home');
+    cy.visit(url);
 
     cy.eyesCheckWindow({
-      tag: 'Nearby times before click',
+      tag: 'Play Check',
     });
 
     cy.eyesClose();
