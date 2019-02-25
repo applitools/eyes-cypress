@@ -1,4 +1,4 @@
-describe('eyes.cypress', () => {
+describe('eyes-cypress', () => {
 
   // This also tests the setting of `testName` in `before`
   

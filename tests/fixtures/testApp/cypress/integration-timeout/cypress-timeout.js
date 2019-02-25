@@ -1,4 +1,4 @@
-describe('eyes.cypress', () => {
+describe('eyes-cypress', () => {
   Cypress.config('eyesTimeout', 100); // this very small timeout should make the test fail
 
   it('runs', () => {

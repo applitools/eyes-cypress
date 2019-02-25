@@ -1,7 +1,7 @@
 'use strict';
 
 const {version: packageVersion} = require('../../package.json');
-const agentId = `eyes.cypress/${packageVersion}`;
+const agentId = `eyes-cypress/${packageVersion}`;
 const makeStartServer = require('./server');
 const makePluginExport = require('./pluginExport');
 const {startApp} = require('./app');
@@ -32,6 +32,6 @@ const handlers = makeHandlers({
 const app = startApp({handlers, logger});
 const startServer = makeStartServer({app, logger});
 
-logger.log('eyes.cypress plugin running with config:', config);
+logger.log('eyes-cypress plugin running with config:', config);
 
 module.exports = makePluginExport({startServer, config});

@@ -1,5 +1,5 @@
 /* globals describe,it,cy,Cypress,beforeEach,afterEach */
-describe('eyes.cypress', () => {
+describe('eyes-cypress', () => {
   beforeEach(() => {
     cy.setCookie('auth', 'secret');
     cy.eyesOpen({

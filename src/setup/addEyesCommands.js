@@ -1,6 +1,6 @@
 'use strict';
 
-const commandsImport = `\nimport '@applitools/eyes.cypress/commands'\n`;
+const commandsImport = `\nimport '@applitools/eyes-cypress/commands'\n`;
 
 function shouldSkipLine(line) {
   return line.trim() === '' || /^\s*['"]use strict/.test(line) || /^\s*\/\//.test(line);

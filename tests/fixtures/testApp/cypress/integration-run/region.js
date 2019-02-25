@@ -1,4 +1,4 @@
-describe('eyes.cypress', () => {
+describe('eyes-cypress', () => {
 
   const url = `http://localhost:${Cypress.config('testPort')}/test.html`;
 

@@ -1,5 +1,5 @@
 /* globals describe,it,cy,Cypress */
-describe('eyes.cypress', () => {
+describe('eyes-cypress', () => {
   // after(() => {
   //   cy.then(() => {
   //     throw new Error('aaa');

@@ -1,4 +1,4 @@
-# Eyes.Cypress
+# Eyes-Cypress
 
 Applitools Eyes SDK for [Cypress](https://www.cypress.io/).
 
@@ -6,10 +6,10 @@ Applitools Eyes SDK for [Cypress](https://www.cypress.io/).
 
 ### Install npm package
 
-Install Eyes.Cypress as a local dev dependency in your tested project:
+Install Eyes-Cypress as a local dev dependency in your tested project:
 
 ```bash
-npm install --save-dev @applitools/eyes.cypress
+npm install --save-dev @applitools/eyes-cypress
 ```
 
 ### Configure plugin and commands
@@ -26,9 +26,9 @@ The above command will add the necessary imports to your cypress `pluginsFile` a
 
 #### Manual configuration
 
-##### Configure Eyes.Cypress plugin
+##### Configure Eyes-Cypress plugin
 
-Eyes.Cypress acts as a [Cypress plugin](https://docs.cypress.io/guides/tooling/plugins-guide.html), so it should be configured as such.
+Eyes-Cypress acts as a [Cypress plugin](https://docs.cypress.io/guides/tooling/plugins-guide.html), so it should be configured as such.
 Unfortunately there's no easy way to do this automatically, so you need to manually add the following code to your `pluginsFile`:
 
 **Important**: add this code **after** the definition of `module.exports`:
@@ -41,18 +41,18 @@ Normally, this is `cypress/plugins/index.js`. You can read more about it in Cypr
 
 ##### Configure custom commands
 
-Eyes.Cypress exposes new commands to your tests. This means that more methods will be available on the `cy` object. To enable this, it's required to configure these custom commands.
+Eyes-Cypress exposes new commands to your tests. This means that more methods will be available on the `cy` object. To enable this, it's required to configure these custom commands.
 As with the plugin, there's no automatic way to configure this in cypress, so you need to manually add the following code to your `supportFile`:
 
 ```js
-import '@applitools/eyes.cypress/commands'
+import '@applitools/eyes-cypress/commands'
 ```
 
 Normally, this is `cypress/support/index.js`. You can read more about it in Cypress' docs [here](https://docs.cypress.io/guides/references/configuration.html#Folders-Files).
 
 ### Applitools API key
 
-In order to authenticate via the Applitools server, you need to supply the Eyes.Cypress SDK with the API key you got from Applitools. Read more about how to obtain the API key [here](https://applitools.com/docs/topics/overview/obtain-api-key.html).
+In order to authenticate via the Applitools server, you need to supply the Eyes-Cypress SDK with the API key you got from Applitools. Read more about how to obtain the API key [here](https://applitools.com/docs/topics/overview/obtain-api-key.html).
 
 To to this, set the environment variable `APPLITOOLS_API_KEY` to the API key before running your tests.
 For example, on Linux/Mac:
@@ -82,7 +82,7 @@ See the [Advanced configuration](#method-3-the-applitoolsconfigjs-file) section 
 
 ## Usage
 
-After completing the configuation (either automatic or manual) and defining the API key, you will be able to use commands from Eyes.Cypress in your cypress tests to take screenshots and use Applitools Eyes to manage them:
+After completing the configuation (either automatic or manual) and defining the API key, you will be able to use commands from Eyes-Cypress in your cypress tests to take screenshots and use Applitools Eyes to manage them:
 
 ### Example
 
@@ -137,7 +137,7 @@ Applitools will take screenshots and perform the visual comparisons in the backg
 
 ### Commands
 
-In addition to the built-in commands provided by Cypress, like `cy.visit` and `cy.get`, Eyes.Cypress defines new custom commands, which enable the visual testing with Applitools Eyes. These commands are:
+In addition to the built-in commands provided by Cypress, like `cy.visit` and `cy.get`, Eyes-Cypress defines new custom commands, which enable the visual testing with Applitools Eyes. These commands are:
 
 #### Open
 
@@ -334,10 +334,10 @@ The following configuration properties cannot be defined using the first method 
 | Property name             | Default value               | Description   |
 | -------------             |:-------------               |:-----------   |
 | `apiKey`                  | undefined                   | The API key used for working with the Applitools Eyes server. See more info in the [Applitools API key](#applitools-api-key) section above |
-| `showLogs`                | false                       | Whether or not you want to see logs of the Eyes.Cypress plugin. Logs are written to the same output of the Cypress process. |
+| `showLogs`                | false                       | Whether or not you want to see logs of the Eyes-Cypress plugin. Logs are written to the same output of the Cypress process. |
 | `serverUrl`               | Default Eyes server URL     | The URL of Eyes server |
 | `proxy`                   | undefined                   | Sets the proxy settings to be used in network requests to Eyes server. This can be either a string to the proxy URI, or an object containing the URI, username and password.<br/><br/>For example:<br/>`{uri: 'https://myproxy', username: 'my_user', password: 'my_password'}`|
-| `isDisabled`              | false                       | If true, all calls to Eyes.Cypress commands will be silently ignored. |
+| `isDisabled`              | false                       | If true, all calls to Eyes-Cypress commands will be silently ignored. |
 | `failCypressOnDiff`       | true                        | If true, then the Cypress test fails if an eyes visual test fails. If false and an eyes test fails, then the Cypress test does not fail. 
 | `tapDirPath`              | undefined                   | Directory path of a results file. If set, then a [TAP](https://en.wikipedia.org/wiki/Test_Anything_Protocol#Specification) file with the name `eyes.tap` is created in this directory, containing the Eyes test results.|
 
@@ -398,7 +398,7 @@ module.exports = {
 
 ## Configuring the browser
 
-Eyes.Cypress will take a screenshot of the page in the requested browser, the browser can be set in the `applitools.config.js` or by passing it to `cy.eyesOpen`.
+Eyes-Cypress will take a screenshot of the page in the requested browser, the browser can be set in the `applitools.config.js` or by passing it to `cy.eyesOpen`.
 
 It's also possible to send an array of browsers, for example:
 
@@ -411,7 +411,7 @@ cy.eyesOpen({
   ]
 }
 ```
-**Note**: that if only a single browser is set, then Eyes.Cypress changes the Cypress application viewport to that viewport size.  
+**Note**: that if only a single browser is set, then Eyes-Cypress changes the Cypress application viewport to that viewport size.  
 
 ### Device emulation
 
@@ -453,7 +453,7 @@ cy.eyesOpen({
 
 ## Setting a timeout
 
-At the end of the test run, Eyes.Cypress will wait for the results of all visual tests. There's a default timeout of 2 minutes between the end of the test run and the end of the visual tests (although it should not take so long normally!).
+At the end of the test run, Eyes-Cypress will wait for the results of all visual tests. There's a default timeout of 2 minutes between the end of the test run and the end of the visual tests (although it should not take so long normally!).
 
 It's possible to change that default by setting the configuration variable `eyesTimeout`, in one of the varios ways to configure Cypress, as described in the [Cypress plugins documentation](https://docs.cypress.io/guides/references/configuration.html).
 

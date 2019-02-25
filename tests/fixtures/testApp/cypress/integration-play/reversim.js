@@ -1,5 +1,5 @@
 /* globals describe,it,cy,context */
-describe('eyes.cypress', () => {
+describe('eyes-cypress', () => {
   context('Reversim website', () => {
     it('works', () => {
       function verifyCount() {

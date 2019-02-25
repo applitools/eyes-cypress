@@ -6,17 +6,17 @@ const isCommandsDefined = require('../../../src/setup/isCommandsDefined');
 
 describe('isCommandsDefined', () => {
   it('handles single quote require', () => {
-    const text = "require('@applitools/eyes.cypress/commands');";
+    const text = "require('@applitools/eyes-cypress/commands');";
     expect(isCommandsDefined(text)).to.equal(true);
   });
 
   it('handles double quote require', () => {
-    const text = 'require("@applitools/eyes.cypress/commands");';
+    const text = 'require("@applitools/eyes-cypress/commands");';
     expect(isCommandsDefined(text)).to.equal(true);
   });
 
   it('handles require with spaces', () => {
-    const text = 'require ( "@applitools/eyes.cypress/commands" ) ;';
+    const text = 'require ( "@applitools/eyes-cypress/commands" ) ;';
     expect(isCommandsDefined(text)).to.equal(true);
   });
 
@@ -24,7 +24,7 @@ describe('isCommandsDefined', () => {
     const text = `
     'use strict';
 
-    require('@applitools/eyes.cypress/commands');
+    require('@applitools/eyes-cypress/commands');
 
     import './commands'
     
@@ -34,17 +34,17 @@ describe('isCommandsDefined', () => {
   });
 
   it('handles single quote import', () => {
-    const text = "import '@applitools/eyes.cypress/commands'";
+    const text = "import '@applitools/eyes-cypress/commands'";
     expect(isCommandsDefined(text)).to.equal(true);
   });
 
   it('handles double quote import', () => {
-    const text = 'import "@applitools/eyes.cypress/commands"';
+    const text = 'import "@applitools/eyes-cypress/commands"';
     expect(isCommandsDefined(text)).to.equal(true);
   });
 
   it('handles import with spaces', () => {
-    const text = 'import   "@applitools/eyes.cypress/commands"    ;   ';
+    const text = 'import   "@applitools/eyes-cypress/commands"    ;   ';
     expect(isCommandsDefined(text)).to.equal(true);
   });
 
@@ -52,7 +52,7 @@ describe('isCommandsDefined', () => {
     const text = `
     'use strict';
 
-    import '@applitools/eyes.cypress/commands'
+    import '@applitools/eyes-cypress/commands'
 
     import './commands'
     
@@ -62,12 +62,12 @@ describe('isCommandsDefined', () => {
   });
 
   it('handles wrong inner require', () => {
-    const text = 'require("@applitools/eyes.cypress/bla");';
+    const text = 'require("@applitools/eyes-cypress/bla");';
     expect(isCommandsDefined(text)).to.equal(false);
   });
 
   it('handles wrong require', () => {
-    const text = 'require("@applitools/eyes.cypress");';
+    const text = 'require("@applitools/eyes-cypress");';
     expect(isCommandsDefined(text)).to.equal(false);
   });
 });

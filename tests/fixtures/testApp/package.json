@@ -1,7 +1,7 @@
 {
   "name": "testapp",
   "version": "1.0.0",
-  "description": "test app for eyes.cypress",
+  "description": "test app for eyes-cypress",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"

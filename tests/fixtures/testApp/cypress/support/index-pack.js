@@ -1,1 +1,1 @@
-import '@applitools/eyes.cypress/commands';
+import '@applitools/eyes-cypress/commands';

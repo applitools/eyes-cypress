@@ -13,7 +13,7 @@ function handleCommands(cwd) {
   const commandsFileContent = readFileSync(commandsFilePath).toString();
 
   if (isCommandsDefined(commandsFileContent)) {
-    console.log('Eyes.Cypress commands already configured properly. Yay :)');
+    console.log('Eyes-Cypress commands already configured properly. Yay :)');
   } else {
     writeFileSync(commandsFilePath, addEyesCommands(commandsFileContent));
   }

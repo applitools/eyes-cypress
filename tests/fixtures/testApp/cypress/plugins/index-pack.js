@@ -6,4 +6,4 @@ module.exports = async (_on, _config) => {
   return {testPort: testServer.port};
 };
 
-require('@applitools/eyes.cypress')(module);
+require('@applitools/eyes-cypress')(module);

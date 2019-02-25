@@ -7,7 +7,7 @@ function errorDigest({passed, failed, diffs, logger}) {
 
   const testLink = diffs.length ? `\n\n${indent(2)}See details at: ${diffs[0].getUrl()}` : '';
 
-  return `Eyes.Cypress detected diffs or errors during execution of visual tests:
+  return `Eyes-Cypress detected diffs or errors during execution of visual tests:
 ${indent(2)}${chalk.green(`Passed - ${passed.length} tests`)}${testResultsToString(passed, true)}
 ${indent(2)}${chalk.red(`Diffs detected - ${diffs.length} tests`)}${testResultsToString(diffs)}
 ${indent(2)}${chalk.red(`Errors - ${failed.length} tests`)}${testResultsToString(

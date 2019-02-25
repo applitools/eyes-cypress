@@ -1,5 +1,5 @@
 /* globals describe,it,cy */
-describe('eyes.cypress', () => {
+describe('eyes-cypress', () => {
   it.skip('runs website', () => {
     cy.visit('http://applitools.com');
     cy.eyesOpen({

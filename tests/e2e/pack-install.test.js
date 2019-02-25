@@ -18,7 +18,7 @@ describe('package and install', () => {
       `rm -rf node_modules cypress/videos cypress/screenshots cypress/fixtures ${packageFilePath} package-lock.json`,
     );
     const packageJson = JSON.parse(readFileSync('package.json').toString());
-    delete packageJson.dependencies['@applitools/eyes.cypress'];
+    delete packageJson.dependencies['@applitools/eyes-cypress'];
     writeFileSync('package.json', JSON.stringify(packageJson, null, 2));
   });
 

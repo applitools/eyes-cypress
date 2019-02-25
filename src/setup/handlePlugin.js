@@ -13,7 +13,7 @@ function handlePlugin(cwd) {
   const pluginsFileContent = readFileSync(pluginsFilePath).toString();
 
   if (isPluginDefined(pluginsFileContent)) {
-    console.log('Eyes.Cypress plugin already configured properly. Yay :)');
+    console.log('Eyes-Cypress plugin already configured properly. Yay :)');
   } else {
     writeFileSync(pluginsFilePath, addEyesCypressPlugin(pluginsFileContent));
   }

@@ -54,7 +54,7 @@ describe('errorDigest', () => {
     // NOTE: this is a try to validate the expected output.
     // It was very hard to construct this expected string, so if this becomes a maintenance nightmare, I suggest not to try and preserve it.
     // It was mainly written for debugging purposes in order to quickly craft the output without having to run Cypress.
-    const expectedOutput = `Eyes.Cypress detected diffs or errors during execution of visual tests:
+    const expectedOutput = `Eyes-Cypress detected diffs or errors during execution of visual tests:
        ${chalk.green('Passed - 1 tests')}
          ${chalk.green('\u2713')} ${chalk.reset('test3 [1x2]')}
        ${chalk.red('Diffs detected - 2 tests')}
