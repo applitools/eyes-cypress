@@ -1,4 +1,25 @@
 
+v3.5.2 / 2019-03-03
+===================
+
+* 3.5.2 [[f1d4063](https://github.com/applitools/eyes-cypress/commit/f1d4063e40cffd4fd52ae8a5e0651bf99334eced)]
+
+v3.5.1 / 2019-03-03
+===================
+
+* 3.5.1 [[d40a923](https://github.com/applitools/eyes-cypress/commit/d40a92377130f57ab121c6b33ae1a971637625d5)]
+* 3.5.0 [[b189642](https://github.com/applitools/eyes-cypress/commit/b189642fd96626c8b68480f1b7767b436ae7cae7)]
+* Supporting useDom & enablePattrens [[6efe96a](https://github.com/applitools/eyes-cypress/commit/6efe96aacd64930adda63c2a4b62d8bfc1627db2)]
+* changes to play script [[0f4eb47](https://github.com/applitools/eyes-cypress/commit/0f4eb4778cce23bb0b8e348be32af3d511503df8)]
+* added .idea to gitignore [[cedbfcd](https://github.com/applitools/eyes-cypress/commit/cedbfcdfbe085008f2ec4f301b35a3ae733607ae)]
+* small readme fix [[58fbdd1](https://github.com/applitools/eyes-cypress/commit/58fbdd1570ade882ea87d03500420508bb7b7174)]
+* updated string of eyes.cypress to eyes-storybook [[1eb834f](https://github.com/applitools/eyes-cypress/commit/1eb834f023163de249f98d8e7f84ea5cc8a920da)]
+* removed bad commits [[fd95b57](https://github.com/applitools/eyes-cypress/commit/fd95b57ca2a7a72eadee46cb9a969dbac6e9004c)]
+* better readme indent [[d9ffb73](https://github.com/applitools/eyes-cypress/commit/d9ffb734d0c6551d4c759813dde27cd1e869e9eb)]
+* better matchLevel locayion in readme [[912bdbf](https://github.com/applitools/eyes-cypress/commit/912bdbf43eb3920fdea48e144ed634308c461244)]
+* better readme for layout & region [[9b51bb6](https://github.com/applitools/eyes-cypress/commit/9b51bb616234965a3697a7dce5d21af958d8968d)]
+* changelog [[45ee7a0](https://github.com/applitools/eyes-cypress/commit/45ee7a051cb840ac565af1ccf6fa36b8b03a89cf)]
+
 v3.4.12 / 2019-02-19
 ====================
 
