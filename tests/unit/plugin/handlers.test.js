@@ -69,7 +69,7 @@ describe('handlers', () => {
     await openAndClose();
     expect(await handlers.close().then(x => x, err => err)).to.be.an.instanceof(Error);
 
-    handlers = handlers = makeHandlers({
+    handlers = makeHandlers({
       makeVisualGridClient: () => ({
         openEyes: openEyesWithCloseRejection,
       }),
@@ -97,6 +97,8 @@ describe('handlers', () => {
     const layout = 'layout';
     const strict = 'strict';
     const sendDom = 'sendDom';
+    const useDom = 'useDom';
+    const enablePatterns = 'enablePatterns';
     const resourceContents = {};
 
     const result = await handlers.checkWindow({
@@ -113,6 +115,8 @@ describe('handlers', () => {
       layout,
       strict,
       sendDom,
+      useDom,
+      enablePatterns,
     });
 
     expect(result).to.eql({
@@ -131,6 +135,8 @@ describe('handlers', () => {
       layout,
       strict,
       sendDom,
+      useDom,
+      enablePatterns,
       frames: [],
     });
   });
@@ -221,6 +227,8 @@ describe('handlers', () => {
       layout: undefined,
       strict: undefined,
       sendDom: undefined,
+      useDom: undefined,
+      enablePatterns: undefined,
     });
   });
 

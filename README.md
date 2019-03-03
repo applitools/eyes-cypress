@@ -339,7 +339,7 @@ The following configuration properties cannot be defined using the first method 
 | `proxy`                   | undefined                   | Sets the proxy settings to be used in network requests to Eyes server. This can be either a string to the proxy URI, or an object containing the URI, username and password.<br/><br/>For example:<br/>`{uri: 'https://myproxy', username: 'my_user', password: 'my_password'}`|
 | `isDisabled`              | false                       | If true, all calls to Eyes-Cypress commands will be silently ignored. |
 | `failCypressOnDiff`       | true                        | If true, then the Cypress test fails if an eyes visual test fails. If false and an eyes test fails, then the Cypress test does not fail. 
-| `tapDirPath`              | undefined                   | Directory path of a results file. If set, then a [TAP](https://en.wikipedia.org/wiki/Test_Anything_Protocol#Specification) file with the name `eyes.tap` is created in this directory, containing the Eyes test results.|
+| `tapDirPath`              | undefined                   | Directory path of a results file. If set, then a [TAP](https://en.wikipedia.org/wiki/Test_Anything_Protocol#Specification) file with the name `eyes.tap` is created in this directory, containing the Eyes test results. Note that because of a current Cypress [limitation](https://github.com/cypress-io/cypress-documentation/issues/818) the results are scoped per spec file, this means that after each spec file run the results file is overridden.|
 
 ### Method 1: Arguments for `cy.eyesOpen`
 

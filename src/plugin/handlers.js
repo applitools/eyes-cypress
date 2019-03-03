@@ -95,14 +95,16 @@ function makeHandlers({
       strict,
       frames = [],
       sendDom,
-      debugCdt,
+      saveCdt,
+      useDom,
+      enablePatterns,
     }) => {
       logger.log(`[handlers] checkWindow: checkWindow=${typeof checkWindow}`);
       if (!checkWindow) {
         throw new Error('Please call cy.eyesOpen() before calling cy.eyesCheckWindow()');
       }
-      if (debugCdt) {
-        await writeFile(`./${debugCdt}.json`, JSON.stringify(cdt, null, 2));
+      if (saveCdt) {
+        await writeFile(`./cdt.json`, JSON.stringify(cdt, null, 2));
       }
 
       const resourceContents = blobDataToResourceContents(blobData);
@@ -124,6 +126,8 @@ function makeHandlers({
         strict,
         frames: framesWithResources,
         sendDom,
+        useDom,
+        enablePatterns,
       });
     },
 

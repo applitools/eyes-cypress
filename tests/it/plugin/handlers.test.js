@@ -49,5 +49,39 @@ describe('handlers', () => {
       handlers.batchStart({viewport: {width: null, height: null}});
       expect(_vgcConfig).to.deep.eq({});
     });
+
+    it('sets VGC with useDom & enablePatterns config', async () => {
+      const handlers = makeHandlers({
+        makeVisualGridClient: config => ((_vgcConfig = config), {}),
+        config: {useDom: true, enablePatterns: true},
+        logger: console,
+        processCloseAndAbort,
+        getErrorsAndDiffs,
+        errorDigest,
+      });
+      handlers.batchStart({});
+      expect(_vgcConfig).to.deep.eq({useDom: true, enablePatterns: true});
+    });
+
+    it('sets checkWindow VGC with useDom & enablePatterns config', async () => {
+      let _args;
+      const handlers = makeHandlers({
+        makeVisualGridClient: () => ({
+          openEyes: () => ({
+            checkWindow: args => (_args = args),
+          }),
+        }),
+        config: {enablePatterns: false},
+        logger: console,
+        processCloseAndAbort,
+        getErrorsAndDiffs,
+        errorDigest,
+      });
+      handlers.batchStart({});
+      await handlers.open();
+      await handlers.checkWindow({useDom: true, enablePatterns: true});
+      expect(_args.useDom).to.be.true;
+      expect(_args.enablePatterns).to.be.true;
+    });
   });
 });

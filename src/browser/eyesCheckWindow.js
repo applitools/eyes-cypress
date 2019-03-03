@@ -13,7 +13,9 @@ function makeEyesCheckWindow({sendRequest, processPage}) {
       layout,
       strict,
       sendDom,
-      debugCdt;
+      saveCdt,
+      useDom,
+      enablePatterns;
     if (typeof args === 'string') {
       tag = args;
     } else if (typeof args === 'object') {
@@ -27,7 +29,9 @@ function makeEyesCheckWindow({sendRequest, processPage}) {
       layout = args.layout;
       strict = args.strict;
       sendDom = args.sendDom;
-      debugCdt = (args.debug && args.debug.cdt) || undefined;
+      useDom = args.useDom;
+      enablePatterns = args.enablePatterns;
+      saveCdt = args.saveCdt || undefined;
     }
 
     return processPage(doc).then(mainFrame => {
@@ -52,7 +56,9 @@ function makeEyesCheckWindow({sendRequest, processPage}) {
             strict,
             frames,
             sendDom,
-            debugCdt,
+            saveCdt,
+            useDom,
+            enablePatterns,
           },
         }),
       );
