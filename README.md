@@ -171,7 +171,7 @@ cy.eyesCheckWindow({ tag: 'your tag', sizeMode: 'your size mode' })
 - `sizeMode` (optional): Possible values are:
 
   - **`full-page`**: This is the default value. It means a screenshot of everything that exists in the DOM at the point of calling `eyesCheckWindow` will be rendered.
-  - **`viewport`**: Only a screenshot the size of the browser will be rendered (the size of the browser can be set in the call to `cy.eyesOpen` - see advanced configuration below).
+  - **`viewport`**: Only a screenshot the size of the browser will be rendered (the size of the browser can be set in the call to `cy.eyesOpen` - see [Advanced configuration](#advanced-configuration) below).
   - **`selector`**: Take a screenshot of the content of the element targeted by css or xpath selector. It's necessary to specify the value of the selector in the `selector` argument.
   - **`region`**: Take a screenshot of a region of the page, specified by coordinates. It's necessary to specify the value of the region in the `region` argument.
 
@@ -234,8 +234,6 @@ cy.eyesCheckWindow({ tag: 'your tag', sizeMode: 'your size mode' })
     });
     ```
 
-- `matchLevel` (optional): The method to use when comparing two screenshots, which expresses the extent to which the two images are expected to match. Possible values are `Strict`, `Exact`, `Layout` and `Content`. Read more about match levels [here](http://support.applitools.com/customer/portal/articles/2088359).
-
 - `layout` (optional): A single or an array of regions to match as [layout level.](https://help.applitools.com/hc/en-us/articles/360007188591-Match-Levels) For example:
 
     ```js
@@ -254,8 +252,7 @@ cy.eyesCheckWindow({ tag: 'your tag', sizeMode: 'your size mode' })
       strict: [
         {top: 100, left: 0, width: 1000, height: 100},
         {selector: '.some-div-to-test-as-strict'}
-      ],
-      matchLevel: 'Layout'
+      ]
     });
     ```
 
@@ -318,7 +315,7 @@ Here are the available configuration properties:
 | `baselineEnvName`         | undefined                   | The name of the environment of the baseline. |
 | `envName`                 | undefined                   | A name for the environment in which the application under test is running. |
 | `ignoreCaret`             | false                       | Whether to ignore or the blinking caret or not when comparing images. |
-| `matchLevel`              | undefined                   | The method to use when comparing two screenshots, which expresses the extent to which the two images are expected to match. Possible values are `Strict`, `Exact`, `Layout` and `Content`. Read more about match levels [here](http://support.applitools.com/customer/portal/articles/2088359). |
+| `matchLevel`              | Strict                      | The method to use when comparing two screenshots, which expresses the extent to which the two images are expected to match. Possible values are `Strict`, `Exact`, `Layout` and `Content`. Read more about match levels [here](http://support.applitools.com/customer/portal/articles/2088359). |
 | `matchTimeout`            | undefined                   | Sets the maximum time (in ms) a match operation tries to perform a match. |
 | `branchName`              | undefined                   | The name of the branch. |
 | `baselineBranchName`      | undefined                   | The name of the baseline branch. |
