@@ -1,4 +1,17 @@
 
+v3.5.5 / 2019-03-05
+===================
+
+* 3.5.5 [[b3776ba](https://github.com/applitools/eyes-cypress/commit/b3776ba270195ef0fb8180567391d2ed3942dd70)]
+
+v3.5.4 / 2019-03-05
+===================
+
+* 3.5.4 [[0862d56](https://github.com/applitools/eyes-cypress/commit/0862d562669b6068494f3e77b34375af839ad3dc)]
+* 2.5.3 [[e2748bf](https://github.com/applitools/eyes-cypress/commit/e2748bfd2ff12fc52628e881c981e80f2e82d778)]
+* removed bad matchLevel info from README. [[8492ef9](https://github.com/applitools/eyes-cypress/commit/8492ef98982acf4b31570367196dd6ea6a600d42)]
+* changelog [[91680a5](https://github.com/applitools/eyes-cypress/commit/91680a58959faea8a8c3284c96c700a71c534ecf)]
+
 v3.5.2 / 2019-03-03
 ===================
 
