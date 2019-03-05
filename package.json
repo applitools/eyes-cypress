@@ -1,6 +1,6 @@
 {
   "name": "@applitools/eyes-cypress",
-  "version": "3.5.2-autodesk",
+  "version": "3.5.3-autodesk",
   "main": "index.js",
   "license": "MIT",
   "bin": {
