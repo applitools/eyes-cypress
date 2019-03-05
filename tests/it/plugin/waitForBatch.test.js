@@ -37,13 +37,13 @@ describe('waitForBatch', () => {
   });
 
   it('writes a test result file', async () => {
-    const succeeded = await waitForBatch(results);
+    const succeeded = await waitForBatch(results, 'test');
     expect(succeeded).to.equal(results.length);
     await testTapFile(results);
   });
 
   it('re-writes a test result file', async () => {
-    const succeeded = await waitForBatch(results);
+    const succeeded = await waitForBatch(results, 'test');
     expect(succeeded).to.equal(results.length);
     await testTapFile(results);
   });
