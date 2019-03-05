@@ -2,7 +2,7 @@ describe('eyes-cypress', () => {
 
   // This also tests the setting of `testName` inside `it`
 
-  it('simple', () => {
+  it('simple-autodesk', () => {
     cy.setCookie('auth', 'secret');
     const url = `http://localhost:${Cypress.config('testPort')}/test.html`;
     cy.visit(url);
