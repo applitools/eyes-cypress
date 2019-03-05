@@ -10,7 +10,7 @@ describe('eyes-cypress', () => {
     });
   });
 
-  it('pack', () => {
+  it('pack-autodesk', () => {
     cy.setCookie('auth', 'secret');
     const url = `http://localhost:${Cypress.config('testPort')}/test.html`;
     cy.visit(url);
