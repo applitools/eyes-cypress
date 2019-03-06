@@ -1,4 +1,11 @@
 
+v3.5.6 / 2019-03-06
+===================
+
+* 3.5.6 [[ddad8d2](https://github.com/applitools/eyes-cypress/commit/ddad8d2626125f9a40a753a53888b2b10120008f)]
+* Creating one TAP file per spec file and not overriding. [[43ea110](https://github.com/applitools/eyes-cypress/commit/43ea110d22d8ed97267b90da47ed242660185a28)]
+* changelog [[ce6e328](https://github.com/applitools/eyes-cypress/commit/ce6e328cd51d0fd6a69dea7efb09bff202e98229)]
+
 v3.5.5 / 2019-03-05
 ===================
 
