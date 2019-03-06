@@ -21,7 +21,10 @@ describe('waitForBatch', () => {
       concurrency: 1,
       getErrorsAndDiffs: results => ({failed: [], diffs: [], passed: results}),
       errorDigest: () => null,
-      handleBatchResultsFile: makeHandleBatchResultsFile({tapDirPath: baseDir}),
+      handleBatchResultsFile: makeHandleBatchResultsFile({
+        tapDirPath: baseDir,
+        tapFileName: 'test.tap',
+      }),
     });
     results = [
       {name: 'someName1', appName: 'someAppName1'},
@@ -47,7 +50,7 @@ describe('waitForBatch', () => {
 
   const outputLine = result =>
     `[FAILED TEST] Test: '${result.getName()}', Application: '${result.getAppName()}'`;
-  const tapDirPath = resolve(baseDir, 'eyes.tap');
+  const tapDirPath = resolve(baseDir, 'test.tap');
   const testTapFile = async results => {
     const data = await readFile(tapDirPath, 'utf8');
     results.forEach(result => expect(data).to.include(outputLine(result)));

@@ -8,8 +8,9 @@ const makeHandleBatchResultsFile = config => {
   if (!config.tapDirPath) return () => {};
   return async function handleBatchResultsFile(results) {
     const formatter = new TestResultsFormatter(results);
-    const tapFilePath = resolve(config.tapDirPath, 'eyes.tap');
-    await writeFile(tapFilePath, formatter.asHierarchicTAPString(false, true));
+    const fileName = config.tapFileName || `${new Date().toISOString()}-eyes.tap`;
+    const tapFile = resolve(config.tapDirPath, fileName);
+    await writeFile(tapFile, formatter.asHierarchicTAPString(false, true));
   };
 };
 
