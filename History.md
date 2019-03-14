@@ -1,4 +1,12 @@
 
+v3.6.1 / 2019-03-14
+===================
+
+* 3.6.1 [[bfd5b87](https://github.com/applitools/eyes-cypress/commit/bfd5b87eae04070991698c3edef1671976c2ba84)]
+* 3.6.0 [[2e65461](https://github.com/applitools/eyes-cypress/commit/2e654619ce2cf93474bef2923bec8337f5d518f9)]
+* Added DEBUG support with namespace cypress [[9c0c989](https://github.com/applitools/eyes-cypress/commit/9c0c9892b7790f06e503d2b1eb09a661c7dac392)]
+* changelog [[c758e1a](https://github.com/applitools/eyes-cypress/commit/c758e1a06456949ff13c7b255dd7449391c3549f)]
+
 v3.5.6 / 2019-03-06
 ===================
 
