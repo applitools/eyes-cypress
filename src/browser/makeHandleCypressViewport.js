@@ -1,14 +1,15 @@
-const {TypeUtils} = require('@applitools/eyes-common');
+'use strict';
 
 const makeHandleCypressViewport = ({cy}) => {
   return browser => {
     let rv = cy;
-    if (TypeUtils.isArray(browser) && browser.length === 1) {
+    if (Array.isArray(browser) && browser.length === 1) {
       browser = browser[0];
     }
 
     if (
-      TypeUtils.isObject(browser) &&
+      typeof browser === 'object' &&
+      browser !== null &&
       browser.width !== undefined &&
       browser.height !== undefined
     ) {

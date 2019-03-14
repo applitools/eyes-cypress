@@ -20,7 +20,7 @@ if (config.failCypressOnDiff === '0') {
   config.failCypressOnDiff = false;
 }
 
-const logger = new Logger(config.showLogs);
+const logger = new Logger(config.showLogs, 'cypress');
 const handlers = makeHandlers({
   logger,
   config,
