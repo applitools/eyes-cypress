@@ -308,7 +308,6 @@ Here are the available configuration properties:
 | -------------             |:-------------               |:-----------   |
 | `testName`                | The value of Cypress's test title | Test name. If this is not specified, the test name will be the title of the `it` block where the test is running.    |
 | `browser`                 | { width: 800, height: 600, name: 'chrome' } | The size and browser of the generated screenshots. This doesn't need to be the same as the browser that Cypress is running. It could be a different size and also a different browser. Currently, `firefox`, `chrome`, `edge` and `ie` are supported (ie renders as ie11). For more info, see the [browser section below](#configuring-the-browser).|
-| `concurrency`             | 1                           | The maximum number of tests that can run concurrently. The default value is the allowed amount for free accounts. For paid accounts, set this number to the quota set for your account. |
 | `saveDebugData`           | false                       | Whether to save troubleshooting data. See the troubleshooting section of this doc for more info. |
 | `batchId`                 | random                      | Provides ability to group tests into batches. Read more about batches [here](https://applitools.com/docs/topics/working-with-test-batches/how-to-group-tests-into-batches.html). |
 | `batchName`               | undefined                   | Provides a name to the batch. |
@@ -337,6 +336,7 @@ The following configuration properties cannot be defined using the first method 
 | `isDisabled`              | false                       | If true, all calls to Eyes-Cypress commands will be silently ignored. |
 | `failCypressOnDiff`       | true                        | If true, then the Cypress test fails if an eyes visual test fails. If false and an eyes test fails, then the Cypress test does not fail. 
 | `tapDirPath`              | undefined                   | Directory path of a results file. If set, then a [TAP](https://en.wikipedia.org/wiki/Test_Anything_Protocol#Specification) file is created in this directory, the tap file name is created with the name [ISO-DATE](https://en.wikipedia.org/wiki/ISO_8601)\-eyes.tap and contains the Eyes test results (Note that because of a current Cypress [limitation](https://github.com/cypress-io/cypress-documentation/issues/818) the results are scoped per spec file, this means that the results file is created once for each spec file).|
+| `concurrency`             | 1                           | The maximum number of tests that can run concurrently. The default value is the allowed amount for free accounts. For paid accounts, set this number to the quota set for your account. |
 
 ### Method 1: Arguments for `cy.eyesOpen`
 
