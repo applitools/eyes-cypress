@@ -345,7 +345,6 @@ Pass a config object as the only argument. For example:
 ```js
 cy.eyesOpen({
   appName: 'My app',
-  showLogs: true,
   batchName: 'My batch',
   ...
   // all other configuration variables apply
