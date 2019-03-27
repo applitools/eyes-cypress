@@ -1,16 +1,17 @@
 'use strict';
 
-const {version: packageVersion} = require('../../package.json');
-const agentId = `eyes-cypress/${packageVersion}`;
+const {ConfigUtils, Logger} = require('@applitools/eyes-common');
+const {makeVisualGridClient, configParams} = require('@applitools/visual-grid-client');
+const {TypeUtils} = require('@applitools/eyes-common');
 const makeStartServer = require('./server');
 const makePluginExport = require('./pluginExport');
 const {startApp} = require('./app');
-const {ConfigUtils, Logger} = require('@applitools/eyes-common');
-const {makeVisualGridClient, configParams} = require('@applitools/visual-grid-client');
 const getErrorsAndDiffs = require('./getErrorsAndDiffs');
 const processCloseAndAbort = require('./processCloseAndAbort');
 const errorDigest = require('./errorDigest');
 const makeHandlers = require('./handlers');
+const {version: packageVersion} = require('../../package.json');
+const agentId = `eyes-cypress/${packageVersion}`;
 
 const config = Object.assign(
   {concurrency: 1, agentId},
@@ -18,6 +19,9 @@ const config = Object.assign(
 );
 if (config.failCypressOnDiff === '0') {
   config.failCypressOnDiff = false;
+}
+if (TypeUtils.isString(config.showLogs)) {
+  config.showLogs = config.showLogs === 'true' || config.showLogs === '1';
 }
 
 const logger = new Logger(config.showLogs, 'cypress');
