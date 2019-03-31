@@ -7,7 +7,7 @@ const PollingStatus = {
   ERROR: 'ERROR',
 };
 
-const DEFAULT_TIMEOUT = 120000;
+const DEFAULT_TIMEOUT = 300000;
 
 function pollingHandler(doWork, getTimeoutMsg) {
   let timeoutId,
