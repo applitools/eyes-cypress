@@ -74,4 +74,27 @@ describe('start plugin', () => {
       expect(eyesFailCypressOnDiff).to.be.false;
     });
   });
+
+  describe('with eyes timeout ', () => {
+    before(() => {
+      process.env['APPLITOOLS_EYES_TIMEOUT'] = '1234';
+      delete require.cache[require.resolve('../../../src/plugin/startPlugin')];
+      startPlugin = require('../../../src/plugin/startPlugin');
+    });
+
+    beforeEach(() => {
+      __module = {exports: () => {}};
+      getCloseServer = startPlugin(__module);
+    });
+
+    after(() => {
+      delete process.env['APPLITOOLS_EYES_TIMEOUT'];
+      delete require.cache[require.resolve('../../../src/plugin/startPlugin')];
+    });
+
+    it('patches module exports with dont fail on diff pref', async () => {
+      const {eyesTimeout} = await __module.exports();
+      expect(eyesTimeout).to.be.equal('1234');
+    });
+  });
 });

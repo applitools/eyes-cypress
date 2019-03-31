@@ -15,7 +15,9 @@ const agentId = `eyes-cypress/${packageVersion}`;
 
 const config = Object.assign(
   {concurrency: 1, agentId},
-  ConfigUtils.getConfig({configParams: [...configParams, 'failCypressOnDiff', 'tapDirPath']}),
+  ConfigUtils.getConfig({
+    configParams: [...configParams, 'failCypressOnDiff', 'tapDirPath', 'eyesTimeout'],
+  }),
 );
 if (config.failCypressOnDiff === '0') {
   config.failCypressOnDiff = false;

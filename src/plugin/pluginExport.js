@@ -14,6 +14,7 @@ function makePluginExport({startServer, config}) {
         eyesBrowser: JSON.stringify(config.browser),
         eyesFailCypressOnDiff:
           config.failCypressOnDiff === undefined ? true : !!config.failCypressOnDiff,
+        eyesTimeout: config.eyesTimeout,
       };
       return Object.assign(eyesConfig, {eyesPort}, moduleExportsResult);
     };
