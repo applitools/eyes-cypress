@@ -1,4 +1,21 @@
 
+v3.6.3 / 2019-03-31
+===================
+
+* 3.6.3 [[b6d4e73](https://github.com/applitools/eyes-cypress/commit/b6d4e73a5e0efab4ea026e956e3b9f454f56ef72)]
+* fixed no eyeTimeout [[9870cd6](https://github.com/applitools/eyes-cypress/commit/9870cd6bee55f4f0c4f3df611152ff7e21e5c3cb)]
+* 3.6.2 [[0f61219](https://github.com/applitools/eyes-cypress/commit/0f6121976a0f6baf1d2177a6b7ffb0c7a3adc2b3)]
+* updated eyes-core to new Tap file format and better showLogs from ENV variables [[14f692f](https://github.com/applitools/eyes-cypress/commit/14f692f9a76705c8931439d88e0abb4d6fc624b0)]
+
+v3.6.2 / 2019-03-31
+===================
+
+* 3.6.2 [[047de9f](https://github.com/applitools/eyes-cypress/commit/047de9fce80240e8bbcaaeec914aaca9426b9602)]
+* fixed concurrency in readme [[69ba2fa](https://github.com/applitools/eyes-cypress/commit/69ba2fa2cb8dbf5b505b379540c4afa74c144489)]
+* fixed showLogs in readme [[3526731](https://github.com/applitools/eyes-cypress/commit/3526731449d6ddf7a1f13ce4bbe4e7f7d07b5e41)]
+* added ie and edge notes for readme [[9f3203a](https://github.com/applitools/eyes-cypress/commit/9f3203ad72883a06a0c9ab07c17446adc32f7680)]
+* changelog [[2036f1a](https://github.com/applitools/eyes-cypress/commit/2036f1af1816fa91f67267df0c879f967ce5c877)]
+
 v3.6.1 / 2019-03-14
 ===================
 
