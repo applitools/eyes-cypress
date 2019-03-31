@@ -1,7 +1,8 @@
 'use strict';
 
 const {ConfigUtils, Logger} = require('@applitools/eyes-common');
-const {makeVisualGridClient, configParams} = require('@applitools/visual-grid-client');
+const {makeVisualGridClient} = require('@applitools/visual-grid-client');
+const configParams = require('@applitools/visual-grid-client/src/sdk/configParams');
 const {TypeUtils} = require('@applitools/eyes-common');
 const makeStartServer = require('./server');
 const makePluginExport = require('./pluginExport');
