@@ -1,4 +1,12 @@
 
+v3.6.4 / 2019-04-08
+===================
+
+* 3.6.4 [[ba9b306](https://github.com/applitools/eyes-cypress/commit/ba9b306ec538a47a14041d7bd9fc400673b90a54)]
+* updated eyes-sdk-core to 5.4.1: increased PUt resource limit to 15.5MB [[175cac2](https://github.com/applitools/eyes-cypress/commit/175cac21ed8c5c92b77c889d0098fa0e364daf13)]
+* added cdt files to gitignore [[5e38512](https://github.com/applitools/eyes-cypress/commit/5e38512aa8328e59c9a2d9dd86ff80d308b2a69e)]
+* changelog [[53eef5d](https://github.com/applitools/eyes-cypress/commit/53eef5de3a93b2a53724c58114e4a6806c47fd87)]
+
 v3.6.3 / 2019-03-31
 ===================
 
