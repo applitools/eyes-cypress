@@ -12,6 +12,7 @@ applitools.config.js
 tests/fixtures/testApp/package-lock.json
 tests/fixtures/testApp/cypress/fixtures/
 *.tap
+cdt.json
 .vscode
 *.code-workspace
 .idea/
