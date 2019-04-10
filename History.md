@@ -1,4 +1,11 @@
 
+v3.6.5 / 2019-04-10
+===================
+
+* 3.6.5 [[3fa3d6e](https://github.com/applitools/eyes-cypress/commit/3fa3d6ea22bd84b109fe89ec56a88fcc969213b9)]
+* updated ds to 1.0.11: fixed input not getting value propertie [[3b0ab76](https://github.com/applitools/eyes-cypress/commit/3b0ab76f5ea99d9a18011d95249844c93662ee8d)]
+* changelog [[e1ed45f](https://github.com/applitools/eyes-cypress/commit/e1ed45f29f3e94fd828406924223ac0a819965a4)]
+
 v3.6.4 / 2019-04-08
 ===================
 
