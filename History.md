@@ -1,4 +1,11 @@
 
+v3.6.6 / 2019-04-11
+===================
+
+* 3.6.6 [[2b0b608](https://github.com/applitools/eyes-cypress/commit/2b0b6081e30408b535be7df25d8e7cc33aeb8a5d)]
+* updated ds to 1.1.1: supporting shadow dom in sdk side [[51370b9](https://github.com/applitools/eyes-cypress/commit/51370b96703f44a279f3b73476abb8276aba16fa)]
+* changelog [[077e34d](https://github.com/applitools/eyes-cypress/commit/077e34d406b1edef67be817e3f13198c1fe23f08)]
+
 v3.6.5 / 2019-04-10
 ===================
 
