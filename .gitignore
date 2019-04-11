@@ -16,3 +16,4 @@ cdt.json
 .vscode
 *.code-workspace
 .idea/
+.history
