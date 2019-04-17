@@ -1,21 +1,20 @@
 /* globals describe,it,cy */
 
-const url = 'https://www.applitools.com/helloworld';
-const testName = url
-  .split('.')
-  .reduce((acc, part, i, arr) => `${acc}${i !== 0 && i !== arr.length - 1 ? '.' + part : ''}`, '')
-  .substr(1);
+const url = 'https://applitools.github.io/demo/TestPages/SimpleTestPage/';
+const testName = url;
 
 describe('Hello world', () => {
   it('works', () => {
     cy.eyesOpen({
       appName: 'CypressPlay',
       testName: testName,
+      browser: [{width: 800, height: 600, name: 'chrome'}],
     });
     cy.visit(url);
 
     cy.eyesCheckWindow({
       tag: 'Play Check',
+      saveCdt: false,
     });
 
     cy.eyesClose();

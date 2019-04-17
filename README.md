@@ -307,7 +307,7 @@ Here are the available configuration properties:
 | Property name             | Default value               | Description   |
 | -------------             |:-------------               |:-----------   |
 | `testName`                | The value of Cypress's test title | Test name. If this is not specified, the test name will be the title of the `it` block where the test is running.    |
-| `browser`                 | { width: 800, height: 600, name: 'chrome' } | The size and browser of the generated screenshots. This doesn't need to be the same as the browser that Cypress is running. It could be a different size and also a different browser. Currently, `firefox`, `chrome`, `edge` and `ie` are supported (ie renders as ie11). For more info, see the [browser section below](#configuring-the-browser).|
+| `browser`                 | { width: 800, height: 600, name: 'chrome' } | The size and browser of the generated screenshots. This doesn't need to be the same as the browser that Cypress is running. It could be a different size and also a different browser. Currently, `firefox`, `chrome`, `edge`, `ie10` and `ie11` are supported. For more info, see the [browser section below](#configuring-the-browser).|
 | `saveDebugData`           | false                       | Whether to save troubleshooting data. See the troubleshooting section of this doc for more info. |
 | `batchId`                 | random                      | Provides ability to group tests into batches. Read more about batches [here](https://applitools.com/docs/topics/working-with-test-batches/how-to-group-tests-into-batches.html). |
 | `batchName`               | undefined                   | Provides a name to the batch. |
@@ -403,7 +403,8 @@ cy.eyesOpen({
   ...
   browser: [
     {width: 800, height: 600, name: 'firefox'},
-    {width: 1024, height: 768, name: 'chrome'}
+    {width: 1024, height: 768, name: 'chrome'},
+    {width: 1024, height: 768, name: 'ie11'}
   ]
 }
 ```
