@@ -1,4 +1,12 @@
 
+v3.6.7 / 2019-04-23
+===================
+
+* 3.6.7 [[8eda05e](https://github.com/applitools/eyes-cypress/commit/8eda05ed6ef5a3b7d758c3f77ed61260fd20cf7a)]
+* updated vgc to 12.6.6: increased renderStatusTimeout to 1 hour [[58c6480](https://github.com/applitools/eyes-cypress/commit/58c648022849c4549aa875450473d0a587ce8491)]
+* added ie10 11 readme info [[8d7ad78](https://github.com/applitools/eyes-cypress/commit/8d7ad7896bdbb53e27ec8122c921546633ed6f0c)]
+* changelog [[47f2c4e](https://github.com/applitools/eyes-cypress/commit/47f2c4ecfcb9c29eb9447bbf4323de0216da09a3)]
+
 v3.6.6 / 2019-04-11
 ===================
 
