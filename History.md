@@ -1,4 +1,11 @@
 
+v3.6.9 / 2019-04-29
+===================
+
+* 3.6.9 [[3c9cdf0](https://github.com/applitools/eyes-cypress/commit/3c9cdf08d7c368bdf5ef295bb45d438c397286e5)]
+* updated vgc to 12.6.9: fix css selector with size mode [[f1c832b](https://github.com/applitools/eyes-cypress/commit/f1c832bf139d19edd5afd183fc42bc8735b98ea4)]
+* changelog [[cae5eb2](https://github.com/applitools/eyes-cypress/commit/cae5eb2bde26fef8b942e8b008a528376c4e60db)]
+
 v3.6.8 / 2019-04-29
 ===================
 
