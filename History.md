@@ -1,4 +1,11 @@
 
+v3.6.8 / 2019-04-29
+===================
+
+* 3.6.8 [[e85a835](https://github.com/applitools/eyes-cypress/commit/e85a835edf4b9bf496ba854e0665f12268a0381b)]
+* updated visual-grid-client 12.6.8: fixed multiple emulated devices [[01e91e9](https://github.com/applitools/eyes-cypress/commit/01e91e9da1abe17aa6c03649d424a25c20d78791)]
+* changelog [[776972d](https://github.com/applitools/eyes-cypress/commit/776972d180a9583b5eddda35cd5857eb984b8c32)]
+
 v3.6.7 / 2019-04-23
 ===================
 
