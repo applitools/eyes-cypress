@@ -8,7 +8,20 @@ describe('Hello world', () => {
     cy.eyesOpen({
       appName: 'CypressPlay',
       testName: testName,
-      browser: [{width: 800, height: 600, name: 'chrome'}],
+      browser: [
+        {
+          deviceName: 'iPhone X',
+          screenOrientation: 'landscape',
+          // width: 812,
+          // height: 375,
+        },
+        {
+          deviceName: 'iPad',
+          screenOrientation: 'landscape',
+          // width: 812,
+          // height: 375,
+        },
+      ],
     });
     cy.visit(url);
 
