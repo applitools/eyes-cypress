@@ -315,7 +315,6 @@ Here are the available configuration properties:
 | `envName`                 | undefined                   | A name for the environment in which the application under test is running. |
 | `ignoreCaret`             | false                       | Whether to ignore or the blinking caret or not when comparing images. |
 | `matchLevel`              | Strict                      | The method to use when comparing two screenshots, which expresses the extent to which the two images are expected to match. Possible values are `Strict`, `Exact`, `Layout` and `Content`. Read more about match levels [here](http://support.applitools.com/customer/portal/articles/2088359). |
-| `matchTimeout`            | undefined                   | Sets the maximum time (in ms) a match operation tries to perform a match. |
 | `branchName`              | undefined                   | The name of the branch. |
 | `baselineBranchName`      | undefined                   | The name of the baseline branch. |
 | `parentBranchName`        | undefined                   | Sets the branch under which new branches are created. |
