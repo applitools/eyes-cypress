@@ -1,4 +1,12 @@
 
+v3.6.10 / 2019-04-30
+====================
+
+* 3.6.10 [[173b089](https://github.com/applitools/eyes-cypress/commit/173b089c9d04990a92e8f1a8f8c1c35ac5ca956d)]
+* updated vgc to 12.6.10: added agentId to render request [[e34a8e3](https://github.com/applitools/eyes-cypress/commit/e34a8e3edfe962c9021b2240e16cf9dcbc552c7f)]
+* removed matchTimeout from the readme [[81372da](https://github.com/applitools/eyes-cypress/commit/81372dac26fa3761e0452224cf171a407f073cdf)]
+* changelog [[4903cb3](https://github.com/applitools/eyes-cypress/commit/4903cb3bd7d2911be4683b1c3b0bf2a69e31ed51)]
+
 v3.6.9 / 2019-04-29
 ===================
 
