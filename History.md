@@ -1,4 +1,11 @@
 
+v3.6.11 / 2019-05-02
+====================
+
+* 3.6.11 [[4bdbb57](https://github.com/applitools/eyes-cypress/commit/4bdbb571bd45fa207a90b7152d8bdd07acb1afe1)]
+* upadted vgc: fixed handle debug bad spread operator [[40bfee1](https://github.com/applitools/eyes-cypress/commit/40bfee19368881fdbe8f7c8eb2a963d4f8fbcb11)]
+* changelog [[7b77f99](https://github.com/applitools/eyes-cypress/commit/7b77f9920d2c20d5064f4ae77e099e867fdb1682)]
+
 v3.6.10 / 2019-04-30
 ====================
 
