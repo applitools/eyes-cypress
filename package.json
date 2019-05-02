@@ -37,11 +37,11 @@
     "url": "https://github.com/applitools/eyes-cypress"
   },
   "dependencies": {
-    "@applitools/dom-snapshot": "^1.1.8",
+    "@applitools/dom-snapshot": "^1.1.9",
     "@applitools/eyes-common": "^2.2.1",
     "@applitools/eyes-sdk-core": "^5.6.2",
     "@applitools/functional-commons": "^1.4.1",
-    "@applitools/visual-grid-client": "^12.6.10",
+    "@applitools/visual-grid-client": "^12.7.4",
     "body-parser": "^1.19.0",
     "chalk": "^2.4.2",
     "cors": "^2.8.5",
@@ -60,7 +60,7 @@
     "lodash.omit": "^4.5.0",
     "mocha": "^5.2.0",
     "morgan": "^1.9.1",
-    "node-fetch": "^2.4.1",
+    "node-fetch": "^2.5.0",
     "prettier": "^1.17.0"
   }
 }
