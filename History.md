@@ -1,4 +1,11 @@
 
+v3.6.12 / 2019-05-06
+====================
+
+* 3.6.12 [[09e5611](https://github.com/applitools/eyes-cypress/commit/09e56119b454276e09af80d955f0c78d880247f2)]
+* updated vgc to 12.8.1: aborting tests on render error [[db4dd04](https://github.com/applitools/eyes-cypress/commit/db4dd043e98156d38b709675f26339ced03c47df)]
+* changelog [[5f82690](https://github.com/applitools/eyes-cypress/commit/5f82690082e713df5a20bd91c24cb441f7b6f46f)]
+
 v3.6.11 / 2019-05-02
 ====================
 
