@@ -1,4 +1,11 @@
 
+v3.6.13 / 2019-05-06
+====================
+
+* 3.6.13 [[6f1084b](https://github.com/applitools/eyes-cypress/commit/6f1084b921de71e70469bb9ec6a60847bb7ef43e)]
+* updated ds to 1.1.10: empty src attribute for cors iframes [[d4ad630](https://github.com/applitools/eyes-cypress/commit/d4ad6304728591ad96766bc6c690f3ff6bb600ff)]
+* changelog [[ca0d5e2](https://github.com/applitools/eyes-cypress/commit/ca0d5e2d2a6b7caa956fce33933c92a4156bb43e)]
+
 v3.6.12 / 2019-05-06
 ====================
 
