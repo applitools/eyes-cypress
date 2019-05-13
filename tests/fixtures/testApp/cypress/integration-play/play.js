@@ -1,6 +1,6 @@
 /* globals describe,it,cy */
 
-const url = 'https://applitools.github.io/demo/TestPages/SimpleTestPage/';
+const url = 'https://google.com/';
 const testName = url;
 
 describe('Hello world', () => {
@@ -8,20 +8,6 @@ describe('Hello world', () => {
     cy.eyesOpen({
       appName: 'CypressPlay',
       testName: testName,
-      browser: [
-        {
-          deviceName: 'iPhone X',
-          screenOrientation: 'landscape',
-          // width: 812,
-          // height: 375,
-        },
-        {
-          deviceName: 'iPad',
-          screenOrientation: 'landscape',
-          // width: 812,
-          // height: 375,
-        },
-      ],
     });
     cy.visit(url);
 
