@@ -54,7 +54,7 @@ Cypress.Commands.add('eyesOpen', function(args = {}) {
   isCurrentTestDisabled = Cypress.config('eyesIsDisabled') || args.isDisabled;
   if (isCurrentTestDisabled) return;
 
-  return handleCypressViewport(args.browser).then(() =>
+  return handleCypressViewport(args.browser).then({timeout: 15000}, () =>
     sendRequest({
       command: 'open',
       data: Object.assign({testName}, args),
