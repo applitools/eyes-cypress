@@ -111,7 +111,7 @@ After adjusting the example above, this becomes:
 
 ```js
 describe('Hello world', () => {
-  beforEach(() => {
+  beforeEach(() => {
     cy.eyesOpen({
       appName: 'Hello World!',
       browser: { width: 800, height: 600 },
