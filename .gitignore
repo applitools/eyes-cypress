@@ -17,3 +17,4 @@ cdt.json
 *.code-workspace
 .idea/
 .history
+tests/cypress
