@@ -1,4 +1,15 @@
 
+v3.6.15 / 2019-05-21
+====================
+
+* 3.6.15 [[f904406](https://github.com/applitools/eyes-cypress/commit/f9044069faace6aa168ae38a2e40cc299be308a8)]
+* updated eyes common for new loggger [[3235f96](https://github.com/applitools/eyes-cypress/commit/3235f962a8f8986483a4281cdb9f67e803f42f71)]
+* fixed readme [[d1afce3](https://github.com/applitools/eyes-cypress/commit/d1afce31a37dfb8427f6dae7c7fb2588b3d7641d)]
+* added test cypress to gitignore [[7e83423](https://github.com/applitools/eyes-cypress/commit/7e834236359354560f9de1411b94abfb1b40c951)]
+* added render script [[908ae2c](https://github.com/applitools/eyes-cypress/commit/908ae2cf27bb07877949e8ed1b6b4ac9a54273b7)]
+* fixed e2e test flakiness with open timeout [[30d2633](https://github.com/applitools/eyes-cypress/commit/30d26335668a9ada7019adc24ede1d0747c1e1bf)]
+* changelog [[b3b90bf](https://github.com/applitools/eyes-cypress/commit/b3b90bfb9bc71b004b6cd3c7b1edcee48accbed1)]
+
 v3.6.14 / 2019-05-13
 ====================
 
