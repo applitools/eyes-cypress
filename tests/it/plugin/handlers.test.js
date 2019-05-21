@@ -12,7 +12,11 @@ describe('handlers', () => {
 
     before(() => {
       handlers = makeHandlers({
-        makeVisualGridClient: config => ((_vgcConfig = config), {}),
+        makeVisualGridClient: config => {
+          _vgcConfig = Object.assign(config);
+          delete _vgcConfig.logger;
+          return {};
+        },
         config: {},
         logger: console,
         processCloseAndAbort,
@@ -28,7 +32,11 @@ describe('handlers', () => {
 
     it('sets VGC with the config viewport and not the handler data', async () => {
       const handlers = makeHandlers({
-        makeVisualGridClient: config => ((_vgcConfig = config), {}),
+        makeVisualGridClient: config => {
+          _vgcConfig = Object.assign(config);
+          delete _vgcConfig.logger;
+          return {};
+        },
         config: {browser: {width: 400, height: 400}},
         logger: console,
         processCloseAndAbort,
@@ -52,7 +60,11 @@ describe('handlers', () => {
 
     it('sets VGC with useDom & enablePatterns config', async () => {
       const handlers = makeHandlers({
-        makeVisualGridClient: config => ((_vgcConfig = config), {}),
+        makeVisualGridClient: config => {
+          _vgcConfig = Object.assign(config);
+          delete _vgcConfig.logger;
+          return {};
+        },
         config: {useDom: true, enablePatterns: true},
         logger: console,
         processCloseAndAbort,

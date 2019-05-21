@@ -53,10 +53,14 @@ function makeHandlers({
         GeneralUtils.getPropertyByPath(data, 'viewport.width')
           ? {browser: data.viewport}
           : {};
-      const client = makeVisualGridClient(Object.assign(extraConfig, config));
+      const client = makeVisualGridClient(
+        Object.assign(extraConfig, config, {
+          logger: (logger.extend && logger.extend('vgc')) || logger,
+        }),
+      );
       openEyes = client.openEyes;
       const waitForBatch = makeWaitForBatch({
-        logger,
+        logger: (logger.extend && logger.extend('waitForBatch')) || logger,
         concurrency: config.concurrency,
         processCloseAndAbort,
         getErrorsAndDiffs,

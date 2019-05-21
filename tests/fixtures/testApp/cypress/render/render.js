@@ -1,4 +1,4 @@
-/* globals describe,it,cy */
+/* globals describe,it,cy,Cypress */
 
 const url = Cypress.env('url');
 const testName = `Cypress Render ${url}`;

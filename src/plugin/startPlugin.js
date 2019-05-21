@@ -26,7 +26,7 @@ if (TypeUtils.isString(config.showLogs)) {
   config.showLogs = config.showLogs === 'true' || config.showLogs === '1';
 }
 
-const logger = new Logger(config.showLogs, 'cypress');
+const logger = new Logger(config.showLogs, 'eyes');
 const handlers = makeHandlers({
   logger,
   config,
