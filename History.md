@@ -1,4 +1,14 @@
 
+v3.6.16 / 2019-05-29
+====================
+
+* 3.6.16 [[b86e319](https://github.com/applitools/eyes-cypress/commit/b86e319f3cfc50c5e97b57bb19d497aaec5ea350)]
+* added ignoreDisplacements [[764da7e](https://github.com/applitools/eyes-cypress/commit/764da7ee1a4bbf6188100f13bf494c36d96cc06d)]
+* updated cypress [[cfa0e4f](https://github.com/applitools/eyes-cypress/commit/cfa0e4f99d111b2bdd1a36b9ac523ff2ab92315d)]
+* better readme for batchName 2 [[e52745b](https://github.com/applitools/eyes-cypress/commit/e52745baf9106ea25cbc3d94bfa10b132f6a9566)]
+* better readme for batchName [[0154ea5](https://github.com/applitools/eyes-cypress/commit/0154ea5d4a439ba7d57194ff2b005e5b6ac6df6c)]
+* changelog [[e185407](https://github.com/applitools/eyes-cypress/commit/e185407da036faf89588f1022a78d535af49ea72)]
+
 v3.6.15 / 2019-05-21
 ====================
 
