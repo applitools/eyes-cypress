@@ -42,6 +42,7 @@ describe('eyesCheckWindow', () => {
         saveCdt: undefined,
         useDom: undefined,
         enablePatterns: undefined,
+        ignoreDisplacements: undefined,
       },
     });
     expect(resourcesPutted).to.eql([
@@ -100,6 +101,7 @@ describe('eyesCheckWindow', () => {
     const sendDom = 'sendDom';
     const useDom = 'useDom';
     const enablePatterns = 'enablePatterns';
+    const ignoreDisplacements = 'ignoreDisplacements';
 
     await eyesCheckWindow('bla doc', {
       tag,
@@ -114,6 +116,7 @@ describe('eyesCheckWindow', () => {
       sendDom,
       useDom,
       enablePatterns,
+      ignoreDisplacements,
     });
 
     expect(sendRequestInput).to.eql({
@@ -137,6 +140,7 @@ describe('eyesCheckWindow', () => {
         saveCdt: undefined,
         useDom,
         enablePatterns,
+        ignoreDisplacements,
       },
     });
     expect(resourcesPutted).to.eql([
@@ -235,6 +239,7 @@ describe('eyesCheckWindow', () => {
         saveCdt: undefined,
         useDom: undefined,
         enablePatterns: undefined,
+        ignoreDisplacements: undefined,
       },
     });
     expect(resourcesPutted).to.eql([
@@ -310,6 +315,7 @@ describe('eyesCheckWindow', () => {
         saveCdt: undefined,
         useDom: undefined,
         enablePatterns: undefined,
+        ignoreDisplacements: undefined,
       },
     });
     expect(resourcesPutted).to.eql([

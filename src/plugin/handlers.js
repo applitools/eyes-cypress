@@ -102,6 +102,7 @@ function makeHandlers({
       saveCdt,
       useDom,
       enablePatterns,
+      ignoreDisplacements,
     }) => {
       logger.log(`[handlers] checkWindow: checkWindow=${typeof checkWindow}`);
       if (!checkWindow) {
@@ -132,6 +133,7 @@ function makeHandlers({
         sendDom,
         useDom,
         enablePatterns,
+        ignoreDisplacements,
       });
     },
 

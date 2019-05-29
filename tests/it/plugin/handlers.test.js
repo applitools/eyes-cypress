@@ -58,24 +58,28 @@ describe('handlers', () => {
       expect(_vgcConfig).to.deep.eq({});
     });
 
-    it('sets VGC with useDom & enablePatterns config', async () => {
+    it('sets VGC with useDom, enablePatterns and ignoreDisplacements config', async () => {
       const handlers = makeHandlers({
         makeVisualGridClient: config => {
           _vgcConfig = Object.assign(config);
           delete _vgcConfig.logger;
           return {};
         },
-        config: {useDom: true, enablePatterns: true},
+        config: {useDom: true, enablePatterns: true, ignoreDisplacements: true},
         logger: console,
         processCloseAndAbort,
         getErrorsAndDiffs,
         errorDigest,
       });
       handlers.batchStart({});
-      expect(_vgcConfig).to.deep.eq({useDom: true, enablePatterns: true});
+      expect(_vgcConfig).to.deep.eq({
+        useDom: true,
+        enablePatterns: true,
+        ignoreDisplacements: true,
+      });
     });
 
-    it('sets checkWindow VGC with useDom & enablePatterns config', async () => {
+    it('sets checkWindow VGC with useDom, enablePatterns and ignoreDisplacements config', async () => {
       let _args;
       const handlers = makeHandlers({
         makeVisualGridClient: () => ({
@@ -91,9 +95,10 @@ describe('handlers', () => {
       });
       handlers.batchStart({});
       await handlers.open();
-      await handlers.checkWindow({useDom: true, enablePatterns: true});
+      await handlers.checkWindow({useDom: true, enablePatterns: true, ignoreDisplacements: true});
       expect(_args.useDom).to.be.true;
       expect(_args.enablePatterns).to.be.true;
+      expect(_args.ignoreDisplacements).to.be.true;
     });
   });
 });
