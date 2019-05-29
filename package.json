@@ -39,14 +39,14 @@
   },
   "dependencies": {
     "@applitools/dom-snapshot": "^1.2.4",
-    "@applitools/eyes-common": "^3.5.0",
-    "@applitools/eyes-sdk-core": "^5.7.4",
+    "@applitools/eyes-common": "^3.6.1",
+    "@applitools/eyes-sdk-core": "^5.8.1",
     "@applitools/functional-commons": "^1.4.1",
-    "@applitools/visual-grid-client": "^12.10.1",
+    "@applitools/visual-grid-client": "^12.10.2",
     "body-parser": "^1.19.0",
     "chalk": "^2.4.2",
     "cors": "^2.8.5",
-    "express": "^4.17.0",
+    "express": "^4.17.1",
     "lodash.flatten": "^4.4.0"
   },
   "devDependencies": {
