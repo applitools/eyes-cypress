@@ -1,4 +1,11 @@
 
+v3.6.17 / 2019-05-29
+====================
+
+* 3.6.17 [[6a9a2b9](https://github.com/applitools/eyes-cypress/commit/6a9a2b9f6b4237d1847f9447b963a77b2a8ac08f)]
+* updated vgc to 10.10.2: using css tokenizer instead of cssom [[229affc](https://github.com/applitools/eyes-cypress/commit/229affce561c20e42693b648468d915d452c9ac7)]
+* changelog [[098fc78](https://github.com/applitools/eyes-cypress/commit/098fc78e50ea80938fc7b6533b4428f963818246)]
+
 v3.6.16 / 2019-05-29
 ====================
 
