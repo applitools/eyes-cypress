@@ -1,4 +1,11 @@
 
+v3.6.18 / 2019-05-30
+====================
+
+* 3.6.18 [[9483902](https://github.com/applitools/eyes-cypress/commit/9483902a186f533125c17466fb115036cdf77756)]
+* reverted vgc to use cssom [[63eb3db](https://github.com/applitools/eyes-cypress/commit/63eb3dbbdc2487ee3522ec643f2a0241aa5e80f2)]
+* changelog [[9974922](https://github.com/applitools/eyes-cypress/commit/9974922a8cebc8b502a40f2253077ddbdac98f74)]
+
 v3.6.17 / 2019-05-29
 ====================
 
