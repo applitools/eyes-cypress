@@ -1,6 +1,6 @@
 {
   "name": "@applitools/eyes-cypress",
-  "version": "3.6.17",
+  "version": "3.6.18",
   "main": "index.js",
   "license": "MIT",
   "bin": {
@@ -15,7 +15,7 @@
     "test:e2e": "mocha --no-timeouts 'tests/e2e/**/*.test.js'",
     "eslint": "eslint '**/*.js'",
     "test": "npm run test:mocha && npm run eslint && npm run msg",
-    "msg":"npx -p node-notifier-cli notify -t 'Cypress Tests' -m 'Done !!!'",
+    "msg": "npx -p node-notifier-cli notify -t 'Cypress Tests' -m 'Done !!!'",
     "build": "#",
     "cypress": "cd tests/fixtures/testApp && cypress open --config integrationFolder=cypress/integration-play,pluginsFile=cypress/plugins/index-play.js,supportFile=cypress/support/index-run.js",
     "cypress:run": "cd tests/fixtures/testApp && cypress run --config integrationFolder=cypress/integration-run,pluginsFile=cypress/plugins/index-run.js,supportFile=cypress/support/index-run.js",
