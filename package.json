@@ -14,8 +14,9 @@
     "test:it": "mocha --no-timeouts 'tests/it/**/*.test.js'",
     "test:e2e": "mocha --no-timeouts 'tests/e2e/**/*.test.js'",
     "eslint": "eslint '**/*.js'",
-    "test": "npm run test:mocha && npm run eslint && npm run msg",
-    "msg": "npx -p node-notifier-cli notify -t 'Cypress Tests' -m 'Done !!!'",
+    "test": "npm run test:mocha && npm run eslint && npm run msg:success || npm run msg:failure",
+    "msg:success": "notify -t 'Cypress tests Passed !!' -m 'life`s amazeballs !!!'",
+    "msg:failure": "notify -t 'Cypress tests Failed !!' -m 'Life`s a bitch !!!'",
     "build": "#",
     "cypress": "cd tests/fixtures/testApp && cypress open --config integrationFolder=cypress/integration-play,pluginsFile=cypress/plugins/index-play.js,supportFile=cypress/support/index-run.js",
     "cypress:run": "cd tests/fixtures/testApp && cypress run --config integrationFolder=cypress/integration-run,pluginsFile=cypress/plugins/index-run.js,supportFile=cypress/support/index-run.js",
@@ -63,6 +64,7 @@
     "mocha": "^5.2.0",
     "morgan": "^1.9.1",
     "node-fetch": "^2.6.0",
+    "node-notifier-cli": "^1.1.2",
     "prettier": "^1.17.1"
   }
 }
