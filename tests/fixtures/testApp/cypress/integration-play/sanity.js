@@ -1,6 +1,6 @@
 /* globals describe,it,cy */
 
-const urls1 = [
+const urls = [
   'https://facebook.com',
   'https://twitter.com',
   'https://wikipedia.org',
@@ -11,9 +11,6 @@ const urls1 = [
   'https://applitools.com/helloworld',
   'https://docs.cypress.io/api/api/table-of-contents.html',
   'https://docs.approvesimple.com/docs',
-];
-
-const urls2 = [
   'https://theintercept.com/privacy-policy/',
   'https://www.lidl.com/products?category=OCI1000039&sort=productAtoZ',
   'http://example.com',
@@ -30,7 +27,7 @@ const urls2 = [
 ];
 
 describe('Sanity', () => {
-  for (let url of urls1.concat(urls2)) {
+  for (let url of urls) {
     it(`Sanity - ${url}`, () => {
       cy.visit(url, {failOnStatusCode: false});
       cy.wait(3000);
