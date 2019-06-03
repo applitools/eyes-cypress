@@ -1,4 +1,13 @@
 
+v3.6.19 / 2019-06-03
+====================
+
+* 3.6.19 [[7084c80](https://github.com/applitools/eyes-cypress/commit/7084c8089253693c237faad46ad573e201390877)]
+* Using user agent of driver to fetch resources [[7dd8823](https://github.com/applitools/eyes-cypress/commit/7dd882386e313525f2fea28f7942c9b061718e34)]
+* added sanity file [[5d3607c](https://github.com/applitools/eyes-cypress/commit/5d3607cf841181513e1a5ec7de6f14a917bfd0db)]
+* added sanity spec for playing with and node notifier [[512cca1](https://github.com/applitools/eyes-cypress/commit/512cca164439edc1ad4a9f3b8289b6810f483260)]
+* changelog [[3afa1c4](https://github.com/applitools/eyes-cypress/commit/3afa1c4e8b56960fc00eae866742c4fe54a6aa4b)]
+
 v3.6.18 / 2019-05-30
 ====================
 
