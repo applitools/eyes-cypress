@@ -48,11 +48,17 @@ function makeHandlers({
     batchStart: data => {
       logger.log('[handlers] batchStart with data', data);
       runningTests = [];
-      const extraConfig =
+      const extraConfig = {};
+      if (
         GeneralUtils.getPropertyByPath(data, 'viewport.height') &&
         GeneralUtils.getPropertyByPath(data, 'viewport.width')
-          ? {browser: data.viewport}
-          : {};
+      ) {
+        extraConfig.browser = data.viewport;
+      }
+      if (GeneralUtils.getPropertyByPath(data, 'userAgent')) {
+        extraConfig.userAgent = data.userAgent;
+      }
+
       const client = makeVisualGridClient(
         Object.assign(extraConfig, config, {
           logger: (logger.extend && logger.extend('vgc')) || logger,

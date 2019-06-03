@@ -1,19 +1,18 @@
 /* globals describe,it,cy */
 
-const url = 'https://google.com/';
+const url = 'https://carbon.sage.com/components/button-toggle-group';
 const testName = url;
 
 describe('Hello world', () => {
   it('works', () => {
+    cy.visit(url, {failOnStatusCode: false});
     cy.eyesOpen({
       appName: 'CypressPlay',
       testName: testName,
     });
-    cy.visit(url);
 
     cy.eyesCheckWindow({
       tag: 'Play Check',
-      saveCdt: false,
     });
 
     cy.eyesClose();

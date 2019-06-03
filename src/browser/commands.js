@@ -1,4 +1,4 @@
-/* global Cypress,cy,window,before,after */
+/* global Cypress,cy,window,before,after,navigator */
 'use strict';
 const poll = require('./poll');
 const makeSend = require('./makeSend');
@@ -17,13 +17,14 @@ if (!Cypress.config('eyesIsDisabled')) {
   });
 
   before(() => {
+    const userAgent = navigator.userAgent;
     const viewport = {
       width: Cypress.config('viewportWidth'),
       height: Cypress.config('viewportHeight'),
     };
     let browser = Cypress.config('eyesBrowser') && JSON.parse(Cypress.config('eyesBrowser'));
     handleCypressViewport(browser).then({timeout: 86400000}, () =>
-      sendRequest({command: 'batchStart', data: {viewport}}),
+      sendRequest({command: 'batchStart', data: {viewport, userAgent}}),
     );
   });
 

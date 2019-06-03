@@ -44,7 +44,7 @@
     "@applitools/eyes-common": "^3.6.1",
     "@applitools/eyes-sdk-core": "^5.8.1",
     "@applitools/functional-commons": "^1.4.1",
-    "@applitools/visual-grid-client": "^12.10.3",
+    "@applitools/visual-grid-client": "^12.10.6",
     "body-parser": "^1.19.0",
     "chalk": "^2.4.2",
     "cors": "^2.8.5",
