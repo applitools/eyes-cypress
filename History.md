@@ -1,4 +1,13 @@
 
+v3.6.20 / 2019-06-04
+====================
+
+* 3.6.20 [[8a81349](https://github.com/applitools/eyes-cypress/commit/8a813492af19ebac647ce56cc58f21ada23d40e3)]
+* added batchSeqenceName [[8caa638](https://github.com/applitools/eyes-cypress/commit/8caa638856b1ea806b16ea7ef15d711e910b2fea)]
+* better sanity spec [[0047081](https://github.com/applitools/eyes-cypress/commit/00470816ee44091df63c05f960b14e5f00403102)]
+* 23 sanity tests for good easy baseline comparison ! [[d364fac](https://github.com/applitools/eyes-cypress/commit/d364fac164818e292052a509de13349485689010)]
+* changelog [[015b85c](https://github.com/applitools/eyes-cypress/commit/015b85c2e01d946aea778a2399405a84a3bdd2d7)]
+
 v3.6.19 / 2019-06-03
 ====================
 
