@@ -40,7 +40,7 @@
     "url": "https://github.com/applitools/eyes-cypress"
   },
   "dependencies": {
-    "@applitools/dom-snapshot": "^1.2.4",
+    "@applitools/dom-snapshot": "^1.2.7",
     "@applitools/eyes-common": "^3.7.0",
     "@applitools/eyes-sdk-core": "^5.9.0",
     "@applitools/functional-commons": "^1.4.1",
