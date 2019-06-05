@@ -1,4 +1,11 @@
 
+v3.6.21 / 2019-06-05
+====================
+
+* 3.6.21 [[8074a1e](https://github.com/applitools/eyes-cypress/commit/8074a1e2e40d334467a1ab26ec02b253eb8638a0)]
+* svg support [[e1d3ae5](https://github.com/applitools/eyes-cypress/commit/e1d3ae5643957d644b287715e25ce5f2494769ee)]
+* changelog [[27ceae9](https://github.com/applitools/eyes-cypress/commit/27ceae93a33db9bc98806dbac40bd141afd6265e)]
+
 v3.6.20 / 2019-06-04
 ====================
 
