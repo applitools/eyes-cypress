@@ -1,4 +1,11 @@
 
+v3.6.22 / 2019-06-06
+====================
+
+* 3.6.22 [[1d1df94](https://github.com/applitools/eyes-cypress/commit/1d1df941cb4eb018a1c26d488a8c1da237d8a09d)]
+* updated vgc to 12.11.4: svg fetch support [[7d1486f](https://github.com/applitools/eyes-cypress/commit/7d1486f7d1cd133800bf0cd2a969553b7d2de3fd)]
+* changelog [[03f20b3](https://github.com/applitools/eyes-cypress/commit/03f20b305cb03f7ab1729d154f725ce0e509dfba)]
+
 v3.6.21 / 2019-06-05
 ====================
 
