@@ -19,7 +19,6 @@ const urls = [
   'https://www.getbridge.com/solutions/human-resources',
   'https://www.applitools.com/users/login',
   'http://angiejones.tech/',
-  'https://investor.vanguard.com/home/',
   'https://southwest.com',
   'https://www.usaa.com/inet/wc/auto-insurance?wa_ref=pub_global_products_ins_auto',
   'https://applitools-sample-web-app-testkit.surge.sh/page-with-resource.html',
