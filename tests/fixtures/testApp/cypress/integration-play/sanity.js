@@ -26,13 +26,14 @@ const urls = [
 ];
 
 describe('Sanity', () => {
-  for (let url of urls) {
+  urls.forEach((url, i) => {
     it(`Sanity - ${url}`, () => {
       cy.visit(url, {failOnStatusCode: false});
       cy.wait(3000);
       cy.eyesOpen({
         appName: 'SanityWeb',
         testName: `Sanity - ${url}`,
+        batchName: `Sanity ${url}`,
       });
 
       cy.eyesCheckWindow({
@@ -42,5 +43,5 @@ describe('Sanity', () => {
 
       cy.eyesClose();
     });
-  }
+  });
 });
