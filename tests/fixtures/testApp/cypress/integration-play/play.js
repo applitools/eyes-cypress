@@ -1,11 +1,13 @@
 /* globals describe,it,cy */
 
-const url = 'https://carbon.sage.com/components/button-toggle-group';
+Cypress.on('uncaught:exception', () => {});
+const url = 'https://www.asos.com/river-island/river-island-button-cowl-neck-jumper/prd/1775492';
 const testName = url;
 
 describe('Hello world', () => {
   it('works', () => {
     cy.visit(url, {failOnStatusCode: false});
+    cy.wait(5000);
     cy.eyesOpen({
       appName: 'CypressPlay',
       testName: testName,
