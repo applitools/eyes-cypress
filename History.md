@@ -1,4 +1,21 @@
 
+v3.6.24 / 2019-06-16
+====================
+
+* 3.6.24 [[e1427ee](https://github.com/applitools/eyes-cypress/commit/e1427eea3b07404ef7aac355212d101741571942)]
+* updated vgc and ds: fix agentId and non 200 status codes [[05de827](https://github.com/applitools/eyes-cypress/commit/05de827b638c9c1c14534915a559a26b78782d76)]
+
+v3.6.23 / 2019-06-13
+====================
+
+* 3.6.23 [[9a4ec78](https://github.com/applitools/eyes-cypress/commit/9a4ec788c14e9162a46c2199c83c4aebee609ffb)]
+* css tokenizer v2 [[d2fc603](https://github.com/applitools/eyes-cypress/commit/d2fc603b6728935d92ebd563d5bec5cf10418fc0)]
+* play cahnges [[9d74327](https://github.com/applitools/eyes-cypress/commit/9d743276f27ec627e23cb5f64ec8b930098b274b)]
+* sanity changes [[ef898c3](https://github.com/applitools/eyes-cypress/commit/ef898c3423884601e45a244e4d7953de5b67e3a0)]
+* sanity changes [[0f2b8bb](https://github.com/applitools/eyes-cypress/commit/0f2b8bb16008ad12c90a2386a478c7bac03deb3c)]
+* added serverUrl to readme [[20ce0cc](https://github.com/applitools/eyes-cypress/commit/20ce0ccb8d4d74b285c67045f61b93baab03711d)]
+* changelog [[780a072](https://github.com/applitools/eyes-cypress/commit/780a0725d9046ea2e173ab50b72d81d934eeb841)]
+
 v3.6.22 / 2019-06-06
 ====================
 
