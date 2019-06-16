@@ -1,7 +1,7 @@
-/* globals describe,it,cy */
+/* globals describe,it,cy,Cypress */
 
 Cypress.on('uncaught:exception', () => {});
-const url = 'https://www.asos.com/river-island/river-island-button-cowl-neck-jumper/prd/1775492';
+const url = 'https://google.com';
 const testName = url;
 
 describe('Hello world', () => {
