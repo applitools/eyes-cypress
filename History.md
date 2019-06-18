@@ -1,4 +1,11 @@
 
+v3.6.27 / 2019-06-18
+====================
+
+* 3.6.27 [[5ffd490](https://github.com/applitools/eyes-cypress/commit/5ffd4909340f33d2fb5ad5d0123ef46603111922)]
+* updated vgc & ds to suppoort un anchoring urls [[1b4f43f](https://github.com/applitools/eyes-cypress/commit/1b4f43f99dd0df9e784bb117eac0dc812a1eb887)]
+* changelog [[0f007d7](https://github.com/applitools/eyes-cypress/commit/0f007d7e52af59d1ac03ae6d4df3d3ebe175d78b)]
+
 v3.6.26 / 2019-06-18
 ====================
 
