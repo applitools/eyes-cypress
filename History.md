@@ -1,4 +1,17 @@
 
+v3.6.26 / 2019-06-18
+====================
+
+* 3.6.26 [[baf589e](https://github.com/applitools/eyes-cypress/commit/baf589eeae7eb773b852c280e005db72afd55e94)]
+* fixed css uri encoding [[fe984e9](https://github.com/applitools/eyes-cypress/commit/fe984e9c23c20d0a7530a83f66ea9cd7f3c796ad)]
+
+v3.6.25 / 2019-06-17
+====================
+
+* 3.6.25 [[457ede0](https://github.com/applitools/eyes-cypress/commit/457ede03a2208bff1a1172c4c7aeaf34940e3bf4)]
+* fixed spread operator in vgc [[0cfd0e0](https://github.com/applitools/eyes-cypress/commit/0cfd0e04dca0d63fd1a35676c0dd61758529d81b)]
+* changelog [[010c3b5](https://github.com/applitools/eyes-cypress/commit/010c3b5665989f3c0511bc5b9bbba4cb2395568a)]
+
 v3.6.24 / 2019-06-16
 ====================
 
