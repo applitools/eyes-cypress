@@ -1,4 +1,11 @@
 
+v3.6.28 / 2019-06-19
+====================
+
+* 3.6.28 [[e1d4f20](https://github.com/applitools/eyes-cypress/commit/e1d4f20e3314db0a5b37fe30ad744e5ba1733fee)]
+* fixed eyes-setup [[3989e97](https://github.com/applitools/eyes-cypress/commit/3989e97c1fb660b513a269b6fced69cbc5878605)]
+* changelog [[8b08167](https://github.com/applitools/eyes-cypress/commit/8b08167dabae1362ebe675f6d979514547dce614)]
+
 v3.6.27 / 2019-06-18
 ====================
 
