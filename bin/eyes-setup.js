@@ -6,6 +6,8 @@ const handleCommands = require('../src/setup/handleCommands');
 
 const cwd = process.cwd();
 
+console.log('Setup eyes-cypress');
+
 handlePlugin(cwd);
 handleCommands(cwd);
 
