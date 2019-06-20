@@ -1,4 +1,11 @@
 
+v3.6.30 / 2019-06-20
+====================
+
+* 3.6.30 [[a899db4](https://github.com/applitools/eyes-cypress/commit/a899db4d550de3b78112ba26bf814f9c984ce849)]
+* updated ds to take namespaced attr names [[7a6c19d](https://github.com/applitools/eyes-cypress/commit/7a6c19d650787895bf3c86f48fe2c3f4e3a608a3)]
+* changelog [[4188501](https://github.com/applitools/eyes-cypress/commit/4188501ec59bc0a52516f87090aad09b4031d823)]
+
 v3.6.28 / 2019-06-19
 ====================
 
