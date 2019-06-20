@@ -1,7 +1,7 @@
 /* globals describe,it,cy,Cypress */
 
 Cypress.on('uncaught:exception', () => {});
-const url = 'https://www.autogravity.com/dealer';
+const url = 'https://cvshealth.com/';
 const testName = url;
 
 describe('Hello world', () => {
