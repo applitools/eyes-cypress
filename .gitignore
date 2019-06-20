@@ -18,3 +18,4 @@ cdt.json
 .idea/
 .history
 tests/cypress
+**/.debug
