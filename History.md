@@ -1,4 +1,12 @@
 
+v3.6.31 / 2019-06-20
+====================
+
+* 3.6.31 [[1a6e19f](https://github.com/applitools/eyes-cypress/commit/1a6e19fdee15b67e75cb5e29d3a6a8d60bd51cd0)]
+* updated ds to support bad css url functions [[b99fac1](https://github.com/applitools/eyes-cypress/commit/b99fac14b51dc0fc9d3a532053a49f730a221604)]
+* play changes [[b29e8f6](https://github.com/applitools/eyes-cypress/commit/b29e8f6d025edcdc6794fe74c8f161a2bd2b014e)]
+* changelog [[db76809](https://github.com/applitools/eyes-cypress/commit/db7680926a792b7481182a41734415f2ee00d1a4)]
+
 v3.6.30 / 2019-06-20
 ====================
 
