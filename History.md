@@ -1,4 +1,11 @@
 
+v3.6.32 / 2019-06-23
+====================
+
+* 3.6.32 [[0b1bb74](https://github.com/applitools/eyes-cypress/commit/0b1bb746d68e9cbbff4c22cd264845bf150418e1)]
+* removed raw css text from cdt [[98f656a](https://github.com/applitools/eyes-cypress/commit/98f656a902e311a28f4439618b1c9c6b364e9238)]
+* changelog [[502742b](https://github.com/applitools/eyes-cypress/commit/502742b2fcda439e935e02fcbd4e48f4ce2e6947)]
+
 v3.6.31 / 2019-06-20
 ====================
 
