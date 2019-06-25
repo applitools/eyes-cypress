@@ -1,4 +1,11 @@
 
+v3.6.33 / 2019-06-25
+====================
+
+* 3.6.33 [[862cad3](https://github.com/applitools/eyes-cypress/commit/862cad39641c7bc8b0d295cd20191f386d9164d7)]
+* updated vgc to support renderId [[003f204](https://github.com/applitools/eyes-cypress/commit/003f2045e577ee8feb62c9e5fd9bc47241afa84e)]
+* changelog [[959c2c1](https://github.com/applitools/eyes-cypress/commit/959c2c1ad3677bb0c567316cd666baf820570aa7)]
+
 v3.6.32 / 2019-06-23
 ====================
 
