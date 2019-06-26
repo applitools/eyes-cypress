@@ -1,4 +1,12 @@
 
+v3.6.34 / 2019-06-26
+====================
+
+* 3.6.34 [[1a7bc29](https://github.com/applitools/eyes-cypress/commit/1a7bc294bcc2391876a3ff8e8266104431672d27)]
+* updated ds to suport shadow dom resources [[b44bd4f](https://github.com/applitools/eyes-cypress/commit/b44bd4f22371a58718eb4e0e688cc5dfeb7e00d1)]
+* fixed sanity [[15ab042](https://github.com/applitools/eyes-cypress/commit/15ab042af1101b8d7b12c75219d0d0b0ce64c06a)]
+* changelog [[5805ed1](https://github.com/applitools/eyes-cypress/commit/5805ed1f75cb8076c190843814cfb071f944995b)]
+
 v3.6.33 / 2019-06-25
 ====================
 
