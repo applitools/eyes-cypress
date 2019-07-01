@@ -1,23 +1,22 @@
-/* globals describe,it,cy,Cypress */
+/* global beforeEach, afterEach, describe, it, cy */
 
-Cypress.on('uncaught:exception', () => {});
-const url = 'https://cvshealth.com/';
-const testName = url;
+beforeEach(() => {
+  cy.eyesOpen({
+    appName: 'product-page-applitools',
+    browser: {width: 1024, height: 768, name: 'chrome'},
+  });
+});
 
-describe('Hello world', () => {
-  it('works', () => {
-    cy.visit(url, {failOnStatusCode: false});
-    cy.wait(1000);
-    cy.eyesOpen({
-      appName: 'CypressPlay',
-      testName: testName,
-      browser: [{width: 1024, height: 768, name: 'chrome'}],
-    });
+afterEach(() => {
+  cy.eyesClose();
+});
 
-    cy.eyesCheckWindow({
-      tag: 'Play Check',
-    });
-
-    cy.eyesClose();
+describe('product-page-applitools', () => {
+  it('Abra', () => {
+    cy.visit(
+      'https://www.roomandboard.com/catalog/lighting/pendant-lights-and-chandeliers/abra-pendant-sets-row-of-3-or-5',
+    );
+    cy.wait(2000);
+    cy.eyesCheckWindow('Abra pendant');
   });
 });
