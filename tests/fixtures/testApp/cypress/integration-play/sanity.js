@@ -1,7 +1,7 @@
 /* globals describe,it,cy,Cypress */
 Cypress.on('uncaught:exception', () => {});
 
-const urls = [
+let urls = [
   'https://facebook.com',
   'https://twitter.com',
   'https://wikipedia.org',
@@ -23,6 +23,8 @@ const urls = [
   'https://applitools-sample-web-app-testkit.surge.sh/page-with-resource.html',
   'https://ous.test.clper.me/app/login',
 ];
+
+// urls = [];
 
 describe('Sanity', () => {
   urls.forEach(url => {
