@@ -1,4 +1,14 @@
 
+v3.6.35 / 2019-07-04
+====================
+
+* 3.6.35 [[039e00f](https://github.com/applitools/eyes-cypress/commit/039e00fd1bca16348ed47f858f4d7ecc0c819fff)]
+* updated ds to support cssRules getting CORS [[877f26b](https://github.com/applitools/eyes-cypress/commit/877f26b8daca67753c571a2b2055b5e6e3f0b41c)]
+* play changes [[e98c0f3](https://github.com/applitools/eyes-cypress/commit/e98c0f3cc50d9fa37a8297721146ed955b8b9321)]
+* play changes [[db85ac1](https://github.com/applitools/eyes-cypress/commit/db85ac1c39700231db264b424268443d106540bc)]
+* updated cypress version for dev [[95a2a06](https://github.com/applitools/eyes-cypress/commit/95a2a06d84b07ebafbc81013292b134868ce62f9)]
+* changelog [[2aad0d0](https://github.com/applitools/eyes-cypress/commit/2aad0d0b469645cbadbc1031cbfedea968c0365a)]
+
 v3.6.34 / 2019-06-26
 ====================
 
