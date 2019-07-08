@@ -1,4 +1,11 @@
 
+v3.6.36 / 2019-07-08
+====================
+
+* 3.6.36 [[433b79a](https://github.com/applitools/eyes-cypress/commit/433b79aa80fa6335e369421c798154cb89d0032f)]
+* switched to target instead of sizeMode [[b0d5127](https://github.com/applitools/eyes-cypress/commit/b0d5127db486d0201df8ba2353a747624d0fda32)]
+* changelog [[c620e23](https://github.com/applitools/eyes-cypress/commit/c620e2308328c0457350bcb7974e282041411f5c)]
+
 v3.6.35 / 2019-07-04
 ====================
 
