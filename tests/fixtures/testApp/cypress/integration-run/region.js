@@ -23,7 +23,7 @@ describe('eyes-cypress', () => {
       const {left, top, width, height} = $el[0].getBoundingClientRect();
       cy.eyesCheckWindow({
         tag: 'region',
-        sizeMode: 'region',
+        target: 'region',
         region: {left, top, width, height},
       });
     });
@@ -35,7 +35,7 @@ describe('eyes-cypress', () => {
       const {left, top, width, height} = $el[0].getBoundingClientRect();
       cy.eyesCheckWindow({
         tag: 'region',
-        sizeMode: 'region',
+        target: 'region',
         region: {left, top, width, height},
       });
     });

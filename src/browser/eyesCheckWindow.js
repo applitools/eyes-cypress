@@ -5,6 +5,8 @@ function makeEyesCheckWindow({sendRequest, processPage}) {
   return function eyesCheckWindow(doc, args) {
     let tag,
       sizeMode,
+      target,
+      fully,
       selector,
       region,
       scriptHooks,
@@ -22,6 +24,8 @@ function makeEyesCheckWindow({sendRequest, processPage}) {
     } else if (typeof args === 'object') {
       tag = args.tag;
       sizeMode = args.sizeMode;
+      target = args.target;
+      fully = args.fully;
       selector = args.selector;
       region = args.region;
       scriptHooks = args.scriptHooks;
@@ -48,6 +52,8 @@ function makeEyesCheckWindow({sendRequest, processPage}) {
             cdt,
             tag,
             sizeMode,
+            target,
+            fully,
             blobData,
             selector,
             region,

@@ -162,25 +162,39 @@ cy.eyesCheckWindow(tag)
 
 OR
 
-cy.eyesCheckWindow({ tag: 'your tag', sizeMode: 'your size mode' })
+cy.eyesCheckWindow({ tag: 'your tag', target: 'your target' })
 ```
 
 ##### Arguments to `cy.eyesCheckWindow`
 
-- `tag` (optional): A logical name for this check.
-- `sizeMode` (optional): Possible values are:
+* ##### `tag` 
+  (optional): A logical name for this check.
 
-  - **`full-page`**: This is the default value. It means a screenshot of everything that exists in the DOM at the point of calling `eyesCheckWindow` will be rendered.
-  - **`viewport`**: Only a screenshot the size of the browser will be rendered (the size of the browser can be set in the call to `cy.eyesOpen` - see [Advanced configuration](#advanced-configuration) below).
-  - **`selector`**: Take a screenshot of the content of the element targeted by css or xpath selector. It's necessary to specify the value of the selector in the `selector` argument.
-  - **`region`**: Take a screenshot of a region of the page, specified by coordinates. It's necessary to specify the value of the region in the `region` argument.
+* ##### `target`
+  (optional): Possible values are:
+  <br/> 1. `window` 
+    This is the default value. If set then the captured image is of the entire page or the viewport, use [`fully`](#fully) for specifying what `window` mode to use.
+  <br/>2. `region` 
+    If set then the captured image is of the parts of the page, use this parameter with [`region`](#region) or [`selector`](#selector) for specifying the areas to captured.
 
-- `selector` (optional): In case `sizeMode` is `selector`, this should be the actual css or xpath selector to an element, and the screenshot would be the content of that element. For example:
+* ##### `fully`
+  (optional) In case [`target`](#target) is `window`, if `fully` is `true` (default) then the snapshot is of the entire page, if `fully` is `false` then snapshot is of the viewport.
+
+  ```js
+    // Capture viewport only
+    cy.eyesCheckWindow({
+      target: 'window',
+      fully: false,
+    });
+    ```
+
+* ##### `selector`
+  (optional): In case [`target`](#target) is `region`, this should be the actual css or xpath selector to an element, and the screenshot would be the content of that element. For example:
 
     ```js
     // Using a css selector
     cy.eyesCheckWindow({
-      sizeMode: 'selector',
+      target: 'region',
       selector: {
         type: 'css',
         selector: '.my-element' // or '//button'
@@ -189,7 +203,7 @@ cy.eyesCheckWindow({ tag: 'your tag', sizeMode: 'your size mode' })
     
     // Using an xpath selector
     cy.eyesCheckWindow({
-      sizeMode: 'selector',
+      target: 'region',
       selector: {
         type: 'xpath',
         selector: '//button[1]'
@@ -198,21 +212,23 @@ cy.eyesCheckWindow({ tag: 'your tag', sizeMode: 'your size mode' })
     
     // The shorthand string version defaults to css selectors
     cy.eyesCheckWindow({
-      sizeMode: 'selector',
+      target: 'region',
       selector: '.my-element'
     });
     ```
 
-- `region` (optional): In case `sizeMode` is `region`, this should be an object describing the region's coordinates. For example:
+* ##### `region`
+  (optional): In case [`target`](#target) is `region`, this should be an object describing the region's coordinates for capturing the image. For example:
 
     ```js
     cy.eyesCheckWindow({
-      sizeMode: 'region',
+      target: 'region',
       region: {top: 100, left: 0, width: 1000, height: 200}
     });
     ```
 
-- `ignore` (optional): A single or an array of regions to ignore when checking for visual differences. For example:
+* ##### `ignore`
+  (optional): A single or an array of regions to ignore when checking for visual differences. For example:
 
     ```js
     cy.eyesCheckWindow({
@@ -223,7 +239,8 @@ cy.eyesCheckWindow({ tag: 'your tag', sizeMode: 'your size mode' })
     });
     ```
 
-- `floating` (optional): A single or an array of floating regions to ignore when checking for visual differences. More information about floating regions can be found in Applitools docs [here](https://help.applitools.com/hc/en-us/articles/360006915292-Testing-of-floating-UI-elements). For example:
+* ##### `floating`
+  (optional): A single or an array of floating regions to ignore when checking for visual differences. More information about floating regions can be found in Applitools docs [here](https://help.applitools.com/hc/en-us/articles/360006915292-Testing-of-floating-UI-elements). For example:
 
     ```js
     cy.eyesCheckWindow({
@@ -234,7 +251,8 @@ cy.eyesCheckWindow({ tag: 'your tag', sizeMode: 'your size mode' })
     });
     ```
 
-- `layout` (optional): A single or an array of regions to match as [layout level.](https://help.applitools.com/hc/en-us/articles/360007188591-Match-Levels) For example:
+* ##### `layout`
+  (optional): A single or an array of regions to match as [layout level.](https://help.applitools.com/hc/en-us/articles/360007188591-Match-Levels) For example:
 
     ```js
     cy.eyesCheckWindow({
@@ -245,7 +263,8 @@ cy.eyesCheckWindow({ tag: 'your tag', sizeMode: 'your size mode' })
     });
     ```
 
-- `strict` (optional): A single or an array of regions to match as [strict level.](https://help.applitools.com/hc/en-us/articles/360007188591-Match-Levels) For example:
+* ##### `strict`
+  (optional): A single or an array of regions to match as [strict level.](https://help.applitools.com/hc/en-us/articles/360007188591-Match-Levels) For example:
 
     ```js
     cy.eyesCheckWindow({
@@ -256,9 +275,10 @@ cy.eyesCheckWindow({ tag: 'your tag', sizeMode: 'your size mode' })
     });
     ```
 
-- `scriptHooks` (optional): A set of scripts to be run by the browser during the rendering. It is intended to be used as a means to alter the page's state and structure at the time of rendering.
+* ##### `scriptHooks`
+  (optional): A set of scripts to be run by the browser during the rendering. It is intended to be used as a means to alter the page's state and structure at the time of rendering.
   An object with the following properties:
-    - `beforeCaptureScreenshot`: a script that runs after the page is loaded but before taking the screenshot. For example:
+    * ##### `beforeCaptureScreenshot`: a script that runs after the page is loaded but before taking the screenshot. For example:
         
         ```js
         cy.eyesCheckWindow({
@@ -268,7 +288,8 @@ cy.eyesCheckWindow({ tag: 'your tag', sizeMode: 'your size mode' })
         })
         ```
 
-- `sendDom` (optional): A flag to specify whether a capture of DOM and CSS should be taken when rendering the screenshot. The default value is true. This should only be modified to troubleshoot unexpected behavior, and not for normal production use.
+* ##### `sendDom`
+  (optional): A flag to specify whether a capture of DOM and CSS should be taken when rendering the screenshot. The default value is true. This should only be modified to troubleshoot unexpected behavior, and not for normal production use.
 
     ```js
     cy.eyesCheckWindow({sendDom: false})

@@ -96,6 +96,8 @@ function makeHandlers({
       tag,
       blobData = [],
       sizeMode,
+      target,
+      fully,
       selector,
       region,
       scriptHooks,
@@ -121,6 +123,12 @@ function makeHandlers({
       const resourceContents = blobDataToResourceContents(blobData);
       const framesWithResources = createResourceContents(frames);
 
+      if (sizeMode) {
+        console.warn(
+          'WARNING! "sizeMode" is eprecated and will be removed in the future, please use target instead.',
+          '\nSee: https://github.com/applitools/eyes-cypress#target for more details.',
+        );
+      }
       return await checkWindow({
         url,
         resourceUrls,
@@ -128,6 +136,8 @@ function makeHandlers({
         cdt,
         tag,
         sizeMode,
+        target,
+        fully,
         selector,
         region,
         scriptHooks,

@@ -18,12 +18,12 @@ describe('eyes-cypress', () => {
   });
 
   it('cypress-play-test-2', () => {
-    cy.eyesCheckWindow({tag: 'selector', sizeMode: 'selector', selector: '.region'});
+    cy.eyesCheckWindow({tag: 'selector', targte: 'region', selector: '.region'});
     cy.get('.absolutely').then($el => {
       const {left, top, width, height} = $el[0].getBoundingClientRect();
       cy.eyesCheckWindow({
         tag: 'region',
-        sizeMode: 'region',
+        target: 'region',
         region: {left, top, width, height},
       });
     });

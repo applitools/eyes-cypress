@@ -39,6 +39,8 @@ describe('eyesCheckWindow', () => {
         selector: undefined,
         sendDom: undefined,
         sizeMode: undefined,
+        target: undefined,
+        fully: undefined,
         saveCdt: undefined,
         useDom: undefined,
         enablePatterns: undefined,
@@ -91,6 +93,8 @@ describe('eyesCheckWindow', () => {
 
     const tag = 'some tag';
     const sizeMode = 'sizeMode';
+    const target = 'target';
+    const fully = 'fully';
     const selector = 'selector';
     const region = 'region';
     const scriptHooks = 'scriptHooks';
@@ -106,6 +110,8 @@ describe('eyesCheckWindow', () => {
     await eyesCheckWindow('bla doc', {
       tag,
       sizeMode,
+      target,
+      fully,
       selector,
       region,
       scriptHooks,
@@ -129,6 +135,8 @@ describe('eyesCheckWindow', () => {
         frames,
         tag,
         sizeMode,
+        target,
+        fully,
         selector,
         region,
         scriptHooks,
@@ -228,6 +236,8 @@ describe('eyesCheckWindow', () => {
         ],
         tag: undefined,
         sizeMode: undefined,
+        target: undefined,
+        fully: undefined,
         selector: undefined,
         region: undefined,
         scriptHooks: undefined,
@@ -304,6 +314,8 @@ describe('eyesCheckWindow', () => {
         frames: [],
         tag: undefined,
         sizeMode: undefined,
+        target: undefined,
+        fully: undefined,
         selector: undefined,
         region: undefined,
         scriptHooks: undefined,

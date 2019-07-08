@@ -88,6 +88,8 @@ describe('handlers', () => {
     const resourceUrls = 'resourceUrls';
     const tag = 'tag';
     const sizeMode = 'sizeMode';
+    const target = 'target';
+    const fully = 'fully';
     const selector = 'selector';
     const region = 'region';
     const url = 'url';
@@ -108,6 +110,8 @@ describe('handlers', () => {
       tag,
       url,
       sizeMode,
+      target,
+      fully,
       selector,
       region,
       scriptHooks,
@@ -127,6 +131,8 @@ describe('handlers', () => {
       cdt,
       tag,
       sizeMode,
+      target,
+      fully,
       url,
       selector,
       region,
@@ -222,6 +228,8 @@ describe('handlers', () => {
       url: undefined,
       tag: undefined,
       sizeMode: undefined,
+      target: undefined,
+      fully: undefined,
       selector: undefined,
       region: undefined,
       scriptHooks: undefined,
