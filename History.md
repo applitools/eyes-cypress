@@ -1,4 +1,11 @@
 
+v3.6.37 / 2019-07-10
+====================
+
+* 3.6.37 [[50b71f3](https://github.com/applitools/eyes-cypress/commit/50b71f34567699a71b1c15c68ce1376ad805cd8b)]
+* updatde vgc & ds to support canvas [[8572ba3](https://github.com/applitools/eyes-cypress/commit/8572ba3c002b8fe44d6ebb34fd6290f8ac2f1f13)]
+* changelog [[ed9fa3f](https://github.com/applitools/eyes-cypress/commit/ed9fa3faf22c7eac97815f0dad52679c7c0ff95d)]
+
 v3.6.36 / 2019-07-08
 ====================
 
