@@ -1,4 +1,11 @@
 
+v3.6.38 / 2019-07-11
+====================
+
+* 3.6.38 [[de5fbfc](https://github.com/applitools/eyes-cypress/commit/de5fbfcf9454835b051dd088e85d5b565568add4)]
+* updated ds to support base tag [[5598de9](https://github.com/applitools/eyes-cypress/commit/5598de9069b3f510dcc9dcc04b9e884931d926d3)]
+* changelog [[1c031c0](https://github.com/applitools/eyes-cypress/commit/1c031c007fc8db8c03e633387a289881a7c6cc2e)]
+
 v3.6.37 / 2019-07-10
 ====================
 
