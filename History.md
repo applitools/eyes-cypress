@@ -1,4 +1,11 @@
 
+v3.6.39 / 2019-07-15
+====================
+
+* 3.6.39 [[3707084](https://github.com/applitools/eyes-cypress/commit/3707084de013a741fd96beb1ef5937e5504dff16)]
+* updated ds: fixed probablyCORS and iframe cssRules [[ca17149](https://github.com/applitools/eyes-cypress/commit/ca171491afd366dce07d7f0f223983afb32537b8)]
+* changelog [[53162d9](https://github.com/applitools/eyes-cypress/commit/53162d9f399e732105bf0ea238a4689e6e9ac060)]
+
 v3.6.38 / 2019-07-11
 ====================
 
