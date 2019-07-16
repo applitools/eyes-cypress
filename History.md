@@ -1,4 +1,12 @@
 
+v3.6.40 / 2019-07-16
+====================
+
+* 3.6.40 [[936e7b7](https://github.com/applitools/eyes-cypress/commit/936e7b7cfc9424f6f0bcbea7f7cd451025c75a50)]
+* updated vgc to support ignore regions errors [[4a4e099](https://github.com/applitools/eyes-cypress/commit/4a4e099b8cf8599912c32e5c3bb65e9fbb327714)]
+* fixed readme [[2a8ebc6](https://github.com/applitools/eyes-cypress/commit/2a8ebc68c242539eddc68505403566ed7796b218)]
+* changelog [[c4b58b8](https://github.com/applitools/eyes-cypress/commit/c4b58b8b7df810390adaf434421bf7f92a451a69)]
+
 v3.6.39 / 2019-07-15
 ====================
 
