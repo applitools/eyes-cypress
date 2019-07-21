@@ -4,8 +4,6 @@ module.exports = {
   serverUrl2: 'eyes.applitools.com',
   serverUrl2: 'https://eyesfabric3eyes.applitools.com',
   concurrency: 10,
-  apiKey3: '8Us81OBM29YlJbfOKNeX2AgfPiins111fqvi9Q1032ZWbO0110',
-  serverUrl3: 'testeyes.applitools.com',
   // saveDebugData: false,
   // showLogs: true,
   // eyesTimeout: 1234,
