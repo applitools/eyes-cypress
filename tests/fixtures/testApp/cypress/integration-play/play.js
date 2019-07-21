@@ -4,7 +4,7 @@ Cypress.on('uncaught:exception', () => {});
 
 describe('product-page-applitools', () => {
   it('Abra', () => {
-    cy.visit('https://www.turncar.com/', {failOnStatusCode: false});
+    cy.visit('https://www.applitools.com/helloworld', {failOnStatusCode: false});
     cy.wait(1000);
     cy.eyesOpen({
       appName: 'product-page-applitools',
