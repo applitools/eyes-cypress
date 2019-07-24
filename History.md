@@ -1,4 +1,14 @@
 
+v3.6.41 / 2019-07-24
+====================
+
+* 3.6.41 [[4579652](https://github.com/applitools/eyes-cypress/commit/45796527f5086b873f2e0bd915ec6cc26251e349)]
+* updated ds to 1.4.4: supporting inline frames [[081a2d1](https://github.com/applitools/eyes-cypress/commit/081a2d14c2cc0c9bb552a622540ff314d78d4efd)]
+* play changes 2 [[66d401e](https://github.com/applitools/eyes-cypress/commit/66d401ec51e124e45ca0e7fc4bd3c69eb6680297)]
+* play changes [[21e9860](https://github.com/applitools/eyes-cypress/commit/21e98608fad702914a469e3c37c419cd80decfe5)]
+* config file fix [[e898759](https://github.com/applitools/eyes-cypress/commit/e898759f2c266a51c5307d43b8f36d5e82e586db)]
+* chaneglog [[1021dab](https://github.com/applitools/eyes-cypress/commit/1021dabba3a5afbbdf22a83c2a22c2fee886cc19)]
+
 v3.6.40 / 2019-07-16
 ====================
 
