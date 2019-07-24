@@ -18,7 +18,7 @@ let urls = [
   'https://www.aetna.com/employers-organizations.html',
   'https://www.getbridge.com/solutions/human-resources',
   'https://www.applitools.com/users/login',
-  'https://southwest.com',
+  // 'https://southwest.com',
   'https://www.usaa.com/inet/wc/auto-insurance?wa_ref=pub_global_products_ins_auto',
   'https://applitools-sample-web-app-testkit.surge.sh/page-with-resource.html',
   'https://ous.test.clper.me/app/login',
@@ -35,8 +35,8 @@ describe('Sanity', () => {
       cy.eyesOpen({
         appName: 'SanityWeb',
         testName: `Sanity - ${url}`,
-        batchName: `sanity 4`,
-        batchId: `tokenizer 3`,
+        batchName: `sanity 5`,
+        batchId: `tokenizer 5`,
         browser: [{width: 1024, height: 768, name: 'chrome'}],
       });
 

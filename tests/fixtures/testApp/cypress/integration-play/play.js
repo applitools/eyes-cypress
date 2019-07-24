@@ -1,6 +1,6 @@
 /* global describe, it, cy */
 
-Cypress.on('uncaught:exception', () => {});
+// Cypress.on('uncaught:exception', () => {});
 
 describe('product-page-applitools', () => {
   it('Abra', () => {
