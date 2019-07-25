@@ -1,4 +1,11 @@
 
+v3.6.42 / 2019-07-25
+====================
+
+* 3.6.42 [[00fe04e](https://github.com/applitools/eyes-cypress/commit/00fe04e031c83503d3995222492e2d64970c4814)]
+* updated vgc to gaurd browser with no size [[11f0841](https://github.com/applitools/eyes-cypress/commit/11f08413a9408e8a3c278cec50ac111f3a49f021)]
+* changelog [[75ceacc](https://github.com/applitools/eyes-cypress/commit/75ceacc058fd4383aafec8b4b9709357fd00c914)]
+
 v3.6.41 / 2019-07-24
 ====================
 
