@@ -4,11 +4,11 @@
 
 describe('product-page-applitools', () => {
   it('Abra', () => {
-    cy.visit('https://www.applitools.com/helloworld', {failOnStatusCode: false});
+    cy.visit('https://www.google.com/', {failOnStatusCode: false});
     cy.wait(1000);
     cy.eyesOpen({
       appName: 'product-page-applitools',
-      browser: {width: 1024, height: 768, name: 'chrome'},
+      browser: [{name: 'chrome'}, {name: 'ie 10'}],
     });
     cy.eyesCheckWindow({
       tag: 'Abra pendant',
