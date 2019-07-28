@@ -1,4 +1,11 @@
 
+v3.6.43 / 2019-07-28
+====================
+
+* 3.6.43 [[7ef4372](https://github.com/applitools/eyes-cypress/commit/7ef4372a1e9d5b77bc47962aae5d9fefe11d65cb)]
+* updated ds to support dynamic input values [[21a0de1](https://github.com/applitools/eyes-cypress/commit/21a0de1a845d98ce430977893b6f83acb82612ac)]
+* changelog [[b74e93a](https://github.com/applitools/eyes-cypress/commit/b74e93a9e1c7633ee804111aa7fc7aa8dc0f11df)]
+
 v3.6.42 / 2019-07-25
 ====================
 
