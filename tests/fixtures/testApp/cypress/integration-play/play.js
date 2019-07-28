@@ -8,8 +8,8 @@ describe('product-page-applitools', () => {
     cy.wait(1000);
     cy.eyesOpen({
       appName: 'product-page-applitools',
-      browser: [{name: 'chrome'}, {name: 'ie 10'}],
     });
+    cy.wait(1000);
     cy.eyesCheckWindow({
       tag: 'Abra pendant',
     });
