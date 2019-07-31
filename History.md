@@ -1,4 +1,11 @@
 
+v3.6.45 / 2019-07-31
+====================
+
+* 3.6.45 [[1dd4255](https://github.com/applitools/eyes-cypress/commit/1dd425554dbc382c445370a0b344ae7c858575fc)]
+* revert css from svg [[7b70c61](https://github.com/applitools/eyes-cypress/commit/7b70c61fa5e2b09ee1cc814de2273c70714a8868)]
+* changelog [[ec20d34](https://github.com/applitools/eyes-cypress/commit/ec20d34d27b9115a00dac51c457ec53767acdd91)]
+
 v3.6.44 / 2019-07-31
 ====================
 
