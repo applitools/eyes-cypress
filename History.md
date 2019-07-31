@@ -1,4 +1,11 @@
 
+v3.6.44 / 2019-07-31
+====================
+
+* 3.6.44 [[e68f048](https://github.com/applitools/eyes-cypress/commit/e68f048ef6c22ab3d8f9125f5821144e58bb3355)]
+* extracting urls from css in svg [[69d8c4d](https://github.com/applitools/eyes-cypress/commit/69d8c4d073cdc23ac0dcc04271bec0a56c74273c)]
+* changelog [[cbf6db5](https://github.com/applitools/eyes-cypress/commit/cbf6db5bd02f07f6dc54ace1c055a2d057381dc5)]
+
 v3.6.43 / 2019-07-28
 ====================
 
