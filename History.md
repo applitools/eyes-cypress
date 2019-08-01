@@ -1,4 +1,11 @@
 
+v3.6.46 / 2019-08-01
+====================
+
+* 3.6.46 [[94a01fb](https://github.com/applitools/eyes-cypress/commit/94a01fb591e1db5388ded9945a834838ab1c0ba0)]
+* returned css from svg and with links [[fc26846](https://github.com/applitools/eyes-cypress/commit/fc2684605b2959d274e41305ce334a00b23e0837)]
+* changelog [[97e7b01](https://github.com/applitools/eyes-cypress/commit/97e7b013eb4c2a37e4b9d7ba35884b623c323a95)]
+
 v3.6.45 / 2019-07-31
 ====================
 
