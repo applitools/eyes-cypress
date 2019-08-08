@@ -1,4 +1,16 @@
 
+v3.6.48 / 2019-08-08
+====================
+
+* 3.6.48 [[b6a8cba](https://github.com/applitools/eyes-cypress/commit/b6a8cba951e7aece53bef6b5653c0a1246d70fa1)]
+
+v3.6.47 / 2019-08-08
+====================
+
+* 3.6.47 [[c87edc6](https://github.com/applitools/eyes-cypress/commit/c87edc67528fd1f87b233c0ccfd17035875e81d4)]
+* updated vgc to better error handeling [[59e5a48](https://github.com/applitools/eyes-cypress/commit/59e5a48ef14679dbb617e898d1be1c8056191198)]
+* changelog [[421daa5](https://github.com/applitools/eyes-cypress/commit/421daa5f866f013e086d9dbbcb72c5f363509b82)]
+
 v3.6.46 / 2019-08-01
 ====================
 
