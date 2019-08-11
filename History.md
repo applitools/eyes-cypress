@@ -1,4 +1,11 @@
 
+v3.6.49 / 2019-08-11
+====================
+
+* 3.6.49 [[866464d](https://github.com/applitools/eyes-cypress/commit/866464d9d8cf46143b2b574a87158899960c4163)]
+* updated ds to remove anchors from css resources [[33c6758](https://github.com/applitools/eyes-cypress/commit/33c6758ba0e87a7aa4435fe3b9dfc3a5b510a8a8)]
+* changelog [[cb99918](https://github.com/applitools/eyes-cypress/commit/cb999182f8d6bdbb97131e250f6cd2e825b45d86)]
+
 v3.6.48 / 2019-08-08
 ====================
 
