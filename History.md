@@ -1,4 +1,11 @@
 
+v3.6.50 / 2019-08-15
+====================
+
+* 3.6.50 [[69a39e2](https://github.com/applitools/eyes-cypress/commit/69a39e21c4f07ef4ff4f6fe3fb35fe9ef1ec257b)]
+* updated ds to support input type=image [[0e9107e](https://github.com/applitools/eyes-cypress/commit/0e9107e7785fef0294bfd1439c4d759eb85e7e5c)]
+* changelog [[62d4e22](https://github.com/applitools/eyes-cypress/commit/62d4e2213f2203c92106130dfeaf90116b8776b6)]
+
 v3.6.49 / 2019-08-11
 ====================
 
