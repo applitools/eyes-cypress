@@ -158,11 +158,11 @@ It's possible to pass a config object to `eyesOpen` with all the possible config
 Generate a screenshot of the current page and add it to the Applitools Test.
 
 ```js
-cy.eyesCheckWindow(tag)
+cy.eyesCheckWindow('Login srceen')
 
 OR
 
-cy.eyesCheckWindow({ tag: 'your tag', target: 'your target' })
+cy.eyesCheckWindow({ tag: 'Login srceen', target: 'your target' })
 ```
 
 ##### Arguments to `cy.eyesCheckWindow`

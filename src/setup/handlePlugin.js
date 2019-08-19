@@ -1,21 +1,20 @@
 'use strict';
 
 const {readFileSync, writeFileSync} = require('fs');
-
+const chalk = require('chalk');
 const addEyesCypressPlugin = require('./addEyesCypressPlugin');
 const isPluginDefined = require('./isPluginDefined');
-const getPluginsFilePath = require('./getPluginsFilePath');
+const getFilePath = require('./getFilePath');
 const getCypressConfig = require('./getCypressConfig');
 
 function handlePlugin(cwd) {
   const cypressConfig = getCypressConfig(cwd);
-  const pluginsFilePath = getPluginsFilePath(cypressConfig, cwd);
+  const pluginsFilePath = getFilePath('plugins', cypressConfig, cwd);
   const pluginsFileContent = readFileSync(pluginsFilePath).toString();
 
-  if (isPluginDefined(pluginsFileContent)) {
-    console.log('Eyes-Cypress plugin already configured properly. Yay :)');
-  } else {
+  if (!isPluginDefined(pluginsFileContent)) {
     writeFileSync(pluginsFilePath, addEyesCypressPlugin(pluginsFileContent));
+    console.log(chalk.cyan('Plugins set'));
   }
 }
 
