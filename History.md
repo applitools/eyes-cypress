@@ -1,4 +1,11 @@
 
+v3.7.1 / 2019-08-19
+===================
+
+* 3.7.1 [[d1eb1fc](https://github.com/applitools/eyes-cypress/commit/d1eb1fc8cfbc57ffb6b2ef6d090781ff1d7a24fd)]
+* added typescript support [[04124cd](https://github.com/applitools/eyes-cypress/commit/04124cd3b2775580cf49cd271286a02ec545fea5)]
+* changelog [[e358562](https://github.com/applitools/eyes-cypress/commit/e3585628e19d8abbc7f8952d2029041d9af0a534)]
+
 v3.6.51 / 2019-08-19
 ====================
 
