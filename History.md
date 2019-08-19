@@ -1,4 +1,11 @@
 
+v3.6.51 / 2019-08-19
+====================
+
+* 3.6.51 [[20a6ddc](https://github.com/applitools/eyes-cypress/commit/20a6ddc92256d6a7ef4e36a285a3d80f366781af)]
+* updated ds to support about:blank inline frames [[80b6fa4](https://github.com/applitools/eyes-cypress/commit/80b6fa44239fa01fc2b2ad83675b6460bab595e2)]
+* changelog [[9de59e4](https://github.com/applitools/eyes-cypress/commit/9de59e48b391c4e7b2d987a498c1719a71bd5bc2)]
+
 v3.6.50 / 2019-08-15
 ====================
 
