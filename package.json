@@ -9,7 +9,6 @@
   "scripts": {
     "render": "run(){ npx cypress run --config integrationFolder=tests/fixtures/testApp/cypress/render,pluginsFile=tests/fixtures/testApp/cypress/plugins/index-render.js,supportFile=tests/fixtures/testApp/cypress/support/index-run.js --env url=$1; }; run",
     "test:mocha": "mocha --no-timeouts 'tests/**/*.test.js'",
-    "test:fast": "mocha --no-timeouts 'tests/!(e2e)/**/*.test.js'",
     "test:unit": "mocha --no-timeouts 'tests/unit/**/*.test.js'",
     "test:it": "mocha --no-timeouts 'tests/it/**/*.test.js'",
     "test:e2e": "mocha --no-timeouts 'tests/e2e/**/*.test.js'",
@@ -40,11 +39,11 @@
     "url": "https://github.com/applitools/eyes-cypress"
   },
   "dependencies": {
-    "@applitools/dom-snapshot": "^2.1.2",
+    "@applitools/dom-snapshot": "^2.1.3",
     "@applitools/eyes-common": "^3.9.0",
     "@applitools/eyes-sdk-core": "^5.14.0",
-    "@applitools/functional-commons": "^1.4.1",
-    "@applitools/visual-grid-client": "^12.23.1",
+    "@applitools/functional-commons": "^1.5.2",
+    "@applitools/visual-grid-client": "^12.23.5",
     "body-parser": "^1.19.0",
     "chalk": "^2.4.2",
     "cors": "^2.8.5",
