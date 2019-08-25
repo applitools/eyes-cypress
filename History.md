@@ -1,4 +1,11 @@
 
+v3.7.2 / 2019-08-25
+===================
+
+* 3.7.2 [[0bc317e](https://github.com/applitools/eyes-cypress/commit/0bc317e7a22bb8169f1d8dfb08af5cc64860922a)]
+* updated ds: fixed iframes with base tag url [[d59d8d2](https://github.com/applitools/eyes-cypress/commit/d59d8d2d01a7615eafad8c668e907930e824f10a)]
+* changelog [[4b9c4c9](https://github.com/applitools/eyes-cypress/commit/4b9c4c9dea538c3da35f07c41c4bc14a8364cdb8)]
+
 v3.7.1 / 2019-08-19
 ===================
 
