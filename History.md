@@ -1,4 +1,11 @@
 
+v3.7.3 / 2019-08-26
+===================
+
+* 3.7.3 [[8818ffd](https://github.com/applitools/eyes-cypress/commit/8818ffd39e57a350aab39e4fea9cd547046ed44d)]
+* updated ds: fixed srcset [[f2a3326](https://github.com/applitools/eyes-cypress/commit/f2a33268af574a333c4dcc4478e148bef5d42daf)]
+* changelog [[e7bfad4](https://github.com/applitools/eyes-cypress/commit/e7bfad45501b85bbc8d6fa34ad4002f97b66acd8)]
+
 v3.7.2 / 2019-08-25
 ===================
 
