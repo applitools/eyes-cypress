@@ -21,7 +21,7 @@
     "cypress:run": "cd tests/fixtures/testApp && cypress run --config integrationFolder=cypress/integration-run,pluginsFile=cypress/plugins/index-run.js,supportFile=cypress/support/index-run.js",
     "cypress:play": "cd tests/fixtures/testApp && cypress run --config integrationFolder=cypress/integration-play,pluginsFile=cypress/plugins/index-play.js,supportFile=cypress/support/index-run.js --spec=cypress/integration-play/play.js",
     "prepublishOnly": "npm version patch",
-    "changelog": "git changelog -p -f v$npm_package_version",
+    "changelog": "git changelog -x -p -f v$npm_package_version > History.md && git add ./History.md && git commit -am 'changelog'",
     "changelog:init": "git config changelog.format \"* %s [[%h]($(echo $npm_package_repository_url|cut -d+ -f2|cut -d. -f1-2)/commit/%H)]\"",
     "changelog:install": "sudo apt-get install git-extras"
   },
@@ -39,11 +39,11 @@
     "url": "https://github.com/applitools/eyes-cypress"
   },
   "dependencies": {
-    "@applitools/dom-snapshot": "^2.1.4",
-    "@applitools/eyes-common": "^3.9.0",
-    "@applitools/eyes-sdk-core": "^5.14.0",
+    "@applitools/dom-snapshot": "^3.0.2",
+    "@applitools/eyes-common": "^3.9.3",
+    "@applitools/eyes-sdk-core": "^5.16.1",
     "@applitools/functional-commons": "^1.5.2",
-    "@applitools/visual-grid-client": "^12.23.5",
+    "@applitools/visual-grid-client": "^12.28.4",
     "body-parser": "^1.19.0",
     "chalk": "^2.4.2",
     "cors": "^2.8.5",
