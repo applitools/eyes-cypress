@@ -1,4 +1,12 @@
 
+v3.7.4 / 2019-09-10
+===================
+
+* 3.7.4 [[cb7e74e](https://github.com/applitools/eyes-cypress/commit/cb7e74eb361bbed4e083c5b6393ee3dfb1033dd5)]
+* updated ds to new api names [[ee4e7cb](https://github.com/applitools/eyes-cypress/commit/ee4e7cb620f959f55fecd2d02b401aefbc69de22)]
+* better reade for proxy [[532e198](https://github.com/applitools/eyes-cypress/commit/532e19868cfa265973cba120a4f936b3787fd079)]
+* changelog [[05e288f](https://github.com/applitools/eyes-cypress/commit/05e288fda2650fbc0fb3519e5cbdafbf43609de0)]
+
 v3.7.3 / 2019-08-26
 ===================
 
