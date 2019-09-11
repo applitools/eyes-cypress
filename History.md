@@ -1,4 +1,11 @@
 
+v3.7.5 / 2019-09-11
+===================
+
+* 3.7.5 [[1e0b5eb](https://github.com/applitools/eyes-cypress/commit/1e0b5ebda416756c309b66f22a4c9c0d2883551e)]
+* added referrer to checkwindow calls [[3e83a1b](https://github.com/applitools/eyes-cypress/commit/3e83a1bb026dde445f3d5abb1063817780b2e9bf)]
+* changelog [[f156ef9](https://github.com/applitools/eyes-cypress/commit/f156ef93c340b1dfefab6dcd3cc541a83aa33870)]
+
 v3.7.4 / 2019-09-10
 ===================
 
