@@ -111,6 +111,7 @@ function makeHandlers({
       useDom,
       enablePatterns,
       ignoreDisplacements,
+      referrer,
     }) => {
       logger.log(`[handlers] checkWindow: checkWindow=${typeof checkWindow}`);
       if (!checkWindow) {
@@ -150,6 +151,7 @@ function makeHandlers({
         useDom,
         enablePatterns,
         ignoreDisplacements,
+        referrer,
       });
     },
 

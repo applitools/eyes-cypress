@@ -102,6 +102,7 @@ describe('handlers', () => {
     const useDom = 'useDom';
     const enablePatterns = 'enablePatterns';
     const ignoreDisplacements = 'ignoreDisplacements';
+    const referrer = 'referrer';
     const resourceContents = {};
 
     const result = await handlers.checkWindow({
@@ -123,6 +124,7 @@ describe('handlers', () => {
       useDom,
       enablePatterns,
       ignoreDisplacements,
+      referrer,
     });
 
     expect(result).to.eql({
@@ -147,6 +149,7 @@ describe('handlers', () => {
       enablePatterns,
       ignoreDisplacements,
       frames: [],
+      referrer,
     });
   });
 
@@ -241,6 +244,7 @@ describe('handlers', () => {
       useDom: undefined,
       enablePatterns: undefined,
       ignoreDisplacements: undefined,
+      referrer: undefined,
     });
   });
 

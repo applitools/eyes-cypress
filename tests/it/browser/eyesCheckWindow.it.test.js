@@ -16,7 +16,11 @@ describe('eyesCheckWindow', () => {
     const url = 'url';
     const cdt = 'cdt';
     const frames = [];
-    const eyesCheckWindow = makeEyesCheckWindow({sendRequest, processPage});
+    const eyesCheckWindow = makeEyesCheckWindow({
+      sendRequest,
+      processPage,
+      win: {location: {href: 'some ref'}},
+    });
 
     const tag = 'some tag';
 
@@ -45,6 +49,7 @@ describe('eyesCheckWindow', () => {
         useDom: undefined,
         enablePatterns: undefined,
         ignoreDisplacements: undefined,
+        referrer: 'some ref',
       },
     });
     expect(resourcesPutted).to.eql([
@@ -89,7 +94,11 @@ describe('eyesCheckWindow', () => {
     const url = 'url';
     const cdt = 'cdt';
     const frames = [];
-    const eyesCheckWindow = makeEyesCheckWindow({sendRequest, processPage});
+    const eyesCheckWindow = makeEyesCheckWindow({
+      sendRequest,
+      processPage,
+      win: {location: {href: 'some referrer'}},
+    });
 
     const tag = 'some tag';
     const sizeMode = 'sizeMode';
@@ -149,6 +158,7 @@ describe('eyesCheckWindow', () => {
         useDom,
         enablePatterns,
         ignoreDisplacements,
+        referrer: 'some referrer',
       },
     });
     expect(resourcesPutted).to.eql([
@@ -203,7 +213,11 @@ describe('eyesCheckWindow', () => {
     const frames = [
       {url: 'url1', resourceUrls: [], blobs: [blob1, blob2], cdt: 'cdt1', frames: [innerFrame]},
     ];
-    const eyesCheckWindow = makeEyesCheckWindow({sendRequest, processPage});
+    const eyesCheckWindow = makeEyesCheckWindow({
+      sendRequest,
+      processPage,
+      win: {location: {href: 'some ref'}},
+    });
 
     await eyesCheckWindow('bla doc');
 
@@ -250,6 +264,7 @@ describe('eyesCheckWindow', () => {
         useDom: undefined,
         enablePatterns: undefined,
         ignoreDisplacements: undefined,
+        referrer: 'some ref',
       },
     });
     expect(resourcesPutted).to.eql([
@@ -300,7 +315,11 @@ describe('eyesCheckWindow', () => {
     const resourceUrls = 'resourceUrls';
     const url = 'url';
     const cdt = 'cdt';
-    const eyesCheckWindow = makeEyesCheckWindow({sendRequest, processPage});
+    const eyesCheckWindow = makeEyesCheckWindow({
+      sendRequest,
+      processPage,
+      win: {location: {href: 'some ref'}},
+    });
 
     await eyesCheckWindow('bla doc');
 
@@ -328,6 +347,7 @@ describe('eyesCheckWindow', () => {
         useDom: undefined,
         enablePatterns: undefined,
         ignoreDisplacements: undefined,
+        referrer: 'some ref',
       },
     });
     expect(resourcesPutted).to.eql([

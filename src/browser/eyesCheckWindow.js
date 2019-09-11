@@ -1,7 +1,8 @@
+/* global window */
 'use strict';
 const getAllBlobs = require('./getAllBlobs');
 
-function makeEyesCheckWindow({sendRequest, processPage}) {
+function makeEyesCheckWindow({sendRequest, processPage, win = window}) {
   return function eyesCheckWindow(doc, args) {
     let tag,
       sizeMode,
@@ -68,6 +69,7 @@ function makeEyesCheckWindow({sendRequest, processPage}) {
             useDom,
             enablePatterns,
             ignoreDisplacements,
+            referrer: win.location.href,
           },
         }),
       );
