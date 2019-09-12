@@ -57,14 +57,14 @@ Eyes-Cypress ships with official type declarations for TypeScript. This allows y
 node_modules/@applitools/eyes-cypress/src/setup/eyes-index.d.ts
 ```
 Add this file to your project with **either**:
-1. Add `eyes-index.d.ts` path to your [tsconfig](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) file via the ["files"](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#examples) key:
+1. Adding the path of the `eyes-index.d.ts` file to your [tsconfig](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) file via the ["files"](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#examples) key:
     ```
     {
       "files": ["./node_modules/@applitools/eyes-cypress/src/setup/eyes-index.d.ts"],
       ...
     }
     ```
-  2. Copy the file to to your [cypress/support/](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests.html#Folder-Structure) dir.
+  2. Coping the file to to your [cypress/support/](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests.html#Folder-Structure) dir.
 
 
 ### Applitools API key
