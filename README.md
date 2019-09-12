@@ -26,7 +26,7 @@ The above command will add the necessary imports to your cypress `pluginsFile` a
 
 #### Manual configuration
 
-##### Configure Eyes-Cypress plugin
+##### 1. Configure Eyes-Cypress plugin
 
 Eyes-Cypress acts as a [Cypress plugin](https://docs.cypress.io/guides/tooling/plugins-guide.html), so it should be configured as such.
 Unfortunately there's no easy way to do this automatically, so you need to manually add the following code to your `pluginsFile`:
@@ -39,7 +39,7 @@ require('@applitools/eyes-cypress')(module)
 
 Normally, this is `cypress/plugins/index.js`. You can read more about it in Cypress' docs [here](https://docs.cypress.io/guides/references/configuration.html#Folders-Files).
 
-##### Configure custom commands
+##### 2. Configure custom commands
 
 Eyes-Cypress exposes new commands to your tests. This means that more methods will be available on the `cy` object. To enable this, it's required to configure these custom commands.
 As with the plugin, there's no automatic way to configure this in cypress, so you need to manually add the following code to your `supportFile`:
@@ -49,6 +49,23 @@ import '@applitools/eyes-cypress/commands'
 ```
 
 Normally, this is `cypress/support/index.js`. You can read more about it in Cypress' docs [here](https://docs.cypress.io/guides/references/configuration.html#Folders-Files).
+
+##### 3. (Optional) TypeScript configuration
+
+Eyes-Cypress ships with official type declarations for TypeScript. This allows you to add eyes commands to your TypeScript tests. The TypeScript defenition file can be found in 
+```
+node_modules/@applitools/eyes-cypress/src/setup/eyes-index.d.ts
+```
+Add this file to your project with **either**:
+1. Add `eyes-index.d.ts` path to your [tsconfig](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) file via the ["files"](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#examples) key:
+    ```
+    {
+      "files": ["./node_modules/@applitools/eyes-cypress/src/setup/eyes-index.d.ts"],
+      ...
+    }
+    ```
+  2. Copy the file to to your [cypress/support/](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests.html#Folder-Structure) dir.
+
 
 ### Applitools API key
 
