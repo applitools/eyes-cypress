@@ -52,19 +52,22 @@ Normally, this is `cypress/support/index.js`. You can read more about it in Cypr
 
 ##### 3. (Optional) TypeScript configuration
 
-Eyes-Cypress ships with official type declarations for TypeScript. This allows you to add eyes commands to your TypeScript tests. The TypeScript defenition file can be found in 
+Eyes-Cypress ships with official type declarations for TypeScript. This allows you to add eyes commands to your TypeScript tests. The TypeScript definition file can be found in 
 ```
-node_modules/@applitools/eyes-cypress/src/setup/eyes-index.d.ts
+node_modules/@applitools/eyes-cypress/eyes-index.d.ts
 ```
 Add this file to your project with **either**:
 1. Adding the path of the `eyes-index.d.ts` file to your [tsconfig](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) file via the ["files"](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#examples) key:
     ```
     {
-      "files": ["./node_modules/@applitools/eyes-cypress/src/setup/eyes-index.d.ts"],
+      "files": ["./node_modules/@applitools/eyes-cypress/eyes-index.d.ts"],
       ...
     }
     ```
-  2. Coping the file to to your [cypress/support/](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests.html#Folder-Structure) dir.
+  2. Copying the file to to your [cypress/support/](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests.html#Folder-Structure) dir:
+      ```
+      cp node_modules/@applitools/eyes-cypress/eyes-cypress.d.ts ./cypress/support    
+      ```
 
 
 ### Applitools API key
@@ -99,7 +102,7 @@ See the [Advanced configuration](#method-3-the-applitoolsconfigjs-file) section 
 
 ## Usage
 
-After completing the configuation (either automatic or manual) and defining the API key, you will be able to use commands from Eyes-Cypress in your cypress tests to take screenshots and use Applitools Eyes to manage them:
+After completing the configuration (either automatic or manual) and defining the API key, you will be able to use commands from Eyes-Cypress in your cypress tests to take screenshots and use Applitools Eyes to manage them:
 
 ### Example
 
@@ -122,7 +125,7 @@ describe('Hello world', () => {
 
 ### Best practice for using the SDK
 
-Every call to `cy.eyesOpen` and `cy.eyesClose` defines a test in Applitool Eyes, and all the calls to `cy.eyesCheckWindow` between them are called "steps". In order to get a test structure in Applitools that corresponds to the test structure in Cypress, it's best to open/close tests in every `it` call. This can be done via the `beforeEach` and `afterEach` functions that Cypress provides (via the mocha test runner).
+Every call to `cy.eyesOpen` and `cy.eyesClose` defines a test in Applitools Eyes, and all the calls to `cy.eyesCheckWindow` between them are called "steps". In order to get a test structure in Applitools that corresponds to the test structure in Cypress, it's best to open/close tests in every `it` call. This can be done via the `beforeEach` and `afterEach` functions that Cypress provides (via the mocha test runner).
 
 After adjusting the example above, this becomes:
 
@@ -175,11 +178,11 @@ It's possible to pass a config object to `eyesOpen` with all the possible config
 Generate a screenshot of the current page and add it to the Applitools Test.
 
 ```js
-cy.eyesCheckWindow('Login srceen')
+cy.eyesCheckWindow('Login screen')
 
 OR
 
-cy.eyesCheckWindow({ tag: 'Login srceen', target: 'your target' })
+cy.eyesCheckWindow({ tag: 'Login screen', target: 'your target' })
 ```
 
 ##### Arguments to `cy.eyesCheckWindow`
@@ -490,7 +493,7 @@ cy.eyesOpen({
 
 At the end of the test run, Eyes-Cypress will wait for the results of all visual tests. There's a default timeout of 2 minutes between the end of the test run and the end of the visual tests (although it should not take so long normally!).
 
-It's possible to change that default by setting the configuration variable `eyesTimeout`, in one of the varios ways to configure Cypress, as described in the [Cypress plugins documentation](https://docs.cypress.io/guides/references/configuration.html).
+It's possible to change that default by setting the configuration variable `eyesTimeout`, in one of the various ways to configure Cypress, as described in the [Cypress plugins documentation](https://docs.cypress.io/guides/references/configuration.html).
 
 ## Troubleshooting
 
