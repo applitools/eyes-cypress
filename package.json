@@ -29,7 +29,9 @@
     "src",
     "bin",
     "index.js",
-    "commands.js"
+    "commands.js",
+    "eyes-index.d.ts",
+    "eyes.ts"
   ],
   "engines": {
     "node": ">=8.0.0"
