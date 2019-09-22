@@ -1,4 +1,11 @@
 
+v3.8.2 / 2019-09-22
+===================
+
+* 3.8.2 [[088dcb9](https://github.com/applitools/eyes-cypress/commit/088dcb92f4a9aa45c0d42ed75e5c4ab99b14f462)]
+* removed Nonde from accessibility [[a0bc2f4](https://github.com/applitools/eyes-cypress/commit/a0bc2f4bac445ce091c9de46adb9e0f110bf6264)]
+* changelog [[822d8d2](https://github.com/applitools/eyes-cypress/commit/822d8d25b3f7a92682e9644d6c4a9c95ce9eae86)]
+
 v3.8.1 / 2019-09-22
 ===================
 
