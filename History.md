@@ -1,4 +1,11 @@
 
+v3.8.3 / 2019-09-22
+===================
+
+* 3.8.3 [[62209ad](https://github.com/applitools/eyes-cypress/commit/62209ad45533d7459b542a88d7a2c1f2bf558d68)]
+* fixed ts files for new accessibilityType [[addf46b](https://github.com/applitools/eyes-cypress/commit/addf46b822973f971e9ccc998ab94a33a0e8d5c9)]
+* changelog [[6a937c2](https://github.com/applitools/eyes-cypress/commit/6a937c2f41f028665cc0ffc61db78fa1d62e752e)]
+
 v3.8.2 / 2019-09-22
 ===================
 
