@@ -295,6 +295,28 @@ cy.eyesCheckWindow({ tag: 'Login screen', target: 'your target' })
     });
     ```
 
+<!-- * ##### `accessibility`
+  (optional): A single or an array of regions to perform accessibility checks, For example:
+
+    ```js
+    cy.eyesCheckWindow({
+      accessibility: [
+        {accessibilityType: 'RegularText', selector: '.some-div'},
+        {accessibilityType: 'LargeText', selector: '//*[@id="main"]/h1', type: 'xpath'},
+        {accessibilityType: 'BoldText', top: 100, left: 0, width: 1000, height: 100},
+      ]
+    });
+    ```
+
+    Possible accessibilityType values are: `None`,`IgnoreContrast`,`RegularText`,`LargeText`,`BoldText` and `GraphicalObject`.
+
+* ##### `accessibilityLevel`
+  (optional): The accessibility level to use for the screenshot. Possible values are `None`, `AA` and `AAA`.
+
+    ```js
+    cy.eyesCheckWindow({accessibilityLevel: 'AA'})
+    ``` -->
+
 * ##### `scriptHooks`
   (optional): A set of scripts to be run by the browser during the rendering. It is intended to be used as a means to alter the page's state and structure at the time of rendering.
   An object with the following properties:
@@ -365,6 +387,10 @@ Here are the available configuration properties:
 | `compareWithParentBranch` | false                       |  |
 | `ignoreBaseline`          | false                       |  |
 
+<!-- | `accessibilityLevel` | None | The accessibility level to use for the screenshots. Possible values are `None`, `AA` and `AAA`. |
+| `notifyOnCompletion`  | false | If `true` batch completion notifications are sent. | -->
+
+
 The following configuration properties cannot be defined using the first method of passing them to `cy.eyesOpen`. They should be defined either in the `applitools.config.js` file or as environment variables.
 
 | Property name             | Default value               | Description   |
@@ -418,6 +444,8 @@ APPLITOOLS_IGNORE_BASELINE
 APPLITOOLS_SERVER_URL
 APPLITOOLS_PROXY
 ```
+<!-- APPLITOOLS_ACCESSIBILITY_LEVEL
+APPLITOOLS_NOTIFY_ON_COMPLETION -->
 
 ### Method 3: The `applitools.config.js` file
 

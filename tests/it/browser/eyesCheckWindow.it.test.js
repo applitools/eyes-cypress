@@ -49,6 +49,8 @@ describe('eyesCheckWindow', () => {
         useDom: undefined,
         enablePatterns: undefined,
         ignoreDisplacements: undefined,
+        accessibility: undefined,
+        accessibilityLevel: undefined,
         referrer: 'some ref',
       },
     });
@@ -115,6 +117,8 @@ describe('eyesCheckWindow', () => {
     const useDom = 'useDom';
     const enablePatterns = 'enablePatterns';
     const ignoreDisplacements = 'ignoreDisplacements';
+    const accessibility = 'accessibility';
+    const accessibilityLevel = 'accessibilityLevel';
 
     await eyesCheckWindow('bla doc', {
       tag,
@@ -132,6 +136,8 @@ describe('eyesCheckWindow', () => {
       useDom,
       enablePatterns,
       ignoreDisplacements,
+      accessibility,
+      accessibilityLevel,
     });
 
     expect(sendRequestInput).to.eql({
@@ -159,6 +165,8 @@ describe('eyesCheckWindow', () => {
         enablePatterns,
         ignoreDisplacements,
         referrer: 'some referrer',
+        accessibility,
+        accessibilityLevel,
       },
     });
     expect(resourcesPutted).to.eql([
@@ -264,6 +272,8 @@ describe('eyesCheckWindow', () => {
         useDom: undefined,
         enablePatterns: undefined,
         ignoreDisplacements: undefined,
+        accessibility: undefined,
+        accessibilityLevel: undefined,
         referrer: 'some ref',
       },
     });
@@ -348,6 +358,8 @@ describe('eyesCheckWindow', () => {
         enablePatterns: undefined,
         ignoreDisplacements: undefined,
         referrer: 'some ref',
+        accessibility: undefined,
+        accessibilityLevel: undefined,
       },
     });
     expect(resourcesPutted).to.eql([
