@@ -1,4 +1,16 @@
 
+v3.8.1 / 2019-09-22
+===================
+
+* 3.8.1 [[e9807b2](https://github.com/applitools/eyes-cypress/commit/e9807b233a4f5009ee3124b9805f4ab97eaf39d9)]
+* added accessibility and notifyOnComplete [[32e68e6](https://github.com/applitools/eyes-cypress/commit/32e68e6a3841750356253d31761f411de8d13527)]
+* added ts files to package json for publishing [[b7d9c14](https://github.com/applitools/eyes-cypress/commit/b7d9c1465751f05dfc895053e1ebecbebc9fe2c0)]
+* moved eyes.ts to root as well [[03b4d14](https://github.com/applitools/eyes-cypress/commit/03b4d148e221ce0b07ae3bcffbd9c280ec2948e0)]
+* moved eyes-index.d.ts location to root and doc changes [[6022bcb](https://github.com/applitools/eyes-cypress/commit/6022bcbd00f9684a3ba16c09bf81728755649f2a)]
+* updated readme for TypeScript [[b3caa95](https://github.com/applitools/eyes-cypress/commit/b3caa953505aebc0527bc58c1ccb8514c8222911)]
+* updated readme for TypeScript [[e57276d](https://github.com/applitools/eyes-cypress/commit/e57276ddfa9e4faea8a474e799ccf4b80d790c64)]
+* changelog [[945491c](https://github.com/applitools/eyes-cypress/commit/945491c8c242056b8dbf5bfa52dab5459d45c4ff)]
+
 v3.7.5 / 2019-09-11
 ===================
 
