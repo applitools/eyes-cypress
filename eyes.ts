@@ -339,16 +339,11 @@ namespace Eyes {
     }
 
     export enum AccessibilityType {
-      None = 'None',
+      IgnoreContrast = 'IgnoreContrast',
       RegularText = 'RegularText',
       LargeText = 'LargeText',
       BoldText = 'BoldText',
-      EssentialImage = 'EssentialImage',
-      DisabledOrInactive = 'DisabledOrInactive',
-      NonEssentialImage = 'NonEssentialImage',
-      Logo = 'Logo',
-      Background = 'Background',
-      Ignore = 'Ignore',
+      GraphicalObject =  'GraphicalObject',
     }
 
     export interface AccessibilityRegion extends Region {
