@@ -1,4 +1,11 @@
 
+v3.8.4 / 2019-09-23
+===================
+
+* 3.8.4 [[a1e05e3](https://github.com/applitools/eyes-cypress/commit/a1e05e34a1f5f1225a0e43f4e88643aa9ae3ebdb)]
+* changes concurrency message [[672852e](https://github.com/applitools/eyes-cypress/commit/672852e0518b36f92cc28cd47619eebf57fede0f)]
+* changelog [[0f57fe0](https://github.com/applitools/eyes-cypress/commit/0f57fe09c71c5034f3605d509fad64539b2b7f47)]
+
 v3.8.3 / 2019-09-22
 ===================
 
