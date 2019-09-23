@@ -294,7 +294,7 @@ cy.eyesCheckWindow({ tag: 'Login screen', target: 'your target' })
       ]
     });
     ```
-
+<!-- 
 * ##### `accessibility`
   (optional): A single or an array of regions to perform accessibility checks, For example:
 
@@ -315,7 +315,7 @@ cy.eyesCheckWindow({ tag: 'Login screen', target: 'your target' })
 
     ```js
     cy.eyesCheckWindow({accessibilityLevel: 'AA'})
-    ```
+    ``` -->
 
 * ##### `scriptHooks`
   (optional): A set of scripts to be run by the browser during the rendering. It is intended to be used as a means to alter the page's state and structure at the time of rendering.
