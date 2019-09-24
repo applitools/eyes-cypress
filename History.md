@@ -1,4 +1,14 @@
 
+v3.8.5 / 2019-09-24
+===================
+
+* 3.8.5 [[6edbe1c](https://github.com/applitools/eyes-cypress/commit/6edbe1c002a6e5b716fe1861d7048abf0136166c)]
+* added closeBatch [[cdbc4e7](https://github.com/applitools/eyes-cypress/commit/cdbc4e7034f4e4eca5002a825e795262b864dd84)]
+* removed extra accessibility stuff i forgot to remove from readme [[afcf935](https://github.com/applitools/eyes-cypress/commit/afcf935aa3e8778c0f000023370561c8842b5533)]
+* changed config.js [[6e73935](https://github.com/applitools/eyes-cypress/commit/6e73935bd6bba02623f02be90f90ca4348576dec)]
+* changes concurrency message again [[cef3d50](https://github.com/applitools/eyes-cypress/commit/cef3d506cc277499f040ae68d48a984c2f43cecd)]
+* changelog [[3f6e680](https://github.com/applitools/eyes-cypress/commit/3f6e6809984357813e09bdf047860f9641f7f4d0)]
+
 v3.8.4 / 2019-09-23
 ===================
 
