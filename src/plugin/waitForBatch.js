@@ -10,10 +10,10 @@ function makeWaitForBatch({
   errorDigest,
   handleBatchResultsFile,
 }) {
-  return async function(runningTests) {
+  return async function(runningTests, closeBatch) {
     logger.log(`Waiting for test results of ${runningTests.length} tests.`);
 
-    const testResultsArr = flatten(await processCloseAndAbort(runningTests));
+    const testResultsArr = flatten(await processCloseAndAbort({runningTests, closeBatch, logger}));
     const {failed, diffs, passed} = getErrorsAndDiffs(testResultsArr);
     await handleBatchResultsFile(testResultsArr);
 

@@ -17,7 +17,7 @@ describe('waitForBatch', () => {
   before(() => {
     waitForBatch = makeWaitForBatch({
       logger: console,
-      processCloseAndAbort: results => results,
+      processCloseAndAbort: ({runningTests}) => runningTests,
       concurrency: 1,
       getErrorsAndDiffs: results => ({failed: [], diffs: [], passed: results}),
       errorDigest: () => null,

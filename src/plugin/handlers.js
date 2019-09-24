@@ -73,7 +73,10 @@ function makeHandlers({
         errorDigest,
         handleBatchResultsFile: makeHandleBatchResultsFile(config),
       });
-      pollBatchEnd = pollingHandler(() => waitForBatch(runningTests), TIMEOUT_MSG);
+      pollBatchEnd = pollingHandler(
+        waitForBatch.bind(null, runningTests, client.closeBatch),
+        TIMEOUT_MSG,
+      );
       return client;
     },
 

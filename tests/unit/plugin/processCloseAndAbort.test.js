@@ -3,13 +3,16 @@
 const {describe, it} = require('mocha');
 const {expect} = require('chai');
 const {presult} = require('@applitools/functional-commons');
-const processCloseAndAbort = require('../../../src/plugin/processCloseAndAbort');
+const _processCloseAndAbort = require('../../../src/plugin/processCloseAndAbort');
 const psetTimeout = require('util').promisify(setTimeout);
 
 describe('processCloseAndAbort', () => {
+  const processCloseAndAbort = ({runningTests}) =>
+    _processCloseAndAbort({runningTests, closeBatch: async () => {}, logger: console});
+
   it('returns close result when no error was thrown', async () => {
     const runningTests = [{closePromise: presult(Promise.resolve('bla'))}];
-    const testResults = await processCloseAndAbort(runningTests);
+    const testResults = await processCloseAndAbort({runningTests});
     expect(testResults).to.eql(['bla']);
   });
 
@@ -22,13 +25,13 @@ describe('processCloseAndAbort', () => {
         },
       },
     ];
-    const testResults = await processCloseAndAbort(runningTests);
+    const testResults = await processCloseAndAbort({runningTests});
     expect(testResults).to.eql([['bla']]);
   });
 
   it("filters undefined abort results when there's no close promise", async () => {
     const runningTests = [{abort: () => [undefined, 'bla', undefined]}];
-    const testResults = await processCloseAndAbort(runningTests);
+    const testResults = await processCloseAndAbort({runningTests});
     expect(testResults).to.eql([['bla']]);
   });
 
@@ -40,7 +43,7 @@ describe('processCloseAndAbort', () => {
         abort: () => [undefined, {bla: 'bla'}, undefined],
       },
     ];
-    const testResults = await processCloseAndAbort(runningTests);
+    const testResults = await processCloseAndAbort({runningTests});
     expect(testResults).to.eql([[error, {bla: 'bla', error}, error]]);
   });
 
@@ -49,7 +52,7 @@ describe('processCloseAndAbort', () => {
     const runningTests = [
       {closePromise: presult(Promise.reject(error)), abort: () => [{aaa: 'aaa'}]},
     ];
-    const testResults = await processCloseAndAbort(runningTests);
+    const testResults = await processCloseAndAbort({runningTests});
     expect(testResults).to.eql([[{aaa: 'aaa', error}]]);
   });
 
@@ -67,7 +70,7 @@ describe('processCloseAndAbort', () => {
       {closePromise: presult(Promise.reject(error)), abort: () => [{aaa: 'aaa'}]},
     ];
 
-    const testResults = await processCloseAndAbort(runningTests);
+    const testResults = await processCloseAndAbort({runningTests});
     expect(testResults).to.eql(['bla', ['bla'], ['bla'], [{aaa: 'aaa', error}]]);
   });
 });

@@ -3,8 +3,8 @@
 // Cypress.on('uncaught:exception', () => {});
 
 describe('product-page-applitools', () => {
-  it('Abra', () => {
-    cy.visit('https://www.asos.com/river-island/river-island-button-cowl-neck-jumper/prd/1775492', {
+  it('Abra 44 a', () => {
+    cy.visit('https://applitools.com/helloworld', {
       failOnStatusCode: false,
     });
     cy.wait(1000);

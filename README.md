@@ -404,6 +404,9 @@ The following configuration properties cannot be defined using the first method 
 | `tapDirPath`              | undefined                   | Directory path of a results file. If set, then a [TAP](https://en.wikipedia.org/wiki/Test_Anything_Protocol#Specification) file is created in this directory, the tap file name is created with the name [ISO-DATE](https://en.wikipedia.org/wiki/ISO_8601)\-eyes.tap and contains the Eyes test results (Note that because of a current Cypress [limitation](https://github.com/cypress-io/cypress-documentation/issues/818) the results are scoped per spec file, this means that the results file is created once for each spec file).|
 | `concurrency`             | 1                           | The maximum number of tests that can run concurrently. The default value is the allowed amount for free accounts. For paid accounts, set this number to the quota set for your account. |
 
+<!-- |`dontCloseBatches`| false | If true, batches are not closed for  [notifyOnCompletion](#advanced-configuration).| -->
+
+
 ### Method 1: Arguments for `cy.eyesOpen`
 
 Pass a config object as the only argument. For example:

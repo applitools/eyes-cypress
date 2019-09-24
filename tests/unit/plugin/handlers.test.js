@@ -313,7 +313,7 @@ describe('handlers', () => {
 
     handlers = makeHandlers({
       makeVisualGridClient: () => ({openEyes}),
-      processCloseAndAbort: async runningTests =>
+      processCloseAndAbort: async ({runningTests}) =>
         Promise.all(
           runningTests.map(async ({closePromise, abort}) =>
             closePromise ? (await closePromise)[1] : abort(),

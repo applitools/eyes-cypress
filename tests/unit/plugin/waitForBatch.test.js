@@ -24,11 +24,15 @@ function errorDigest({passed, failed, diffs}) {
   return `${passed}::${failed}##${diffs}`;
 }
 
+function processCloseAndAbort({runningTests}) {
+  return runningTests;
+}
+
 describe('waitForBatch', () => {
   const logger = process.env.APPLITOOLS_SHOW_LOGS ? console : {log: () => {}};
   const waitForBatch = makeWaitForBatch({
     logger,
-    processCloseAndAbort: x => x,
+    processCloseAndAbort,
     getErrorsAndDiffs,
     errorDigest,
     handleBatchResultsFile: results => results,
@@ -68,7 +72,7 @@ describe('waitForBatch', () => {
 
       const waitForBatch = makeWaitForBatch({
         logger,
-        processCloseAndAbort: x => x,
+        processCloseAndAbort,
         getErrorsAndDiffs,
         errorDigest,
         concurrency: 1,
@@ -91,14 +95,15 @@ describe('waitForBatch', () => {
 
       const waitForBatch = makeWaitForBatch({
         logger,
-        processCloseAndAbort: x => x,
+        processCloseAndAbort,
         getErrorsAndDiffs,
         errorDigest,
         concurrency: '1',
         handleBatchResultsFile: results => results,
       });
 
-      expect(await waitForBatch(runningTests)).to.eql(1);
+      const closeBatch = async () => {};
+      expect(await waitForBatch(runningTests, closeBatch)).to.eql(1);
       expect(output).to.equal(concurrencyMsg);
     } finally {
       console.log = origLog;
