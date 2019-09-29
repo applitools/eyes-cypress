@@ -22,7 +22,7 @@ Run the following command in your terminal:
 npx eyes-setup
 ```
 
-The above command will add the necessary imports to your cypress `pluginsFile` and `supportFile`, as described in the manual configuration below.
+The above command will add the necessary imports to your cypress `pluginsFile` and `supportFile` (and create the TypeScript definitions file), as described in the manual configuration below.
 
 #### Manual configuration
 
