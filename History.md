@@ -1,4 +1,11 @@
 
+v3.8.6 / 2019-09-29
+===================
+
+* 3.8.6 [[2bbf855](https://github.com/applitools/eyes-cypress/commit/2bbf8557a2a90ab02ead31687446f9498cd57f48)]
+* better Intelligent Code Completion [[3b70c08](https://github.com/applitools/eyes-cypress/commit/3b70c08b42710234382b7856cb98290a8ace1aa2)]
+* changelog [[1b1e8c0](https://github.com/applitools/eyes-cypress/commit/1b1e8c0a227658a67b2f65605d6d37a8e786fb87)]
+
 v3.8.5 / 2019-09-24
 ===================
 
