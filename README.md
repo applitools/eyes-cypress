@@ -526,16 +526,18 @@ It's possible to change that default by setting the configuration variable `eyes
 
 ## Intelligent Code Completion
 
-### Triple slash directives
+#### There are two ways you can add Eyes-Cypress intelliSense to your tests: 
+
+### 1. Triple slash directives
 
 The simplest way to see IntelliSense when typing an Eyes-Cypress command is to add a [triple-slash](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html) directive to the head of your JavaScript or TypeScript testing file. This will turn the IntelliSense on a per file basis:
 ```
   /// <reference types="@applitools/eyes-cypress" />
 ```
 
-### Reference type declarations via `tsconfig`
+### 2. Reference type declarations via `tsconfig`
 
-Adding a [tsconfig.json](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html) inside your cypress [folder](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests.html#Folder-Structure) with the following configuration should get intelligent code completion working:
+Adding a [tsconfig.json](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html) inside your cypress [folder](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests.html#Folder-Structure) with the following configuration should get intelligent code completion working on all your test files:
 ```
 {
   "compilerOptions": {
