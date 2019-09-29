@@ -7,7 +7,7 @@ const getCypressConfig = require('./getCypressConfig');
 function handleTypeScript(cwd) {
   const cypressConfig = getCypressConfig(cwd);
   const typeScriptFilePath = getFilePath('typeScript', cypressConfig, cwd);
-  const eyesIndexContent = `import "@applitools/eyes-cypress/eyes-index"`;
+  const eyesIndexContent = `import "@applitools/eyes-cypress"`;
 
   if (!existsSync(typeScriptFilePath)) {
     writeFileSync(typeScriptFilePath, eyesIndexContent);

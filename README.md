@@ -52,21 +52,19 @@ Normally, this is `cypress/support/index.js`. You can read more about it in Cypr
 
 ##### 3. (Optional) TypeScript configuration
 
-Eyes-Cypress ships with official type declarations for TypeScript. This allows you to add eyes commands to your TypeScript tests. The TypeScript definition file can be found in 
-```
-node_modules/@applitools/eyes-cypress/eyes-index.d.ts
-```
-Add this file to your project with **either**:
-1. Adding the path of the `eyes-index.d.ts` file to your [tsconfig](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) file via the ["files"](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html#examples) key:
+Eyes-Cypress ships with official type declarations for TypeScript. This allows you to add eyes commands to your TypeScript tests.
+
+Add this file to your project with either: 
+1. Adding the path to your [tsconfig](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) file:
     ```
     {
-      "files": ["./node_modules/@applitools/eyes-cypress/eyes-index.d.ts"],
+      "files": ["./node_modules/@applitools/eyes-cypress/index.d.ts"],
       ...
     }
     ```
   2. Copying the file to to your [cypress/support/](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests.html#Folder-Structure) dir:
       ```
-      cp node_modules/@applitools/eyes-cypress/eyes-cypress.d.ts ./cypress/support    
+      cp node_modules/@applitools/eyes-cypress/index.d.ts ./cypress/support/eyes-index.d.ts    
       ```
 
 
@@ -525,6 +523,34 @@ cy.eyesOpen({
 At the end of the test run, Eyes-Cypress will wait for the results of all visual tests. There's a default timeout of 2 minutes between the end of the test run and the end of the visual tests (although it should not take so long normally!).
 
 It's possible to change that default by setting the configuration variable `eyesTimeout`, in one of the various ways to configure Cypress, as described in the [Cypress plugins documentation](https://docs.cypress.io/guides/references/configuration.html).
+
+## Intelligent Code Completion
+
+### Triple slash directives
+
+The simplest way to see IntelliSense when typing an Eyes-Cypress command is to add a [triple-slash](http://www.typescriptlang.org/docs/handbook/triple-slash-directives.html) directive to the head of your JavaScript or TypeScript testing file. This will turn the IntelliSense on a per file basis:
+```
+  /// <reference types="@applitools/eyes-cypress" />
+```
+
+### Reference type declarations via `tsconfig`
+
+Adding a [tsconfig.json](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html) inside your cypress [folder](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests.html#Folder-Structure) with the following configuration should get intelligent code completion working:
+```
+{
+  "compilerOptions": {
+    "allowJs": true,
+    "baseUrl": "../node_modules",
+    "types": [
+      "@applitools/eyes-cypress"
+    ]
+  },
+  "include": [
+    "**/*.*"
+  ]
+}
+```
+
 
 ## Troubleshooting
 
