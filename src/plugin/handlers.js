@@ -10,7 +10,7 @@ const writeFile = promisify(fs.writeFile);
 const {PollingStatus} = pollingHandler;
 
 const TIMEOUT_MSG = timeout =>
-  `Eyes-Cypress timed out after ${timeout}ms. The default timeout is 2 minutes. It's possible to increase this timeout by setting a the value of 'eyesTimeout' in Cypress configuration, e.g. for 3 minutes: Cypress.config('eyesTimeout', 180000)`;
+  `Eyes-Cypress timed out after ${timeout}ms. The default timeout is 10 minutes. It's possible to decrease this timeout by setting a the value of 'eyesTimeout' in Cypress configuration, e.g. for 2 minutes: Cypress.config('eyesTimeout', 120000)`;
 
 function makeHandlers({
   makeVisualGridClient,

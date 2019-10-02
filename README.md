@@ -520,9 +520,31 @@ cy.eyesOpen({
 
 ## Setting a timeout
 
-At the end of the test run, Eyes-Cypress will wait for the results of all visual tests. There's a default timeout of 2 minutes between the end of the test run and the end of the visual tests (although it should not take so long normally!).
+At the end of the test run, Eyes-Cypress will wait for the results of all visual tests. There's a default timeout of 10 minutes between the end of the test run and the end of the visual tests (although it should not take so long normally!).
 
-It's possible to change that default by setting the configuration variable `eyesTimeout`, in one of the various ways to configure Cypress, as described in the [Cypress plugins documentation](https://docs.cypress.io/guides/references/configuration.html).
+It's possible to change that default by setting the configuration variable `eyesTimeout`, in one of 2 ways:
+
+1. In the `applitools.config.js` (see relevant section [here](#method-3-the-applitoolsconfigjs-file)), for example:
+
+    ```js
+    module.exports = {
+      ...
+      eyesTimeout: 120000
+      ...
+    }
+    ```
+
+1. Programmatically inside the tests' code. For example:
+
+```js
+describe('Some suite of tests', () => {
+  Cypress.config('eyesTimeout', 120000);
+
+  it('works', () => {
+    ...
+  })
+})
+```
 
 ## Intelligent Code Completion
 
