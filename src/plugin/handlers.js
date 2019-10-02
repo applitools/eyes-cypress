@@ -7,6 +7,7 @@ const {GeneralUtils} = require('@applitools/eyes-common');
 const {promisify} = require('util');
 const fs = require('fs');
 const writeFile = promisify(fs.writeFile);
+const {PollingStatus} = pollingHandler;
 
 const TIMEOUT_MSG = timeout =>
   `Eyes-Cypress timed out after ${timeout}ms. The default timeout is 2 minutes. It's possible to increase this timeout by setting a the value of 'eyesTimeout' in Cypress configuration, e.g. for 3 minutes: Cypress.config('eyesTimeout', 180000)`;
@@ -73,16 +74,21 @@ function makeHandlers({
         errorDigest,
         handleBatchResultsFile: makeHandleBatchResultsFile(config),
       });
-      pollBatchEnd = pollingHandler(
-        waitForBatch.bind(null, runningTests, client.closeBatch),
-        TIMEOUT_MSG,
-      );
+      pollBatchEnd = pollingHandler(waitForBatch.bind(null, runningTests, client.closeBatch));
       return client;
     },
 
     batchEnd: async ({timeout} = {}) => {
       logger.log(`[handlers] batchEnd, timeout=${timeout}`);
-      return await pollBatchEnd({timeout});
+      const result = pollBatchEnd({timeout});
+      if (result.status === PollingStatus.ERROR) {
+        throw result.error;
+      }
+      if (result.status === PollingStatus.TIMEOUT) {
+        const timeoutMsg = TIMEOUT_MSG(result.timeoutUsed);
+        throw new Error(timeoutMsg);
+      }
+      return result;
     },
 
     putResource: (id, buffer) => {

@@ -9,7 +9,7 @@ const PollingStatus = {
 
 const DEFAULT_TIMEOUT = 120000;
 
-function pollingHandler(doWork, getTimeoutMsg) {
+function pollingHandler(doWork) {
   let timeoutId,
     timeoutUsed,
     pollingStatus = PollingStatus.IDLE,
@@ -48,13 +48,13 @@ function pollingHandler(doWork, getTimeoutMsg) {
 
       case PollingStatus.TIMEOUT:
         pollingStatus = PollingStatus.IDLE;
-        const timeoutMsg = getTimeoutMsg(timeoutUsed);
+        const _timeoutUsed = timeoutUsed;
         timeoutUsed = null;
-        throw new Error(timeoutMsg);
+        return {status: PollingStatus.TIMEOUT, timeoutUsed: _timeoutUsed};
 
       case PollingStatus.ERROR:
         pollingStatus = PollingStatus.IDLE;
-        throw workError;
+        return {status: PollingStatus.ERROR, error: workError};
 
       default:
         throw new Error('Unknown error during cy.eyesClose()');
