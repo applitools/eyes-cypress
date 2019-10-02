@@ -31,6 +31,7 @@
     "index.js",
     "commands.js",
     "eyes-index.d.ts",
+    "index.d.ts",
     "eyes.ts"
   ],
   "engines": {
