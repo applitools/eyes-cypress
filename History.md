@@ -1,4 +1,13 @@
 
+v3.8.7 / 2019-10-02
+===================
+
+* 3.8.7 [[9cddd82](https://github.com/applitools/eyes-cypress/commit/9cddd82bacc879a86b0f613a8254df9b5d39ed98)]
+* added index.d.ts to package.json [[b34b970](https://github.com/applitools/eyes-cypress/commit/b34b970584d38e09eb4c13437d43a65bb978e140)]
+* readme change 2 [[2c23f1e](https://github.com/applitools/eyes-cypress/commit/2c23f1ed13358197c65b6443d25d38ddd149f18e)]
+* readme change [[74ba93f](https://github.com/applitools/eyes-cypress/commit/74ba93ff1cdbc0dd867b57ad659ce5cedf469b39)]
+* changelog [[3419cce](https://github.com/applitools/eyes-cypress/commit/3419cce6285a878cc0a596f0cb1871823b75e9ae)]
+
 v3.8.6 / 2019-09-29
 ===================
 
