@@ -1,4 +1,12 @@
 
+v3.8.8 / 2019-10-10
+===================
+
+* 3.8.8 [[8f5506f](https://github.com/applitools/eyes-cypress/commit/8f5506fd414bb44817ad06cdfd3920210afd506c)]
+* added content regions to eyesCheckWindow [[ef09ed7](https://github.com/applitools/eyes-cypress/commit/ef09ed790086efd6fad2696cf27bfa51426a73f7)]
+* updated vgc to have accessibility to Testresults [[d84769f](https://github.com/applitools/eyes-cypress/commit/d84769f7124bc960958e1acb05b6c863b960452c)]
+* changelog [[0b00a5f](https://github.com/applitools/eyes-cypress/commit/0b00a5fd48bb5bc3680a32d76b8322d46f1f9a1a)]
+
 v3.8.7 / 2019-10-02
 ===================
 
