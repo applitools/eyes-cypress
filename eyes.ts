@@ -251,6 +251,22 @@ namespace Eyes {
       layout?:Region|Selector|(Region|Selector)[]
 
       /**
+       * A single or an array of regions to match as content level.
+       * See: https://help.applitools.com/hc/en-us/articles/360007188591-Match-Levels
+       *
+       * @example
+       * 
+       * cy.eyesCheckWindow({
+       *   content: [
+       *     {top: 100, left: 0, width: 1000, height: 100},
+       *     {selector: '.some-div-to-test-as-content'}
+       *   ]
+       * });
+       * 
+       */
+      content?:Region|Selector|(Region|Selector)[]
+
+      /**
        * A single or an array of regions to match as strict level.
        * See: https://help.applitools.com/hc/en-us/articles/360007188591-Match-Levels
        *

@@ -292,6 +292,18 @@ cy.eyesCheckWindow({ tag: 'Login screen', target: 'your target' })
       ]
     });
     ```
+
+* ##### `content`
+  (optional): A single or an array of regions to match as [content level.](https://help.applitools.com/hc/en-us/articles/360007188591-Match-Levels) For example:
+    ```js
+    cy.eyesCheckWindow({
+      content: [
+        {top: 100, left: 0, width: 1000, height: 100},
+        {selector: '.some-div-to-test-as-content'}
+      ]
+    });
+    ```
+
 <!-- 
 * ##### `accessibility`
   (optional): A single or an array of regions to perform accessibility checks, For example:

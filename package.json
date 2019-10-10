@@ -43,10 +43,10 @@
   },
   "dependencies": {
     "@applitools/dom-snapshot": "^3.0.3",
-    "@applitools/eyes-common": "^3.10.3",
-    "@applitools/eyes-sdk-core": "^5.19.0",
+    "@applitools/eyes-common": "^3.11.2",
+    "@applitools/eyes-sdk-core": "^5.20.2",
     "@applitools/functional-commons": "^1.5.2",
-    "@applitools/visual-grid-client": "^12.34.2",
+    "@applitools/visual-grid-client": "^12.35.1",
     "body-parser": "^1.19.0",
     "chalk": "^2.4.2",
     "cors": "^2.8.5",

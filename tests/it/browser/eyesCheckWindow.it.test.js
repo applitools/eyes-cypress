@@ -37,6 +37,7 @@ describe('eyesCheckWindow', () => {
         ignore: undefined,
         floating: undefined,
         layout: undefined,
+        content: undefined,
         strict: undefined,
         region: undefined,
         scriptHooks: undefined,
@@ -112,6 +113,7 @@ describe('eyesCheckWindow', () => {
     const ignore = 'ignore';
     const floating = 'floating';
     const layout = 'layout';
+    const content = 'content';
     const strict = 'strict';
     const sendDom = 'sendDom';
     const useDom = 'useDom';
@@ -131,6 +133,7 @@ describe('eyesCheckWindow', () => {
       ignore,
       floating,
       layout,
+      content,
       strict,
       sendDom,
       useDom,
@@ -158,6 +161,7 @@ describe('eyesCheckWindow', () => {
         ignore,
         floating,
         layout,
+        content,
         strict,
         sendDom,
         saveCdt: undefined,
@@ -266,6 +270,7 @@ describe('eyesCheckWindow', () => {
         ignore: undefined,
         floating: undefined,
         layout: undefined,
+        content: undefined,
         strict: undefined,
         sendDom: undefined,
         saveCdt: undefined,
@@ -351,6 +356,7 @@ describe('eyesCheckWindow', () => {
         ignore: undefined,
         floating: undefined,
         layout: undefined,
+        content: undefined,
         strict: undefined,
         sendDom: undefined,
         saveCdt: undefined,

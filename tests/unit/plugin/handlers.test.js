@@ -97,6 +97,7 @@ describe('handlers', () => {
     const ignore = 'ignore';
     const floating = 'floating';
     const layout = 'layout';
+    const content = 'content';
     const strict = 'strict';
     const sendDom = 'sendDom';
     const useDom = 'useDom';
@@ -121,6 +122,7 @@ describe('handlers', () => {
       ignore,
       floating,
       layout,
+      content,
       strict,
       sendDom,
       useDom,
@@ -147,6 +149,7 @@ describe('handlers', () => {
       ignore,
       floating,
       layout,
+      content,
       strict,
       sendDom,
       useDom,
@@ -245,6 +248,7 @@ describe('handlers', () => {
       ignore: undefined,
       floating: undefined,
       layout: undefined,
+      content: undefined,
       strict: undefined,
       sendDom: undefined,
       useDom: undefined,

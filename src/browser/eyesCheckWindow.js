@@ -14,6 +14,7 @@ function makeEyesCheckWindow({sendRequest, processPage, win = window}) {
       ignore,
       floating,
       layout,
+      content,
       strict,
       sendDom,
       saveCdt,
@@ -36,6 +37,7 @@ function makeEyesCheckWindow({sendRequest, processPage, win = window}) {
       floating = args.floating;
       layout = args.layout;
       strict = args.strict;
+      content = args.content;
       sendDom = args.sendDom;
       useDom = args.useDom;
       enablePatterns = args.enablePatterns;
@@ -66,6 +68,7 @@ function makeEyesCheckWindow({sendRequest, processPage, win = window}) {
             ignore,
             floating,
             layout,
+            content,
             strict,
             frames,
             sendDom,
