@@ -1,5 +1,5 @@
 /// <reference types="Cypress" />
-/// <reference path="eyes.ts" />
+/// <reference types="@applitools/visual-grid-client" />
 
 declare namespace Cypress {
     interface Chainable {
@@ -13,7 +13,7 @@ declare namespace Cypress {
 
       /**
        * Generate a screenshot of the current page and add it to the Applitools Test.
-       * @example 
+       * @example
        * cy.eyesCheckWindow()
        *
        * OR
