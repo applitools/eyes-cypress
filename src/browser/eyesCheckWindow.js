@@ -17,7 +17,6 @@ function makeEyesCheckWindow({sendRequest, processPage, win = window}) {
       content,
       strict,
       sendDom,
-      saveCdt,
       useDom,
       enablePatterns,
       ignoreDisplacements,
@@ -42,7 +41,6 @@ function makeEyesCheckWindow({sendRequest, processPage, win = window}) {
       useDom = args.useDom;
       enablePatterns = args.enablePatterns;
       ignoreDisplacements = args.ignoreDisplacements;
-      saveCdt = args.saveCdt || undefined;
       accessibilityLevel = args.accessibilityLevel;
       accessibility = args.accessibility;
     }
@@ -72,7 +70,6 @@ function makeEyesCheckWindow({sendRequest, processPage, win = window}) {
             strict,
             frames,
             sendDom,
-            saveCdt,
             useDom,
             enablePatterns,
             ignoreDisplacements,

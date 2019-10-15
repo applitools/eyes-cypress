@@ -9,7 +9,7 @@ declare namespace Cypress {
        * @example 
        * cy.eyesOpen({ appName: 'My App' })
       */
-      eyesOpen(options?: Eyes.Open.Options): null
+      eyesOpen(options?: Eyes.Open.Options): null // add isDisabled
 
       /**
        * Generate a screenshot of the current page and add it to the Applitools Test.

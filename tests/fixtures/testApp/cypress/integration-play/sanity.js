@@ -42,7 +42,6 @@ describe('Sanity', () => {
 
       cy.eyesCheckWindow({
         tag: 'Sanity Load',
-        saveCdt: false,
       });
 
       cy.eyesClose();
