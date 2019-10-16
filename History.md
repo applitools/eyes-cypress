@@ -1,4 +1,18 @@
 
+v3.8.10 / 2019-10-16
+====================
+
+* 3.8.10 [[bb5ecd5](https://github.com/applitools/eyes-cypress/commit/bb5ecd5363ce74d167eda0c694dde458eeb3ef74)]
+* now using only one ts defenitio file [[1d8ada6](https://github.com/applitools/eyes-cypress/commit/1d8ada66d04b31b25036dde524427ef60a530e19)]
+* removed saveCdt property (we have DEBUG_SAVE=1) [[9cf2bd6](https://github.com/applitools/eyes-cypress/commit/9cf2bd65e48078552efb509921fb3c555be2deb1)]
+
+v3.8.9 / 2019-10-15
+===================
+
+* 3.8.9 [[7ac58f1](https://github.com/applitools/eyes-cypress/commit/7ac58f12fffd002bab169dbd705a78d6f7b853a1)]
+* using vgc ts defenition file [[260dd80](https://github.com/applitools/eyes-cypress/commit/260dd80802de18b31d96a08dd008119348cf698e)]
+* changelog [[287d90a](https://github.com/applitools/eyes-cypress/commit/287d90a2f0b67e5f2e1c473ae6999abe527dce14)]
+
 v3.8.8 / 2019-10-10
 ===================
 
