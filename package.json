@@ -14,9 +14,8 @@
     "test:e2e": "mocha --no-timeouts 'tests/e2e/**/*.test.js'",
     "eslint": "eslint '**/*.js'",
     "test": "npm run test:mocha && npm run eslint && npm run msg:success || npm run msg:failure",
-    "msg:success": "notify -t 'Cypress tests Passed !!' -m 'life`s amazeballs !!!'",
-    "msg:failure": "notify -t 'Cypress tests Failed !!' -m 'Life`s a bitch !!!'",
-    "build": "#",
+    "msg:success": "notify -t 'Cypress tests Passed !!' -m 'Yaaaaaa !!!'",
+    "msg:failure": "notify -t 'Cypress tests Failed !!' -m 'Daaaamm !!!'",
     "cypress": "cd tests/fixtures/testApp && cypress open --config integrationFolder=cypress/integration-play,pluginsFile=cypress/plugins/index-play.js,supportFile=cypress/support/index-run.js",
     "cypress:run": "cd tests/fixtures/testApp && cypress run --config integrationFolder=cypress/integration-run,pluginsFile=cypress/plugins/index-run.js,supportFile=cypress/support/index-run.js",
     "cypress:play": "cd tests/fixtures/testApp && cypress run --config integrationFolder=cypress/integration-play,pluginsFile=cypress/plugins/index-play.js,supportFile=cypress/support/index-run.js --spec=cypress/integration-play/play.js",
@@ -30,10 +29,9 @@
     "bin",
     "index.js",
     "commands.js",
-    "eyes-index.d.ts",
-    "index.d.ts",
-    "eyes.ts"
+    "eyes-index.d.ts"
   ],
+  "types": "./eyes-index.d.ts",
   "engines": {
     "node": ">=8.0.0"
   },

@@ -58,13 +58,13 @@ Add this file to your project with either:
 1. Adding the path to your [tsconfig](https://www.typescriptlang.org/docs/handbook/tsconfig-json.html) file:
     ```
     {
-      "files": ["./node_modules/@applitools/eyes-cypress/index.d.ts"],
+      "files": ["./node_modules/@applitools/eyes-cypress/eyes-index.d.ts"],
       ...
     }
     ```
   2. Copying the file to to your [cypress/support/](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests.html#Folder-Structure) dir:
       ```
-      cp node_modules/@applitools/eyes-cypress/index.d.ts ./cypress/support/eyes-index.d.ts    
+      cp node_modules/@applitools/eyes-cypress/eyes-index.d.ts ./cypress/support/    
       ```
 
 
@@ -549,7 +549,7 @@ The simplest way to see IntelliSense when typing an Eyes-Cypress command is to a
 
 ### 2. Reference type declarations via `tsconfig`
 
-Adding a [tsconfig.json](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html) inside your cypress [folder](https://docs.cypress.io/guides/core-concepts/writing-and-organizing-tests.html#Folder-Structure) with the following configuration should get intelligent code completion working on all your test files:
+Adding a [tsconfig.json](http://www.typescriptlang.org/docs/handbook/tsconfig-json.html) inside your cypress folder containing the following configuration should get intelligent code completion working on all your test files:
 ```
 {
   "compilerOptions": {
