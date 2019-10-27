@@ -1,4 +1,11 @@
 
+v3.8.11 / 2019-10-27
+====================
+
+* 3.8.11 [[060d45b](https://github.com/applitools/eyes-cypress/commit/060d45bb4031283bc2c21e4d798e9bb0250f790e)]
+* updated ds to duck type css rules [[9c12d19](https://github.com/applitools/eyes-cypress/commit/9c12d19068cc899f88b5da701c9cac414f4951f4)]
+* changelog [[07ad6e0](https://github.com/applitools/eyes-cypress/commit/07ad6e0af86d41b82be9b49cf4eeb89952fd070b)]
+
 v3.8.10 / 2019-10-16
 ====================
 
