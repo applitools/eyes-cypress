@@ -1,19 +1,16 @@
-/* global describe, it, cy */
+/* global describe, it, cy, Cypress */
+Cypress.on('uncaught:exception', () => {});
 
-// Cypress.on('uncaught:exception', () => {});
-
-describe('product-page-applitools', () => {
-  it('Abra 44 a', () => {
-    cy.visit('https://applitools.com/helloworld', {
+describe('Play Cypress', () => {
+  it('Play Cypress', () => {
+    cy.visit('https://wix.com', {
       failOnStatusCode: false,
     });
-    cy.wait(1000);
     cy.eyesOpen({
-      appName: 'product-page-applitools',
+      appName: 'Play Cypress',
     });
-    cy.wait(1000);
     cy.eyesCheckWindow({
-      tag: 'Abra pendant',
+      tag: 'Play Cypress',
     });
     cy.eyesClose();
   });
