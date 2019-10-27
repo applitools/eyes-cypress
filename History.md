@@ -1,4 +1,11 @@
 
+v3.8.13 / 2019-10-27
+====================
+
+* 3.8.13 [[5dfa7c4](https://github.com/applitools/eyes-cypress/commit/5dfa7c4716cade78aad9247d9f2b18e812c7040e)]
+* updated ds to map value from all input types [[731cc47](https://github.com/applitools/eyes-cypress/commit/731cc47aa8b60ce963687f87a275e6112cf0b3f7)]
+* changelog [[f1953dc](https://github.com/applitools/eyes-cypress/commit/f1953dce456c785fd302ed99d65d01d14b3534b3)]
+
 v3.8.12 / 2019-10-27
 ====================
 
