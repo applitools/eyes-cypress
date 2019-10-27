@@ -1,4 +1,11 @@
 
+v3.8.12 / 2019-10-27
+====================
+
+* 3.8.12 [[e9449a5](https://github.com/applitools/eyes-cypress/commit/e9449a583b3670556466fa00b44505cbbaa29836)]
+* updated vgc to not parse blobs [[03cf8c5](https://github.com/applitools/eyes-cypress/commit/03cf8c506be10f997325548ff080f78c95795eb8)]
+* changelog [[e1176c3](https://github.com/applitools/eyes-cypress/commit/e1176c3122db51dfab91f96c63770ee3e9027b77)]
+
 v3.8.11 / 2019-10-27
 ====================
 
