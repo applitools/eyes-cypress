@@ -1,4 +1,11 @@
 
+v3.8.14 / 2019-10-30
+====================
+
+* 3.8.14 [[b1f08be](https://github.com/applitools/eyes-cypress/commit/b1f08be044dfe3482296743e8eef46f67b4dd408)]
+* updated ds to support js select values [[3a0ce39](https://github.com/applitools/eyes-cypress/commit/3a0ce39368faa8eb83783a103951b40c3d49863c)]
+* changelog [[b870c26](https://github.com/applitools/eyes-cypress/commit/b870c26e5d70185298c28376db6fbf4251ba5328)]
+
 v3.8.13 / 2019-10-27
 ====================
 
