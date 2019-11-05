@@ -1,4 +1,26 @@
 
+v3.8.18 / 2019-11-05
+====================
+
+* 3.8.18 [[4524ecc](https://github.com/applitools/eyes-cypress/commit/4524ecc89bf5cbe41f681a7aa3a65bbb37074e47)]
+
+v3.8.17 / 2019-11-05
+====================
+
+* 3.8.17 [[2869b3e](https://github.com/applitools/eyes-cypress/commit/2869b3e05057bf14db0f08d09ba20a4446cfa9eb)]
+
+v3.8.16 / 2019-11-05
+====================
+
+* 3.8.16 [[b940b00](https://github.com/applitools/eyes-cypress/commit/b940b0041de51a0fcac5ffd0bedea670692bb7a2)]
+
+v3.8.15 / 2019-11-05
+====================
+
+* 3.8.15 [[b0c974e](https://github.com/applitools/eyes-cypress/commit/b0c974e9db012025122745713fb51cb41f493b0c)]
+* updated ds to support textarea value accessors [[50d1b61](https://github.com/applitools/eyes-cypress/commit/50d1b61e4b76692e272771c5413f1890826c998d)]
+* changelog [[9e726f5](https://github.com/applitools/eyes-cypress/commit/9e726f5ce98c3fde08e436e4d12b09c79a6f1ff8)]
+
 v3.8.14 / 2019-10-30
 ====================
 
