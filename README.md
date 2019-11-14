@@ -9,7 +9,7 @@ Applitools Eyes SDK for [Cypress](https://www.cypress.io/).
 Install Eyes-Cypress as a local dev dependency in your tested project:
 
 ```bash
-npm install --save-dev @applitools/eyes-cypress
+npm i -D @applitools/eyes-cypress
 ```
 
 ### Configure plugin and commands
@@ -152,6 +152,41 @@ describe('Hello world', () => {
 Applitools will take screenshots and perform the visual comparisons in the background. Performance of the tests will not be affected during the test run, but there will be a small phase at the end of the test run that waits for visual tests to end.
 
 **Note**: In Cypress interactive mode (`cypress open`) there is a bug that exceptions in root level `after` statements don't appear in the UI. They still appear in the browser's console, and considered failures in `cypress run`. See [this issue](https://github.com/cypress-io/cypress/issues/2296) for more information and tracking.
+
+### Index
+- [Commands](###Commands)
+  - [Open](####Open)
+  - [CheckWindow](####Check-window)
+    - [tag](#####`tag`)
+    - [target](#####`target`)
+    - [fully](#####`fully`)
+    - [selector](#####`selector`)
+    - [region](#####`region`)
+    - [ignore](#####`ignore`)
+    - [floating](#####`floating`)
+    - [layout](#####`layout`)
+    - [strict](#####`strict`)
+    - [content](#####`content`)
+    - [accessibility](#####`accessibility`)
+    - [accessibilityLevel](#####`accessibilityLevel`)
+    - [scriptHooks](#####`scriptHooks`)
+    - [sendDom](#####`sendDom`)
+  - [Close](#####Close`)
+- [Concurrency](##Concurrency`)
+- [Advanced configuration](##Advanced-configuration`)
+  - [Scoped configuration](###Here-are-the-available-configuration-properties)
+  - [Global configuration](###-global-configuration-properties)
+  - [Examples](###-Method-1:-Arguments-for-`cy.eyesOpen`)
+    - [Arguments for `cy.eyesOpen`](###-Method-1:-Arguments-for-`cy.eyesOpen`)
+    - [Environment variables](###-Method-2:-Environment-variables)
+    - [The `applitools.config.js` file](###-Method-3:-The-`applitools.config.js`-file)
+- [Configuring the browser](##-Configuring-the-browser)
+  - [Device emulation](###-Device-emulation)
+- [Tests timeout](##-Setting-a-timeout)
+- [IDE Code Completion](##-Intelligent-Code-Completion)
+  - [Triple slash directives](###-1-Triple-slash-directives)
+  - [Reference type declarations via `tsconfig`](###-2-Reference-type-declarations-via-`tsconfig`)
+- [Troubleshooting](##-Troubleshooting)
 
 ### Commands
 
@@ -374,7 +409,7 @@ There are 3 ways to specify test configuration:
 
 The list above is also the order of precedence, which means that if you pass a property to `cy.eyesOpen` it will override the environment variable, and the environment variable will override the value defined in the `applitools.config.js` file.
 
-Here are the available configuration properties:
+### Here are the available configuration properties:
 
 | Property name             | Default value               | Description   |
 | -------------             |:-------------               |:-----------   |
@@ -398,6 +433,8 @@ Here are the available configuration properties:
 | `accessibilityLevel` | None | The accessibility level to use for the screenshots. Possible values are `None`, `AA` and `AAA`. |
 | `notifyOnCompletion`  | false | If `true` batch completion notifications are sent. |
 
+
+### global configuration properties:
 
 The following configuration properties cannot be defined using the first method of passing them to `cy.eyesOpen`. They should be defined either in the `applitools.config.js` file or as environment variables.
 
