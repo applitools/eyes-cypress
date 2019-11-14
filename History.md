@@ -1,4 +1,12 @@
 
+v3.8.19 / 2019-11-14
+====================
+
+* 3.8.19 [[7dce6c3](https://github.com/applitools/eyes-cypress/commit/7dce6c3773cc76c0c89d3bcf4501aae07e3273b2)]
+* updated vgc [[35c2fd4](https://github.com/applitools/eyes-cypress/commit/35c2fd4130eeb43fa27b415a6b0fb5d6b1c9243a)]
+* better setup process and typescript file path search. [[fee891a](https://github.com/applitools/eyes-cypress/commit/fee891a8bae53409d505f6411c296a059621af37)]
+* changelog [[d942cdd](https://github.com/applitools/eyes-cypress/commit/d942cdd921a36a539f81d9af35424b2765d0f691)]
+
 v3.8.18 / 2019-11-05
 ====================
 
