@@ -177,7 +177,7 @@ Applitools will take screenshots and perform the visual comparisons in the backg
   - [Scoped configuration](#Here-are-the-available-configuration-properties)
   - [Global configuration](#global-configuration-properties)
   - [Examples](#Method-1-Arguments-for-cy.eyesOpen)
-    - [Arguments for `cy.eyesOpen`](#Method-1-Arguments-for-cy.eyesOpen)
+    - [Arguments for `cy.eyesOpen`](#Method-1-Arguments-for-`cy.eyesOpen`)
     - [Environment variables](#Method-2-Environment-variables)
     - [The `applitools.config.js` file](#Method-3-The-applitools.config.js-file)
 - [Configuring the browser](#Configuring-the-browser)
@@ -434,7 +434,7 @@ The list above is also the order of precedence, which means that if you pass a p
 | `notifyOnCompletion`  | false | If `true` batch completion notifications are sent. |
 
 
-### global configuration properties:
+### Global configuration properties:
 
 The following configuration properties cannot be defined using the first method of passing them to `cy.eyesOpen`. They should be defined either in the `applitools.config.js` file or as environment variables.
 
