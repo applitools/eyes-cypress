@@ -14,7 +14,9 @@ function handlePlugin(cwd) {
 
   if (!isPluginDefined(pluginsFileContent)) {
     writeFileSync(pluginsFilePath, addEyesCypressPlugin(pluginsFileContent));
-    console.log(chalk.cyan('Plugins set'));
+    console.log(chalk.cyan('Plugins defined.'));
+  } else {
+    console.log(chalk.cyan('Plugins already defined'));
   }
 }
 

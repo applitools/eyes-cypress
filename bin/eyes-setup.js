@@ -10,8 +10,12 @@ const cwd = process.cwd();
 
 console.log(chalk.cyan('Setup eyes-cypress', version));
 
-handlePlugin(cwd);
-handleCommands(cwd);
-handleTypeScript(cwd);
+try {
+  handlePlugin(cwd);
+  handleCommands(cwd);
+  handleTypeScript(cwd);
+} catch (e) {
+  console.log(chalk.red('Setup error:\n', e));
+}
 
 console.log(chalk.cyan('Setup done!'));

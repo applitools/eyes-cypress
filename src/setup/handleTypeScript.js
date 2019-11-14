@@ -11,7 +11,9 @@ function handleTypeScript(cwd) {
 
   if (!existsSync(typeScriptFilePath)) {
     writeFileSync(typeScriptFilePath, eyesIndexContent);
-    console.log(chalk.cyan('Typescript set'));
+    console.log(chalk.cyan('Typescript defined.'));
+  } else {
+    console.log(chalk.cyan('Typescript already defined.'));
   }
 }
 

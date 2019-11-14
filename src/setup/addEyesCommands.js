@@ -4,7 +4,7 @@ const commandsImport = `\nimport '@applitools/eyes-cypress/commands'\n`;
 const oldName = `eyes.cypress`;
 
 function shouldSkipLine(line) {
-  return line.trim() === '' || /^\s*['"]use strict/.test(line) || /^\s*\/\//.test(line);
+  return line && (line.trim() === '' || /^\s*['"]use strict/.test(line) || /^\s*\/\//.test(line));
 }
 
 function addEyesCommands(content) {
