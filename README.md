@@ -176,7 +176,7 @@ Applitools will take screenshots and perform the visual comparisons in the backg
 - [Advanced configuration](#Advanced-configuration)
   - [Scoped configuration](#Here-are-the-available-configuration-properties)
   - [Global configuration](#global-configuration-properties)
-  - [Examples](#Method-1-Arguments-for-cy.eyesOpen)
+  - [Examples](#Method-1-Arguments-for-cyeyesOpen)
     - [Arguments for `cy.eyesOpen`](#Method-1-Arguments-for-cyeyesOpen)
     - [Environment variables](#Method-2-Environment-variables)
     - [The `applitools.config.js` file](#Method-3-The-applitoolsconfigjs-file)
