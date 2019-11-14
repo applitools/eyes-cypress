@@ -1,6 +1,6 @@
 'use strict';
 
-const {resolve, join, dirname, sep} = require('path');
+const {resolve, join, dirname} = require('path');
 
 function getFilePath(type, cypressConfig, cwd) {
   let filePath = {
@@ -8,14 +8,13 @@ function getFilePath(type, cypressConfig, cwd) {
     support: join('cypress', 'support', 'index.js'),
     typeScript: join('cypress', 'support', 'eyes-index.d.ts'),
   }[type];
-  filePath = (cypressConfig && cypressConfig[`${type}File`]) || filePath;
 
   if (type === 'typeScript' && cypressConfig && cypressConfig[`supportFile`]) {
-    const supportDir = dirname(cypressConfig[`supportFile`])
-      .split(sep)
-      .pop();
+    const supportDir = dirname(cypressConfig[`supportFile`]);
     filePath = resolve(supportDir, 'eyes-index.d.ts');
   }
+
+  filePath = (cypressConfig && cypressConfig[`${type}File`]) || filePath;
 
   return resolve(cwd, filePath);
 }

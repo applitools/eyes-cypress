@@ -21,7 +21,10 @@ describe('poll', () => {
     const func = async () => {
       throw new Error('some error');
     };
-    const result = await poll(func)().then(x => x, err => err);
+    const result = await poll(func)().then(
+      x => x,
+      err => err,
+    );
     expect(result).to.be.an.instanceof(Error);
     expect(result.message).to.equal('some error');
   });
@@ -37,7 +40,10 @@ describe('poll', () => {
       throw new Error('some error');
     };
 
-    const result = await poll(func)().then(x => x, err => err);
+    const result = await poll(func)().then(
+      x => x,
+      err => err,
+    );
     expect(result).to.be.an.instanceof(Error);
     expect(result.message).to.equal('some error');
   });

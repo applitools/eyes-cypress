@@ -2,10 +2,11 @@
 
 const {describe, it, before, after} = require('mocha');
 const {expect} = require('chai');
-const {readFileSync, writeFileSync} = require('fs');
+const {readFileSync, writeFileSync, unlinkSync} = require('fs');
 const {resolve} = require('path');
 const {pluginRequire} = require('../../../src/setup/addEyesCypressPlugin');
 const {commandsImport} = require('../../../src/setup/addEyesCommands');
+const {eyesIndexContent} = require('../../../src/setup/handleTypeScript');
 
 describe('eyes-setup script', () => {
   let cwd;
@@ -16,9 +17,14 @@ describe('eyes-setup script', () => {
   const supportFilePath = resolve(fixturesPath, 'cypress/support/index-bla-commands.js');
   const origSupportFileContent = readFileSync(supportFilePath).toString();
 
+  const typescriptFilePath = resolve(fixturesPath, 'cypress/support/eyes-index.d.ts');
+
   before(() => {
     cwd = process.cwd();
     process.chdir(fixturesPath);
+    try {
+      unlinkSync(typescriptFilePath);
+    } catch (e) {}
   });
 
   after(() => {
@@ -36,9 +42,11 @@ describe('eyes-setup script', () => {
 
     expect(readFileSync(supportFilePath).toString()).to.equal(
       origSupportFileContent.replace(
-        "import './commands'",
-        `${commandsImport}\nimport './commands'`,
+        '\n// Import commands.js using ES2015 syntax:',
+        `${commandsImport}\n\n// Import commands.js using ES2015 syntax:`,
       ),
     );
+
+    expect(readFileSync(typescriptFilePath).toString()).to.equal(eyesIndexContent);
   });
 });

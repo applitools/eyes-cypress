@@ -34,7 +34,10 @@ describe('handleCypressViewport', () => {
   });
 
   it('does not set viewport if there are more than 1 viewports', () => {
-    handleCypressViewport([{height: 10, width: 20}, {height: 10, width: 20}]);
+    handleCypressViewport([
+      {height: 10, width: 20},
+      {height: 10, width: 20},
+    ]);
     expect(_height).to.eql(undefined);
     expect(_width).to.eql(undefined);
   });

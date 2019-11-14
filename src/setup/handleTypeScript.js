@@ -3,11 +3,11 @@ const chalk = require('chalk');
 const {writeFileSync, existsSync} = require('fs');
 const getFilePath = require('./getFilePath');
 const getCypressConfig = require('./getCypressConfig');
+const eyesIndexContent = `import "@applitools/eyes-cypress"`;
 
 function handleTypeScript(cwd) {
   const cypressConfig = getCypressConfig(cwd);
   const typeScriptFilePath = getFilePath('typeScript', cypressConfig, cwd);
-  const eyesIndexContent = `import "@applitools/eyes-cypress"`;
 
   if (!existsSync(typeScriptFilePath)) {
     writeFileSync(typeScriptFilePath, eyesIndexContent);
@@ -18,3 +18,4 @@ function handleTypeScript(cwd) {
 }
 
 module.exports = handleTypeScript;
+module.exports.eyesIndexContent = eyesIndexContent;

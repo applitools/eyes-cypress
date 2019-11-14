@@ -1,1 +1,1 @@
-import "@applitools/eyes-cypress/eyes-index"
+import "@applitools/eyes-cypress"

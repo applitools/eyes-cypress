@@ -31,7 +31,10 @@ describe('eyesCheckWindow', () => {
         url,
         cdt,
         resourceUrls,
-        blobData: [{url: 'blobUrl1', type: 'blobType1'}, {url: 'blobUrl2', type: 'blobType2'}],
+        blobData: [
+          {url: 'blobUrl1', type: 'blobType1'},
+          {url: 'blobUrl2', type: 'blobType2'},
+        ],
         frames,
         tag,
         ignore: undefined,
@@ -148,7 +151,10 @@ describe('eyesCheckWindow', () => {
         url,
         cdt,
         resourceUrls,
-        blobData: [{url: 'blobUrl1', type: 'blobType1'}, {url: 'blobUrl2', type: 'blobType2'}],
+        blobData: [
+          {url: 'blobUrl1', type: 'blobType1'},
+          {url: 'blobUrl2', type: 'blobType2'},
+        ],
         frames,
         tag,
         sizeMode,
@@ -242,7 +248,10 @@ describe('eyesCheckWindow', () => {
           {
             url: 'url1',
             resourceUrls: [],
-            blobData: [{url: 'blobUrl1', type: 'blobType1'}, {url: 'blobUrl2', type: 'blobType2'}],
+            blobData: [
+              {url: 'blobUrl1', type: 'blobType1'},
+              {url: 'blobUrl2', type: 'blobType2'},
+            ],
             cdt: 'cdt1',
             frames: [
               {

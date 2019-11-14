@@ -45,7 +45,10 @@ describe('waitForBatch', () => {
 
   it('throws error with digest when found errors', async () => {
     const runningTests = ['failed:bla', 'diffs', 'passed'];
-    const msg = await waitForBatch(runningTests).then(() => 'ok', err => err.message);
+    const msg = await waitForBatch(runningTests).then(
+      () => 'ok',
+      err => err.message,
+    );
     expect(msg).to.equal('passed::bla##diffs');
   });
 

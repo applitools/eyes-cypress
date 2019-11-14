@@ -48,9 +48,19 @@ describe('handlers', () => {
 
   it('throws when calling "checkWindow" before "open"', async () => {
     handlers.batchStart();
-    expect(await handlers.checkWindow({}).then(x => x, err => err)).to.be.an.instanceof(Error);
+    expect(
+      await handlers.checkWindow({}).then(
+        x => x,
+        err => err,
+      ),
+    ).to.be.an.instanceof(Error);
     await openAndClose();
-    expect(await handlers.checkWindow({}).then(x => x, err => err)).to.be.an.instanceof(Error);
+    expect(
+      await handlers.checkWindow({}).then(
+        x => x,
+        err => err,
+      ),
+    ).to.be.an.instanceof(Error);
 
     handlers = handlers = makeHandlers({
       makeVisualGridClient: () => ({
@@ -58,16 +68,36 @@ describe('handlers', () => {
       }),
     });
     handlers.batchStart();
-    expect(await handlers.checkWindow({}).then(x => x, err => err)).to.be.an.instanceof(Error);
+    expect(
+      await handlers.checkWindow({}).then(
+        x => x,
+        err => err,
+      ),
+    ).to.be.an.instanceof(Error);
     await openAndClose();
-    expect(await handlers.checkWindow({}).then(x => x, err => err)).to.be.an.instanceof(Error);
+    expect(
+      await handlers.checkWindow({}).then(
+        x => x,
+        err => err,
+      ),
+    ).to.be.an.instanceof(Error);
   });
 
   it('throws when calling "close" before "open"', async () => {
     handlers.batchStart();
-    expect(await handlers.close().then(x => x, err => err)).to.be.an.instanceof(Error);
+    expect(
+      await handlers.close().then(
+        x => x,
+        err => err,
+      ),
+    ).to.be.an.instanceof(Error);
     await openAndClose();
-    expect(await handlers.close().then(x => x, err => err)).to.be.an.instanceof(Error);
+    expect(
+      await handlers.close().then(
+        x => x,
+        err => err,
+      ),
+    ).to.be.an.instanceof(Error);
 
     handlers = makeHandlers({
       makeVisualGridClient: () => ({
@@ -75,9 +105,19 @@ describe('handlers', () => {
       }),
     });
     handlers.batchStart();
-    expect(await handlers.close().then(x => x, err => err)).to.be.an.instanceof(Error);
+    expect(
+      await handlers.close().then(
+        x => x,
+        err => err,
+      ),
+    ).to.be.an.instanceof(Error);
     await openAndClose();
-    expect(await handlers.close().then(x => x, err => err)).to.be.an.instanceof(Error);
+    expect(
+      await handlers.close().then(
+        x => x,
+        err => err,
+      ),
+    ).to.be.an.instanceof(Error);
   });
 
   it('handles "checkWindow"', async () => {
@@ -274,9 +314,15 @@ describe('handlers', () => {
     expect(actualResourceContents).to.eql(expectedResourceContents);
     await handlers.close();
 
-    const err = await handlers.checkWindow({blobData}).then(x => x, err => err);
+    const err = await handlers.checkWindow({blobData}).then(
+      x => x,
+      err => err,
+    );
     expect(err).to.be.an.instanceOf(Error);
-    const err2 = await handlers.close().then(x => x, err => err);
+    const err2 = await handlers.close().then(
+      x => x,
+      err => err,
+    );
     expect(err2).to.be.an.instanceOf(Error);
     await handlers.open({__test: 123});
     const {resourceContents: emptyResourceContents} = await handlers.checkWindow({blobData});
@@ -369,7 +415,10 @@ describe('handlers', () => {
     await psetTimeout(0);
 
     // ERROR (unexpected) ==> IDLE
-    result = await handlers.batchEnd().then(x => x, err => err);
+    result = await handlers.batchEnd().then(
+      x => x,
+      err => err,
+    );
     expect(result).to.be.an.instanceof(Error);
     expect(result.message).to.equal('passed::bla##');
 
@@ -382,7 +431,10 @@ describe('handlers', () => {
     await psetTimeout(100);
 
     // TIMEOUT ==> IDLE
-    result = await handlers.batchEnd().then(x => x, err => err);
+    result = await handlers.batchEnd().then(
+      x => x,
+      err => err,
+    );
     expect(result).to.be.an.instanceof(Error);
     expect(result.message).to.equal(TIMEOUT_MSG(50));
 
@@ -391,7 +443,10 @@ describe('handlers', () => {
     await psetTimeout(0);
 
     // DONE ==> IDLE
-    result = await handlers.batchEnd().then(x => x, err => err);
+    result = await handlers.batchEnd().then(
+      x => x,
+      err => err,
+    );
     expect(result).to.be.an.instanceof(Error);
     expect(result.message).to.equal('passed::bla##');
 
@@ -405,7 +460,10 @@ describe('handlers', () => {
     await psetTimeout(0);
 
     // ERROR ==> IDLE
-    result = await handlers.batchEnd().then(x => x, err => err);
+    result = await handlers.batchEnd().then(
+      x => x,
+      err => err,
+    );
     expect(result).to.be.an.instanceof(Error);
     expect(result.message).to.equal('passed,passed::bla,bla##diffs');
   });
@@ -420,7 +478,10 @@ describe('handlers', () => {
     });
     handlers.batchStart();
     await handlers.open().catch(x => x);
-    const err = await handlers.close().then(x => x, err => err);
+    const err = await handlers.close().then(
+      x => x,
+      err => err,
+    );
     expect(err).to.equal(undefined);
   });
 });

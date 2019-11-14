@@ -5,7 +5,10 @@ function poll(doWork) {
       if (result.status === 'WIP' || result.status === 'IDLE') {
         return new Promise((resolve, reject) => {
           setTimeout(() => {
-            doPoll(args).then(results => resolve(results), err => reject(err));
+            doPoll(args).then(
+              results => resolve(results),
+              err => reject(err),
+            );
           }, 1000);
         });
       } else if (result.status === 'DONE') {
