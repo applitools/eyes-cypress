@@ -304,7 +304,6 @@ cy.eyesCheckWindow({ tag: 'Login screen', target: 'your target' })
     });
     ```
 
-<!-- 
 * ##### `accessibility`
   (optional): A single or an array of regions to perform accessibility checks, For example:
 
@@ -325,7 +324,7 @@ cy.eyesCheckWindow({ tag: 'Login screen', target: 'your target' })
 
     ```js
     cy.eyesCheckWindow({accessibilityLevel: 'AA'})
-    ``` -->
+    ```
 
 * ##### `scriptHooks`
   (optional): A set of scripts to be run by the browser during the rendering. It is intended to be used as a means to alter the page's state and structure at the time of rendering.
@@ -396,9 +395,8 @@ Here are the available configuration properties:
 | `properties`              | undefined                   | Custom properties for the eyes test. The format is an array of objects with name/value properties. For example: `[{name: 'My prop', value:'My value'}]`. |
 | `compareWithParentBranch` | false                       |  |
 | `ignoreBaseline`          | false                       |  |
-
-<!-- | `accessibilityLevel` | None | The accessibility level to use for the screenshots. Possible values are `None`, `AA` and `AAA`. |
-| `notifyOnCompletion`  | false | If `true` batch completion notifications are sent. | -->
+| `accessibilityLevel` | None | The accessibility level to use for the screenshots. Possible values are `None`, `AA` and `AAA`. |
+| `notifyOnCompletion`  | false | If `true` batch completion notifications are sent. |
 
 
 The following configuration properties cannot be defined using the first method of passing them to `cy.eyesOpen`. They should be defined either in the `applitools.config.js` file or as environment variables.
@@ -413,8 +411,7 @@ The following configuration properties cannot be defined using the first method 
 | `failCypressOnDiff`       | true                        | If true, then the Cypress test fails if an eyes visual test fails. If false and an eyes test fails, then the Cypress test does not fail. 
 | `tapDirPath`              | undefined                   | Directory path of a results file. If set, then a [TAP](https://en.wikipedia.org/wiki/Test_Anything_Protocol#Specification) file is created in this directory, the tap file name is created with the name [ISO-DATE](https://en.wikipedia.org/wiki/ISO_8601)\-eyes.tap and contains the Eyes test results (Note that because of a current Cypress [limitation](https://github.com/cypress-io/cypress-documentation/issues/818) the results are scoped per spec file, this means that the results file is created once for each spec file).|
 | `concurrency`             | 1                           | The maximum number of tests that can run concurrently. The default value is the allowed amount for free accounts. For paid accounts, set this number to the quota set for your account. |
-
-<!-- |`dontCloseBatches`| false | If true, batches are not closed for  [notifyOnCompletion](#advanced-configuration).| -->
+|`dontCloseBatches`| false | If true, batches are not closed for  [notifyOnCompletion](#advanced-configuration).|
 
 
 ### Method 1: Arguments for `cy.eyesOpen`
@@ -456,9 +453,9 @@ APPLITOOLS_COMPARE_WITH_PARENT_BRANCH
 APPLITOOLS_IGNORE_BASELINE
 APPLITOOLS_SERVER_URL
 APPLITOOLS_PROXY
+APPLITOOLS_ACCESSIBILITY_LEVEL
+APPLITOOLS_NOTIFY_ON_COMPLETION
 ```
-<!-- APPLITOOLS_ACCESSIBILITY_LEVEL
-APPLITOOLS_NOTIFY_ON_COMPLETION -->
 
 ### Method 3: The `applitools.config.js` file
 
