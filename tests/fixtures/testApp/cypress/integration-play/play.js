@@ -3,7 +3,7 @@ Cypress.on('uncaught:exception', () => {});
 
 describe('Play Cypress', () => {
   it('Play Cypress', () => {
-    cy.visit('https://wix.com', {
+    cy.visit('https://google.com', {
       failOnStatusCode: false,
     });
     cy.eyesOpen({
