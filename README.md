@@ -153,6 +153,8 @@ Applitools will take screenshots and perform the visual comparisons in the backg
 
 **Note**: In Cypress interactive mode (`cypress open`) there is a bug that exceptions in root level `after` statements don't appear in the UI. They still appear in the browser's console, and considered failures in `cypress run`. See [this issue](https://github.com/cypress-io/cypress/issues/2296) for more information and tracking.
 
+<br/>
+
 ### Index
 - [Commands](#Commands)
   - [Open](#Open)
@@ -187,6 +189,8 @@ Applitools will take screenshots and perform the visual comparisons in the backg
   - [Triple slash directives](#1-Triple-slash-directives)
   - [Reference type declarations via `tsconfig`](#2-Reference-type-declarations-via-tsconfig)
 - [Troubleshooting](#Troubleshooting)
+
+<br/><hr/><br/>
 
 ### Commands
 
