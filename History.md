@@ -1,4 +1,21 @@
 
+v3.8.20 / 2019-11-17
+====================
+
+* 3.8.20 [[8bc2eaf](https://github.com/applitools/eyes-cypress/commit/8bc2eaf06edb211521ec1c1e803712e13f79d572)]
+* updated vgc to support bamboo prefix [[0057a48](https://github.com/applitools/eyes-cypress/commit/0057a485b8c402cabf8b05ed013b1f579625e254)]
+* styling for index table [[799bf30](https://github.com/applitools/eyes-cypress/commit/799bf30993477181963e518325253c197ff507dc)]
+* trying index table fix 7 [[decd779](https://github.com/applitools/eyes-cypress/commit/decd779aa5c292b35a301148cc43fd2b757b7d79)]
+* trying index table fix 6 [[2d46882](https://github.com/applitools/eyes-cypress/commit/2d468828a3de0bbddfcddee76dd804f2c0d3928c)]
+* trying index table fix 5 [[51aaf6e](https://github.com/applitools/eyes-cypress/commit/51aaf6eb19268d41059c24c1d434a592d7c49f8b)]
+* trying index table fix 4 [[ea6ea31](https://github.com/applitools/eyes-cypress/commit/ea6ea31218366e29670ba9d902d98449d9ccde7c)]
+* trying index table fix 3 [[f0e7cc8](https://github.com/applitools/eyes-cypress/commit/f0e7cc89cc46b7fd1432ba7b7e651947ea4ad257)]
+* trying index table fix 2 [[87421f3](https://github.com/applitools/eyes-cypress/commit/87421f3d2caa2c5d50513984ba614621a4eea953)]
+* trying index table fix [[4813abf](https://github.com/applitools/eyes-cypress/commit/4813abfe8be9a6c1db865123d5788e9d2bb4c4ca)]
+* added index table to readmne [[ca29a9e](https://github.com/applitools/eyes-cypress/commit/ca29a9e6c0f4741fb55084d22a146977c64189da)]
+* enabled accessibility readme [[6722d2a](https://github.com/applitools/eyes-cypress/commit/6722d2a2b517d687f52efa70ddf08d10c796f416)]
+* changelog [[9fb4b53](https://github.com/applitools/eyes-cypress/commit/9fb4b53757e41f3cbce51d6896726911b7c57b3e)]
+
 v3.8.19 / 2019-11-14
 ====================
 
