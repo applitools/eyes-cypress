@@ -700,7 +700,7 @@ v3.4.2 / 2019-01-30
 * Renamed tapFilePath to tapDirPath and fixed readme text. [[1a49e8b](https://github.com/applitools/eyes-cypress/commit/1a49e8b963ea3a87ed8ea1ae7b1584dedd403c47)]
 * changelog [[8eb4b7a](https://github.com/applitools/eyes-cypress/commit/8eb4b7ab8dd9e04b8764344269477ab9db4c4e81)]
 
-v3.4.1 / 2019-01-30
+v3.4.1 / 2019-01-30 !!!!!!!
 ===================
 
 * 3.4.1 [[5715c87](https://github.com/applitools/eyes-cypress/commit/5715c87e4a6990920bbc3cd6bc6fe1abf83b96df)]
