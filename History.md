@@ -1,4 +1,13 @@
 
+v3.8.21 / 2019-11-26
+====================
+
+* 3.8.21 [[c1cc9ef](https://github.com/applitools/eyes-cypress/commit/c1cc9ef87370b06122dd82d06cbb4a74a4c9fe6f)]
+* updated vgc to have use applitools jsdom (no canvas dependency) [[06b2c26](https://github.com/applitools/eyes-cypress/commit/06b2c26bf68663d1bc943e70c8f5a7e9e66b8c1d)]
+* removed accessibility from readme [[77a8585](https://github.com/applitools/eyes-cypress/commit/77a85851da18316d1de6569db5ab9b6f1433d63c)]
+* play changes [[2fd2626](https://github.com/applitools/eyes-cypress/commit/2fd262633c1d17d20db60f3fb40bfd08cd7c61cb)]
+* changelog [[788aacb](https://github.com/applitools/eyes-cypress/commit/788aacba8a80d44b2015ee83366169394d7ee339)]
+
 v3.8.20 / 2019-11-17
 ====================
 
@@ -700,7 +709,7 @@ v3.4.2 / 2019-01-30
 * Renamed tapFilePath to tapDirPath and fixed readme text. [[1a49e8b](https://github.com/applitools/eyes-cypress/commit/1a49e8b963ea3a87ed8ea1ae7b1584dedd403c47)]
 * changelog [[8eb4b7a](https://github.com/applitools/eyes-cypress/commit/8eb4b7ab8dd9e04b8764344269477ab9db4c4e81)]
 
-v3.4.1 / 2019-01-30 !!!!!!!
+v3.4.1 / 2019-01-30
 ===================
 
 * 3.4.1 [[5715c87](https://github.com/applitools/eyes-cypress/commit/5715c87e4a6990920bbc3cd6bc6fe1abf83b96df)]
