@@ -14,7 +14,7 @@ function handleCommands(cwd) {
 
   if (!isCommandsDefined(commandsFileContent)) {
     writeFileSync(commandsFilePath, addEyesCommands(commandsFileContent));
-    console.log(chalk.cyan('Commnads defined.'));
+    console.log(chalk.cyan('Commands defined.'));
   } else {
     console.log(chalk.cyan('Commands already defined.'));
   }
