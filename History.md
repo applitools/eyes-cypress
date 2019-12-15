@@ -1,4 +1,12 @@
 
+v3.8.22 / 2019-12-15
+====================
+
+* 3.8.22 [[5ba4cf3](https://github.com/applitools/eyes-cypress/commit/5ba4cf38e329502c838e6c19054532c20bd75aba)]
+* updated vgc to support isHttpOnly flag [[68d5077](https://github.com/applitools/eyes-cypress/commit/68d507776ddaa40413ce0027dd18520c95086c44)]
+* fixed proxy readme stuff [[f90b959](https://github.com/applitools/eyes-cypress/commit/f90b959fa6823fe2375abe031b0b56a1f93cce5d)]
+* changelog [[0c46736](https://github.com/applitools/eyes-cypress/commit/0c46736e0a160a815ed0059704ad95da6446b0b6)]
+
 v3.8.21 / 2019-11-26
 ====================
 
