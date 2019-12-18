@@ -1,4 +1,19 @@
 
+v3.9.2 / 2019-12-15
+===================
+
+* 3.9.2 [[e47badb](https://github.com/applitools/eyes-cypress/commit/e47badbb9511f389c2c7719fa735eb3002004cae)]
+
+v3.9.1 / 2019-12-15
+===================
+
+* 3.9.1 [[c4a097f](https://github.com/applitools/eyes-cypress/commit/c4a097f0d06ef71b23735f73a45e18db258849f1)]
+* changelog [[ffbb132](https://github.com/applitools/eyes-cypress/commit/ffbb132f2969860c349cc1a5e77d7f939940704b)]
+* updated vgc to support isHttpOnly flag [[4ae4593](https://github.com/applitools/eyes-cypress/commit/4ae4593b3088fb5db0c55f61180744de3556327d)]
+* 3.9.0 [[5ad6aa9](https://github.com/applitools/eyes-cypress/commit/5ad6aa93c55c229ab63551a41d34a5402ad35963)]
+* bump vgc to 13.4.0 to get multi browser version support [[b226cec](https://github.com/applitools/eyes-cypress/commit/b226cecaadbc9aba47deaf84ac254f927f8af0f3)]
+* Fixes a spelling mistake during eyes-setup [[4ab4adf](https://github.com/applitools/eyes-cypress/commit/4ab4adfba9782902ef11bb560f5dc8f4ff11fd4a)]
+
 v3.8.22 / 2019-12-15
 ====================
 
