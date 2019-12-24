@@ -2,7 +2,7 @@
   "name": "@applitools/eyes-cypress",
   "version": "3.9.2",
   "main": "index.js",
-  "license": "MIT",
+  "license": "SEE LICENSE IN LICENSE",
   "bin": {
     "eyes-setup": "./bin/eyes-setup.js"
   },
