@@ -125,7 +125,7 @@ function makeHandlers({
 
       if (sizeMode) {
         console.warn(
-          'WARNING! "sizeMode" is eprecated and will be removed in the future, please use target instead.',
+          'WARNING! "sizeMode" is deprecated and will be removed in the future, please use target instead.',
           '\nSee: https://github.com/applitools/eyes-cypress#target for more details.',
         );
       }
