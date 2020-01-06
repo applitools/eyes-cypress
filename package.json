@@ -40,11 +40,10 @@
     "url": "https://github.com/applitools/eyes-cypress"
   },
   "dependencies": {
-    "@applitools/dom-snapshot": "^3.2.1",
-    "@applitools/eyes-common": "^3.14.0",
-    "@applitools/eyes-sdk-core": "^5.21.3",
+    "@applitools/dom-snapshot": "^3.2.2",
+    "@applitools/eyes-sdk-core": "^5.24.0",
     "@applitools/functional-commons": "^1.5.4",
-    "@applitools/visual-grid-client": "^13.5.3",
+    "@applitools/visual-grid-client": "^13.5.7",
     "body-parser": "^1.19.0",
     "chalk": "^2.4.2",
     "cors": "^2.8.5",
@@ -55,7 +54,7 @@
     "chai": "^4.2.0",
     "chai-spies": "^1.0.0",
     "cookie-parser": "^1.4.4",
-    "cypress": "^3.8.0",
+    "cypress": "^3.8.1",
     "eslint": "^5.16.0",
     "eslint-plugin-mocha-no-only": "^1.1.0",
     "eslint-plugin-node": "^7.0.1",
