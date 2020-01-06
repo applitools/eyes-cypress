@@ -3,7 +3,7 @@ const {presult} = require('@applitools/functional-commons');
 const pollingHandler = require('./pollingHandler');
 const makeWaitForBatch = require('./waitForBatch');
 const makeHandleBatchResultsFile = require('./makeHandleBatchResultsFile');
-const {GeneralUtils} = require('@applitools/eyes-common');
+const {GeneralUtils} = require('@applitools/eyes-sdk-core');
 
 const TIMEOUT_MSG = timeout =>
   `Eyes-Cypress timed out after ${timeout}ms. The default timeout is 2 minutes. It's possible to increase this timeout by setting a the value of 'eyesTimeout' in Cypress configuration, e.g. for 3 minutes: Cypress.config('eyesTimeout', 180000)`;
