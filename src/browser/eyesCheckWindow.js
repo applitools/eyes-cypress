@@ -79,17 +79,23 @@ function makeEyesCheckWindow({sendRequest, processPage, win = window}) {
           },
         }),
       );
+
+      function putResource({url, value}) {
+        return sendRequest({
+          command: `resource/${encodeURIComponent(url)}`,
+          data: value,
+          method: 'PUT',
+          headers: {'Content-Type': 'application/octet-stream'},
+        }).catch(_e => {
+          blobData.splice(
+            blobData.findIndex(({url: blobUrl}) => blobUrl === url),
+            1,
+          );
+          resourceUrls.push(url);
+        });
+      }
     });
   };
-
-  function putResource({url, value}) {
-    return sendRequest({
-      command: `resource/${encodeURIComponent(url)}`,
-      data: value,
-      method: 'PUT',
-      headers: {'Content-Type': 'application/octet-stream'},
-    });
-  }
 
   function replaceBlobsWithBlobDataInFrame({url, cdt, resourceUrls, blobs, frames}) {
     return {

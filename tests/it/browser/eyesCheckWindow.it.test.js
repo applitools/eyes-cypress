@@ -76,7 +76,7 @@ describe('eyesCheckWindow', () => {
       },
     ]);
 
-    function sendRequest(arg) {
+    async function sendRequest(arg) {
       if (arg.command === 'checkWindow') sendRequestInput = arg;
       else {
         resourcesPutted.push(arg);
@@ -196,7 +196,7 @@ describe('eyesCheckWindow', () => {
       },
     ]);
 
-    function sendRequest(arg) {
+    async function sendRequest(arg) {
       if (arg.command === 'checkWindow') sendRequestInput = arg;
       else {
         resourcesPutted.push(arg);
@@ -315,7 +315,7 @@ describe('eyesCheckWindow', () => {
       },
     ]);
 
-    function sendRequest(arg) {
+    async function sendRequest(arg) {
       if (arg.command === 'checkWindow') sendRequestInput = arg;
       else {
         resourcesPutted.push(arg);
@@ -384,7 +384,7 @@ describe('eyesCheckWindow', () => {
       },
     ]);
 
-    function sendRequest(arg) {
+    async function sendRequest(arg) {
       if (arg.command === 'checkWindow') sendRequestInput = arg;
       else {
         resourcesPutted.push(arg);
@@ -393,6 +393,83 @@ describe('eyesCheckWindow', () => {
 
     async function processPage() {
       return {resourceUrls, blobs, frames: [], url, cdt};
+    }
+  });
+
+  it('handles failure to put resource', async () => {
+    let sendRequestInput;
+    const resourcesPutted = [];
+
+    const blob1 = {url: 'blobUrl1', type: 'blobType1', value: {someKey: 'bla'}};
+    const blob2 = {url: 'blobUrl2', type: 'blobType2', value: {someKey: 'blabla'}};
+    const blob3 = {url: 'blobUrl3', type: 'blobType3', value: {someKey: 'blablabla'}};
+    const blobs = [blob1, blob2, blob3];
+    const resourceUrls = ['resourceUrls'];
+    const url = 'url';
+    const cdt = 'cdt';
+    const frames = [];
+    const eyesCheckWindow = makeEyesCheckWindow({
+      sendRequest,
+      processPage,
+      win: {location: {href: 'some ref'}},
+    });
+
+    const tag = 'some tag';
+
+    await eyesCheckWindow('bla doc', tag);
+
+    expect(sendRequestInput).to.eql({
+      command: 'checkWindow',
+      data: {
+        url,
+        cdt,
+        resourceUrls: ['resourceUrls', 'blobUrl2', 'blobUrl3'],
+        blobData: [{url: 'blobUrl1', type: 'blobType1'}],
+        frames,
+        tag,
+        ignore: undefined,
+        floating: undefined,
+        layout: undefined,
+        content: undefined,
+        strict: undefined,
+        region: undefined,
+        scriptHooks: undefined,
+        selector: undefined,
+        sendDom: undefined,
+        sizeMode: undefined,
+        target: undefined,
+        fully: undefined,
+        useDom: undefined,
+        enablePatterns: undefined,
+        ignoreDisplacements: undefined,
+        accessibility: undefined,
+        accessibilityLevel: undefined,
+        referrer: 'some ref',
+      },
+    });
+    expect(resourcesPutted).to.eql([
+      {
+        command: `resource/blobUrl1`,
+        data: {someKey: 'bla'},
+        headers: {
+          'Content-Type': 'application/octet-stream',
+        },
+        method: 'PUT',
+      },
+    ]);
+
+    async function sendRequest(arg) {
+      if (arg.command === 'checkWindow') {
+        sendRequestInput = arg;
+      } else if (arg.command === 'resource/blobUrl1') {
+        resourcesPutted.push(arg);
+      } else {
+        throw new Error('some err');
+      }
+    }
+
+    async function processPage() {
+      return {resourceUrls, blobs, frames, url, cdt};
     }
   });
 });
