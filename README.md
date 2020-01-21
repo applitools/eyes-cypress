@@ -418,7 +418,7 @@ The list above is also the order of precedence, which means that if you pass a p
 | Property name             | Default value               | Description   |
 | -------------             |:-------------               |:-----------   |
 | `testName`                | The value of Cypress's test title | Test name. If this is not specified, the test name will be the title of the `it` block where the test is running.    |
-| `browser`                 | { width: 800, height: 600, name: 'chrome' } | The size and browser of the generated screenshots. This doesn't need to be the same as the browser that Cypress is running. It could be a different size and also a different browser. Currently, `firefox`, `chrome`, `edge`, `ie10` and `ie11` are supported. For more info, see the [browser section below](#configuring-the-browser).|
+| `browser`                 | { width: 800, height: 600, name: 'chrome' } | The size and browser of the generated screenshots. This doesn't need to be the same as the browser that Cypress is running. It could be a different size and also a different browser. For more info and possible values, see the [browser section below](#configuring-the-browser).|
 | `saveDebugData`           | false                       | Whether to save troubleshooting data. See the troubleshooting section of this doc for more info. |
 | `batchId`                 | random                      | Provides ability to group tests into batches. Read more about batches [here](https://applitools.com/docs/topics/working-with-test-batches/how-to-group-tests-into-batches.html). |
 | `batchName`               | The name of the first test in the batch                   | Provides a name to the batch (for display purpose only). |
@@ -516,6 +516,27 @@ module.exports = {
 
 Eyes-Cypress will take a screenshot of the page in the requested browser, the browser can be set in the `applitools.config.js` or by passing it to `cy.eyesOpen`.
 
+Possible values are:
+
+- `chrome`
+- `firefox`
+- `edge`
+- `ie10`
+- `ie11`
+- `safari`
+- `chrome-one-version-back`
+- `chrome-two-versions-back`
+- `firefox-one-version-back`
+- `firefox-two-versions-back`
+- `safari-one-version-back`
+- `safari-two-versions-back`
+
+### Previous browser versions
+
+`*-one-version-back` and `*-two-versions-back` are relative to the version of the same browser. For example, if `chrome` refers to version 79, then `chrome-one-version-back` will be Chrome 78 and `chrome-two-versions-back` will be Chrome 77.
+
+### Getting a screenshot of multiple browsers in parallel
+
 It's also possible to send an array of browsers, for example:
 
 ```js
@@ -528,7 +549,8 @@ cy.eyesOpen({
   ]
 }
 ```
-**Note**: that if only a single browser is set, then Eyes-Cypress changes the Cypress application viewport to that viewport size.  
+
+**Note**: If only a single browser is set, then Eyes-Cypress changes the Cypress application viewport to that viewport size.
 
 ### Device emulation
 
