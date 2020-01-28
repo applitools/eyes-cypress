@@ -21,7 +21,7 @@ describe('eyes-cypress', () => {
   ];
 
   browsers.forEach(browser => {
-    it(`multi browser version: ${browser}`, () => {
+    it(`multi browser version: ${browser.name}`, () => {
       cy.setCookie('auth', 'secret');
       const url = `http://localhost:${Cypress.config('testPort')}/test.html`;
       cy.visit(url);

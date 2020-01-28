@@ -41,9 +41,9 @@
   },
   "dependencies": {
     "@applitools/dom-snapshot": "3.2.3",
-    "@applitools/eyes-sdk-core": "6.0.5",
+    "@applitools/eyes-sdk-core": "6.0.7",
     "@applitools/functional-commons": "1.5.4",
-    "@applitools/visual-grid-client": "13.5.8",
+    "@applitools/visual-grid-client": "13.5.10",
     "body-parser": "^1.19.0",
     "chalk": "^2.4.2",
     "cors": "^2.8.5",
