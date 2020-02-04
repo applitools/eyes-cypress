@@ -1,4 +1,30 @@
 
+v3.9.8 / 2020-02-04
+===================
+
+* 3.9.8 [[c223e8f](https://github.com/applitools/eyes-cypress/commit/c223e8f26211fac9533c5e075027b91c3b929ac3)]
+* updated vgc to 13.5.11 for better RGridResource logging [[3c07a86](https://github.com/applitools/eyes-cypress/commit/3c07a8624dbf6aa0776ddc036a041243ca14d784)]
+* 3.9.7 [[39628ac](https://github.com/applitools/eyes-cypress/commit/39628ac506287c6a004bb10969b925b45083909b)]
+* update deps to fix emulationInfo validation [[ad3597c](https://github.com/applitools/eyes-cypress/commit/ad3597c5271554734c9ede276226fb731a42b957)]
+* 3.9.6 [[676ab54](https://github.com/applitools/eyes-cypress/commit/676ab548607dba9e5df95b7e490a3f58a6846020)]
+* update packages to get dom-snapshot fix [[e8d830c](https://github.com/applitools/eyes-cypress/commit/e8d830c1b6a3e7712daef71815554ab60d8cbca3)]
+* 3.9.5 [[e0d7a6c](https://github.com/applitools/eyes-cypress/commit/e0d7a6cf6ccafca5a5c9cf051f09eb8fd533592c)]
+* docs for multi-version browsers and safari [[27b1181](https://github.com/applitools/eyes-cypress/commit/27b11810598aa94614627f6a8b118afe8ee4f0b5)]
+* 3.9.4 [[5d1e0a9](https://github.com/applitools/eyes-cypress/commit/5d1e0a9b736eef7b27dc4aea93c43a7d21faf664)]
+* fix exception in sendRequest while putting resources [[16465a2](https://github.com/applitools/eyes-cypress/commit/16465a2e6b9bfb50264d09736b5ce83c838e028c)]
+* 3.9.3 [[6277a60](https://github.com/applitools/eyes-cypress/commit/6277a60add4956e9331a6120e2e8d7a16147148e)]
+* update packages to get ua even in case of render failure [[c5ee4f5](https://github.com/applitools/eyes-cypress/commit/c5ee4f58ff8eab7be19bd9be442f7ae54938fe02)]
+* Merge pull request #28 from TroyTae/master [[0649ab1](https://github.com/applitools/eyes-cypress/commit/0649ab1801a84bd559b97a1639fb2bb2c2572998)]
+* fix: typo [[f1a1a14](https://github.com/applitools/eyes-cypress/commit/f1a1a14e1fe55bcf646caa2ae9a16ab928926b7c)]
+* license [[1bc469d](https://github.com/applitools/eyes-cypress/commit/1bc469dede16936c5bae810632e1f32c8e14551a)]
+
+v3.9.3 / 2020-02-04
+===================
+
+* 3.9.3 [[f41ed61](https://github.com/applitools/eyes-cypress/commit/f41ed61faaf89a573310a741ae84fdecff3afcca)]
+* updated vgc to 3.5.11 for better RGridresource loggin [[69822c4](https://github.com/applitools/eyes-cypress/commit/69822c4bcf4de4eee4bba6e8bde2b18bf22dbb61)]
+* changelog [[84ca430](https://github.com/applitools/eyes-cypress/commit/84ca4304f74c98b683584978062f4c12180803fc)]
+
 v3.9.2 / 2019-12-15
 ===================
 
