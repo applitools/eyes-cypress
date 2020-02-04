@@ -41,9 +41,9 @@
   },
   "dependencies": {
     "@applitools/dom-snapshot": "3.2.3",
-    "@applitools/eyes-sdk-core": "6.0.7",
+    "@applitools/eyes-sdk-core": "6.0.8",
     "@applitools/functional-commons": "1.5.4",
-    "@applitools/visual-grid-client": "13.5.10",
+    "@applitools/visual-grid-client": "13.5.11",
     "body-parser": "^1.19.0",
     "chalk": "^2.4.2",
     "cors": "^2.8.5",
@@ -63,7 +63,7 @@
     "mocha": "^5.2.0",
     "morgan": "^1.9.1",
     "node-fetch": "^2.6.0",
-    "node-notifier-cli": "^1.1.2",
+    "node-notifier-cli": "^1.2.0",
     "prettier": "^1.19.1"
   }
 }
