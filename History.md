@@ -1,4 +1,19 @@
 
+v3.9.10 / 2020-02-11
+====================
+
+* 3.9.10 [[e1a1584](https://github.com/applitools/eyes-cypress/commit/e1a15844aa673774a841015cc6725e9054f47f03)]
+* updated vgc to handle empty resources [[04e164f](https://github.com/applitools/eyes-cypress/commit/04e164f5794f90a0a427eba3e69a0b1fab65c671)]
+* 3.9.9 [[8560715](https://github.com/applitools/eyes-cypress/commit/85607157f13f488606902df99605828d3fbbf52e)]
+* update vgc and esc to send stitching server to vg [[6ed8a32](https://github.com/applitools/eyes-cypress/commit/6ed8a3263181fb33a3fcd1219ec271f8978c1d69)]
+
+v3.9.9 / 2020-02-11
+===================
+
+* 3.9.9 [[c52aff7](https://github.com/applitools/eyes-cypress/commit/c52aff778d875a9b0d9b106bace11d03684a5ebc)]
+* updated vgc to handle empty resources [[9cf0c0e](https://github.com/applitools/eyes-cypress/commit/9cf0c0e1b947d9d72129020f4e0689cc295bad00)]
+* changelog [[ae96c32](https://github.com/applitools/eyes-cypress/commit/ae96c32b6af6fba6a0f8f67ffb548c2b9c35252c)]
+
 v3.9.8 / 2020-02-04
 ===================
 
