@@ -1,4 +1,11 @@
 
+v3.9.11 / 2020-02-16
+====================
+
+* 3.9.11 [[ef8f5f8](https://github.com/applitools/eyes-cypress/commit/ef8f5f880f02ab63c422b246270f34742f0e4ecc)]
+* updated vgc to support branching feature [[78c6ca5](https://github.com/applitools/eyes-cypress/commit/78c6ca58da6eaf723964276c98cf3802e06f79c0)]
+* changelog [[87f36ce](https://github.com/applitools/eyes-cypress/commit/87f36ce69e1f9e8b2b7fcc44d83b3d36dafd34a7)]
+
 v3.9.10 / 2020-02-11
 ====================
 
