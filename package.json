@@ -55,7 +55,7 @@
     "chai": "^4.2.0",
     "chai-spies": "^1.0.0",
     "cookie-parser": "^1.4.4",
-    "cypress": "^3.8.3",
+    "cypress": "^12.2.0",
     "eslint": "^5.16.0",
     "eslint-plugin-mocha-no-only": "^1.1.0",
     "eslint-plugin-node": "^7.0.1",
